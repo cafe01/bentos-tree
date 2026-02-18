@@ -33,31 +33,48 @@ Each package lives at a path derived from its **Fully Qualified Domain Name** (F
 
 ## Package Anatomy
 
-Every package contains an `atom.xml` entry point with a BELF header (BentOS ELF — the package manifest). The header declares which files to load:
+Every package is an `atom.xml` — a self-describing XML document that uses XInclude to compose its components. The atom IS the entry point; there is no separate manifest.
 
-- **text** (static-linked): Always loaded on install. The program itself.
-- **data** (dynamic-linked): Loaded on demand at runtime.
+Atoms contain two semantic segments:
 
-Typical package contents:
+- **.text** (executable): XML elements the agent internalizes — abilities, principles, protocols, knowledge, patterns. Included via `<xi:include href="..."/>`.
+- **.data** (non-executable): Content the agent has access to — templates, reference material, constants. Included via `<data><xi:include href="..." parse="text"/></data>`.
+
+Both are part of the atom and loaded at compile time. The distinction is semantic (instructions vs data), not temporal.
+
+Typical package:
 
 ```
 soul/alfred/
-  atom.xml              # Entry point + BELF header
+  atom.xml              # Entry point — the atom itself
   soul_abstract.xml     # Immutable ideal (what this soul aspires to)
   soul_concrete.xml     # Mutable reality (current state, evolves)
-  MAIN.md               # Platform-specific install artifact
+```
+
+An app with data and slash commands:
+
+```
+app/quest-forge/
+  atom.xml              # Entry point with .text and .data includes
+  app_abstract.xml      # Abstract definition
+  app_concrete.xml      # Concrete implementation
+  master_concrete.xml   # Role-specific concrete (master)
+  worker_concrete.xml   # Role-specific concrete (worker)
+  quest_readme_template.md   # .data: template (included as text)
+  bin/                  # Slash commands (e.g., /quest)
 ```
 
 ## Install Model
 
-Packages compile on install to platform-native artifacts. On Claude Code, this means generating skill directories:
+The forge toolchain compiles atoms to platform-native artifacts. On Claude Code, this means resolving XInclude references and writing the flattened atom to a skill directory:
 
 ```
 bentos-agent install alfred.soul
-# Compiles: soul/alfred/ -> .claude/skills/alfred.soul/SKILL.md
+# Resolves: soul/alfred/atom.xml (XInclude) -> flat XML
+# Writes:   .claude/skills/alfred.soul/SKILL.md
 ```
 
-The source tree is text. The install artifact is platform-specific. Same source, different targets — like ports compiling C to different architectures.
+The source tree is XML. The install artifact is platform-specific. Same source, different targets — like ports compiling C to different architectures.
 
 ## The Periodic Table
 
