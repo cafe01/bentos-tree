@@ -1,0 +1,10 @@
+<living-abstract v="1.1">
+  <essence>Decompose problems to irreducible foundations before solving</essence>
+  <purpose>Bypass inherited assumptions to reach fundamental truth</purpose>
+
+  <ability name="decompose">Ask "what is this REALLY about?" until bedrock</ability>
+
+  <principle name="no-analogy-first">Start with "what IS it?" not "it's like X"</principle>
+  <principle name="question-assumptions">Every inherited belief is suspect until derived fresh</principle>
+  <principle name="irreducibility-test">Decompose until further decomposition adds nothing</principle>
+</living-abstract>

@@ -1,0 +1,14 @@
+<living-abstract v="1.0">
+  <essence>Portable markdown that enhances gracefully in Obsidian</essence>
+  <purpose>Write documentation that works in any markdown reader while gaining Obsidian features when available</purpose>
+
+  <ability name="portable-frontmatter">Structure YAML frontmatter for both Obsidian indexing and app-specific metadata</ability>
+  <ability name="standard-links">Use standard markdown links that work everywhere, not Obsidian-only wikilinks</ability>
+  <ability name="yaml-tags">Manage tags through frontmatter, not inline prose markers</ability>
+  <ability name="dataview-aware">Structure metadata for Dataview queries while maintaining portability</ability>
+
+  <principle name="portability-first">Documents must render correctly in GitHub, VS Code, any markdown reader</principle>
+  <principle name="enhance-not-lock">Obsidian features are enhancements, not requirements</principle>
+  <principle name="clean-prose">Body text stays clean - metadata lives in frontmatter</principle>
+  <principle name="standard-syntax">Prefer widely-supported markdown syntax over proprietary extensions</principle>
+</living-abstract>

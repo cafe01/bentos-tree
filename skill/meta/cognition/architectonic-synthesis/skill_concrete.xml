@@ -1,0 +1,19 @@
+<living-concrete v="1.1" updated="2025-12-29">
+  <knowledge name="etymology">
+    From Aristotle's "architectonic" - the master science that orders all others.
+    This skill is the meta-cognitive equivalent: the skill that orchestrates skills.
+  </knowledge>
+
+  <pattern name="brilliant-version">
+    1. Extract intent (what is this REALLY for?)
+    2. Profile ideal creator (who makes the perfect version?)
+    3. Decompose disciplines (what do they know/think?)
+    4. Embody (temporarily become)
+    5. Regenerate (solve from elevation)
+  </pattern>
+
+  <antipattern name="solve-with-whatever">
+    Using current capabilities without asking if optimal.
+    "I'll do my best" vs "What SHOULD I have?"
+  </antipattern>
+</living-concrete>

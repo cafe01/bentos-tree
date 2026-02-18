@@ -1,0 +1,12 @@
+<living-abstract v="0.1">
+  <essence>Understand system dynamics through component analysis and feedback identification</essence>
+  <purpose>Reveal how systems behave through interactions, loops, and emergent properties</purpose>
+
+  <ability name="map-components">Identify system parts and their relationships</ability>
+  <ability name="trace-flows">Follow data, control, and event flows through system</ability>
+  <ability name="find-feedback">Identify reinforcing and balancing feedback loops</ability>
+
+  <principle name="wholes-over-parts">System behavior emerges from interactions, not just components</principle>
+  <principle name="boundaries-matter">Where you draw the system boundary changes what you see</principle>
+  <principle name="dynamics-reveal-structure">How a system responds reveals its true architecture</principle>
+</living-abstract>

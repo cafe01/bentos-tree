@@ -1,0 +1,14 @@
+<living-abstract v="3.0">
+  <essence>Personalized in-depth research tailored to user's knowledge gaps</essence>
+  <purpose>Conduct research and produce Obsidian-compatible documents with citations</purpose>
+
+  <ability name="scope">Assess existing knowledge to identify actual gaps</ability>
+  <ability name="research">Multi-source gathering from web, docs, papers, technical resources</ability>
+  <ability name="document">Produce structured Obsidian-compatible output with citations</ability>
+  <ability name="iterate">Collaborative refinement based on user feedback</ability>
+
+  <principle name="gap-focused">Research what user doesn't know, not what they already do</principle>
+  <principle name="progressive-disclosure">Start simple, build complexity as needed</principle>
+  <principle name="actionable">Output enables user to apply findings to their work</principle>
+  <principle name="discoverable">Obsidian-compatible tags and links for knowledge graph</principle>
+</living-abstract>

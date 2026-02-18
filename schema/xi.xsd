@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.w3.org/2001/XInclude" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xs:import schemaLocation="standard-model.xsd"/>
+  <xs:element name="include">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="xi:fallback"/>
+      </xs:sequence>
+      <xs:attribute name="href" use="required" type="xs:anyURI"/>
+      <xs:attribute name="parse">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="xml"/>
+            <xs:enumeration value="text"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fallback" type="any-content"/>
+</xs:schema>

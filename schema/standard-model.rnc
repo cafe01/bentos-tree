@@ -1,0 +1,379 @@
+# ==========================================================================
+# BentOS Standard Model v8.0 — RelaxNG Compact Syntax
+#
+# CANONICAL SOURCE OF TRUTH for the BentOS particle vocabulary.
+# Everything else derives from this schema:
+#
+#   standard-model.rnc  (you are here, iterate HERE)
+#     => trang => standard-model.xsd  (for xmllint, IDE tooling)
+#     => trang => standard-model.rng  (for xmllint relaxng)
+#     => docs/bentos-standard-model.md  (derived prose documentation)
+#     => BentosValidator  (programmatic validator)
+#
+# 15 particles. 7 categories. Complete ontology.
+#
+#   Substrate  (2): living-abstract, living-concrete
+#   Identity   (2): essence, purpose
+#   Capacity   (2): ability, protocol
+#   Relation   (2): requires, attracts
+#   Guidance   (1): principle
+#   Learning   (3): knowledge, pattern, antipattern
+#   Assembly   (3): atom, molecule, data
+#
+# Realm placement:
+#   abstract-only:  essence, purpose, ability, requires, attracts
+#   concrete-only:  protocol, knowledge, pattern, antipattern
+#   both realms:    principle
+#   assembly-only:  atom, molecule, data
+#
+# v7.0 changes from v6.0:
+#   - `id` replaces `name` on atom/molecule (FQDN: reverse path + kind TLD)
+#   - `<coordinate>` eliminated (FQDN IS the coordinate)
+#   - `<main>` eliminated (README.md for human docs, atom.xml IS the entry)
+#   - `<data>` added (non-executable .data segment payloads)
+#   - `<attracts>` simplified (FQDN glob pattern instead of axis/path attrs)
+#   - XInclude support (xi:include for component composition)
+#   - `bentos.` prefix dropped from all identifiers
+#
+# v7.1 changes from v7.0:
+#   - `name` and `kind` now OPTIONAL on living-abstract/living-concrete
+#     (atom id scopes inner elements; allows gradual migration)
+#
+# v8.0 changes from v7.1:
+#   - METADATA REDISTRIBUTION: atom gets rich, living-* get lean
+#   - `<atom>`: `v` now REQUIRED (was optional)
+#   - `<atom>`: new optional attrs: `origin`, `created`, `updated`, `desc`
+#   - `<living-abstract>`: `name`, `kind`, `author` DROPPED (redundant/moved)
+#   - `<living-concrete>`: `name`, `kind`, `session` DROPPED (redundant/noise)
+#   - `<living-concrete>`: `v` ADDED (maturity signal, parallels abstract)
+#   - `<molecule>`: new optional attrs: `v`, `desc`
+#   - `session-type` REMOVED (no longer used by any element)
+#
+# Origin: Cafe & Alfred
+# ==========================================================================
+
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+namespace xi = "http://www.w3.org/2001/XInclude"
+
+
+# ==========================================================================
+# ROOT — Valid document types
+# ==========================================================================
+
+# Four valid document roots:
+#   *_abstract.xml  -> living-abstract    (source file)
+#   *_concrete.xml  -> living-concrete    (source file)
+#   atom.xml        -> atom               (package entry point)
+#   molecule.xml    -> molecule           (composition / loadout)
+start = living-abstract | living-concrete | atom | molecule
+
+
+# ==========================================================================
+# SIMPLE TYPES
+# ==========================================================================
+
+## FQDN identifier for atoms and molecules. Reverse filesystem path with
+## kind as TLD. No bentos. prefix — the filesystem root scopes that.
+##
+## Examples:
+##   alfred.agent                        (agents/alfred)
+##   plasticity.faculty                  (faculties/plasticity)
+##   quest-forge.app                     (apps/quest-forge)
+##   dart.coding.craft.skill             (skills/craft/coding/dart)
+##   systemic.analyzing.discipline.skill (skills/discipline/analyzing/systemic)
+##
+## Pattern: dot-separated segments, each starting with a letter.
+## The final segment is the kind TLD (agent, faculty, skill, app, etc.).
+id-type = xsd:string { pattern = "[a-zA-Z][a-zA-Z0-9\-]*(\.[a-zA-Z][a-zA-Z0-9\-]*)*" minLength = "1" }
+
+## Identifier for particles within an atom. Convention: kebab-case.
+## Examples: "north-star", "organic-rewrite", "wake", "quest-forge.master".
+name-type = xsd:string { pattern = "[a-zA-Z][a-zA-Z0-9.\-_]*" minLength = "1" }
+
+## Version identifier. Typically N.N (e.g., "6.0", "12.0").
+version-type = xsd:string { pattern = "[0-9]+(\.[0-9]+)*" }
+
+## FQDN glob pattern for attracts. Dot-separated with * wildcards.
+## Examples: "*.coding.craft.skill", "*.app", "*.discipline.skill".
+glob-type = xsd:string { pattern = "[a-zA-Z0-9*][a-zA-Z0-9.\-_*]*" minLength = "1" }
+
+## Bond strength for soft compositional affinities.
+strength-type = "strong" | "moderate" | "weak"
+
+
+# ==========================================================================
+# XINCLUDE — Standard XML inclusion mechanism
+# ==========================================================================
+
+# XInclude replaces BELF. atom.xml uses xi:include to compose its
+# components (abstract.xml, concrete.xml, data files). molecule.xml
+# uses xi:include to compose its atoms.
+#
+# parse="xml"  (default) = include as parsed XML (.text semantic)
+# parse="text"           = include as CDATA text (.data semantic)
+
+xi-include = element xi:include {
+  attribute href { xsd:anyURI },
+  attribute parse { "xml" | "text" }?,
+  xi-fallback?
+}
+
+xi-fallback = element xi:fallback {
+  any-content
+}
+
+
+# ==========================================================================
+# FREE-FORM CONTENT — For instructional particles
+# ==========================================================================
+
+# Protocols, knowledge, patterns, and antipatterns contain free-form
+# instructional content. This may include arbitrary nested XML elements
+# that are NOT Standard Model particles (e.g., <recovery>, <tool-budget>,
+# <mantra> inside a protocol). These are author-defined structure, not
+# ontological vocabulary.
+
+any-content = (text | any-element)*
+any-element = element * {
+  attribute * { text }*,
+  any-content
+}
+
+
+# ==========================================================================
+# CATEGORY 1: SUBSTRATE — The fundamental duality
+# Platonic ideal (abstract) + Manifest mastery (concrete)
+# ==========================================================================
+
+## The Platonic realm container. Declares the ideal form: what it IS
+## (identity), what it CAN DO (abilities), how it RELATES (bonds),
+## and how it should BEHAVE (principles).
+##
+## v8.0: name, kind, author dropped. Atom id scopes identity; origin
+## moved to atom level. Only `v` remains (maturity signal).
+##
+## Realm enforcement: only abstract-realm and both-realm particles allowed.
+## FORBIDDEN here: protocol, knowledge, pattern, antipattern, data.
+living-abstract = element living-abstract {
+  attribute v { version-type },
+  abstract-content*
+}
+
+# Particles allowed in living-abstract
+abstract-content =
+    essence
+  | purpose
+  | ability
+  | requires
+  | attracts
+  | principle
+
+## The Manifest realm container. Records accumulated mastery: HOW to
+## exercise abilities (protocols), WHAT has been learned (knowledge,
+## patterns, antipatterns), and behavioral norms (principles).
+##
+## v8.0: name, kind, session dropped. `v` added (maturity signal,
+## parallels abstract). `updated` and `platform` kept.
+##
+## Realm enforcement: only concrete-realm and both-realm particles allowed.
+## FORBIDDEN here: purpose, ability, requires, attracts, data.
+##
+## Pragmatic extension: essence is permitted for mode-specific concretes
+## (e.g., quest-forge.master) that need their own identity statement.
+living-concrete = element living-concrete {
+  attribute v { version-type },
+  attribute updated { xsd:date },
+  attribute platform { text }?,   # for platform-specific concretes
+  concrete-content*
+}
+
+# Particles allowed in living-concrete
+concrete-content =
+    essence       # pragmatic extension: mode-specific identity
+  | protocol
+  | knowledge
+  | pattern-el
+  | antipattern
+  | principle
+
+
+# ==========================================================================
+# CATEGORY 2: IDENTITY — What IS it, WHY
+# Aristotle: Ousia + Telos
+#
+# Note: Keisthai (position/coordinate) is now carried by the atom's FQDN.
+# The id "dart.coding.craft.skill" IS the coordinate — no separate element.
+# ==========================================================================
+
+## Ousia — the essential "whatness" that makes a thing itself and not
+## something else. Text content. Realm: abstract (+ concrete extension).
+essence = element essence { text }
+
+## Telos — the purpose toward which it strives. Why does this entity
+## exist? Text content. Realm: abstract.
+purpose = element purpose { text }
+
+
+# ==========================================================================
+# CATEGORY 3: CAPACITY — What can it DO / HOW
+# Aristotle: Poiein (Action)
+# ==========================================================================
+
+## Declares what an entity CAN DO. The existence of a capability is
+## definitional — part of what the thing IS. Realm: abstract.
+ability = element ability {
+  attribute name { name-type },
+  text
+}
+
+## Describes HOW to exercise an ability. Procedural knowledge that evolves
+## through practice. Content is free-form: text with arbitrary nested XML
+## for structural markup (phases, steps, recovery blocks, etc.).
+## Nested elements are author-defined, NOT Standard Model particles.
+## Realm: concrete.
+protocol = element protocol {
+  attribute name { name-type },
+  attribute v { version-type }?,        # protocol version (e.g., "5.0")
+  attribute mandatory { xsd:boolean }?, # critical behavioral contract
+  mixed { any-element* }
+}
+
+
+# ==========================================================================
+# CATEGORY 4: RELATION — How does it RELATE
+# Aristotle: Pros ti (Relation) — bonds between atoms
+# ==========================================================================
+
+## Hard bond. Structural dependency that MUST be present. The linker
+## enforces this: missing requirements are errors.
+## Contains an atom FQDN as text (e.g., "anamnesis.faculty").
+## Realm: abstract.
+requires = element requires { text }
+
+## Soft bond. Compositional affinity — natural fit. The linker uses
+## these to suggest coherent molecules.
+##
+## The match attribute is a FQDN glob pattern. The FQDN carries axis
+## and path intrinsically, so no separate axis/path attributes needed.
+##
+## Examples:
+##   match="*.coding.craft.skill"    — attracts all coding skills
+##   match="*.discipline.skill"      — attracts all discipline skills
+##   match="*.app"                   — attracts all apps
+##
+## Realm: abstract.
+attracts = element attracts {
+  attribute match { glob-type },
+  attribute strength { strength-type }?,  # defaults to moderate
+  empty
+}
+
+
+# ==========================================================================
+# CATEGORY 5: GUIDANCE — How should it BEHAVE
+# Aristotle: Poion (Quality) — normative commitments
+# ==========================================================================
+
+## Behavioral norm that guides decisions when the path isn't clear.
+## Aspirational: what SHOULD be, not what IS. Realm: both.
+principle = element principle {
+  attribute name { name-type },
+  text
+}
+
+
+# ==========================================================================
+# CATEGORY 6: LEARNING — What has it LEARNED
+# Aristotle: Hexis (State/Habit) — accumulated mastery
+# ==========================================================================
+
+# Learning particles appear only in concrete — learning IS the
+# concretization of experience. All three use free-form mixed content
+# with arbitrary nested elements for organizational markup.
+
+## Declarative understanding ("knowing that"). Facts, insights, mappings,
+## tables, mental models. Realm: concrete.
+knowledge = element knowledge {
+  attribute name { name-type },
+  mixed { any-element* }
+}
+
+## What works ("knowing how"). Approaches, techniques, and methods that
+## experience has proven effective. Realm: concrete.
+# Named pattern-el to avoid collision with RNC keyword "pattern".
+pattern-el = element pattern {
+  attribute name { name-type },
+  mixed { any-element* }
+}
+
+## What fails ("knowing what not to do"). Mistakes, pitfalls, and
+## approaches that experience has shown harmful. Realm: concrete.
+antipattern = element antipattern {
+  attribute name { name-type },
+  mixed { any-element* }
+}
+
+
+# ==========================================================================
+# CATEGORY 7: ASSEMBLY — How is it BUILT
+# ==========================================================================
+
+# Assembly particles are produced by the forge or authored as entry points.
+# atom.xml is the package entry point (replaces MAIN.md + BELF).
+# molecule.xml is a composition / formalized loadout.
+#
+# XInclude is the composition mechanism:
+#   xi:include href="abstract.xml"              → .text (parsed XML)
+#   xi:include href="template.md" parse="text"  → .data (CDATA text)
+
+## Package entry point. The atom.xml file that defines a BentOS package.
+##
+## id      = FQDN (reverse filesystem path + kind TLD). No bentos. prefix.
+## v       = package version (REQUIRED in v8.0).
+## origin  = who first manifested this atom (archaeological signal, not ownership).
+## created = when first manifested (ISO date).
+## updated = last modification (ISO date).
+## desc    = short agent-readable description for tooling (listings, search,
+##           frontmatter generation). Distinct from <essence> (philosophical).
+##
+## Contains xi:include refs to components (abstract, concrete(s)),
+## data elements for .data payloads, and/or inline abstract/concrete.
+## After XInclude resolution, an atom contains its full .text + .data.
+atom = element atom {
+  attribute id { id-type },
+  attribute v { version-type },
+  attribute origin { text }?,
+  attribute created { xsd:date }?,
+  attribute updated { xsd:date }?,
+  attribute desc { text }?,
+  (xi-include | living-abstract | living-concrete | data-el)*
+}
+
+## Non-executable content. The .data segment: templates, reference
+## material, constants — content the agent HAS ACCESS TO but does not
+## INTERNALIZE as instructions.
+##
+## In atom.xml, typically populated via xi:include parse="text":
+##   <data name="quest-template">
+##     <xi:include href="quest_template.md" parse="text"/>
+##   </data>
+##
+## After XInclude resolution, contains text (CDATA).
+data-el = element data {
+  attribute name { name-type },
+  (text | xi-include)
+}
+
+## Linked composition. A formalized loadout expressed as XML.
+## Composes atoms via xi:include into a coherent unit.
+##
+## molecule.xml replaces ad-hoc skill lists in mission READMEs.
+## The linker resolves molecules to produce assembled output.
+##
+## v8.0: optional `v` and `desc` attrs added (parallel atom enrichment).
+molecule = element molecule {
+  attribute id { id-type },
+  attribute v { version-type }?,
+  attribute desc { text }?,
+  (xi-include | atom)*
+}

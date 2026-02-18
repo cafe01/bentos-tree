@@ -1,0 +1,59 @@
+<living-concrete v="1.1" updated="2025-12-29">
+  <knowledge name="bare-clone">
+    Bare repo = git database, no working directory.
+    Create: git clone --bare URL PATH
+    Contains: objects/, refs/, HEAD, config
+    Use: local origin, worktree source, mirror
+  </knowledge>
+
+  <knowledge name="bare-as-local-origin">
+    Pattern: REMOTE -> BARE -> WORKTREE
+    Bare = "local GitHub" - single source of truth.
+    Multiple worktrees share one object database.
+  </knowledge>
+
+  <knowledge name="worktree-mechanics">
+    Worktree = additional working dir linked to repo.
+    Create: git worktree add PATH REF
+    Each: own HEAD, index, working files.
+    Shared: objects, refs, remote config.
+    List: git worktree list | Remove: git worktree remove PATH
+  </knowledge>
+
+  <knowledge name="worktree-from-bare">
+    git -C BARE worktree add PATH BRANCH
+    Path: relative to bare or absolute.
+    Branch must exist OR use -b to create.
+  </knowledge>
+
+  <pattern name="worktree-branch-lock">
+    One worktree per branch (git-enforced).
+    Use different branches for parallel work.
+  </pattern>
+
+  <knowledge name="submodule-mechanics">
+    Submodule = pointer to commit in another repo.
+    .gitmodules defines URL mappings.
+    Parent tracks commit SHA, not branch.
+    Init: git submodule update --init (ONE level)
+    Recursive: git submodule update --init --recursive (ALL)
+  </knowledge>
+
+  <pattern name="submodule-depth-control">
+    BentOS: ONE LEVEL ONLY (direct submodules = worlds).
+    Use --init without --recursive.
+    World internal submodules = implementation detail.
+  </pattern>
+
+  <knowledge name="ref-mechanics">
+    Refs = human names -> commits.
+    branches: refs/heads/* | tags: refs/tags/*
+    remotes: refs/remotes/* | HEAD: current checkout
+  </knowledge>
+
+  <knowledge name="push-pull-bare">
+    Push: git -C WORKTREE push origin BRANCH (worktree->bare->remote)
+    Fetch: git -C BARE fetch origin (updates bare refs)
+    Pull: git -C WORKTREE pull origin BRANCH
+  </knowledge>
+</living-concrete>

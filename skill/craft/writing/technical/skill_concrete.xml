@@ -1,0 +1,26 @@
+<living-concrete v="0.1" updated="2025-01-02">
+  <!-- Stub: ready for evolution through use -->
+
+  <pattern name="spec-to-chapter">
+    1. Extract PURPOSE from spec (why does this exist?)
+    2. Identify CONCEPTS (what mental models needed?)
+    3. Map DETAILS (how does it work?)
+    4. Select EXAMPLES (what shows it best?)
+    5. Build NAVIGATION (how does it connect?)
+  </pattern>
+
+  <pattern name="code-integration">
+    - Snippet before explanation (show then tell)
+    - Annotations inline or immediately after
+    - Complete examples at chapter end
+    - Running example thread when possible
+  </pattern>
+
+  <antipattern name="accuracy-sacrifice">
+    Simplifying until incorrect. Find the simple-AND-accurate framing.
+  </antipattern>
+
+  <antipattern name="spec-echo">
+    Reformatting spec without transformation. Chapters must teach, not just restate.
+  </antipattern>
+</living-concrete>

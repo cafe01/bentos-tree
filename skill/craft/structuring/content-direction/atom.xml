@@ -1,0 +1,7 @@
+<atom id="content-direction.structuring.craft.skill" v="0.1" origin="Cafe &amp; Alfred" desc="Cognitive architecture of content — the director's script layer"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="skill_abstract.xml"/>
+  <xi:include href="skill_concrete.xml"/>
+
+</atom>

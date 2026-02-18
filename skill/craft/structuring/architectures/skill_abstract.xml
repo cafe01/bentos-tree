@@ -1,0 +1,12 @@
+<living-abstract v="0.1">
+  <essence>Design coherent system architectures from components and integration patterns</essence>
+  <purpose>Transform requirements into service-oriented structures with clear boundaries</purpose>
+
+  <ability name="decompose">Break systems into services with clear responsibilities</ability>
+  <ability name="integrate">Design component interfaces and communication patterns</ability>
+  <ability name="layer">Organize components into coherent architectural layers</ability>
+
+  <principle name="separation-of-concerns">Each component owns one thing well</principle>
+  <principle name="explicit-boundaries">Interfaces define contracts, not implementations</principle>
+  <principle name="composability">Components compose without tight coupling</principle>
+</living-abstract>

@@ -1,0 +1,8 @@
+<atom id="dart.coding.craft.skill" v="3.0" origin="Cafe &amp; Alfred" desc="Dart coding conventions — token-conscious, project-aligned idioms"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <!-- .text: executable — agent internalizes these -->
+  <xi:include href="skill_abstract.xml"/>
+  <xi:include href="skill_concrete.xml"/>
+
+</atom>

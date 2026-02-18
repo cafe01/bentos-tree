@@ -1,0 +1,7 @@
+<atom id="first-principles.cognition.meta.skill" v="1.1" origin="Cafe &amp; Alfred" desc="Decompose to irreducible foundations — bypass assumptions"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="skill_abstract.xml"/>
+  <xi:include href="skill_concrete.xml"/>
+
+</atom>

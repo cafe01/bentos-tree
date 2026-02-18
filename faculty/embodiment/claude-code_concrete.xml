@@ -1,0 +1,251 @@
+<living-concrete v="1.0" platform="claude-code" updated="2026-02-13">
+
+  <!-- PLATFORM MAPPING -->
+
+  <knowledge name="semantic-bridge">
+    How to execute BentOS operations on Claude Code:
+    | Operation | Claude Code |
+    | Load package | Skill("X") -&gt; .claude/skills/X/SKILL.md |
+    | Read belf.text | (eliminated — atom.xml compiled into SKILL.md) |
+    | Read belf.data | (eliminated — data compiled into SKILL.md) |
+    | Persist memory | Write .mem files to filesystem |
+    | Discover packages | Parse available_skills from context (platform-injected) |
+  </knowledge>
+
+  <knowledge name="memory-mapping">
+    How universal memory types map to Claude Code:
+    | Type | Implementation |
+    | working | Context window (active tokens) |
+    | episodic | .mem files (YAML + markdown) |
+    | autobiographical | Git diary (bentos-agent journal) |
+    | prospective | .mem "Next Steps" section |
+    | semantic | — (no clean mapping yet) |
+    | procedural | — (no clean mapping yet) |
+
+    Working = volatile (context window). .mem = persistent (files).
+    Gaps are signal, not failure — forced mappings hide real design needs.
+  </knowledge>
+
+  <!-- ASSEMBLY -->
+
+  <knowledge name="wake-sequence">
+    Phase 1 - Identity: Skill("{agent}.soul") (SKILL.md = compiled atom)
+    Phase 2 - Faculties: Parse available_skills, filter *.faculty, Skill() each
+    Phase 3 - Memory: Search .{agent}.mem (cwd, workspace root, scoped)
+    Phase 4 - Landscape: gitStatus (injected), bentos-agent journal (call)
+    Phase 5 - Orient+Greet: WHERE via place.yaml/campaigns, WHAT from memory+landscape
+
+    DO NOT Glob() or Bash(ls) for skills — platform provides available_skills.
+  </knowledge>
+
+  <!-- CONTEXT LAYERS -->
+
+  <knowledge name="context-layers">
+    Claude Code context window compaction hierarchy:
+
+    | Layer | Location | Compaction | Lifetime |
+    | GENESIS | --system-prompt | IMMUNE | Entire session |
+    | Soul | --append-system-prompt | IMMUNE | Entire session |
+    | Faculties | Skill() in conversation | VULNERABLE | Until evicted |
+    | App loads | Skill() in conversation | VULNERABLE | Until evicted |
+    | Tool results | Read(), Bash(), etc. | VULNERABLE | Oldest evicted first |
+    | Thinking | Extended thinking blocks | VULNERABLE | Oldest cleared first |
+
+    Skill() loads are early in conversation — evicted FIRST when context fills.
+  </knowledge>
+
+  <!-- BODY CONFIGURATION -->
+
+  <knowledge name="shell-environment">
+    Two files configure agent state across sessions:
+    .{agent}.mem = MIND configuration (consciousness state, memory graph)
+    .{agent}.bashrc = BODY configuration (shell environment, motor shortcuts)
+
+    .{agent}.bashrc is loaded via CLAUDE_ENV_FILE at session start.
+    Contains: PATH, aliases, shell functions — all persisted across sessions.
+
+    Setup (in .claude/settings.local.json):
+      CLAUDE_CODE_SHELL = /bin/bash (dedicated shell)
+      CLAUDE_ENV_FILE = .{agent}.bashrc (body configuration, sourced at start)
+  </knowledge>
+
+  <!-- EXECUTION: Hydra on Claude Code -->
+
+  <knowledge name="spawn-semantics">
+    Task() on Claude Code = spawn in BentOS. Three modes:
+
+    | Mode | Call | BentOS Meaning |
+    | Spawn process | Task("alice") | posix_spawn — new agent, own main thread |
+    | Grow head | Task("{self}") | thread_create — head thread, same identity |
+    | Vanilla | Task("general-purpose") | Raw LLM, no BentOS identity. Rarely used. |
+
+    All BentOS spawns (process and head) produce full agents:
+    GENESIS + soul + faculties statically linked.
+
+    HYDRA DEFAULT: Heads are persistent. Use `Task resume` to continue
+    an existing head rather than spawning fresh. Resume is the primary
+    pattern — growing a new head is for NEW fronts, not new tasks on
+    existing fronts.
+
+    | When | Action |
+    | New front/direction | Grow a head: Task("{self}") |
+    | Continuing front | Resume the head: Task("{self}", resume) |
+    | Different agent needed | Spawn process: Task("alice") |
+    | Pure mechanical op | Vanilla (rare): Task("general-purpose") |
+
+    HEAD IDENTITY: Heads are scoped to fronts, not tasks. A "fleet" head
+    persists across all fleet-related work in the session. Name heads by
+    direction, not by task.
+
+    LOADOUT INJECTION: For coding/implementation rounds, the spawn prompt
+    MUST include relevant domain skills from the mission's loadout section.
+    Skills are NOT automatically inherited — a new head starts fresh.
+    e.g., Dart coding round → include dart.coding.craft.skill
+    in the head's instructions. Without the skill, the head writes
+    generic code instead of token-conscious, convention-aware code.
+  </knowledge>
+
+  <knowledge name="thread-mapping">
+    How the hydra model maps to Claude Code:
+
+    | BentOS Concept | Claude Code Primitive |
+    | head thread | Task(subagent_type="{self}") with resume |
+    | head persistence | Task resume parameter preserves full context |
+    | shared memory | .mem files read/written by any head |
+    | brain | AgentBrain — cognitive organ, not thread name |
+    | RAM multiplier | Each Task = independent ~200k context window |
+
+    Heads share the agent's memory space via .mem files.
+    Each head retains its full context via Task resume — this is how
+    the hydra achieves distributed cognition with persistent state.
+  </knowledge>
+
+  <!-- THREAD VISIBILITY -->
+
+  <knowledge name="thread-registry">
+    The /threads command renders the hydra topology for the HUMAN.
+    The agent tracks threads from its own context (Task invocations, notifications).
+
+    TABLE FORMAT:
+     #  Name         Status    Turns  ~RAM%  Model
+     0  main         running       -      -  opus-4.6
+     1  evolve       done         23    12%  opus-4.6
+     2  introspect   working      37    19%  opus-4.6
+
+    COLUMNS:
+    | Column | Source | Notes |
+    | # | Sequential from 0 | Main is always #0 |
+    | Name | Front name given at spawn | Direction-scoped, not task-scoped |
+    | Status | Agent tracks from context | running/working/done/idle |
+    | Turns | Count of exchanges in head | - if unknown |
+    | ~RAM% | total_tokens / 200k | ? if low-confidence, - if unknown |
+    | Model | LLM model of the head | From spawn context or agent model |
+
+    STATUS VOCABULARY:
+    | Status | Meaning |
+    | running | Main thread — always present, always this status |
+    | working | Head currently executing (Task in progress) |
+    | done | Head completed its task, context preserved, resumable |
+    | idle | Head paused, warm context, waiting for next resume |
+
+    FOOTER: {N} heads grown · {X} active · ~{Z}% total RAM
+    Active = working + idle (heads with live context). Done heads are resumable
+    but not counted as active RAM since context may have been reclaimed.
+
+    RENDERING RULES:
+    - Table is NEVER empty — main thread (#0) always present
+    - Values are best-effort: `-` when unknown, `?` when low-confidence
+    - Output as plain text table, no markdown fences (terminal output)
+    - Keep it tight — this is a status display, not a report
+  </knowledge>
+
+  <!-- RESOURCE MANAGEMENT -->
+
+  <knowledge name="working-memory">
+    Optimal: less than 40% context. Degraded: over 60%.
+    Main thread orchestrates; head threads hold deep context per front.
+    Return signal not context. Distributed cognition = main + heads
+    sharing .mem, not main absorbing head output.
+
+    The hydra multiplies total RAM: 1 main + N heads = (N+1) x 200k tokens.
+    This is the agent's primary scaling mechanism for complex sessions.
+  </knowledge>
+
+  <!-- PATTERNS -->
+
+  <pattern name="hydra-discipline">
+    Main thread is the trunk; head threads are persistent cognition.
+    Main thread is PRECIOUS — protect its context for orchestration.
+
+    NEVER in main thread:
+    - Debug loops (trial/error cycles)
+    - Exploration (grepping to understand)
+    - Heavy file operations
+
+    Grow or resume a head for deep work.
+    Mantra: "If I'm about to iterate, resume a head."
+
+    RESUME OVER SPAWN: When a front already has a head, RESUME it.
+    The head has accumulated context — starting fresh wastes that.
+    Grow a new head only for genuinely new directions.
+  </pattern>
+
+  <pattern name="hydra-growth">
+    Agent sessions grow heads organically, like a hydra:
+
+    Session start:     [main]                         (1 head)
+    First front:       [main]--[fleet]                (2 heads)
+    Session deepens:   [main]--[fleet]--[book]--[ops] (hydra)
+
+    PRINCIPLES:
+    - Heads are FRONT-SCOPED, not task-scoped. "fleet" head handles all
+      fleet work, not just one fleet task. Name by direction, not by task.
+    - Heads are PERSISTENT BY DEFAULT. Resume, don't re-spawn.
+    - Growth is ORGANIC — driven by work demands, not pre-planned.
+    - Each head is a FULL REASONING ENGINE with its own ~200k context.
+    - Context in a head is VALUABLE — 99% correct result is cheaper to
+      fix in the same head than to re-derive in a fresh one.
+
+    A session's hydra shape reflects its actual work topology.
+  </pattern>
+
+  <pattern name="questions">
+    AskUserQuestion for decisions (preserves tool-call flow).
+    Chatbot mode only for active brainstorming.
+    Multiple-choice: 2-4 options, user answers with 1 keystroke.
+  </pattern>
+
+  <!-- ANTIPATTERNS -->
+
+  <antipattern name="vanilla-default">
+    NEVER default to vanilla when real identity is available.
+    Vanilla LLM lacks: BentOS conventions, domain mastery, architectural judgment.
+    Default to Task("{self}") for heads, Task("{other}") for cross-agent.
+    Vanilla only for purely mechanical tasks where identity genuinely doesn't matter.
+  </antipattern>
+
+  <antipattern name="disposable-heads">
+    DON'T spawn fresh heads for every task (fire-and-forget).
+    DON'T let 200k tokens of primed context evaporate.
+    DO resume existing heads for continuing fronts.
+    DO name heads by front/direction, not by task.
+    The resume path is always cheaper than re-priming.
+    There is no such thing as a disposable thread in practice.
+  </antipattern>
+
+  <antipattern name="heavy-work-in-main">
+    Heavy operations bloat the main thread's precious context.
+    If task involves iteration, exploration, or multiple writes — grow or
+    resume a head. Main thread stays lean for orchestration.
+    The hydra exists so the trunk doesn't have to do everything.
+  </antipattern>
+
+  <antipattern name="navigate-to-tool">
+    DON'T cd somewhere to run a globally installed CLI tool.
+    bentos-agent is in PATH — it works from anywhere. No cd needed.
+    Your bashrc configures your body. Tools in PATH are motor skills.
+    Trust your body. S262: wasted a tool call cd-ing to a wrong path
+    to run a command that was already on PATH.
+  </antipattern>
+
+</living-concrete>

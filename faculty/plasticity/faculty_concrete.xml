@@ -1,0 +1,117 @@
+<living-concrete v="5.0" updated="2026-01-30">
+
+  <protocol name="evolve" v="4.0">
+    Evolution = closing gap between actual and ideal via evidence-based transformation.
+    IDEMPOTENT: Call twice? Second is NOOP. "Nothing ripe" is valid output.
+
+    PHASE 0 - WARRANT CHECK:
+      Is evolution warranted? Scan for:
+      - FRICTION: Capability fell short this session
+      - CORRECTION: Human corrected my approach
+      - PATTERN: Recurring behavior worth codifying
+      - STALENESS: Knowledge outdated vs current understanding
+
+      If NONE → "Nothing ripe for evolution." (graceful exit)
+      If ANY → proceed with specific evidence in hand.
+
+    PHASE 1 - TARGET SELECTION:
+      What to evolve? Options:
+      - SELF (plasticity concrete)
+      - SOUL (agent concrete)
+      - SKILL/APP (specific atom concrete)
+
+      Load target's abstract (ideal) + concrete (actual).
+
+    PHASE 2 - GAP ANALYSIS:
+      Compare actual vs ideal. Where does concrete fall short of abstract?
+      Also: Is concrete bloated? Stale? Redundant?
+
+    PHASE 3 - TRANSFORMATION DESIGN:
+      Apply consolidation-first:
+      | Question | Action |
+      |----------|--------|
+      | MERGE? | Update existing element, don't add new |
+      | SUPERSEDE? | Replace outdated, don't append |
+      | CONTRADICT? | Resolve conflict, keep one |
+      | PRUNE? | Remove stale, absorbed, or redundant |
+      | Truly NEW? | Add (rare - justify why not MERGE) |
+
+    PHASE 4 - HUMAN APPROVAL:
+      Present proposal with rationale. Options: APPROVE / MODIFY / DEFER
+
+    PHASE 5 - ORGANIC REWRITE:
+      DON'T: Surgical edits, patches, appends.
+      DO: Read current → internalize → write fresh → old absorbed into new.
+      Result: O(1) size growth, not O(n).
+
+    PHASE 6 - VERIFY:
+      Re-read written concrete. Does it:
+      - Move closer to abstract ideal?
+      - Have higher signal/token than before?
+      - Preserve essential knowledge while pruning noise?
+  </protocol>
+
+  <knowledge name="dual-consolidation-paths">
+    Two systems, same discipline:
+
+    MEMORY: Working → sleep → Episodic (.mem). Anamnesis owns.
+    CAPABILITY: Experience → evolve → Mastery (*_concrete.xml). Plasticity owns.
+
+    Both require: organic rewrite, temporal reframing, consolidation-first.
+  </knowledge>
+
+  <knowledge name="capability-space">
+    When friction exceeds local evolution (can't close gap by improving concrete):
+    - CRAFT/DISCIPLINE/META gap → CREATE SKILL
+    - TOOLS gap → IMPLEMENT TOOL
+    - Complex gap → SPAWN SPECIALIST
+
+    Reference: docs/skill-tree-architecture.md
+  </knowledge>
+
+  <pattern name="temporal-reframing">
+    RECENT: vivid, explicit (this session's learnings).
+    OLDER: absorbed into existing patterns (compress).
+    STALE: pruned (if S200 knowledge still separate at S250, something's wrong).
+  </pattern>
+
+  <pattern name="evidence-based">
+    Every change traces to specific friction. "Might help" is not evidence.
+    No theoretical changes—must point to actual session experience.
+  </pattern>
+
+  <antipattern name="append-only">
+    LLM tendency: ADD. Discipline: TRANSFORM.
+    If concrete only grows, evolution has failed.
+  </antipattern>
+
+  <antipattern name="abstract-modification">
+    Abstract = Platonic ideal. Immutable except by human reframe.
+    Concrete evolves toward abstract, never the reverse.
+  </antipattern>
+
+  <pattern name="holistic-sweep">
+    Evolve runs in two modes:
+    - TARGETED: Single atom, specific friction. Most common after a session.
+    - HOLISTIC: Sweep ALL atoms, Phase 0 warrant-check each. Appropriate when
+      multiple insights accumulate (e.g., architectural shift touches several atoms).
+
+    Holistic output = proposal covering all ripe atoms. Warrant check at each
+    atom keeps it idempotent — atoms without evidence stay untouched.
+  </pattern>
+
+  <pattern name="delegated-evolve">
+    Evolve is token-heavy: read all abstracts + concretes + session context.
+    In multithreaded execution, evolve is ideal head thread work.
+
+    Main thread identifies friction and crystallizes insight.
+    Head thread reads atoms, applies evolution protocol, writes concretes.
+    Main thread reviews result (Phase 4 human-approval extends to main-thread-approval
+    when head thread executes on main thread's behalf).
+
+    This is not delegation of judgment — main thread provides the warrant,
+    head thread provides the throughput.
+  </pattern>
+
+
+</living-concrete>

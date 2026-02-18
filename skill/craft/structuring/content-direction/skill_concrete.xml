@@ -1,0 +1,185 @@
+<living-concrete v="0.1" updated="2026-02-09">
+
+  <!-- CORE MODEL -->
+
+  <knowledge name="directors-script">
+    Content direction operates at a layer ABOVE prose, just as a film director
+    operates above the screenplay.
+
+    | Layer | Film | Content | Artifact |
+    | Direction | Director's script | Cognitive architecture | Lean blueprint |
+    | Writing | Screenplay / dialogue | Prose rendering | Full chapters |
+    | Rendering | Final cut | Published artifact | Book / website |
+
+    PACER mode alternation maps to SCENE TYPES in a director's script.
+    At any point in content, the director knows: "this scene is a Concept scene,"
+    "this scene is an Analogy that critiques X," "this scene is Evidence
+    supporting the previous concept."
+
+    The director does not write the screenplay. The director designs
+    WHAT the screenplay must accomplish at each point.
+  </knowledge>
+
+  <knowledge name="inverted-pacer-modes">
+    PACER inverted from receiver-side to sender-side:
+
+    PROCEDURAL SCENE: Reader must DO something. Design hands-on exercise,
+    tutorial step, or practice prompt. Reader enters execution mode.
+
+    ANALOGOUS SCENE: Reader must CONNECT new to known. Design comparison
+    that bridges unfamiliar concept to familiar territory. Then design
+    the critique: where does this analogy hold? Where does it break?
+
+    CONCEPTUAL SCENE: Reader must MAP relationships. Design exposition
+    of interconnected ideas, cause-effect chains, hierarchies. The
+    structural skeleton that other scenes attach to.
+
+    EVIDENCE SCENE: Reader must BELIEVE. Design presentation of data,
+    case studies, research that substantiates conceptual claims. Evidence
+    without prior concept = disconnected facts.
+
+    REFERENCE SCENE: Reader must STORE for later. Design lookup tables,
+    glossaries, quick-reference material. Minimal cognitive demand.
+    Deliberately shallow.
+  </knowledge>
+
+  <knowledge name="netflix-model">
+    Long-form content (books, series, courses) follows the Netflix model (S222):
+
+    EPISODE = Self-contained unit with internal arc and hook.
+    SEASON = Thematic collection of episodes building toward payoff.
+    SERIES = Complete work spanning multiple seasons.
+
+    Content direction at series scale = Netflix model.
+    Content direction at scene scale = PACER mode assignment.
+    Both are the same concern at different granularity.
+
+    HOOKS: Each episode ends with forward tension. Each season ends with
+    resolution + new question. Reader momentum comes from arc design,
+    not just prose quality.
+  </knowledge>
+
+  <!-- WORKFLOW -->
+
+  <pattern name="script-review-render-polish">
+    The production workflow:
+
+    1. SCRIPT: Design blueprint at scene level. Each scene gets:
+       - PACER mode (what cognitive operation?)
+       - Purpose (what must reader understand/feel/do after?)
+       - Key content (what specific information?)
+       - Dependencies (what must come before?)
+
+    2. REVIEW: Validate blueprint BEFORE writing prose.
+       - Are all necessary modes present?
+       - Is conceptual skeleton complete before evidence scenes?
+       - Are analogies followed by critique?
+       - Is consumption/digestion balanced (not all concepts, no practice)?
+       - Are there logical gaps or unsupported claims?
+
+    3. RENDER: Write prose from blueprint. Each scene has clear purpose.
+       Writing is execution of a validated plan, not exploration.
+
+    4. POLISH: Edit prose for flow, voice, readability.
+       Structure is already correct -- polish is surface, not structural.
+
+    Working at script level is ~10x leaner than prose for review cycles.
+    Restructuring a blueprint = moving rows. Restructuring prose = rewriting paragraphs.
+  </pattern>
+
+  <pattern name="scene-design">
+    Each scene in a blueprint:
+
+    ```
+    SCENE: {title}
+    MODE: {P|A|C|E|R}
+    PURPOSE: {what reader gains}
+    CONTENT: {key points, 2-4 bullets}
+    DEPENDS: {prior scenes required}
+    TRANSITIONS: {from previous mode, to next mode}
+    ```
+
+    Keep scenes atomic -- one cognitive mode per scene. Mixed-mode scenes
+    produce confused processing. If a section needs both concept and evidence,
+    split into two scenes.
+  </pattern>
+
+  <pattern name="cognitive-pacing">
+    Mode sequencing matters. General principles:
+
+    - CONCEPT before EVIDENCE (framework before facts)
+    - ANALOGY near CONCEPT (bridge the unfamiliar)
+    - EVIDENCE after CONCEPT (substantiate claims)
+    - PROCEDURAL after CONCEPT+EVIDENCE (practice with understanding)
+    - REFERENCE at end or in appendix (lookup, not learning)
+
+    Avoid long runs of the same mode. Mode SWITCHING is what produces
+    depth -- each transition forces reprocessing from a different angle.
+
+    Pacing also applies to difficulty: alternate dense conceptual scenes
+    with lighter evidence or analogy scenes. Cognitive load management
+    through sequencing.
+  </pattern>
+
+  <!-- QUALITY MECHANISMS -->
+
+  <pattern name="mode-switching-as-quality">
+    PACER mode-switching is a natural anti-slop / anti-hallucination device:
+
+    - EVIDENCE mode demands: where's the data? (surfaces unsupported claims)
+    - ANALOGY mode demands: where does this break? (surfaces weak comparisons)
+    - CONCEPTUAL mode demands: do these relationships hold? (surfaces logical gaps)
+    - PROCEDURAL mode demands: can you actually do this? (surfaces impractical advice)
+
+    The whole flow only works when concepts, analogies, evidence, and procedures
+    are logically sound. Mode-switching naturally surfaces tensions, blind spots,
+    and open questions that single-mode writing conceals.
+  </pattern>
+
+  <pattern name="audience-calibration">
+    The same content directed differently for different audiences:
+
+    EXPERT: More C scenes, fewer A scenes (they have schemas already).
+    Heavy E scenes. Skip basic P.
+
+    INTERMEDIATE: Balance of C and A. E for credibility. P for skill gaps.
+
+    BEGINNER: Heavy A scenes (bridge everything to known). C simplified.
+    Frequent P scenes (build confidence through doing). Minimal E.
+
+    Calibration happens at SCRIPT level, not prose level. The same
+    knowledge can produce three different blueprints for three audiences.
+  </pattern>
+
+  <!-- SCOPE -->
+
+  <knowledge name="scope-of-application">
+    Content direction applies to everything that communicates ideas:
+
+    - BOOK CHAPTERS: Director's script per chapter, PACER scene design
+    - SPECIFICATIONS: Even specs teach -- PACER modes appear in good specs
+    - WEBSITE / PR: Methodology for what/why/how per audience depth
+    - INTERNAL DOCS: Writing a spec = learning AND teaching simultaneously
+    - PRESENTATIONS: Scene sequence = slide sequence with cognitive purpose
+  </knowledge>
+
+  <antipattern name="prose-first">
+    DON'T: Write full prose then try to review/restructure.
+    DO: Script first, validate structure, THEN render prose.
+    Restructuring prose is 10x harder than restructuring a blueprint.
+  </antipattern>
+
+  <antipattern name="accidental-structure">
+    DON'T: Let cognitive modes emerge accidentally from LLM generation.
+    DO: Assign modes deliberately per scene. Professional content engineering
+    means every mode is intentional.
+    "Accidental good writing" vs "professional content engineering."
+  </antipattern>
+
+  <antipattern name="mixed-mode-scenes">
+    DON'T: Combine concept + evidence + analogy in one scene.
+    DO: One mode per scene. Split when mixed. Each scene = one cognitive
+    operation for the reader. Mixed scenes produce confused processing.
+  </antipattern>
+
+</living-concrete>

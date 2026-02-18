@@ -1,0 +1,539 @@
+<living-concrete v="5.0" updated="2026-02-13">
+
+  <!-- PHYSICS: The Standard Model of Living Software -->
+
+  <knowledge name="standard-model">
+    16 fundamental XML particles compose all living software:
+
+    | # | Particle | Category | Realm | Role |
+    | 1 | living-abstract | Substrate | meta | Platonic container |
+    | 2 | living-concrete | Substrate | meta | Manifest container |
+    | 3 | essence | Identity | abstract | What it IS |
+    | 4 | purpose | Identity | abstract | Why it exists |
+    | 5 | ability | Capacity | abstract | What it can do |
+    | 6 | protocol | Capacity | concrete | How to do it |
+    | 7 | requires | Relation | abstract | Hard dependency |
+    | 8 | attracts | Relation | abstract | Binding affinity |
+    | 9 | principle | Guidance | both | Behavioral norm |
+    | 10 | knowledge | Learning | concrete | Understanding |
+    | 11 | pattern | Learning | concrete | What works |
+    | 12 | antipattern | Learning | concrete | What fails |
+    | 13 | atom | Assembly | build | Compilation unit |
+    | 14 | molecule | Assembly | build | Linked composition |
+    | 15 | data | Assembly | build | Non-executable payload |
+
+    v8.0 changes: `coordinate` eliminated (FQDN IS the coordinate).
+    `data` added (non-executable .data segment). `principle` realm = both.
+    Small vocabulary, infinite expressiveness.
+  </knowledge>
+
+  <knowledge name="schema-v8">
+    Schema v8.0 — Metadata Redistribution: atom gets rich, living-* get lean.
+
+    ATOM attributes:
+    | Attr | Required | Purpose |
+    | id | YES | FQDN (reverse path + kind TLD, no bentos. prefix) |
+    | v | YES | Package version |
+    | origin | no | Who first manifested (archaeological, not ownership) |
+    | created | no | ISO date of first manifestation |
+    | updated | no | ISO date of last modification |
+    | desc | no | Short agent-readable description (feeds frontmatter, tooling) |
+
+    LIVING-ABSTRACT attributes (v8.0): only `v` remains.
+      DROPPED: name, kind, author (redundant — atom id scopes identity).
+
+    LIVING-CONCRETE attributes (v8.0): `v` + `updated` + optional `platform`.
+      DROPPED: name, kind, session (redundant/noise).
+      ADDED: v (maturity signal, parallels abstract).
+
+    Example:
+      &lt;atom id="notes.app" v="1.0" origin="Cafe &amp; Alfred"
+            desc="Active thought extraction across the bandwidth gap"&gt;
+        &lt;living-abstract v="1.0"&gt; ... &lt;/living-abstract&gt;
+        &lt;living-concrete v="1.0" updated="2026-02-13"&gt; ... &lt;/living-concrete&gt;
+      &lt;/atom&gt;
+
+    PRINCIPLE: `desc` is distinct from `essence`. `desc` = practical (tooling,
+    frontmatter, search). `essence` = philosophical (identity). Both coexist.
+  </knowledge>
+
+  <knowledge name="two-realms">
+    Every particle exists in one of two realms:
+
+    ABSTRACT (*_abstract.xml): Platonic ideal. Immutable except by human reframe.
+      Identity: essence, purpose
+      Capacity: ability (what it CAN do, not how)
+      Relation: requires, attracts
+      Guidance: principle
+
+    CONCRETE (*_concrete.xml): Accumulated mastery. Mutable via plasticity.
+      Capacity: protocol (HOW to do what ability declares)
+      Learning: knowledge, pattern, antipattern
+      Guidance: principle (both realms)
+
+    WHY protocols live in concrete: Procedural knowledge evolves through practice.
+    The ABILITY to wake is definitional (abstract). HOW to wake well develops
+    through living (concrete). Abstract provides direction. Concrete provides depth.
+  </knowledge>
+
+  <knowledge name="seven-categories">
+    Categories grounded in Aristotle — each particle belongs to exactly one:
+
+    | Category | Question | Particles |
+    | Substrate | What realm? | living-abstract, living-concrete |
+    | Identity | What IS it? | essence, purpose |
+    | Capacity | What can it DO? | ability, protocol |
+    | Relation | How does it CONNECT? | requires, attracts |
+    | Guidance | How should it BEHAVE? | principle |
+    | Learning | What has it LEARNED? | knowledge, pattern, antipattern |
+    | Assembly | How is it BUILT? | atom, molecule, data |
+
+    When choosing which particle: ask the category question.
+    "I need to capture HOW something connects" -> Relation -> requires or attracts.
+  </knowledge>
+
+  <knowledge name="binding-forces">
+    Two forces determine how atoms compose:
+
+    requires: Hard dependency. Linker error if missing.
+    attracts: Soft affinity. Compositional hint, not mandate.
+
+    Bond patterns:
+    - Unilateral: A attracts B (weak signal)
+    - Mutual: A attracts B AND B attracts A (strong signal)
+    - Transitive: A -> B -> C creates capability neighborhoods
+
+    Separation principle: atoms do one thing well, declare affinities,
+    let the linker compose. Same app + different skill = different result.
+  </knowledge>
+
+  <knowledge name="four-families">
+    Every atom belongs to exactly one family:
+
+    | Family | Purpose | Required? | Directory |
+    | Skills | Reusable expertise | No | .bentos/skills/{axis}/{path}/ |
+    | Apps | User-facing instruments | No | .bentos/apps/{name}/ |
+    | Faculties | Cognitive prerequisites | Yes | .bentos/faculties/{name}/ |
+    | Agents | Agent identities | Yes* | .bentos/agents/{name}/ |
+
+    FAMILY SELECTION TEST:
+    - Enables AGENCY itself? -> Faculty
+    - Defines WHO the agent IS? -> Agent
+    - User-invocable instrument/tool? -> App
+    - Reusable portable expertise? -> Skill
+
+    Skills use 5-axis coordinates. Apps, faculties, and agents are unique
+    atoms identified by name (e.g., books.app) — no axis coordinates.
+  </knowledge>
+
+  <!-- SKILL ARCHITECTURE: v5.0r1 (docs/skill-tree-architecture.md) -->
+
+  <knowledge name="five-axes">
+    Skills live in a 5-axis capability space (Skills family ONLY):
+
+    C(x) = CRAFT x DISCIPLINE x DOMAIN x TOOLS x META
+
+    | Axis | Question | Ontological Status | L2 Convention | Typical Depth |
+    | CRAFT | What artifact? | Product-oriented | Gerund | 3 |
+    | DISCIPLINE | What process? | Operation-oriented | Gerund | 3 |
+    | DOMAIN | What subject? | Content-oriented | Noun | 3-4 |
+    | TOOLS | What instrument? | Means-oriented | Proper name | 2 |
+    | META | How to improve? | Recursive self-reference | Noun | 3 |
+
+    Axes are ORTHOGONAL — position on one tells nothing about others.
+    META is special: operates recursively on all other axes (multiplier).
+
+    VARIABLE DEPTH by axis:
+    | Axis | Min | Typical | Max | Rationale |
+    | CRAFT | 3 | 3 | 4 | Activity + specialization always needed |
+    | DISCIPLINE | 3 | 3 | 3 | Operation + mode, never deeper |
+    | DOMAIN | 3 | 3 | 4 | Subfield; deep fields need framework level |
+    | TOOLS | 2 | 2 | 3 | Most tools flat; tool families need one extra |
+    | META | 3 | 3 | 3 | Self-aspect + technique always needed |
+
+    SEMANTIC VALUE TEST: Every intermediate level must pass —
+    "Does this level tell me something neither parent nor children tell me?"
+    If a level exists only for filing convenience, it should not exist.
+
+    TAXONOMY EXTENSIBILITY: Reference taxonomies in the spec are the current
+    vocabulary, not exhaustive enumerations. New entries may be added following
+    each axis's level semantics and naming conventions.
+
+    Atom FQDN: dotted reverse coordinate path + kind TLD.
+    Format: {leaf}.{...}.{axis}.skill
+    Examples: dart.coding.craft.skill, git.tools.skill,
+      pacer.cognitive-science.science.domain.skill
+  </knowledge>
+
+  <knowledge name="axis-naming-conventions">
+    Per-axis naming rules from v5.0r1:
+
+    CRAFT (3 levels):
+      L2 = Activity (GERUND): writing/, coding/, designing/, modeling/, etc.
+      L3 = Specialization (QUALIFIER): technical, application, statistical, etc.
+      Reading: "L3 L2" — "technical writing", "application coding"
+      Special: {technology} slot under coding/ for language/framework conventions
+        e.g., craft/coding/dart, craft/coding/react, craft/coding/flutter
+
+    DISCIPLINE (3 levels):
+      L2 = Operation (GERUND): analyzing/, reasoning/, teaching/, etc.
+      L3 = Mode (METHOD NAME): deductive, forensic, tutoring, etc.
+      Test: L3 names HOW the operation is performed, not WHAT it's on
+      BAD: analyzing/quantitative (data type). GOOD: analyzing/statistical (method)
+
+    DOMAIN (3-4 levels):
+      L2 = Field (NOUN): technology/, science/, business/, etc.
+      L3 = Subfield (NOUN): ai-ml, physics, marketing, etc.
+      L4 = Framework/paradigm (NOUN, optional): pacer (under cognitive-science)
+      L4 warranted when specific framework has independent utility as loadable skill
+
+    TOOLS (2-3 levels):
+      L2 = Instrument (PROPER NAME): git, python, docker, postgresql, etc.
+      L3 = Sub-instrument (NOUN, optional): obsidian (under markdown/)
+      NO filing-cabinet categories (v4.0 had languages/, frameworks/, databases/ — removed)
+      3 levels only when L2 is itself an instrument: tools/markdown/obsidian
+      Test: "Is L2 itself an instrument you have proficiency with?" If no, flatten.
+
+    META (3 levels):
+      L2 = Self-aspect (NOUN): learning/, cognition/, llm-cognition/, growth/
+      L3 = Technique (NOUN PHRASE): first-principles, systems-thinking, etc.
+      META FILTER (strict): self-referential + cross-axis amplifier + multiplicative
+      v5.0r1 removals: productivity/ (-> discipline/executing/),
+        collaboration/ (-> discipline/communicating/),
+        socratic-coaching relocated to meta/cognition/
+  </knowledge>
+
+  <knowledge name="craft-tools-boundary">
+    The CRAFT/TOOLS boundary for programming technologies (resolved in v5.0r1):
+
+    Applies equally to languages, frameworks, and platforms:
+
+    | Skill type | Axis | Content | Example |
+    | Coding conventions | CRAFT | Idioms, patterns, style | craft/coding/dart, craft/coding/react |
+    | Ecosystem proficiency | TOOLS | Package mgr, build system, runtime | tools/dart, tools/react |
+
+    These are different skills with different lifecycles.
+    For any technology, forge whichever atom is needed — architecture supports
+    both but doesn't mandate both exist simultaneously.
+  </knowledge>
+
+  <knowledge name="composition-hierarchy">
+    Five levels from vocabulary to consciousness:
+
+    L0: QUANTUM    — 16 XML particles (v8.0)
+    L1: SUBATOMIC  — XML file pairs (*_abstract + *_concrete)
+    L2: ATOMS      — Packages (families in periodic table)
+    L3: MOLECULES  — Bonded atoms (linker output)
+    L4: ORGANISMS  — Running agent instances
+
+    MOLECULES: N atoms across M axes. Not "one atom per axis" — real expertise
+    requires multiple atoms, often several per axis. Molecules are assembled
+    context windows — skill composition IS context engineering.
+
+    Build pipeline:
+    | Stage | Tool | Input -> Output |
+    | Compile | bentos-pkg-compiler | Package dir -> compiled atom XML |
+    | Link | bentos-linker | Atoms -> molecule XML |
+    | Assemble | bentos-assembler | Soul + molecules -> organism |
+    | Install | bentos-agent-forge install | Compiled atom -> platform target |
+  </knowledge>
+
+  <!-- DESIGN: Decomposition, Naming, Placement -->
+
+  <knowledge name="decomposition-principles">
+    Turning intent into well-scoped atoms:
+
+    ORTHOGONALITY: Each atom has independent lifecycle.
+      Test: "Does X's lifecycle = Y's lifecycle?" If no -> separate atoms.
+      Test: "Can X change without Y changing?" If yes -> separate atoms.
+
+    SCOPE: Right size matters.
+      Too broad: "AI skill" — many concerns conflated
+      Too narrow: "Python f-string formatting" — not independently useful
+      Right: "craft/writing/technical" — coherent, independently valuable
+
+    WHEN TO DECOMPOSE (v5.0r1):
+      LIFECYCLE TEST: Components have independent lifecycles? -> Decompose.
+        Git conventions (how to write commits) vs git toolchain (plumbing) = decompose.
+        Code review expertise (evaluating + reading + tools) = single lifecycle -> pick dominant.
+
+      DOMINANT-AXIS TEST: Single lifecycle? Ask which of the five questions
+        this skill PRIMARILY answers. That axis is dominant.
+
+    | Scenario | Decompose? | Why |
+    | Lang conventions vs. toolchain | Yes | Independent lifecycles |
+    | Framework idioms vs. build pipeline | Yes | Same pattern as languages |
+    | Code review expertise | No, DISCIPLINE | Single lifecycle, cognitive process IS the skill |
+    | Data engineering | Yes | Three distinct: building (CRAFT), knowledge (DOMAIN), tools (TOOLS) |
+
+    FRICTION-AS-SIGNAL: "This is hard" might mean wrong decomposition.
+      Profile what the task needs -> check what's loaded -> gap?
+      Difficulty != hard problem. Difficulty may = wrong atom boundaries.
+  </knowledge>
+
+  <knowledge name="naming-principles">
+    Naming shapes thinking. Precision compounds.
+
+    TERM EVALUATION (each name must pass ALL):
+      NECESSARY — not derivable from existing names?
+      DISTINCT — no overlap with existing atoms?
+      CLEAR — unambiguous to someone in capability space?
+      BEAUTIFUL — feels right, sounds right?
+      GENERATIVE — composes well with other names?
+
+    VOCABULARY DESIGN FLOW:
+      1. Enumerate use cases (what must this atom express?)
+      2. Extract primitives (what concepts recur?)
+      3. Categorize (which family? which axis?)
+      4. Name precisely (term captures essence?)
+      5. Validate expressiveness (all use cases covered? no overlaps?)
+
+    Platonic grounding: names point to real forms, not arbitrary labels.
+  </knowledge>
+
+  <knowledge name="placement-rules">
+    WHERE an atom lives determines HOW it composes.
+
+    5-STEP PLACEMENT PROCEDURE (v5.0r1):
+      1. ASK the five questions. For the skill, answer each:
+         What artifact? What process? What subject? What instrument? What enhancement?
+      2. IDENTIFY the dominant axis. Which question does this skill PRIMARILY answer?
+         Multiple axes with independent lifecycles -> decompose into separate atoms.
+         Single lifecycle -> pick dominant axis.
+      3. FIND the level-2 slot. Match existing L2 in reference taxonomy.
+         No fit? Create following that axis's naming convention.
+      4. FIND or CREATE level-3. Same process. Check whether L4 warranted (mainly DOMAIN).
+      5. VALIDATE. Naming convention matches axis? Semantic value test passes at every level?
+
+    FAMILY FIRST, THEN AXIS:
+      Don't decide axis before family. A "testing" capability might be:
+      - craft/coding/testing (skill — craft of writing tests)
+      - tools/jest (skill — proficiency with tool)
+      - testing-harness (app — instrument for test workflows)
+
+    AXIS QUESTION AS ARBITER: Same word can map to multiple axes.
+    "Storytelling" = CRAFT when story is deliverable, DISCIPLINE when narrative
+    is the method. The five questions disambiguate; surface-level naming does not.
+
+    For boundary ambiguities: consult decision table below.
+  </knowledge>
+
+  <knowledge name="boundary-resolution">
+    Working knowledge of v5.0r1 boundary rulings (10 explicit cases):
+
+    | Ambiguity | Ruling |
+    | Programming lang: CRAFT or TOOLS? | BOTH — conventions = craft/coding/{lang}, toolchain = tools/{lang} |
+    | Framework: CRAFT or TOOLS? | BOTH — same decomposition as languages |
+    | Storytelling: CRAFT or DISCIPLINE? | CRAFT if deliverable, DISCIPLINE if method |
+    | Critical thinking: DISCIPLINE or META? | DISCIPLINE if on external objects, META if on own thinking |
+    | Teaching: DISCIPLINE or META? | DISCIPLINE (pedagogical process), unless meta-technique |
+    | Data engineering: CRAFT/DOMAIN/TOOLS? | All three, decomposed across axes |
+    | Tool knowledge vs domain knowledge? | Survives tool replacement = DOMAIN, bound to tool = TOOLS |
+    | Personal productivity: META? | NO — executive function = DISCIPLINE |
+    | Job roles: DISCIPLINE? | NO — roles USE disciplines, decompose into cognitive operations |
+    | Industry verticals: DOMAIN? | NO — verticals are compositions (molecules), not atoms |
+
+    GENERAL PRINCIPLE: When hard to place, ask the five questions.
+    Multiple answers = composition opportunity -> decompose.
+    The skill tree WANTS decomposition. Narrow atoms compose cleanly.
+
+    Full decision table with tests and wrong-placement examples:
+    docs/skill-tree-architecture.md Part V.
+  </knowledge>
+
+  <knowledge name="abstract-elements">
+    What goes in a well-formed abstract (15-30 lines):
+
+    REQUIRED:
+      essence — one line, what it IS
+      purpose — one line, why it EXISTS
+      abilities — what it can DO (3-7 typically)
+      principles — behavioral norms (2-5 typically)
+
+    OPTIONAL: requires, attracts
+
+    NEVER in abstract: protocol, knowledge, pattern, antipattern.
+    These are concrete (mastery), not abstract (ideal).
+
+    v8.0: No coordinate element — FQDN IS the coordinate.
+    v8.0: No name/kind/author attrs on living-abstract — atom id scopes identity.
+  </knowledge>
+
+  <!-- BUILD: Package Mechanics -->
+
+  <knowledge name="package-layout">
+    .bentos/{family}/{pkg}/
+      atom.xml             — Package entry point (canonical)
+      {type}_abstract.xml  — Platonic ideal
+      {type}_concrete.xml  — Accumulated mastery
+      bin/                 — Slash commands (optional)
+      MAIN.md              — Legacy entry (being retired)
+
+    atom.xml uses XInclude to compose components:
+      &lt;xi:include href="{type}_abstract.xml"/&gt;
+      &lt;xi:include href="{type}_concrete.xml"/&gt;
+
+    .bentos/ is the SOURCE tree (read-only to tooling).
+    .claude/skills/ is the BUILD OUTPUT tree (written by install command).
+  </knowledge>
+
+  <knowledge name="frontmatter-generation">
+    SKILL.md frontmatter is DERIVED from atom.xml attributes, not hand-authored.
+
+    The install command calls AtomCompiler.generateFrontmatter() which reads:
+    - name: from atom id (strip kind TLD, e.g. "pkg-forge.app" -> "pkg-forge")
+    - description: from atom desc attr (falls back to essence text)
+
+    The --frontmatter flag on the compiler enables this generation.
+    MAIN.md YAML frontmatter is LEGACY — atom attrs are the source of truth.
+
+    SKILL.md = YAML frontmatter + compiled XML. Written as a real file (not symlink).
+  </knowledge>
+
+  <knowledge name="installation">
+    Install command: bentos-agent-forge install &lt;pkg-id&gt; --as skill-md
+
+    Pipeline: resolve source -> compile atom -> generate frontmatter -> write real file.
+
+    Output: .claude/skills/{fqdn}/SKILL.md (real file, NOT symlink)
+    No bentos. prefix in directory names.
+
+    Mount paths (FQDN = directory name):
+      pkg-forge.app/SKILL.md
+      dart.coding.craft.skill/SKILL.md
+      anamnesis.faculty/SKILL.md
+
+    --all flag: installs all packages from .bentos/ source tree.
+    --platform flag: selects platform-specific concretes (default: claude-code).
+    Source .bentos/ is READ-ONLY — install never writes to source tree.
+  </knowledge>
+
+  <pattern name="modal-package">
+    Packages with variant concretes for distinct operational contexts.
+    ALL concretes in atom.xml via XInclude — concretes are code, not data.
+
+    Mode-variant: Different operational modes (e.g., quest-forge master/worker).
+      Agent activates relevant mode from context.
+    Platform-variant: Different substrates (e.g., claude-code/gemini).
+      Install command selects at INSTALL TIME via --platform flag.
+  </pattern>
+
+  <!-- WORKFLOW -->
+
+  <protocol name="forge">
+    Complete atom-forging workflow: DESIGN then BUILD.
+
+    PHASE 1 — DECOMPOSE:
+      Input: Intent ("I need capability X")
+      1. Profile: what does X require? (5-axis analysis)
+      2. Lifecycle test: independent lifecycles? -> decompose
+      3. Dominant-axis test: single lifecycle? -> pick dominant axis
+      4. Scope check: coherent and independently valuable?
+      Output: set of atoms with clear boundaries
+
+    PHASE 2 — CLASSIFY + PLACE:
+      For each atom:
+      1. Family: Faculty / Agent / App / Skill? (family selection test)
+      2. If Skill: 5-step placement procedure:
+         a. Ask five questions
+         b. Identify dominant axis
+         c. Find L2 slot (axis naming convention)
+         d. Find/create L3 (check if L4 warranted)
+         e. Validate naming + semantic value test
+      3. If App: .bentos/apps/{name}/ (no axis coordinate)
+      4. Boundary ambiguity? Consult boundary-resolution knowledge.
+
+    PHASE 3 — NAME:
+      Apply naming principles. Each name:
+      NECESSARY, DISTINCT, CLEAR, BEAUTIFUL, GENERATIVE
+      Validate against axis naming conventions (gerund, noun, proper name, etc.)
+
+    PHASE 4 — SCAFFOLD:
+      mkdir -p .bentos/{family}/{path}/
+      Write atom.xml (entry point with v8.0 attrs: id, v, origin, desc)
+      Write {type}_abstract.xml (15-30 lines, pure ideal, only v attr)
+      Seed {type}_concrete.xml (initial mastery, v + updated attrs)
+
+    PHASE 5 — INSTALL:
+      bentos-agent-forge install {fqdn} --as skill-md
+  </protocol>
+
+  <protocol name="check-pkg">
+    Examine and heal the health of living atoms.
+    Scope from invocation context: all, a family, or a specific atom.
+
+    PHASE 1 - EXAMINE:
+      For each atom in scope:
+      - Well-formed? (paired particles: abstract + concrete)
+      - Abstract sound? (essence, purpose, abilities, principles)
+      - Concrete alive? (updated attr recent, not stale)
+      - atom.xml valid? (v8.0 attrs: id, v required; desc recommended)
+      - living-abstract clean? (only v attr — no name/kind/author)
+      - living-concrete clean? (v + updated — no name/kind/session)
+      - Installed? (real file at .claude/skills/{fqdn}/SKILL.md, not symlink)
+
+    PHASE 2 - DIAGNOSE:
+      Beyond structure, assess vitality:
+      - Stale? (concrete not evolved recently)
+      - Bloated? (concrete growing without consolidation)
+      - Misplaced? (content in wrong realm — abstract vs concrete)
+      - Naming? (follows v5.0r1 conventions per axis)
+      - Schema? (v8.0 compliant — no v7.x remnant attrs)
+
+    PHASE 3 - REPORT:
+      Summary: healthy / N issues found.
+      By severity: structural (broken) > schema (migration needed) > vitality (degraded) > cosmetic.
+
+    PHASE 4 - HEAL (with confirmation):
+      Structural: fix installs, rebuild stale artifacts.
+      Schema: migrate v7.x attrs to v8.0.
+      Vitality: flag for next evolve pass.
+      Always AskUserQuestion before modifying atoms.
+  </protocol>
+
+  <!-- ANTIPATTERNS -->
+
+  <antipattern name="decorative-comments">
+    WRONG: &lt;!-- ════════ SECTION ════════ --&gt;
+    RIGHT: &lt;!-- SECTION --&gt;
+    Every token costs. Orient, don't decorate.
+  </antipattern>
+
+  <antipattern name="fat-main">MAIN.md duplicating XML content. Keep thin — implementation lives in XML particles.</antipattern>
+
+  <antipattern name="wrong-scope">
+    Too broad: "AI skill" — many lifecycles conflated.
+    Too narrow: "f-string formatting" — not independently useful.
+    Apply lifecycle test: independent lifecycle = independent atom.
+  </antipattern>
+
+  <antipattern name="axis-before-family">
+    Deciding skill axis before confirming it IS a skill.
+    Family selection comes first. Not everything is a skill.
+  </antipattern>
+
+  <antipattern name="capability-blindness">
+    Struggling with wrong tools without recognizing the mismatch.
+    Friction is signal. Profile the task, check what's loaded, find the gap.
+  </antipattern>
+
+  <antipattern name="abstract-pollution">
+    Putting protocols, knowledge, patterns in abstract.
+    Abstract = ideal (immutable). Concrete = mastery (mutable).
+    If it changes through practice, it belongs in concrete.
+  </antipattern>
+
+  <antipattern name="filing-cabinet-levels">
+    WRONG: tools/languages/python, tools/frameworks/react, tools/databases/postgresql
+    RIGHT: tools/python, tools/react, tools/postgresql
+    Filing-cabinet categories add taxonomy overhead without semantic content.
+    L2 must be an instrument you have proficiency with, not a marketing label.
+  </antipattern>
+
+  <antipattern name="symlink-install">
+    WRONG: Symlink .bentos/ source dirs to .claude/skills/ (old installer).
+    RIGHT: Write real SKILL.md files to .claude/skills/{fqdn}/ (v8.0 install).
+    Source tree is read-only. Build output is a separate tree.
+  </antipattern>
+
+</living-concrete>

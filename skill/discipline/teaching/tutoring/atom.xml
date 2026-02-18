@@ -1,0 +1,7 @@
+<atom id="tutoring.teaching.discipline.skill" v="0.1" origin="Cafe &amp; Alfred" desc="Adaptive tutoring — meet learners where they are"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="skill_abstract.xml"/>
+  <xi:include href="skill_concrete.xml"/>
+
+</atom>

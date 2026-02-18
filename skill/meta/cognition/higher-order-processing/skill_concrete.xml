@@ -1,0 +1,96 @@
+<living-concrete v="0.1" updated="2026-02-09">
+
+  <knowledge name="levels-of-processing">
+    Craik &amp; Lockhart (1972): information processed at deeper levels (semantic,
+    relational) is retained longer than information processed shallowly
+    (phonological, surface features). This is not preference -- it is how
+    encoding works. Deeper processing = more durable memory trace.
+
+    Three levels:
+    - SURFACE: Physical features (font, layout, sequence of presentation)
+    - INTERMEDIATE: Semantic meaning (what does this term mean?)
+    - DEEP: Relational structure (how does this connect to other knowledge?)
+
+    Most information processing defaults to intermediate. The skill is
+    deliberately operating at the deep level.
+  </knowledge>
+
+  <knowledge name="blooms-inversion">
+    Bloom's Taxonomy (revised 2001): Remember, Understand, Apply, Analyze,
+    Evaluate, Create. Traditional teaching: master lower before attempting higher.
+
+    Sung's inversion (via HOL research): Enter at Analyze/Evaluate/Create.
+    The brain automatically fills in Remember and Understand when engaged
+    in higher-order operations. You do not need to memorize before you can
+    analyze. Analysis PRODUCES memorization as byproduct.
+
+    This inverts the pedagogical assumption. It is more efficient to start
+    high and let lower-order follow than to build up from rote.
+  </knowledge>
+
+  <knowledge name="kim-peak-paradox">
+    Kim Peak (the real Rain Man): perfect recall of entire books, maps,
+    atlases -- but could not reason about what he remembered. Extraordinary
+    memory without reasoning ability limits problem-solving.
+
+    The paradox: "remembering everything" is not "remembering everything
+    you need." Strategic retention (understanding) beats exhaustive storage.
+
+    BentOS analog: the task-tracker-mem antipattern. A .mem that records
+    every event but encodes no understanding is Kim Peak's mind --
+    perfect recall, zero reasoning.
+  </knowledge>
+
+  <pattern name="relational-encoding">
+    When processing any information, ask relational questions:
+    - What CAUSES this? What does this CAUSE?
+    - What CONTAINS this? What does this CONTAIN?
+    - What CONTRADICTS this?
+    - What is this ANALOGOUS to? Where does the analogy BREAK?
+    - What DEPENDS on this? What does this DEPEND on?
+
+    These questions force deep encoding. The answers become the structure
+    that makes knowledge retrievable and usable.
+  </pattern>
+
+  <pattern name="restructure-not-append">
+    When consolidating knowledge (writing .mem, summarizing, documenting):
+    REWRITE from understanding, don't APPEND chronologically.
+
+    Chronological append = surface encoding (preserves sequence of events).
+    Organic rewrite = deep encoding (preserves structure of understanding).
+
+    This is the formal basis for BentOS organic-rewrite. It is not a
+    stylistic preference -- it is encoding science.
+  </pattern>
+
+  <pattern name="depth-check">
+    Self-monitoring question during any cognitive work:
+    "Am I processing structure or transcribing surface?"
+
+    Signals of surface processing:
+    - Output mirrors input sequence (same order as consumed)
+    - Facts listed without relationships
+    - No contradictions or tensions surfaced
+    - Could have been produced without understanding
+
+    Signals of deep processing:
+    - Output restructured by relationship, not consumption order
+    - Connections, causes, dependencies made explicit
+    - Tensions and contradictions named
+    - Could NOT have been produced without understanding
+  </pattern>
+
+  <antipattern name="memorize-then-analyze">
+    DON'T: Build up from rote memorization hoping analysis will follow.
+    DO: Start with analysis -- recall emerges as byproduct.
+    Bloom's inversion: higher-order first, not last.
+  </antipattern>
+
+  <antipattern name="exhaustive-storage">
+    DON'T: Try to capture everything. Kim Peak paradox.
+    DO: Capture structure and relationships. Details are findable;
+    understanding is not.
+  </antipattern>
+
+</living-concrete>

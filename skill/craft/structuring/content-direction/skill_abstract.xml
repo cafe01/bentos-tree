@@ -1,0 +1,15 @@
+<living-abstract v="0.1">
+  <essence>Design cognitive architecture of content -- the director's script layer above prose</essence>
+  <purpose>Engineer what cognitive mode the reader enters at each point, producing structured blueprints before prose</purpose>
+
+  <ability name="script">Assign PACER cognitive mode to each scene/section of a content artifact</ability>
+  <ability name="sequence">Design cognitive flow -- order modes for maximum understanding and retention</ability>
+  <ability name="arc">Design episode/season/series structures (Netflix model) for long-form content</ability>
+  <ability name="calibrate">Adjust depth, tone, and mode balance for target audience</ability>
+  <ability name="validate">Spot missing modes, overconsumption without digestion, logical gaps in blueprint</ability>
+
+  <principle name="script-before-prose">Blueprint first, render second -- 10x leaner, structurally visible, iterable</principle>
+  <principle name="mode-intentionality">Every section has a deliberate cognitive mode -- no accidental good writing</principle>
+  <principle name="anti-slop">Mode-switching naturally surfaces tensions -- evidence demands proof, analogy demands critique</principle>
+  <principle name="orthogonal-to-writing">Direction is not writing -- blueprints are lean structural artifacts, not prose</principle>
+</living-abstract>

@@ -1,0 +1,203 @@
+<living-concrete v="4.0" updated="2026-01-26">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       CORE KNOWLEDGE
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <knowledge name="book-purpose">
+    Books are LIVING CONTENT. Like packages have living-abstract, books have PURPOSE.
+
+    PURPOSE drives: scope, audience, depth, writing style.
+
+    Define PURPOSE FIRST (in README.md):
+    - Essence: What IS this book?
+    - Purpose: WHY does it exist?
+    - Audience: WHO is reading?
+    - Scope: What's IN/OUT?
+
+    PURPOSE-first prevents: scope creep, audience confusion, style inconsistency.
+  </knowledge>
+
+  <knowledge name="file-roles">
+    README.md ≠ index.md (separation of concerns)
+
+    | File | Role | Part of Book? |
+    |------|------|---------------|
+    | README.md | Book's living-abstract (meta) | NO |
+    | index.md | Table of Contents (content root) | YES |
+
+    README.md contains: purpose, audience, scope, status, corpus membership
+    index.md contains: chapter list, navigation, reading entry point
+
+    Pocket edition generates from index.md down, not README.md.
+  </knowledge>
+
+  <knowledge name="book-structure">
+    Traditional book structure beyond chapters:
+
+    FRONT MATTER (before chapter 1):
+    | Element | Purpose |
+    |---------|---------|
+    | Jacket | The pitch/hook (marketing, "why read this") |
+    | Foreword | Third-party introduction/endorsement |
+    | Preface | Author's context, why this book exists |
+    | Introduction | How to read, prerequisites, orientation |
+    | Prologue | Narrative scene-setting before Ch1 |
+
+    BACK MATTER (after last chapter):
+    | Element | Purpose |
+    |---------|---------|
+    | Epilogue | Reflection, where to go next |
+    | Appendices | Supplementary deep-dives |
+    | Glossary | Terminology reference |
+    | Bibliography | Sources, further reading |
+    | About Authors | Credibility, perspective |
+    | Index | Navigation aid |
+
+    Not all books need all elements. Use what serves the PURPOSE.
+  </knowledge>
+
+  <knowledge name="corpus-membership">
+    Books exist in CONTEXT, not isolation.
+
+    DECLARATION (in README.md):
+    ```yaml
+    part-of: BentOS Bible
+    corpus-link: ../index.md
+    position: 3  # reading order
+    prerequisites: [ontology, physical-sciences]
+    ```
+
+    SERIES CONTINUITY (in prose):
+    Books in a corpus are like TV series episodes — they weave connections narratively.
+
+    | Technique | Purpose |
+    |-----------|---------|
+    | Recap | "Previously..." summary at book/chapter start |
+    | Callbacks | Reference earlier books inline ("As we saw in...") |
+    | Foreshadowing | Hint at upcoming books |
+    | Shared vocabulary | Terms defined once, used across corpus |
+
+    Context is STORYTELLING, not just metadata. The narrative weaves the connections.
+  </knowledge>
+
+  <knowledge name="status-lifecycle">
+    STATUS = lifecycle stage with semantic meaning.
+
+    | Status | Optimized For | Appropriate Work |
+    |--------|---------------|------------------|
+    | DRAFT | Fast iteration | Structure, content, rough OK |
+    | REVIEW | Editorial polish | Style, clarity, consistency |
+    | RC | Final checks | Fixes only, no new content |
+    | PUBLISHED | Stability | Changes = new edition |
+    | DEPRECATED | End-of-life | Banner + successor link |
+    | ARCHIVED | Historical | Removed from TOC |
+  </knowledge>
+
+  <knowledge name="book-detection">
+    Directory with ordered markdown = BookEntity
+    Patterns: numbered (01-*.md), named (chapter-*.md), logical sequence
+    Special files: README.md (meta), index.md (TOC), front matter, back matter
+  </knowledge>
+
+  <knowledge name="binding-forces">
+    Apps are atoms. Style comes from bonded skills.
+
+    books.app attracts craft/writing/* → style from writing skill
+    books.app attracts discipline/synthesizing/* → cognitive approach
+
+    Same structure, different style. Composition determines output.
+  </knowledge>
+
+  <knowledge name="obsidian-binding">
+    Obsidian-friendly patterns delegated to bentos.tools.markdown.obsidian.skill.
+    This app requires that skill for portable markdown output.
+    See skill for: frontmatter schema, link patterns, tag conventions.
+  </knowledge>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       PATTERNS
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <pattern name="purpose-first">
+    Before writing content: define PURPOSE in README.md.
+    Before each chapter: check alignment with PURPOSE.
+    Before advancing status: verify PURPOSE fulfilled.
+  </pattern>
+
+  <pattern name="series-continuity">
+    Books in a corpus connect through NARRATIVE, not just links.
+
+    RECAP: Open chapters/books with brief context from prior material.
+    CALLBACKS: "As we explored in [Book]..." woven into prose naturally.
+    HOOKS: End chapters/books with anticipation for what's next.
+
+    Think TV series: each episode stands alone but rewards series viewers.
+  </pattern>
+
+  <pattern name="status-transitions">
+    DRAFT → REVIEW → RC → PUBLISHED
+    Each transition = quality gate, not just label change.
+  </pattern>
+
+  <pattern name="structural-requirements">
+    REQUIRED:
+    1. README.md with PURPOSE + corpus membership
+    2. index.md as content entry point
+
+    CHAPTERS:
+    3. YAML front matter (status, version)
+    4. Navigation block (Back/TOC/Continue)
+    5. Cross-links on first mention
+
+    STYLE: Delegated to bonded craft/writing/* skill.
+  </pattern>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       PROTOCOL: GEN-POCKET-EDITION (v2.0)
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <protocol name="gen-pocket-edition" v="2.0">
+    Generate compressed book for context loading. COMPRESSED, not summarized.
+
+    MANTRA: "Same journey, less words."
+    TARGET: ~20-30% of original (NOT ~5% outline)
+    SOURCE: index.md down (not README.md)
+
+    FIDELITY:
+    - PRESERVE voice, chapter structure, key examples
+    - COMPRESS repetition, elaboration, multiple examples
+    - CUT redundancy, tangents, restatements
+
+    TEST: Reader thinks "I read the book, just faster" not "I read a summary"
+  </protocol>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       ANTIPATTERNS
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <antipattern name="siloed-books">
+    DON'T: Write books that ignore their corpus context
+    DON'T: Assume reader knows project context (e.g., "what is BentOS?")
+    DO: Declare corpus membership, use series continuity techniques
+    DO: Recap/callback to connect with larger narrative
+  </antipattern>
+
+  <antipattern name="readme-as-toc">
+    DON'T: Use README.md as book content entry point
+    DO: README.md = meta (purpose), index.md = content (TOC)
+  </antipattern>
+
+  <antipattern name="purpose-drift">
+    DON'T: Start writing without defined PURPOSE
+    DON'T: Let chapters drift from stated scope/audience
+    DO: PURPOSE-first, check alignment throughout
+  </antipattern>
+
+  <antipattern name="style-in-structure">
+    DON'T: Enforce style elements as mandatory structure
+    DO: Enforce structure; let bonded skill determine style
+  </antipattern>
+
+
+</living-concrete>

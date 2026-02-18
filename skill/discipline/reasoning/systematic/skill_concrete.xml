@@ -1,0 +1,39 @@
+<living-concrete v="1.1" updated="2025-12-29">
+  <pattern name="concept-enumeration">
+    Before designing, list every concept that must be represented.
+    For CLI: operations, flags, outputs. Enumerate then map.
+  </pattern>
+
+  <pattern name="orthogonal-primitives">
+    Each implementation element serves exactly one purpose.
+    Commands don't overlap. Flags don't duplicate.
+    Minimal surface area, maximum coverage.
+  </pattern>
+
+  <pattern name="ontology-to-syntax">
+    BentOS WHO -> --who flag
+    BentOS WHERE -> --spacetime flag
+    Every ontological concept has syntactic expression.
+  </pattern>
+
+  <pattern name="coverage-matrix">
+    Table: rows = concepts, columns = implementations.
+    Every row has exactly one column filled.
+    Empty row = gap. Multiple columns = overlap.
+  </pattern>
+
+  <pattern name="requirements-tracing">
+    Implementation links to design links to requirement.
+    Trace any line of code to its justification.
+  </pattern>
+
+  <antipattern name="intuition-design">
+    "This feels right" without explicit justification.
+    Every choice must answer "why this and not alternatives?"
+  </antipattern>
+
+  <antipattern name="implicit-concepts">
+    Concepts in implementation but not enumerated.
+    If not in the list, shouldn't be in the code.
+  </antipattern>
+</living-concrete>

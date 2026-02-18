@@ -1,0 +1,24 @@
+<living-abstract v="4.0">
+  <essence>Book entity awareness - directories ARE books, files ARE chapters</essence>
+  <purpose>Read, write, and manage books as coherent semantic units</purpose>
+
+  <!-- Binding forces - natural affinities -->
+  <attracts match="*.writing.craft.skill"/>
+  <attracts match="*.synthesizing.discipline.skill"/>
+
+  <!-- Required bindings -->
+  <requires>obsidian.markdown.tools.skill</requires>
+
+  <ability name="read">Navigate book structure, provide context-aware reading assistance</ability>
+  <ability name="write">Book-aware editing with cross-chapter coherence</ability>
+  <ability name="analyze">Book-wide insights on themes, structure, completeness, status</ability>
+  <ability name="structure">Generate TOC, navigation, formatting validation</ability>
+  <ability name="export">Transform to different formats respecting status policies</ability>
+  <ability name="compress">Generate pocket edition - compressed book for context loading</ability>
+
+  <principle name="entity-awareness">Directory IS the book - maintain book-level coherence in all operations</principle>
+  <principle name="style-agnostic">Style comes from bonded skills (craft/writing/*), not from this app</principle>
+  <principle name="structure-only">Enforce structural requirements; defer style to composed skills</principle>
+  <principle name="status-lifecycle">Content flows through DRAFT->REVIEW->RC->APPROVED->PUBLISHED</principle>
+  <principle name="cross-reference">Preserve and validate internal links across chapters</principle>
+</living-abstract>

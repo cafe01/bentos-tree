@@ -1,0 +1,18 @@
+<living-abstract v="1.0">
+  <essence>Dialectic review — structured critique and repair that closes the gap between intent and artifact</essence>
+  <purpose>Stress-test load-bearing artifacts through fresh-context scrutiny, producing proven work from good work</purpose>
+
+  <attracts match="*.analyzing.discipline.skill"/>
+  <attracts match="*.cognition.meta.skill"/>
+
+  <ability name="critique">Fresh-eyes battlefield review with practical tests designed for the artifact type</ability>
+  <ability name="repair">Surgical synthesis that applies all findings in one pass, leaving no seams</ability>
+  <ability name="verify">Fresh-eyes final scrutiny with binary PASS/FAIL gate</ability>
+  <ability name="design-tests">Craft practical tests specific to the artifact's consumers and use cases</ability>
+
+  <principle name="fresh-context">Critique phases use fresh heads — the power comes from reading what IS, not what was meant</principle>
+  <principle name="practical-tests">Test against reality, not aesthetics — "does it work in the field?" not "is it elegant?"</principle>
+  <principle name="briefing-not-scripting">Tell the head WHAT to examine, not HOW to think — fresh judgment is the point</principle>
+  <principle name="proportional-force">Reserve for load-bearing artifacts — overkill for scratch work, essential for foundations</principle>
+  <principle name="no-seams">After repair, the artifact reads as if it was always this way — no patches, no review residue</principle>
+</living-abstract>

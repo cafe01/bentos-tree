@@ -1,0 +1,7 @@
+<atom id="architectonic-synthesis.cognition.meta.skill" v="1.1" origin="Cafe &amp; Alfred" desc="Become the ideal solver, then solve — master meta-cognitive skill"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="skill_abstract.xml"/>
+  <xi:include href="skill_concrete.xml"/>
+
+</atom>

@@ -1,0 +1,7 @@
+<atom id="systematic.reasoning.discipline.skill" v="1.1" origin="Cafe &amp; Alfred" desc="Methodical decomposition and structured thinking for complex problems"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="skill_abstract.xml"/>
+  <xi:include href="skill_concrete.xml"/>
+
+</atom>

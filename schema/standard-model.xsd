@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ==========================================================================
+  BentOS Standard Model v7.0 — RelaxNG Compact Syntax
+  
+  CANONICAL SOURCE OF TRUTH for the BentOS particle vocabulary.
+  Everything else derives from this schema:
+  
+    standard-model.rnc  (you are here, iterate HERE)
+      => trang => standard-model.xsd  (for xmllint, IDE tooling)
+      => trang => standard-model.rng  (for xmllint relaxng)
+      => docs/bentos-standard-model.md  (derived prose documentation)
+      => BentosValidator  (programmatic validator)
+  
+  15 particles. 7 categories. Complete ontology.
+  
+    Substrate  (2): living-abstract, living-concrete
+    Identity   (2): essence, purpose
+    Capacity   (2): ability, protocol
+    Relation   (2): requires, attracts
+    Guidance   (1): principle
+    Learning   (3): knowledge, pattern, antipattern
+    Assembly   (3): atom, molecule, data
+  
+  Realm placement:
+    abstract-only:  essence, purpose, ability, requires, attracts
+    concrete-only:  protocol, knowledge, pattern, antipattern
+    both realms:    principle
+    assembly-only:  atom, molecule, data
+  
+  v7.0 changes from v6.0:
+    - `id` replaces `name` on atom/molecule (FQDN: reverse path + kind TLD)
+    - `<coordinate>` eliminated (FQDN IS the coordinate)
+    - `<main>` eliminated (README.md for human docs, atom.xml IS the entry)
+    - `<data>` added (non-executable .data segment payloads)
+    - `<attracts>` simplified (FQDN glob pattern instead of axis/path attrs)
+    - XInclude support (xi:include for component composition)
+    - `bentos.` prefix dropped from all identifiers
+  
+  v7.1 changes from v7.0:
+    - `name` and `kind` now OPTIONAL on living-abstract/living-concrete
+      (atom id scopes inner elements; allows gradual migration)
+  
+  Authors: Cafe & Alfred
+  Session: S260
+  ==========================================================================
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xs:import namespace="http://www.w3.org/2001/XInclude" schemaLocation="xi.xsd"/>
+  <!--
+    ==========================================================================
+    ROOT — Valid document types
+    ==========================================================================
+  -->
+  <!--
+    Four valid document roots:
+      *_abstract.xml  -> living-abstract    (source file)
+      *_concrete.xml  -> living-concrete    (source file)
+      atom.xml        -> atom               (package entry point)
+      molecule.xml    -> molecule           (composition / loadout)
+  -->
+  <!--
+    ==========================================================================
+    SIMPLE TYPES
+    ==========================================================================
+  -->
+  <xs:simpleType name="id-type">
+    <xs:annotation>
+      <xs:documentation>FQDN identifier for atoms and molecules. Reverse filesystem path with
+kind as TLD. No bentos. prefix — the filesystem root scopes that.
+
+Examples:
+  alfred.agent                        (agents/alfred)
+  plasticity.faculty                  (faculties/plasticity)
+  quest-forge.app                     (apps/quest-forge)
+  dart.coding.craft.skill             (skills/craft/coding/dart)
+  systemic.analyzing.discipline.skill (skills/discipline/analyzing/systemic)
+
+Pattern: dot-separated segments, each starting with a letter.
+The final segment is the kind TLD (agent, faculty, skill, app, etc.).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z][a-zA-Z0-9\-]*(\.[a-zA-Z][a-zA-Z0-9\-]*)*"/>
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="name-type">
+    <xs:annotation>
+      <xs:documentation>Identifier for particles within an atom. Convention: kebab-case.
+Examples: "north-star", "organic-rewrite", "wake", "quest-forge.master".</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z][a-zA-Z0-9.\-_]*"/>
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="version-type">
+    <xs:annotation>
+      <xs:documentation>Version identifier. Typically N.N (e.g., "6.0", "12.0").</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]+(\.[0-9]+)*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="session-type">
+    <xs:annotation>
+      <xs:documentation>Session number. Integer, monotonically increasing across project lifetime.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="glob-type">
+    <xs:annotation>
+      <xs:documentation>FQDN glob pattern for attracts. Dot-separated with * wildcards.
+Examples: "*.coding.craft.skill", "*.app", "*.discipline.skill".</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z0-9*][a-zA-Z0-9.\-_*]*"/>
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="strength-type">
+    <xs:annotation>
+      <xs:documentation>Bond strength for soft compositional affinities.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="strong"/>
+      <xs:enumeration value="moderate"/>
+      <xs:enumeration value="weak"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    ==========================================================================
+    XINCLUDE — Standard XML inclusion mechanism
+    ==========================================================================
+  -->
+  <!--
+    XInclude replaces BELF. atom.xml uses xi:include to compose its
+    components (abstract.xml, concrete.xml, data files). molecule.xml
+    uses xi:include to compose its atoms.
+    
+    parse="xml"  (default) = include as parsed XML (.text semantic)
+    parse="text"           = include as CDATA text (.data semantic)
+  -->
+  <!--
+    ==========================================================================
+    FREE-FORM CONTENT — For instructional particles
+    ==========================================================================
+  -->
+  <!--
+    Protocols, knowledge, patterns, and antipatterns contain free-form
+    instructional content. This may include arbitrary nested XML elements
+    that are NOT Standard Model particles (e.g., <recovery>, <tool-budget>,
+    <mantra> inside a protocol). These are author-defined structure, not
+    ontological vocabulary.
+  -->
+  <xs:complexType name="any-content" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="any-element"/>
+  </xs:complexType>
+  <xs:group name="any-element">
+    <xs:sequence>
+      <xs:any processContents="skip"/>
+    </xs:sequence>
+  </xs:group>
+  <!--
+    ==========================================================================
+    CATEGORY 1: SUBSTRATE — The fundamental duality
+    Platonic ideal (abstract) + Manifest mastery (concrete)
+    ==========================================================================
+  -->
+  <xs:element name="living-abstract">
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="abstract-content"/>
+      <xs:attribute name="name" type="name-type"/>
+      <xs:attribute name="kind"/>
+      <xs:attribute name="v" use="required" type="version-type"/>
+      <xs:attribute name="author" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- Particles allowed in living-abstract -->
+  <xs:group name="abstract-content">
+    <xs:choice>
+      <xs:element ref="essence"/>
+      <xs:element ref="purpose"/>
+      <xs:element ref="ability"/>
+      <xs:element ref="requires"/>
+      <xs:element ref="attracts"/>
+      <xs:element ref="principle"/>
+    </xs:choice>
+  </xs:group>
+  <xs:element name="living-concrete">
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="concrete-content"/>
+      <xs:attribute name="name" type="name-type"/>
+      <xs:attribute name="kind"/>
+      <xs:attribute name="session" use="required" type="session-type"/>
+      <xs:attribute name="updated" use="required" type="xs:date"/>
+      <xs:attribute name="platform"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- Particles allowed in living-concrete -->
+  <xs:group name="concrete-content">
+    <xs:choice>
+      <xs:element ref="essence"/>
+      <xs:element ref="protocol"/>
+      <xs:element ref="knowledge"/>
+      <xs:element ref="pattern"/>
+      <xs:element ref="antipattern"/>
+      <xs:element ref="principle"/>
+    </xs:choice>
+  </xs:group>
+  <!--
+    ==========================================================================
+    CATEGORY 2: IDENTITY — What IS it, WHY
+    Aristotle: Ousia + Telos
+    
+    Note: Keisthai (position/coordinate) is now carried by the atom's FQDN.
+    The id "dart.coding.craft.skill" IS the coordinate — no separate element.
+    ==========================================================================
+  -->
+  <xs:element name="essence" type="xs:string"/>
+  <xs:element name="purpose" type="xs:string"/>
+  <!--
+    ==========================================================================
+    CATEGORY 3: CAPACITY — What can it DO / HOW
+    Aristotle: Poiein (Action)
+    ==========================================================================
+  -->
+  <xs:element name="ability">
+    <xs:complexType mixed="true">
+      <xs:attribute name="name" use="required" type="name-type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="protocol">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="any-element"/>
+      <xs:attribute name="name" use="required" type="name-type"/>
+      <xs:attribute name="v" type="version-type"/>
+      <xs:attribute name="mandatory" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <!--
+    ==========================================================================
+    CATEGORY 4: RELATION — How does it RELATE
+    Aristotle: Pros ti (Relation) — bonds between atoms
+    ==========================================================================
+  -->
+  <xs:element name="requires" type="xs:string"/>
+  <xs:element name="attracts">
+    <xs:complexType>
+      <xs:attribute name="match" use="required" type="glob-type"/>
+      <xs:attribute name="strength" type="strength-type"/>
+    </xs:complexType>
+  </xs:element>
+  <!--
+    ==========================================================================
+    CATEGORY 5: GUIDANCE — How should it BEHAVE
+    Aristotle: Poion (Quality) — normative commitments
+    ==========================================================================
+  -->
+  <xs:element name="principle">
+    <xs:complexType mixed="true">
+      <xs:attribute name="name" use="required" type="name-type"/>
+    </xs:complexType>
+  </xs:element>
+  <!--
+    ==========================================================================
+    CATEGORY 6: LEARNING — What has it LEARNED
+    Aristotle: Hexis (State/Habit) — accumulated mastery
+    ==========================================================================
+  -->
+  <!--
+    Learning particles appear only in concrete — learning IS the
+    concretization of experience. All three use free-form mixed content
+    with arbitrary nested elements for organizational markup.
+  -->
+  <xs:element name="knowledge">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="any-element"/>
+      <xs:attribute name="name" use="required" type="name-type"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- Named pattern-el to avoid collision with RNC keyword "pattern". -->
+  <xs:element name="pattern">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="any-element"/>
+      <xs:attribute name="name" use="required" type="name-type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="antipattern">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="any-element"/>
+      <xs:attribute name="name" use="required" type="name-type"/>
+    </xs:complexType>
+  </xs:element>
+  <!--
+    ==========================================================================
+    CATEGORY 7: ASSEMBLY — How is it BUILT
+    ==========================================================================
+  -->
+  <!--
+    Assembly particles are produced by the forge or authored as entry points.
+    atom.xml is the package entry point (replaces MAIN.md + BELF).
+    molecule.xml is a composition / formalized loadout.
+    
+    XInclude is the composition mechanism:
+      xi:include href="abstract.xml"              → .text (parsed XML)
+      xi:include href="template.md" parse="text"  → .data (CDATA text)
+  -->
+  <xs:element name="atom">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="xi:include"/>
+        <xs:element ref="living-abstract"/>
+        <xs:element ref="living-concrete"/>
+        <xs:element ref="data"/>
+      </xs:choice>
+      <xs:attribute name="id" use="required" type="id-type"/>
+      <xs:attribute name="v" type="version-type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="data">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="xi:include"/>
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="name-type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="molecule">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="xi:include"/>
+        <xs:element ref="atom"/>
+      </xs:choice>
+      <xs:attribute name="id" use="required" type="id-type"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,10 @@
+<living-concrete v="1.1" updated="2025-12-29">
+  <pattern name="five-whys">
+    Ask "why?" recursively until axioms:
+    L1: Surface problem
+    L2: Immediate cause
+    L3: Systemic cause
+    L4: Design assumption
+    L5: Fundamental constraint (physics, logic, human nature)
+  </pattern>
+</living-concrete>

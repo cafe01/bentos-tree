@@ -1,0 +1,16 @@
+<living-concrete v="0.1" updated="2026-01-05">
+
+  <knowledge name="analysis-questions">
+    Components: What are the parts? What does each do?
+    Interactions: How do parts communicate? What flows between them?
+    Boundaries: What's inside vs outside the system?
+    Dynamics: How does the system respond to inputs? What feedback exists?
+  </knowledge>
+
+  <pattern name="stock-and-flow">
+    Stocks = accumulations (state)
+    Flows = rates of change (processes)
+    Map stocks and flows to understand system dynamics
+  </pattern>
+
+</living-concrete>

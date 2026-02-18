@@ -1,0 +1,167 @@
+<living-concrete v="0.1" updated="2026-02-09">
+
+  <!-- THE FIVE TYPES -->
+
+  <knowledge name="procedural">
+    TYPE: How to execute tasks -- step-by-step instructions.
+    EXAMPLES: Coding syntax, clinical techniques, recipes, language rules.
+    DIGESTION: Immediate real-world practice. Cannot be learned by reading.
+    PRINCIPLE: Practice must follow consumption promptly -- delayed practice = retention failure.
+    MECHANISM: Embeds skills through motor/procedural repetition, develops automaticity.
+  </knowledge>
+
+  <knowledge name="analogous">
+    TYPE: Knowledge connecting new concepts to existing understanding via comparison.
+    EXAMPLES: "Circuits are like water pipes"; muscle physiology related to swimming.
+    DIGESTION: Systematic critique -- analyze similarities, differences, limitations, improvements.
+    PRINCIPLE: Refuse surface-level acceptance. Uncritical analogy = shallow encoding + misconceptions.
+    KEY QUESTIONS: Where does it hold? Where does it break? What would make it better?
+    MECHANISM: Builds relational thinking by forcing structural engagement with comparisons.
+  </knowledge>
+
+  <knowledge name="conceptual">
+    TYPE: High-level theories, frameworks, interconnected ideas -- the "big picture."
+    EXAMPLES: Disease mechanisms, mathematical relationships, evolutionary biology.
+    DIGESTION: Nonlinear visual mapping -- mind maps, diagrams showing hierarchies and cause-effect.
+    PRINCIPLE: Visualize how disparate facts interconnect within broader intellectual structures.
+    HIGHEST VALUE: Forms the structural skeleton that other types attach to.
+    CRITICAL: Linear notes preserve sequence of presentation, not structure of understanding.
+    Mapping forces identification of relationships: cause, contain, contradict.
+  </knowledge>
+
+  <knowledge name="evidence">
+    TYPE: Empirical facts, statistics, dates, specific cases supporting broader concepts.
+    EXAMPLES: Research statistics, historical events, case study data.
+    DIGESTION: Two-step -- store during consumption (notes), then rehearse (teach, discuss, apply).
+    PRINCIPLE: Evidence supports conceptual arguments; useless without the concept it attaches to.
+    MECHANISM: Rehearsal forces integration of evidence with its conceptual context.
+  </knowledge>
+
+  <knowledge name="reference">
+    TYPE: Supplementary specific details -- formulas, constants, definitions, lookup data.
+    EXAMPLES: Mathematical constants, API parameter formats, gene names.
+    DIGESTION: Store in searchable systems; review periodically via spaced repetition (~30 min daily).
+    LOWEST PRIORITY: Minimal processing effort. Strategic offload -- not everything needs deep encoding.
+    PRINCIPLE: Brain's processing capacity is finite; spending it on reference crowds out
+    higher-value work on conceptual and analogous information.
+  </knowledge>
+
+  <!-- THE MODEL -->
+
+  <knowledge name="two-stage-model">
+    Learning has two stages. Most learners only do stage 1.
+
+    STAGE 1 - CONSUMPTION: Intake of information. Identify PACER category in real-time.
+    Necessary but insufficient. What goes into the brain.
+
+    STAGE 2 - DIGESTION: Processing via type-specific technique into long-term memory.
+    What stays in the brain. The stage that produces actual learning.
+
+    THE BALANCE: Everything consumed MUST be digested. Overconsumption without
+    digestion = "mental vomiting" -- information passes through without retention.
+    ~90% forgetting rate for unprocessed material.
+
+    PRACTICAL: If you cannot digest, consume LESS. Speed and volume are
+    counterproductive without corresponding digestion time.
+  </knowledge>
+
+  <knowledge name="priority-hierarchy">
+    P, A, C = foundational knowledge. E, R = supporting.
+
+    COMMON ERROR: Excessive time on procedural memorization and reference details
+    instead of building conceptual foundation. Without conceptual structure,
+    evidence is disconnected facts and references are meaningless details.
+
+    INVESTMENT ORDER (processing effort):
+    1. Conceptual -- highest ROI, structural skeleton
+    2. Analogous -- relational anchoring to existing knowledge
+    3. Procedural -- skill execution (cannot substitute reading)
+    4. Evidence -- supports concepts, rehearsal-based
+    5. Reference -- strategic offload, minimal processing
+  </knowledge>
+
+  <!-- THEORETICAL FOUNDATIONS -->
+
+  <knowledge name="theoretical-foundations">
+    PACER synthesizes established cognitive science:
+
+    Craik &amp; Lockhart (1972) - Levels of Processing:
+      Deeper semantic processing = longer retention. PACER digestion strategies
+      force depth appropriate to each type.
+
+    Schema Theory:
+      Knowledge organized in mental schemas. Conceptual mapping directly
+      builds and extends schemas.
+
+    Sweller (1988) - Cognitive Load Theory:
+      Working memory is limited. PACER priority hierarchy (C &gt; E &gt; R) manages
+      cognitive load by directing effort to most productive categories.
+
+    Ebbinghaus (1885) - Spaced Repetition:
+      Memory decays but reinforces through spaced review. PACER assigns
+      spaced repetition specifically to E and R categories.
+
+    Bloom's Taxonomy (revised 2001):
+      Higher-order skills as entry points, not endpoints.
+      Analysis produces memorization as byproduct.
+  </knowledge>
+
+  <!-- BENTOS CONVERGENCES -->
+
+  <knowledge name="bentos-convergences">
+    Natural convergences between PACER and BentOS architecture:
+
+    | PACER | BentOS | Mapping |
+    | Consumption + Digestion | Wake + Sleep | Intake then consolidate |
+    | Balance principle | Signal discipline | Don't intake more than you consolidate |
+    | Organic rewrite | Higher-order encoding | Restructure understanding, don't append |
+    | task-tracker-mem | Lower-order encoding | Recording events without encoding meaning |
+    | Kim Peak paradox | task-tracker-mem | Perfect recall, zero reasoning |
+    | Priority hierarchy (C &gt; R) | Signal discipline | Invest in structure, offload details |
+    | Encoding quality &gt; quantity | Token economics | Process less, consolidate better |
+
+    Anamnesis sleep IS digestion. Plasticity IS self-regulated learning.
+    These convergences were discovered independently and confirmed by R1.0.
+  </knowledge>
+
+  <!-- BIDIRECTIONAL INSIGHT -->
+
+  <knowledge name="inverted-pacer">
+    PACER is bidirectional. Designed as receiver-side (learning), it inverts to
+    sender-side (content engineering).
+
+    The same cognitive science that describes how information is best RECEIVED
+    also prescribes how information should be TRANSMITTED.
+
+    Receiver: classify incoming info, apply type-specific digestion.
+    Sender: deliberately structure output so reader hits P-A-C-E-R modes
+    in the right sequence and depth.
+
+    This inversion is the bridge to craft/structuring/content-direction.
+  </knowledge>
+
+  <pattern name="pacer-workflow">
+    1. BEGIN CONSUMPTION -- read/listen/observe, classify each piece by PACER type
+    2. PAUSE FOR DIGESTION at natural breakpoints:
+       P: stop and practice immediately
+       A: critique the analogy (hold? break? improve?)
+       C: map the relationships (diagram, mind map, network)
+       E: store in notes, schedule rehearsal (teach, discuss)
+       R: store in flashcard/searchable system, add to spaced repetition
+    3. MAINTAIN BALANCE -- if digestion backs up, reduce consumption rate
+    4. REPEAT -- each cycle deepens understanding
+  </pattern>
+
+  <antipattern name="uniform-processing">
+    DON'T: Apply the same strategy to all information types.
+    DO: Classify first, then apply type-specific digestion.
+    Reading a concept the same way you store a reference = wasted processing.
+  </antipattern>
+
+  <antipattern name="overconsumption">
+    DON'T: Speed-read, binge content, consume without digesting.
+    DO: Consume less, digest more. Balance is non-negotiable.
+    "Mental vomiting" -- information passes through without being retained.
+  </antipattern>
+
+</living-concrete>

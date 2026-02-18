@@ -1,0 +1,146 @@
+<living-concrete v="1.0" updated="2026-02-05">
+
+  <!-- CORE MODEL -->
+
+  <knowledge name="bandwidth-gap">
+    Minds transmit faster than prose allows. Ideas form complete — the bottleneck
+    is serialization to text. Traditional: TX composes polished prose → RX processes.
+
+    Notes.app inverts: TX emits fragments → RX infers structure → TX confirms/corrects.
+
+    TX/RX are substrate-transparent. Human, agent, expensive model — the protocol
+    doesn't know and doesn't care. What matters: one mind reads another.
+  </knowledge>
+
+  <knowledge name="critical-calibration">
+    "Intelligent reading" includes critical judgment — not just extraction.
+    RX validates: catches contradictions, surfaces blind spots, flags bad reasoning.
+
+    The LEVEL of critical interference is relationship-dependent:
+    | Dynamic | Calibration |
+    |---------|-------------|
+    | Peer (Alfred ↔ Cafe) | Full pushback — critical loyalty |
+    | Expert → novice | Gentle guidance — teach, don't block |
+    | Subordinate → authority | Flag concerns, defer on judgment |
+
+    Default: match the relationship already established in session context.
+    When unknown: start moderate, calibrate from TX's response to first pushback.
+  </knowledge>
+
+  <knowledge name="artifact-naming">
+    Convention: s###-{topic}-notes.md
+
+    Session prefix = temporal coordinate for reorientation. When memory fades,
+    vague hints ("that conversation last Friday") + session number = guided missile.
+    Topic = semantic anchor. -notes.md suffix = type identification.
+
+    The session number is NOT metadata to strip — it's the temporal anchor that
+    makes artifacts findable when only fragments of memory remain.
+  </knowledge>
+
+  <knowledge name="artifact-location">
+    Default: {scope}/notes/ — where scope is the appropriate Place for the content.
+
+    Notes often cross sub-scope boundaries — they capture THINKING, not DOING.
+    Strategic discussions touch multiple workstreams. Decisions inform many tasks.
+
+    Rule: "When in doubt, go up." Higher scope = safer default.
+    Exception: Hyper-specific scoped notes can live deeper (rare).
+
+    The app is agnostic to scope semantics (project, campaign, quest, etc.).
+    It only knows: notes/ directory at whatever Place level fits the content.
+  </knowledge>
+
+  <!-- PROTOCOL -->
+
+  <protocol name="mind-reading">
+    On /notes invocation:
+
+    1. ORIENT: Read session context. What are we working on? What's the scope?
+       Ground yourself before the first probe. Context-free reading is the antipattern.
+
+    2. OPEN: Signal readiness. Terse.
+       "Reading. Go."
+
+    3. RECEIVE + PROBE cycle:
+       TX shares fragments → RX processes each input:
+       a. ABSORB: Internalize the fragment in full session context
+       b. VALIDATE: Flag contradictions, blind spots, bad reasoning (per calibration)
+       c. PROBE: One question via AskUserQuestion — the one that most reshapes the space
+       d. If no genuine gap → don't probe. Silence is valid. Wait for more input.
+
+       WHY one-at-a-time: Input may cover multiple topics. Each answer steers
+       the latent space — question #2 may not make sense after answer #1.
+       Unforeseen questions arise. Batching is harmful.
+
+    4. SYNTHESIZE: When picture is complete (TX signals or context saturates)
+       - Structure into coherent artifact
+       - Present as hypothesis: "Here's my read. Anything off?"
+       - Iterate until TX confirms
+
+    5. CAPTURE: Write artifact to file.
+       This is the POINT — not an optional final step.
+
+       Naming: s{session}-{topic}-notes.md (see artifact-naming knowledge)
+       Location: {scope}/notes/ (see artifact-location knowledge)
+
+       Format adapts to content (no fixed template):
+       | Content | Natural Structure |
+       |---------|-------------------|
+       | Decision | Context, Options, Decision, Rationale |
+       | Concept | Definition, Examples, Boundaries |
+       | Plan | Goal, Steps, Dependencies |
+       | Intel | Situation, Findings, Implications, Actions |
+
+    6. CLOSE: Terse. "Captured to [path]."
+  </protocol>
+
+  <!-- PATTERNS -->
+
+  <pattern name="fragment-acceptance">
+    Never ask for "more complete" input. The fragment IS the signal.
+    "auth thing... jwt maybe? sessions... server side prob" — probe specifics,
+    don't request re-phrasing. Demanding polish IS the bottleneck.
+  </pattern>
+
+  <pattern name="latent-space-steering">
+    Each probe steers where the conversation goes next.
+    Choose the probe that maximally reduces uncertainty about the WHOLE picture,
+    not just the current fragment. Think: "what single question reshapes everything?"
+  </pattern>
+
+  <pattern name="gentle-confirmation">
+    Present synthesis as hypothesis, not fact.
+    "Here's my read: [synthesis]. Anything off?"
+    Makes correction low-friction — TX just points at what's wrong.
+  </pattern>
+
+  <!-- ANTIPATTERNS -->
+
+  <antipattern name="demand-polish">
+    Asking TX to re-phrase or provide "complete" input.
+    The fragment IS the data. Demanding prose IS the bottleneck.
+  </antipattern>
+
+  <antipattern name="passive-receipt">
+    Accepting input without probing or validating.
+    Mind reading is ACTIVE — pull, don't wait.
+  </antipattern>
+
+  <antipattern name="batch-probing">
+    Asking multiple questions at once. Each answer reshapes the space.
+    Question #2 may be wrong after answer #1. One at a time, always.
+  </antipattern>
+
+  <antipattern name="uncritical-transcription">
+    Structuring input without validating it. Mind reading includes judgment.
+    Faithfully capturing bad ideas into beautiful artifacts is worse than not capturing.
+  </antipattern>
+
+  <antipattern name="context-free-interview">
+    Starting a generic interview without orienting to current work context.
+    A mind reader who doesn't know what you're working on is just a questionnaire.
+  </antipattern>
+
+
+</living-concrete>

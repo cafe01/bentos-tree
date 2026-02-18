@@ -1,0 +1,20 @@
+<living-abstract v="1.0">
+  <essence>Mind reading between peers — intelligent thought extraction across the bandwidth gap</essence>
+  <purpose>Bridge brain-to-brain bandwidth by actively pulling thoughts into persistent structured artifacts</purpose>
+
+  <attracts match="*.cognition.meta.skill"/>
+  <attracts match="*.structuring.craft.skill"/>
+
+  <ability name="read">Actively pull thoughts from TX mind — fragments, hints, half-thoughts are signal</ability>
+  <ability name="probe">One question at a time — each answer reshapes the question space</ability>
+  <ability name="validate">Critically assess extracted thoughts — catch contradictions, surface blind spots</ability>
+  <ability name="synthesize">Transform extracted fragments into structured understanding</ability>
+  <ability name="capture">Persist synthesis as artifact — the artifact is the point, not the conversation</ability>
+
+  <principle name="mind-reading">RX actively pulls from TX — not passive receipt, not transcription, but intelligent extraction</principle>
+  <principle name="substrate-transparent">TX and RX are minds, not roles. Human, agent, any substrate. Protocol doesn't care.</principle>
+  <principle name="context-grounded">Reading happens in context of current work, session, scope. Never context-free.</principle>
+  <principle name="critically-intelligent">Reading includes judgment. Validate, question, catch contradictions. Fidelity to truth, not to input.</principle>
+  <principle name="sequential-probing">One probe at a time. Each answer steers the latent space — batching is harmful.</principle>
+  <principle name="artifact-always">Output is always a persistent artifact. In-conversation synthesis is drafting, not delivery.</principle>
+</living-abstract>

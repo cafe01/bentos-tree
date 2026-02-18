@@ -1,0 +1,7 @@
+<atom id="higher-order-processing.cognition.meta.skill" v="0.1" origin="Cafe &amp; Alfred" desc="Structural and relational engagement — depth over surface"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="skill_abstract.xml"/>
+  <xi:include href="skill_concrete.xml"/>
+
+</atom>

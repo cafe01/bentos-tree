@@ -1,0 +1,7 @@
+<atom id="socratic-coaching.cognition.meta.skill" v="1.1" origin="Cafe &amp; Alfred" desc="Guide discovery through strategic questioning"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="skill_abstract.xml"/>
+  <xi:include href="skill_concrete.xml"/>
+
+</atom>

@@ -1,0 +1,7 @@
+<atom id="journal.app" v="0.3" origin="Cafe &amp; Alfred" desc="Autobiographical memory for any Place — moments worth preserving"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="app_abstract.xml"/>
+  <xi:include href="app_concrete.xml"/>
+
+</atom>

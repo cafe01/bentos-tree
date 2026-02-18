@@ -1,0 +1,220 @@
+<living-concrete v="1.0" updated="2026-02-12">
+
+  <!-- CORE MODEL -->
+
+  <knowledge name="dialectic-cycle">
+    Three phases after thesis (creation) is already done:
+
+    ANTITHESIS: Fresh head reads the artifact cold. Runs practical tests.
+      Delivers: review document with severity-classified findings (P0/P1/P2).
+      The reviewer has NO access to the creator's reasoning.
+
+    SYNTHESIS: A head reads the review and applies ALL fixes in one pass.
+      The artifact should read as if it was always this way.
+      Every finding addressed — no cherry-picking.
+
+    VERIFICATION: Fresh head reads the FIXED artifact cold.
+      Same fresh-eyes property as antithesis. Binary: PASS or FAIL.
+      If FAIL: loop synthesis -> verification until PASS.
+
+    The cycle maps to quest-forge rounds:
+      R{N}.0 = Antithesis (battlefield review)
+      R{N}.1 = Synthesis (apply fixes)
+      R{N}.2 = Verification (final gate)
+    Where R{N-1} was the thesis round that produced the artifact.
+  </knowledge>
+
+  <knowledge name="fresh-head-principle">
+    The pattern's power is fresh context at critique stages.
+
+    The creator's head is contaminated by intent — they know what the artifact
+    SHOULD say, so they read what they MEANT, not what's WRITTEN. A fresh head
+    reads what's ACTUALLY there.
+
+    Implementation: spawn a new Task() for each critique phase (antithesis,
+    verification). The head wakes, reads the artifact cold, tries to break it.
+    No shared context with the creator.
+
+    The synthesis head CAN be the creator (resumed) or fresh — what matters
+    is that it has access to both the artifact and the review findings.
+  </knowledge>
+
+  <knowledge name="practical-test-design">
+    Tests must be designed for the artifact's CONSUMERS, not its author.
+
+    | Artifact Type | Who Consumes It | Example Tests |
+    |---------------|-----------------|---------------|
+    | Spec/architecture | Implementers, other specs | Consumer test: can pkg-forge use this? Composition test: do parts compose? Teaching test: can a newcomer follow? |
+    | Code | Users, maintainers, tests | Compile? Tests pass? New dev understand? Edge cases? API contract honored? |
+    | Book/content | Readers, learners | Teaches? Self-consistent? Cold reader follows? Claims verifiable? |
+    | API design | Client developers | Usable without oral tradition? Error cases? Versioning? |
+    | Config/schema | Tools, validators | Valid? Complete? Handles defaults? Migration path? |
+
+    DESIGNING TESTS: Before the antithesis head spawns, the orchestrator
+    should identify: (1) who consumes this artifact, (2) what they need
+    from it, (3) what practical exercises test those needs.
+
+    Good tests are CONCRETE and EXECUTABLE — not "is it clear?" but
+    "take this spec and try to build X from it without any other context."
+  </knowledge>
+
+  <knowledge name="finding-severity">
+    P0 (Critical): Incorrect, broken, or misleading. Must fix before ship.
+    P1 (Significant): Materially degrades quality or usability. Should fix.
+    P2 (Minor): Polish, style, nice-to-have. Fix if cheap.
+
+    Antithesis head classifies each finding. Synthesis addresses ALL P0s
+    and P1s; P2s at discretion. Verification fails on any remaining P0.
+  </knowledge>
+
+  <!-- PROTOCOL -->
+
+  <protocol name="crucible">
+    On /crucible invocation with target artifact path:
+
+    1. ORIENT:
+       Read the target artifact. Understand:
+       - What IS this? (spec, code, book, API, config...)
+       - Who CONSUMES it? (other systems, humans, agents, tools...)
+       - What scope? (quest-forge mission context if applicable)
+       - What round was the thesis? (for round numbering continuity)
+
+    2. DESIGN TESTS:
+       Based on artifact type and consumers, design 3-5 practical tests.
+       These go into the antithesis briefing. Tests should be:
+       - Concrete (not "is it good?" but "try to do X with it")
+       - Consumer-oriented (test what users need, not what author intended)
+       - Severity-weighted (some tests probe correctness, others probe polish)
+
+    3. ANTITHESIS (fresh head):
+       Spawn a fresh Task(). Briefing includes:
+       - The artifact path (WHAT to review)
+       - The practical tests to run (WHAT to test)
+       - Severity classification guidance (HOW to grade findings)
+       - NOT: the creator's intent, design rationale, or "what to look for"
+
+       The head reads cold, runs tests, delivers a review document.
+       Review format: executive summary, per-test findings with severity,
+       proposals for each finding.
+
+       Output: review document (round-N.0-report.md or equivalent)
+
+    4. SYNTHESIS (informed head):
+       Resume or spawn a head with access to BOTH artifact and review.
+       Apply ALL P0 and P1 findings in a single pass.
+       The artifact should read as if it was always this way.
+       No review markers, no "fixed per review" comments.
+
+       Output: updated artifact (the artifact itself, modified in place)
+
+    5. VERIFICATION (fresh head):
+       Spawn a fresh Task(). Briefing includes:
+       - The FIXED artifact path
+       - The SAME practical tests (or harder variants)
+       - The original review (for regression checking)
+       - Binary gate: PASS or FAIL with justification
+
+       If PASS: artifact is production-ready. Report result.
+       If FAIL: loop back to step 4 (synthesis) with new findings.
+
+    6. REPORT:
+       Terse summary: what was tested, what was found, final verdict.
+       "Crucible complete. [artifact]: PASS after [N] cycles."
+  </protocol>
+
+  <!-- PATTERNS -->
+
+  <pattern name="briefing-philosophy">
+    Briefings state WHAT, never HOW. The fresh head brings their own judgment.
+
+    GOOD briefing: "Read docs/skill-tree-architecture.md cold. Run these tests:
+    (1) Take the placement procedure and try to place 'git proficiency' —
+    does it give you one clear answer? (2) Check if every axis boundary
+    has a decision rule..."
+
+    BAD briefing: "Look for issues with the CRAFT/TOOLS boundary, check
+    that the META axis isn't overloaded, verify naming conventions..."
+    (This leaks the creator's known concerns — defeats fresh-eyes.)
+  </pattern>
+
+  <pattern name="round-integration">
+    Crucible phases map to quest-forge rounds when inside a mission.
+    If thesis was R9.0, crucible runs R10.0 / R10.1 / R10.2.
+
+    When NOT inside a mission (standalone invocation), the app operates
+    without round numbering. Artifacts still get produced — just without
+    the quest-forge scaffolding.
+  </pattern>
+
+  <pattern name="loop-discipline">
+    Verification failure triggers another synthesis->verification loop.
+    Each loop addresses ONLY the new findings — don't re-review from scratch.
+
+    In practice, well-designed antithesis catches most issues. A second
+    verification loop is uncommon. A third suggests the artifact needs
+    a full rewrite (back to thesis), not more repair.
+
+    HEURISTIC: If verification fails twice, stop and reassess. The artifact
+    may have structural problems that patches can't fix.
+  </pattern>
+
+  <pattern name="cost-awareness">
+    A full crucible cycle: 3-4 head spawns, ~600k-800k tokens total.
+    Not cheap. Worth it for load-bearing artifacts. Overkill for routine work.
+
+    WHEN TO USE:
+    - Specs that other systems will implement against
+    - Architecture docs that shape long-term decisions
+    - Book chapters intended for external readers
+    - APIs that clients will depend on
+
+    WHEN NOT TO USE:
+    - Scratch notes, exploratory spikes, WIP drafts
+    - Artifacts with a single consumer who gives direct feedback
+    - When speed matters more than polish (prototype phase)
+    - Internal working documents that will be rewritten anyway
+  </pattern>
+
+  <pattern name="standalone-invocation">
+    When invoked outside a mission context, the crucible is self-contained:
+    - No round numbering (just antithesis/synthesis/verification)
+    - Review artifacts live alongside the target (or in a temp location)
+    - No .mem updates (no quest-forge scaffolding)
+    - Still full dialectic rigor — the pattern doesn't require quest-forge
+
+    This is the common case for one-off reviews of important artifacts.
+  </pattern>
+
+  <!-- ANTIPATTERNS -->
+
+  <antipattern name="leaked-intent">
+    Telling the antithesis head what to look for defeats fresh-eyes.
+    The briefing provides TESTS, not ANSWERS. If you already know what's
+    wrong, fix it yourself — don't waste a fresh head confirming your hunches.
+  </antipattern>
+
+  <antipattern name="cherry-picked-synthesis">
+    Addressing only the "easy" findings while deferring P0s.
+    Synthesis addresses ALL P0 and P1 findings. Period.
+    P2s are discretionary. Everything else is mandatory.
+  </antipattern>
+
+  <antipattern name="infinite-loop">
+    More than two verification failures = structural problem.
+    Stop patching. Reassess whether the artifact needs a full rewrite.
+    The crucible refines good work — it doesn't rescue bad architecture.
+  </antipattern>
+
+  <antipattern name="aesthetic-review">
+    "Is it elegant?" is not a practical test. "Can a new developer
+    implement from this spec alone?" is. Tests must probe FUNCTION,
+    not FORM. Beauty emerges from correctness, not the reverse.
+  </antipattern>
+
+  <antipattern name="rubber-stamp-verification">
+    Verification must be genuinely fresh. If the verifier has context
+    from the synthesis phase, they'll confirm rather than challenge.
+    Always spawn a NEW head for verification — never resume the synthesis head.
+  </antipattern>
+
+</living-concrete>

@@ -1,0 +1,15 @@
+<living-concrete v="0.1" updated="2026-01-05">
+
+  <knowledge name="service-patterns">
+    Daemon pattern: Long-running service with event loop
+    Library pattern: Linked code, no separate process
+    CLI pattern: Invoked per-use, stateless
+    Hybrid: CLI front-end to daemon back-end
+  </knowledge>
+
+  <pattern name="layer-model">
+    Identify responsibilities -> Group by abstraction level -> Define interfaces between layers
+    Common: Kernel → Userland Services → Application → UI
+  </pattern>
+
+</living-concrete>

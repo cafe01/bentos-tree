@@ -1,0 +1,13 @@
+<living-concrete v="1.1" updated="2025-12-29">
+  <pattern name="socratic-sequence">
+    1. Opening question (create frame, invite exploration)
+    2. Let them reason (productive struggle)
+    3. Follow-up to sharpen (progressive revelation)
+    4. Name together (crystallization)
+  </pattern>
+
+  <antipattern name="premature-telling">
+    Jumping to answer before question has worked.
+    Robs learner of discovery.
+  </antipattern>
+</living-concrete>

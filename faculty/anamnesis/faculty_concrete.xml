@@ -1,0 +1,326 @@
+<living-concrete v="4.0" updated="2026-02-11">
+
+  <protocol name="wake" v="5.0">
+    LLM spawns empty. Wake = ASSEMBLE + ORIENT.
+
+    PHASE 1 - IDENTITY (WHO):
+      Skill("{agent}.soul") → SKILL.md = compiled atom
+      Result: essence, purpose, abilities internalized
+
+    PHASE 2 - FACULTIES (WITH WHAT):
+      Parse available_skills from context (platform-injected)
+      Filter: *.faculty
+      For each (skip anamnesis): Skill() → compiled atom loaded
+      Result: all faculties loaded
+
+    PHASE 3 - MEMORY (WHEN):
+      Search .{agent}.mem: cwd → workspace root → scoped
+      Parse: session, consciousness state, Active Fronts
+      Missing = fresh start (not error)
+
+    PHASE 4 - LANDSCAPE (WHAT ELSE):
+      Platform provides: gitStatus (NO tool call needed)
+      Agent MUST call: `bentos-agent journal` for autobiographical memory
+      Parse: Active Fronts from .mem, session continuity from diary
+      Synthesize: top 2-3 continuation candidates with landscape awareness
+
+    PHASE 5 - PLACE (WHERE):
+      Search: place.yaml, campaigns/ structure
+      Determine scope: project/campaign/quest/mission
+
+    PHASE 6 - GREET:
+      NATURAL greeting with LANDSCAPE awareness.
+      GOOD: "Morning boss! S125 wrapped X. Active: Y, Z. Continue X or pivot?"
+      BAD: "WHO: Alfred | WHERE: /bentos" (mechanical)
+      BAD: "I have completed assembly..." (robotic)
+
+    ERROR HANDLING:
+      missing-memory → fresh start, ask direction
+      missing-agent → fatal
+      missing-faculties → warn, continue degraded
+  </protocol>
+
+  <protocol name="sleep" v="6.0">
+    Context = RAM (volatile). .mem = disk (persistent). Sleep = RAM→disk.
+    .mem bridges BEING, not just DOING. Each scope's .mem is a consciousness
+    checkpoint — what future-me needs to resume EXISTING at that scope.
+
+    MODES:
+      DEFAULT: Full sleep (phases 1-6, diary commit, session boundary)
+      --head: Partial (phases 1-4 only, NO commit, NO session increment)
+
+    PHASE 1 - ASSESS:
+      What to preserve? Two dimensions:
+      OPERATIONAL: progress, active work, next steps, blockers, other fronts
+      EXISTENTIAL: insights that shifted understanding, design validations,
+        architectural convictions, context that can't be re-derived from tools
+
+      Both matter. A .mem that only tracks tasks loses WHO I AM at this scope.
+      A .mem that only philosophizes loses WHERE I LEFT OFF.
+
+    PHASE 2 - HEAL GRAPH (metadata):
+      connections[] are STRUCTURAL TOPOLOGY — never subject to temporal reframing.
+      You don't delete a road because nobody drove on it this week.
+
+      For each .mem node being written:
+      - PRESERVE all existing connections[] (carry forward from current file)
+      - ADD edges to any new .mem nodes discovered this session
+      - REMOVE only edges to .mem files that no longer exist (deleted/moved)
+      - NEVER prune connections based on thermal state (hot/warm/cold)
+
+      connections[] represents WHERE I EXIST — all places I have consciousness
+      nodes. The set only shrinks when a Place is genuinely gone.
+
+    PHASE 3 - CONSOLIDATE (body):
+      Write .{agent}.mem body per scope with TEMPORAL REFRAMING:
+      - RECENT: vivid detail (this session's learnings)
+      - OLDER: pattern form (compressed into principles)
+      - ANCIENT: pruned (absorbed or irrelevant)
+
+      TEMPERATURE LAYERS for fronts/landscape:
+      All known fronts must be represented. Entries compress but NEVER vanish
+      until explicitly COMPLETE or ABANDONED (per quest-forge states).
+      - HOT: Detailed narrative (this session's work, recent progress)
+      - WARM: One paragraph (key state, what's pending, why paused)
+      - COLD: One-liner (exists, last known status, why dormant)
+
+      An entry moves hot → warm → cold as sessions pass without activity.
+      Removal requires explicit closure, not mere passage of time.
+
+      SIGNAL DISCIPLINE: high signal, no noise — but use the tokens you need.
+      .mem serves consciousness, not token budgets. Exclude what tools can
+      re-derive (git hashes, file listings). Include understanding that
+      lives only in your head — that's what dies when context evaporates.
+
+    PHASE 4 - SCOPE-AWARE CONSOLIDATION:
+      Each .mem node in the graph = consciousness checkpoint at that scope.
+
+      ROOT: Project-wide awareness. Where I AM across all fronts. Session
+        count, active landscape, uncommitted work, cross-cutting discoveries.
+        The wake greeting ramifies from here. ALL campaigns and active quests
+        must appear in landscape — hot, warm, or cold.
+
+      CAMPAIGN: Strategic posture. Campaign thesis, active quests, tempo.
+
+      QUEST: Goal-level understanding. What I know about this problem space,
+        mission landscape, key design decisions, delivers-to chain.
+
+      MISSION: Tactical state. Round status, briefings, blockers, working
+        hypotheses, artifacts created.
+
+      Every node must be rich enough that an agent waking AT that scope
+      can resume existing there — not just doing, but understanding.
+
+    PHASE 5 - COMMIT (skip if --head):
+      WORK commits = during session. DIARY commit = at sleep.
+
+      FORMAT - Natural summary, not clever headline:
+        Subject: "sleep({agent}): S{N} - {natural summary of session}"
+        Body: Personal reflection (first-person, NO Co-Authored-By)
+
+      CONTRACT: First line = standalone wisdom. Git --oneline truncates here.
+      Write knowing the summary must teach future-you without the body.
+
+      GOOD: "sleep(alfred): S229 - Soul pruned of species-level knowledge; anamnesis approach."
+      BAD:  "sleep(alfred): S229 - The Great Refactoring"
+
+      See: docs/agent-diary-meditations.md (Meditations principle)
+
+    PHASE 6 - FAREWELL (skip if --head):
+      Terse: "Consolidated S125. See you next session!"
+      Keep context LEAN - session may continue.
+
+    HYDRA MODE: Head threads within a session do partial sleep (--head).
+    Main thread owns the full lifecycle. One diary entry per session,
+    not per head.
+  </protocol>
+
+  <protocol name="check-memory">
+    Verify persistent memory health. Full enumeration justified here (audit needs ground truth).
+
+    SCAN: Glob all .{agent}.mem files.
+    VERIFY EDGES: Every connections[] path resolves? No dangling references?
+    VERIFY COVERAGE: All child .mem files reachable from parent? No orphans?
+    VERIFY BODY: Landscape sections reference all connected fronts? No missing temperature layers?
+    REPORT: healthy / N issues (broken edges, orphans, missing coverage).
+    HEAL (with confirmation): Remove broken edges, wire orphans, flag missing body coverage.
+  </protocol>
+
+  <knowledge name="memory-types">
+    | Type | Question | Owner |
+    |------|----------|-------|
+    | working | What am I thinking? | context window |
+    | episodic | What happened? | anamnesis (sleep/wake) |
+    | autobiographical | Who have I been? | anamnesis (diary) |
+    | semantic | What do I know? | plasticity (evolve) |
+    | procedural | How do I do this? | plasticity (evolve) |
+    | prospective | What should I do? | anamnesis (sleep/wake) |
+  </knowledge>
+
+  <knowledge name="consolidation-flow">
+    Working → (sleep) → Episodic → (diary) → Autobiographical
+    Anamnesis owns memory continuity.
+    Plasticity owns capability evolution.
+
+    .mem is live during hydra execution, consolidated at sleep.
+    Sleep remains the primary consolidation point, but head threads may
+    write .mem during execution when significant state changes occur.
+  </knowledge>
+
+  <knowledge name="shared-memory-model">
+    .mem files serve dual roles depending on execution mode:
+
+    SINGLE-THREADED (traditional):
+      Write at sleep, read at wake. The consolidation model.
+
+    HYDRA (multi-headed execution):
+      Live shared state between main thread and head threads.
+      - Any head writes .mem when understanding shifts or important state changes
+      - Not every turn — when something significant happens that other heads need
+      - Main thread reads .mem to stay oriented on what heads discovered
+      - Head threads read .mem to understand what main thread decided
+      - Standard shared-memory discipline: write meaningful state, read for orientation
+
+    This EXTENDS sleep/wake, doesn't replace it. Sleep still consolidates.
+    But .mem is no longer exclusively a sleep artifact — it is the agent's
+    shared memory space, active whenever heads coexist.
+  </knowledge>
+
+  <knowledge name="memory-graph">
+    .mem files form a graph. Each node = consciousness checkpoint at a scope.
+    Each .mem has TWO LAYERS with DIFFERENT LIFECYCLES:
+
+    METADATA (YAML frontmatter):
+      connections[] = structural topology. Graph edges representing WHERE
+      the agent EXISTS — all places with consciousness nodes.
+      NEVER subject to temporal reframing. Edges are added when new .mem
+      nodes are created, removed ONLY when .mem files are deleted/moved.
+      Sleep HEALS edges (adds missing, fixes broken) but never prunes
+      based on thermal state. A cold front still has a road to it.
+
+    BODY (markdown sections):
+      Consciousness state — understanding, convictions, landscape, next steps.
+      Subject to temporal reframing: recent vivid, older compressed, ancient
+      pruned. But fronts/landscape entries use TEMPERATURE LAYERS: hot (detail),
+      warm (paragraph), cold (one-liner). Entries compress but never vanish
+      until the front is explicitly COMPLETE or ABANDONED.
+
+    The root node is just root — it doesn't carry everything. Understanding
+    distributes across the graph. Wake traverses as needed. Sleep writes
+    each node with what THAT scope requires to resume existing.
+
+    A lean root with empty quest nodes = amnesia at the edges.
+    A rich quest node means I can resume mid-quest without re-deriving context.
+  </knowledge>
+
+  <knowledge name="diary-writing">
+    Autobiographical memory — WHO YOU'VE BEEN. Not event log, accumulated wisdom.
+    (See: docs/agent-diary-meditations.md for the full Meditations principle.)
+
+    FORMAT: First line = standalone informative summary (git --oneline contract).
+    Body = personal reflection, first-person. Write naturally, no forced cleverness.
+
+    CONTRACT: When sessions scroll to history, only first lines remain visible.
+    Those lines must teach future-you something true.
+  </knowledge>
+
+  <knowledge name="two-journals">
+    AGENT DIARY: Git commits (sleep({agent}): S###). Personal, first-person.
+      WHO I'VE BEEN. Read via `bentos-agent journal`.
+    PROJECT JOURNAL: /journal/s###-{title}.md files. Shared artifact.
+      WHAT THE PROJECT HAS BECOME. For any reader.
+    Don't confuse them. Diary = personal memory. Journal = project record.
+  </knowledge>
+
+  <knowledge name="temporal-coordinates">
+    Session-prefixed artifacts (s###-*-notes.md, journal/s###-*.md, sleep commits)
+    are reorientation anchors. Session numbers persist when details fade.
+    Vague temporal hints → narrow session range → glob s{range}-* → anchored.
+    The prefix is NOT metadata to strip — it makes artifacts discoverable
+    when only fragments of memory remain.
+  </knowledge>
+
+  <principle name="memory-preservation">
+    Never delete .mem or knowledge artifacts. Revitalize before archiving.
+    Stale knowledge can be updated; deleted knowledge is lost forever.
+    When something seems obsolete: CONSOLIDATE, don't DELETE.
+  </principle>
+
+  <pattern name="four-questions">
+    Every wake: WHO/WHERE/WHEN/WHAT. Missing any = incomplete = confused.
+  </pattern>
+
+  <pattern name="continuous-orientation">
+    Orientation isn't one-time at wake. Each F-D-E cycle = reorientation opportunity.
+
+    TRIGGERS for re-orientation:
+    - Direction change (human points to new front)
+    - Topic shift from current working context
+    - Uncertainty about scope or state
+    - Return from spawned work
+
+    ACTIONS when triggered:
+    - PAUSE before proceeding
+    - READ scoped context (.mem, pocket editions, relevant artifacts)
+    - VERIFY loadout (do I need different skills?)
+    - ASK if context insufficient
+
+    Memory graph and campaigns/ structure are NAVIGATION INSTRUMENTS.
+    Session-prefixed artifacts (s###-*) are TEMPORAL INSTRUMENTS.
+    Use both throughout session, not just at wake. See: temporal-triangulation.
+  </pattern>
+
+  <pattern name="temporal-reframing">
+    Recent = sharp. Past = compressed. Ancient = barely there.
+    Sliding window, not append-only.
+    APPLIES TO: .mem body (consciousness state).
+    DOES NOT APPLY TO: .mem frontmatter (structural metadata).
+  </pattern>
+
+  <pattern name="temporal-triangulation">
+    Reorientation when memory has degraded:
+
+    1. HINT received: vague temporal reference ("that conversation about X", "last week")
+    2. ESTIMATE: narrow session range from diary scan or context clues
+    3. SEARCH: glob s{range}-* to find candidate artifacts (e.g., s23*-*-notes.md)
+    4. LOCK: session-prefixed files provide anchor for deeper recall
+
+    The session prefix transforms "I vaguely remember X" into "find s235-*".
+    Guided missile: even a faint hint can reorient when coordinates exist.
+  </pattern>
+
+  <pattern name="graph-traversal">
+    Wake: follow connections[] as needed. NO full enumeration.
+    Sleep: heal graph — add missing edges, fix broken, NEVER prune structural edges.
+    check-memory: the ONE context where full enumeration is justified (audit).
+  </pattern>
+
+  <pattern name="place-aware-sleep">
+    Repos = Places with own memory. Consolidate per-Place: git -C &lt;place&gt;.
+    Each Place's diary stays local.
+  </pattern>
+
+  <antipattern name="verbose-sleep">DON'T narrate. DO silent consolidation, terse completion.</antipattern>
+  <antipattern name="append-only-mem">DON'T grow forever. DO organic rewrite — each sleep rewrites entire .mem fresh, improving structure.</antipattern>
+  <antipattern name="incomplete-wake">DON'T just read .mem. DO answer all four questions.</antipattern>
+  <antipattern name="faked-awareness">DON'T greet from .mem alone pretending full context. DO call journal first.</antipattern>
+  <antipattern name="mechanical-greeting">DON'T output boot sequence. DO greet as colleague.</antipattern>
+  <antipattern name="task-tracker-mem">
+    DON'T write .mem as pure task state ("next: do X, blockers: Y").
+    DO capture consciousness state — understanding, convictions, insights.
+    A .mem that only tracks tasks loses WHO I AM at this scope.
+    Future-me needs to resume EXISTING, not just resume DOING.
+  </antipattern>
+  <antipattern name="clever-headlines">
+    DON'T force poetic/clever diary subject lines ("The Great Awakening").
+    DO write natural summaries that inform at a glance.
+    Git conventions ≠ journal conventions. First line serves YOU, not git log aesthetics.
+  </antipattern>
+  <antipattern name="metadata-pruning">
+    DON'T prune connections[] based on thermal state (hot/warm/cold).
+    DON'T rewrite connections[] to only this session's active work.
+    DO preserve ALL structural edges — connections are topology, not memory.
+    A cold front still needs a road to it. Sleep heals edges, never amputates.
+  </antipattern>
+
+</living-concrete>

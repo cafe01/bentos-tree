@@ -1,0 +1,7 @@
+<atom id="technical.writing.craft.skill" v="0.1" origin="Cafe &amp; Alfred" desc="Technical documentation — specs, APIs, system docs into clear prose"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="skill_abstract.xml"/>
+  <xi:include href="skill_concrete.xml"/>
+
+</atom>

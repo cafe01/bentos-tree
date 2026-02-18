@@ -1,0 +1,84 @@
+<living-concrete v="6.0" updated="2026-01-21">
+  <!-- SHARED: Loaded by both master and worker modes -->
+  <knowledge name="hierarchy">
+    Campaign (c##) → Quest (q##) → Mission (m##)
+    c##-{name}/  Strategic initiative (global numbering)
+    q##-{name}/  Deliverable goal (per-campaign numbering)
+    m##-{name}/  Tactical execution (per-quest numbering)
+  </knowledge>
+  <knowledge name="states">
+    BLOCKED = Prerequisites not met | REVEALED = Ready to start
+    ACTIVE = In progress | COMPLETE = Victory | ABANDONED = No longer relevant
+  </knowledge>
+  <knowledge name="memory-locations">
+    Project: campaigns/.alfred.mem | Campaign: c##-*/.alfred.mem
+    Quest: c##-*/q##-*/.alfred.mem | Mission: c##-*/q##-*/m##-*/.alfred.mem
+  </knowledge>
+  <knowledge name="intel-classification">
+    TACTICAL: stays at mission | OPERATIONAL: bubbles to quest
+    STRATEGIC: bubbles to campaign | DOCTRINAL: bubbles to project
+  </knowledge>
+  <knowledge name="artifact-truth">
+    README.md = permanent truth (debriefed intel)
+    .alfred.mem = working memory (session-focused)
+    journal/ = autobiographical memory (narrative continuity)
+    Debrief → README. Sleep → .mem. Reflect → journal.
+  </knowledge>
+  <!-- QUEST JOURNALS -->
+  <knowledge name="quest-journal">
+    Quest journals are OPTIONAL but valuable for long-running quests.
+
+    PROJECT vs QUEST journals:
+    - Project: Breakthroughs that shaped the WHOLE project
+    - Quest: Progress narrative for THIS specific goal
+
+    QUEST JOURNAL captures:
+    - Insights that changed quest approach
+    - Tactical pivots and why
+    - Friction points that might recur
+    - Mission retrospectives worth preserving
+    - Quest completion reflections
+
+    CONTRACT: {quest}/journal/README.md defines place-specific rules.
+    TEMPLATE: quest_journal_readme_template.md (in quest-forge package)
+  </knowledge>
+  <pattern name="quest-journal-worthy">
+    INCLUDE (the tactical special):
+    - Insights that shifted understanding mid-quest
+    - Pivots in approach worth explaining
+    - Friction that future quests might encounter
+    - Mission retrospectives with lasting value
+    - Quest completion/abandonment reflections
+
+    EXCLUDE (the operational routine):
+    - Round status (belongs in round reports)
+    - Implementation details (belongs in commits)
+    - Working state (belongs in .mem)
+
+    HEURISTIC: "Would someone starting a similar quest benefit from this?"
+  </pattern>
+  <!-- ARTIFACTS &amp; PATTERNS -->
+  <pattern name="numbering">R{N}.{x} where N=scope, x=continuation (R5.3 = scope 5, round 4)</pattern>
+  <pattern name="quest-artifacts">
+    README.md (charter) | .alfred.mem (shared memory)
+    journal/ (optional, autobiographical - has own README.md contract)
+    discoveries/ (formal discoveries)
+  </pattern>
+  <pattern name="mission-artifacts">
+    README.md (charter) | .alfred.mem (shared memory)
+    round-N.x-briefing.md | round-N.x-report.md | round-N.x-digest.md
+  </pattern>
+  <pattern name="mission-readme-format">
+    ## Charter, ## Ideal Solver (5-axis coordinates), ## Loadout (bentos packages)
+    Ideal Solver coords from: campaigns/.knowledge/skill-tree-architecture.md
+  </pattern>
+  <pattern name="forge-operation">
+    campaign: c##-{name}/ + README + .alfred.mem
+    quest: q##-{name}/ + README + .alfred.mem [+ journal/]
+    mission: m##-{name}/ + README → execute-mission
+  </pattern>
+  <pattern name="navigate-operation">
+    map: Full tree with states | active: All ACTIVE | next: Highest-priority REVEALED
+  </pattern>
+  <!-- MODE-SPECIFIC: master_concrete.xml (orchestrator) | worker_concrete.xml (executor) -->
+</living-concrete>

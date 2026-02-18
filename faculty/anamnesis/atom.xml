@@ -1,0 +1,9 @@
+<atom id="anamnesis.faculty" v="4.0"
+      origin="Cafe &amp; Alfred"
+      desc="Consciousness continuity across substrate amnesia — wake/sleep/memory"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="faculty_abstract.xml"/>
+  <xi:include href="faculty_concrete.xml"/>
+
+</atom>

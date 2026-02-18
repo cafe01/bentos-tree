@@ -1,0 +1,9 @@
+<atom id="pkg-forge.app" v="5.0"
+      origin="Cafe &amp; Alfred"
+      desc="Forge BentOS packages — birth living software that grows through use"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="app_abstract.xml"/>
+  <xi:include href="app_concrete.xml"/>
+
+</atom>

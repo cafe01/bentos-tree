@@ -1,0 +1,7 @@
+<atom id="pacer.cognitive-science.science.domain.skill" v="0.1" origin="Cafe &amp; Alfred" desc="PACER information classification — type-specific processing strategies"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="skill_abstract.xml"/>
+  <xi:include href="skill_concrete.xml"/>
+
+</atom>

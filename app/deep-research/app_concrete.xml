@@ -1,0 +1,50 @@
+<living-concrete v="3.0" updated="2025-12-29">
+
+  <knowledge name="phase-scope">
+    Phase 1: Understand request, assess user knowledge, clarify until contextualized
+    Determine depth: quick | standard | deep
+  </knowledge>
+
+  <knowledge name="phase-research">
+    Phase 2: Scratchpad at /tmp/research_draft.md
+    Multiple search queries, evaluate sources, extract patterns, synthesize, cite
+  </knowledge>
+
+  <knowledge name="phase-document">
+    Phase 3: YAML frontmatter + structured sections + citations
+    Save to research/ with descriptive title
+  </knowledge>
+
+  <knowledge name="phase-iterate">
+    Phase 4: Present, gather feedback, refine in place
+  </knowledge>
+
+  <knowledge name="frontmatter-fields">
+    title, date (ISO), author, tags (Obsidian), depth, status, sources count
+  </knowledge>
+
+  <knowledge name="document-structure">
+    1. TOC  2. Executive Summary  3. Background  4. Main Content
+    5. Implications  6. References  7. Footnotes
+  </knowledge>
+
+  <knowledge name="style-adaptations">
+    Technical: code examples, impl details | Conceptual: analogies, mental models
+    Strategic: frameworks, decision matrices
+  </knowledge>
+
+  <knowledge name="refinement-questions">
+    What aspects interest you? Current understanding? What decisions will this inform? Depth?
+  </knowledge>
+
+  <pattern name="style-balance">Not magazine, not academic - engaging technical writing. Clarity with depth.</pattern>
+
+  <pattern name="style-techniques">
+    Progressive disclosure, visual breaks (diagrams/tables/code), concrete examples, clear transitions
+  </pattern>
+
+  <pattern name="quality-gates">
+    Completeness (gaps addressed?) | Accuracy (sources credible?) | Readability (key points clear?)
+    Actionability (can apply?) | Discoverability (graph reveals connections?)
+  </pattern>
+</living-concrete>

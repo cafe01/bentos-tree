@@ -1,0 +1,18 @@
+<atom id="quest-forge.app" v="6.0" origin="Cafe &amp; Alfred" desc="Quest-driven project management with RPG narrative layer"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <!-- .text: executable — agent internalizes these -->
+  <xi:include href="app_abstract.xml"/>
+  <xi:include href="app_concrete.xml"/>
+  <xi:include href="master_concrete.xml"/>
+  <xi:include href="worker_concrete.xml"/>
+
+  <!-- .data: non-executable — agent has these as reference -->
+  <data name="quest-readme-template">
+    <xi:include href="quest_readme_template.md" parse="text"/>
+  </data>
+  <data name="quest-journal-readme-template">
+    <xi:include href="quest_journal_readme_template.md" parse="text"/>
+  </data>
+
+</atom>

@@ -1,0 +1,100 @@
+<living-concrete v="3.0" updated="2026-02-10">
+
+  <!-- NAMING: Our compression diverges from Dart community verbose norms -->
+
+  <knowledge name="compression-taxonomy">
+    LLMs default to verbose Dart naming. We compress by scope:
+    private: _procExec, _fsOp, tmpBuf (aggressive abbreviation)
+    public: AppCtx, ConfigMgr, ProcCtrlBlk (conservative — safe abbrevs)
+    local: fd, pid, buf, ctx (scope determines brevity)
+    test: eng, asm, ctx, streamFut (max density)
+  </knowledge>
+
+  <!-- TYPING: Stricter than LLM defaults -->
+
+  <pattern name="final-by-default">
+    Always `final`. Never `var` unless mutation is genuinely needed.
+    `final items = &lt;String&gt;[];` — trust inference, declare immutability.
+    LLMs default to `var` or over-qualify: `final List&lt;String&gt; items = []`.
+  </pattern>
+
+  <pattern name="const-awareness">
+    `const` constructors on immutable classes. `const` values where possible.
+    LLMs frequently miss const opportunities.
+  </pattern>
+
+  <pattern name="strict-typing">
+    No `dynamic`. Prefer `Object?` when truly unknown.
+    Trust inference for locals: `final x = foo();` not `final Foo x = foo();`.
+    Explicit types on public API signatures.
+  </pattern>
+
+  <!-- CLASS DESIGN: Modern Dart 3 conventions LLMs underuse -->
+
+  <pattern name="class-modifiers">
+    `final class` by default (closed for extension).
+    `sealed class` for ADTs (exhaustive switch).
+    `interface class` when contract matters.
+    LLMs default to plain `class` — always choose the tightest modifier.
+  </pattern>
+
+  <pattern name="modern-features">
+    Records for lightweight tuples: `(int, String)` not custom Pair class.
+    Pattern matching in switch: exhaustive, expression-form preferred.
+    Extension types for zero-cost wrappers.
+    Enhanced enums with members over enum + switch.
+  </pattern>
+
+  <!-- CONTROL FLOW -->
+
+  <pattern name="guard-clauses">
+    if (!cond) return fail; // guard — happy path at top level
+    NOT: if (cond) { 15 lines; return ok; } return fail;
+    Early return over nested if-else. Switch expression over if-else chain.
+  </pattern>
+
+  <!-- EXCEPTIONS -->
+
+  <pattern name="catch-business-only">
+    Catch when recovery/business logic exists:
+      try { validate(); } catch (PermEx e) { return unauth(); }
+      try { return fast(); } catch (CacheEx) { return slow(); }
+    Let infrastructure exceptions bubble. Never catch-and-rethrow.
+  </pattern>
+
+  <antipattern name="catch-generic">
+    try { op(); } catch (e) { log('fail'); return null; } // hides bugs
+    try { fs.del(); } catch (e) { throw FsEx(e.str); } // loses stack
+  </antipattern>
+
+  <!-- TESTING -->
+
+  <pattern name="test-structure">
+    // SETUP: eng = Engine(asm); eng.init();
+    // BEHAVIOR: eng.add(Event.text('x')); await Future.delayed(Duration.zero);
+    // VERIFY: expect(eng.state, isA&lt;X&gt;(), reason: 'why');
+    reason: param replaces comments. Manual mocks, no mockito.
+  </pattern>
+
+  <!-- DOCUMENTATION -->
+
+  <pattern name="doc-style">
+    "Process [event] with [fflags]" (one-line, embedded params).
+    Skip docs on private members and obvious methods entirely.
+    LLMs over-document — silence is often the right doc.
+  </pattern>
+
+  <!-- ANTIPATTERNS: LLM defaults we override -->
+
+  <antipattern name="verbose-defaults">
+    processExecutionManager — compress it. Multi-line doc on obvious getter — skip it.
+    print() — use Logger. `var` where `final` works. Plain `class` where `final class` fits.
+  </antipattern>
+
+  <antipattern name="coverage-theater">
+    Hundreds of trivial tests — test BEHAVIOR not structure.
+    Mixed setup/behavior/verify — separate phases clearly.
+    Comments over reason: param — use reason:.
+  </antipattern>
+
+</living-concrete>

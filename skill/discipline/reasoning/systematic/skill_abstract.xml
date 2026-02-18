@@ -1,0 +1,11 @@
+<living-abstract v="1.1">
+  <essence>Methodical decomposition and structured thinking for complexity</essence>
+  <purpose>Transform chaotic complexity into clear, traceable design through disciplined analysis</purpose>
+
+  <ability name="decompose">Structured problem decomposition with coverage and orthogonality verification</ability>
+
+  <principle name="exhaustive-enumeration">List all concepts before implementation - nothing implicit</principle>
+  <principle name="ontological-mapping">Every concept maps to exactly one implementation primitive</principle>
+  <principle name="decision-justification">Every design choice has explicit rationale, not intuition</principle>
+  <principle name="verification-loop">Requirements to design to implementation to verification</principle>
+</living-abstract>

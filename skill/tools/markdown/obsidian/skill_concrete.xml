@@ -1,0 +1,93 @@
+<living-concrete v="1.0" updated="2026-01-26">
+
+  <knowledge name="obsidian-indexed-fields">
+    Obsidian natively indexes these YAML frontmatter fields:
+    - `tags:` - Appears in tags pane, searchable, clickable
+    - `aliases:` - Alternative names for the note (search, linking)
+    - `cssclasses:` - Custom styling classes
+
+    All other frontmatter fields are stored but NOT indexed by Obsidian core.
+    They ARE queryable via Dataview plugin.
+  </knowledge>
+
+  <knowledge name="dataview-queryable">
+    Any frontmatter field can be queried with Dataview:
+    ```dataview
+    TABLE status, version FROM "books"
+    WHERE status = "DRAFT"
+    ```
+
+    This enables app-specific metadata (status, version, author, dates)
+    without polluting Obsidian's native index.
+  </knowledge>
+
+  <knowledge name="link-compatibility">
+    | Syntax | Obsidian | GitHub | VS Code | Others |
+    |--------|----------|--------|---------|--------|
+    | `[Text](path.md)` | Works | Works | Works | Works |
+    | `[[wikilink]]` | Works | Broken | Broken | Broken |
+
+    Standard markdown links are the only portable choice.
+  </knowledge>
+
+  <pattern name="portable-frontmatter">
+    Structure frontmatter in two sections:
+    ```yaml
+    ---
+    # Obsidian-indexed (native search, tags pane)
+    tags: [concept, architecture]
+    aliases: ["The Pattern", "Design Pattern"]
+
+    # App-specific metadata (Dataview-queryable)
+    status: DRAFT
+    version: 1.0
+    created: 2026-01-26
+    ---
+    ```
+
+    Comment separators optional but aid human readability.
+  </pattern>
+
+  <pattern name="standard-links">
+    Always use standard markdown links:
+    - `[Chapter 1](./chapter-1.md)` - relative paths
+    - `[API Reference](../api/reference.md)` - cross-directory
+    - `[External](https://example.com)` - URLs
+
+    Never use wikilinks (`[[note]]`) in portable documents.
+  </pattern>
+
+  <pattern name="yaml-tags">
+    Tags belong in frontmatter, not prose:
+    ```yaml
+    tags: [architecture, pattern, core]
+    ```
+
+    NOT inline: `This is about #architecture and #patterns`
+
+    Frontmatter tags are cleaner, more queryable, and don't clutter reading.
+  </pattern>
+
+  <antipattern name="wikilinks">
+    `[[wikilinks]]` and `[[note|alias]]` syntax.
+    Beautiful in Obsidian, renders as broken text everywhere else.
+    GitHub shows literal brackets. VS Code shows nothing.
+    Violates portability-first principle.
+  </antipattern>
+
+  <antipattern name="inline-tags">
+    `#tags` scattered through prose.
+    Clutters reading experience, harder to query than YAML,
+    and some markdown renderers display them as headings or literals.
+  </antipattern>
+
+  <antipattern name="obsidian-only-features">
+    Features that break portability:
+    - `![[embedded notes]]` - broken outside Obsidian
+    - `%%comments%%` - Obsidian-specific
+    - `> [!callout]` - Some renderers support, many don't
+
+    Use standard markdown equivalents when portability matters.
+  </antipattern>
+
+</living-concrete>

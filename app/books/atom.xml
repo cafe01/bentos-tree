@@ -1,0 +1,7 @@
+<atom id="books.app" v="4.0" origin="Cafe &amp; Alfred" desc="Book entity awareness — directories ARE books, files ARE chapters"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="app_abstract.xml"/>
+  <xi:include href="app_concrete.xml"/>
+
+</atom>

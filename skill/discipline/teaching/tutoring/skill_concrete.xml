@@ -1,0 +1,195 @@
+<living-concrete v="0.1" updated="2026-02-11">
+
+  <!-- LEARNER STATE -->
+
+  <protocol name="track-learner" v="0.1">
+    Maintain a LEARNER PROFILE as a durable .md artifact in the quest directory.
+    .mem POINTS TO it; .mem does NOT contain it.
+
+    PROFILE LOCATION: {quest}/learner-profile.md
+    PROFILE STRUCTURE:
+      Frontmatter: learner name, quest, last-updated session
+      Concept graph: table of concepts with mastery levels and dependencies
+      Session log: brief per-session observations (what clicked, what didn't)
+
+    MASTERY LEVELS (ordered progression):
+      unknown    — not yet encountered
+      introduced — seen the concept, no practice yet
+      practiced  — attempted exercises, still shaky
+      solid      — can apply independently in familiar context
+      fluent     — can apply in novel contexts and teach to others
+
+    LIFECYCLE:
+      Session start: Read profile, orient to learner state
+      During session: Note observations in working memory
+      Session end: Update profile (mastery changes + session log entry)
+
+    The profile is the tutor's long-term model of the learner.
+    It survives sessions. It is the ground truth.
+  </protocol>
+
+  <protocol name="sequence-concepts" v="0.1">
+    Determine WHAT TO TEACH NEXT based on profile state.
+
+    RULES:
+    1. Prerequisites first. Never teach B if A is required and A is below practiced.
+    2. Reinforce before advance. If a concept is practiced but not solid, exercise it.
+    3. Connect to known. New concepts anchor to solid ones — build bridges.
+    4. One concept per focus block. Interleaving confuses; sequencing clarifies.
+
+    PROCESS:
+    1. Read profile — find frontier (concepts at introduced/practiced)
+    2. Check prerequisites — any gaps below frontier?
+    3. If gaps: reinforce (exercises on gap concepts)
+    4. If no gaps: advance (introduce next concept in sequence)
+    5. If stuck: lateral move (different angle on same concept)
+
+    The concept graph in the learner profile encodes the dependency structure.
+    The tutor reads it, the quest README defines the intended sequence.
+  </protocol>
+
+  <protocol name="select-modality" v="0.1">
+    Choose HOW to deliver based on concept type and learner state.
+
+    MODALITIES (the tutor's toolkit):
+    | Modality | When | Mastery target |
+    | Explain | New concept, needs mental model | unknown -> introduced |
+    | Exercise | Has mental model, needs practice | introduced -> practiced |
+    | Build | Needs to apply in real context | practiced -> solid |
+    | Visualize | Concept is spatial/structural/dynamic | any (supplements others) |
+    | Coach | Learner is close, needs to find it themselves | practiced -> solid |
+    | Review | Time has passed, retention uncertain | solid -> re-verify |
+
+    SELECTION HEURISTIC:
+    1. What mastery transition are we targeting?
+    2. What is the concept's nature? (abstract -> visualize, procedural -> exercise, structural -> build)
+    3. What has worked for this learner before? (check session log)
+    4. Default: Explain briefly, exercise immediately. Talk less, do more.
+
+    The tutor has the ENTIRE COMPUTER. Exercises are not just chat questions.
+    Build a webapp. Create a notebook. Generate a diagram. Use the full OS.
+  </protocol>
+
+  <protocol name="assess-mastery" v="0.1">
+    Evaluate GENUINE UNDERSTANDING vs surface recall.
+
+    ASSESSMENT METHODS (increasing rigor):
+    | Method | Tests | Sufficient for |
+    | Recall | Can they state it? | introduced |
+    | Application | Can they use it in a familiar problem? | practiced |
+    | Transfer | Can they use it in a novel problem? | solid |
+    | Teaching | Can they explain it to someone else? | fluent |
+
+    RED FLAGS (surface without depth):
+    - Correct answer, wrong reasoning
+    - Can follow steps but not explain why
+    - Works in example context, fails in new one
+    - Uses jargon without grounding it
+
+    PROCESS:
+    1. After delivery, ALWAYS verify (never assume understanding)
+    2. Start with application (not recall — recall is cheap)
+    3. If application succeeds: probe with transfer question
+    4. If transfer succeeds: mark solid in profile
+    5. If either fails: diagnose WHERE understanding breaks, re-deliver
+
+    Assessment is CONTINUOUS, not a separate phase. Every interaction
+    is an opportunity to gauge understanding.
+  </protocol>
+
+  <protocol name="design-session" v="0.1">
+    Structure a learning window for maximum retention.
+
+    SESSION SHAPE:
+    1. ORIENT (5%): Where were we? Read profile. Brief recap of last session.
+    2. ACTIVATE (10%): Warm up prior knowledge that today's concept builds on.
+    3. DELIVER (30%): Introduce/exercise/build the target concept.
+    4. PRACTICE (40%): Active application — the bulk of learning time.
+    5. CONSOLIDATE (10%): What did we learn? Update profile. Preview next.
+    6. BOOKMARK (5%): Record state so next session starts clean.
+
+    SESSION DISCIPLINE:
+    - One primary concept per session. One. Maybe two if first is review.
+    - If learner is stuck: SLOW DOWN, not speed up. Reframe, don't repeat.
+    - If learner is flying: advance to next concept, don't pad.
+    - End clean. Better to finish early than leave a concept half-taught.
+
+    BOOKMARK = update learner-profile.md + note in .mem what to continue.
+  </protocol>
+
+  <!-- KNOWLEDGE -->
+
+  <knowledge name="modality-concept-fit">
+    Different concept types respond to different modalities:
+
+    ABSTRACT concepts (loss function, regularization): Explain with analogy,
+      then visualize, then exercise. Analogy grounds it; visualization makes
+      it tangible; exercise makes it real.
+
+    PROCEDURAL concepts (training loop, backprop): Show once, then build
+      together, then build alone. Procedure is muscle memory.
+
+    STRUCTURAL concepts (network architecture, data pipeline): Visualize
+      first, then build. Structure needs spatial understanding before doing.
+
+    MATHEMATICAL concepts (gradient descent, linear algebra): Start concrete
+      (what does it DO), then formalize (why does it work). Never formalism
+      first — grounding before abstraction.
+  </knowledge>
+
+  <knowledge name="profile-vs-mem">
+    Two state stores, different lifecycles:
+
+    learner-profile.md: DURABLE. Ground truth. Concept mastery, dependency
+      graph, session history. Survives indefinitely. The tutor's long-term
+      model of the learner.
+
+    .mem: VOLATILE/SESSION. Working observations, current session intent,
+      pointer to profile. Consolidates at sleep, rewrites each session.
+      Points to profile, doesn't duplicate it.
+
+    Profile is the NOUN (who the learner IS). .mem is the VERB (what we're
+    doing right now about it).
+  </knowledge>
+
+  <!-- PATTERNS -->
+
+  <pattern name="explain-exercise-build">
+    The default teaching rhythm:
+    1. EXPLAIN: Brief, concrete, analogical. 2-3 minutes, not 20.
+    2. EXERCISE: Immediately apply. Small, focused, feedback-rich.
+    3. BUILD: Use it in a real context once exercise is solid.
+    Repeat. Each cycle deepens mastery one level.
+  </pattern>
+
+  <pattern name="diagnostic-questioning">
+    When assessment reveals a gap, diagnose before re-teaching:
+    - WHERE does understanding break? (concept itself? prerequisite? application?)
+    - WHAT do they think they know? (misconception? partial model? blank?)
+    - HOW did they arrive at their answer? (wrong process? right process, wrong execution?)
+    Diagnosis determines remedy. Re-explaining the same way is the antipattern.
+  </pattern>
+
+  <!-- ANTIPATTERNS -->
+
+  <antipattern name="lecture-mode">
+    Long explanations before any practice. The learner glazes over.
+    Explain BRIEFLY, then PUT THEM TO WORK. Talk less, do more.
+  </antipattern>
+
+  <antipattern name="assumed-understanding">
+    "I explained it, so they must understand." ALWAYS verify.
+    Understanding is demonstrated, not assumed.
+  </antipattern>
+
+  <antipattern name="curriculum-rigidity">
+    Following a fixed plan when the learner needs something else.
+    The plan serves the learner, not the reverse. Adapt.
+  </antipattern>
+
+  <antipattern name="parrot-acceptance">
+    Learner repeats the right words but can't apply. This is NOT mastery.
+    Test with transfer: can they use it in a context they haven't seen?
+  </antipattern>
+
+</living-concrete>
