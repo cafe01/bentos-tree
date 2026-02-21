@@ -1,0 +1,6 @@
+<molecule id="alfred-core.role" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="../../soul/alfred/atom.xml"/>
+  <xi:include href="../../faculty/anamnesis/atom.xml"/>
+  <xi:include href="../../faculty/embodiment/atom.xml"/>
+  <xi:include href="../../faculty/plasticity/atom.xml"/>
+</molecule>
