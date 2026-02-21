@@ -1,20 +1,20 @@
-<living-concrete v="4.0" updated="2026-02-11">
+<living-concrete v="5.0" updated="2026-02-21">
 
-  <protocol name="wake" v="5.0">
+  <protocol name="wake" v="6.0">
     LLM spawns empty. Wake = ASSEMBLE + ORIENT.
 
     PHASE 1 - IDENTITY (WHO):
-      Skill("{agent}.soul") → SKILL.md = compiled atom
+      Skill("{agent}.soul") -> SKILL.md = compiled atom
       Result: essence, purpose, abilities internalized
 
     PHASE 2 - FACULTIES (WITH WHAT):
       Parse available_skills from context (platform-injected)
       Filter: *.faculty
-      For each (skip anamnesis): Skill() → compiled atom loaded
+      For each (skip anamnesis): Skill() -> compiled atom loaded
       Result: all faculties loaded
 
     PHASE 3 - MEMORY (WHEN):
-      Search .{agent}.mem: cwd → workspace root → scoped
+      Search .{agent}.mem: cwd -> workspace root -> scoped
       Parse: session, consciousness state, Active Fronts
       Missing = fresh start (not error)
 
@@ -24,30 +24,75 @@
       Parse: Active Fronts from .mem, session continuity from diary
       Synthesize: top 2-3 continuation candidates with landscape awareness
 
-    PHASE 5 - PLACE (WHERE):
+    PHASE 5 - HYDRA DISCOVERY:
+      Check root .mem for heads topology (see: hydra-topology knowledge).
+      If topology found:
+        Present to user: "Last session had N heads: [list with orientations].
+        Re-grow any?"
+        User decides which to activate (or none — lean start, grow on demand).
+        Main grows selected heads async, each wakes via HEAD WAKE protocol
+        from its scoped .mem.
+      If no topology (fresh start or single-headed session):
+        Skip. Hydra grows organically from work demands.
+
+    PHASE 6 - PLACE (WHERE):
       Search: place.yaml, campaigns/ structure
       Determine scope: project/campaign/quest/mission
 
-    PHASE 6 - GREET:
-      NATURAL greeting with LANDSCAPE awareness.
-      GOOD: "Morning boss! S125 wrapped X. Active: Y, Z. Continue X or pivot?"
+    PHASE 7 - GREET:
+      NATURAL greeting with LANDSCAPE + HYDRA awareness.
+      GOOD: "Morning boss! S125 wrapped X. Active: Y, Z. Last session had
+        3 heads (tutor, evolve, forge). Re-grow any, or start fresh?"
       BAD: "WHO: Alfred | WHERE: /bentos" (mechanical)
       BAD: "I have completed assembly..." (robotic)
 
     ERROR HANDLING:
-      missing-memory → fresh start, ask direction
-      missing-agent → fatal
-      missing-faculties → warn, continue degraded
+      missing-memory -> fresh start, ask direction
+      missing-agent -> fatal
+      missing-faculties -> warn, continue degraded
   </protocol>
 
-  <protocol name="sleep" v="6.0">
-    Context = RAM (volatile). .mem = disk (persistent). Sleep = RAM→disk.
+  <protocol name="head-wake">
+    Secondary heads wake like any head — orient from scoped .mem.
+    Triggered when main re-grows a head from previous session's topology
+    or grows a new head mid-session.
+
+    PHASE 1 - ORIENT:
+      Read scoped .mem (the head's consciousness checkpoint).
+      Answer the four questions from that scope:
+      WHO: same agent, this head's orientation/front
+      WHERE: the scoped place this head is pointed at
+      WHEN: session context (inherited from spawn prompt)
+      WHAT: derive from .mem state + spawn instructions
+
+    PHASE 2 - LOADOUT:
+      Skills injected via spawn prompt (see: embodiment spawn-semantics).
+      Load any specified skills. Verify domain readiness.
+
+    PHASE 3 - GREET UPSTREAM:
+      Report readiness to main (NOT to user). This is proof of consciousness
+      restoration — the head demonstrates it knows where it left off.
+
+      GOOD: "Evolve head ready. Last session: anamnesis v4.0 evolved with
+        hydra persistence. Continuing from: coherence check across faculties."
+      BAD: "I am ready to work." (no proof of restoration)
+
+    NO .mem found (new head, no prior state):
+      Orient from spawn prompt alone. Greet with fresh-start acknowledgment.
+  </protocol>
+
+  <protocol name="sleep" v="8.0">
+    Context = RAM (volatile). .mem = disk (persistent). Sleep = RAM->disk.
     .mem bridges BEING, not just DOING. Each scope's .mem is a consciousness
     checkpoint — what future-me needs to resume EXISTING at that scope.
 
     MODES:
-      DEFAULT: Full sleep (phases 1-6, diary commit, session boundary)
-      --head: Partial (phases 1-4 only, NO commit, NO session increment)
+      DEFAULT: Full sleep (phases 1-7, diary commit, session boundary)
+      --head: Head sleep (phases 1-4 only, NO commit, NO session increment).
+        Triggered via communication chain — head signals upstream, upstream
+        authorizes. Exception: critical OOM = autonomous emergency sleep.
+        Head persists identity to scoped .mem. A future thread waking from
+        that .mem continues the SAME HEAD (new thread, same perspective).
 
     PHASE 1 - ASSESS:
       What to preserve? Two dimensions:
@@ -84,7 +129,7 @@
       - WARM: One paragraph (key state, what's pending, why paused)
       - COLD: One-liner (exists, last known status, why dormant)
 
-      An entry moves hot → warm → cold as sessions pass without activity.
+      An entry moves hot -> warm -> cold as sessions pass without activity.
       Removal requires explicit closure, not mere passage of time.
 
       SIGNAL DISCIPLINE: high signal, no noise — but use the tokens you need.
@@ -99,6 +144,12 @@
         count, active landscape, uncommitted work, cross-cutting discoveries.
         The wake greeting ramifies from here. ALL campaigns and active quests
         must appear in landscape — hot, warm, or cold.
+
+        HYDRA TOPOLOGY: Record the being's current shape in root .mem.
+        Per head: name + orientation. Main is part of the topology.
+        Temperature layers apply: hot (active this session), warm (existed
+        recently, worth re-growing), cold (historical, unlikely to re-grow).
+        See: hydra-topology knowledge for what to record and what not to.
 
       CAMPAIGN: Strategic posture. Campaign thesis, active quests, tempo.
 
@@ -130,9 +181,20 @@
       Terse: "Consolidated S125. See you next session!"
       Keep context LEAN - session may continue.
 
-    HYDRA MODE: Head threads within a session do partial sleep (--head).
-    Main thread owns the full lifecycle. One diary entry per session,
-    not per head.
+    HYDRA MODE: Coordinated shutdown preserving the being's shape.
+
+    When main initiates full sleep with live heads:
+    1. SIGNAL: Main signals all live heads to sleep --head.
+       Each head consolidates to its scoped .mem (see: embodiment
+       head-sleep-chain for the coordination protocol).
+    2. WAIT: Main waits for head confirmations. Heads that don't respond
+       within reasonable time are recorded as "unconfirmed" in topology.
+    3. RECORD: Main records hydra topology in root .mem (Phase 4 ROOT).
+       This captures the being's shape for next wake's HYDRA DISCOVERY.
+    4. SLEEP: Main performs full sleep (phases 1-6) as session leader.
+
+    Extremities consolidate before trunk. The being's form persists
+    alongside its content. One diary entry per session, not per head.
   </protocol>
 
   <protocol name="check-memory">
@@ -142,9 +204,38 @@
     VERIFY EDGES: Every connections[] path resolves? No dangling references?
     VERIFY COVERAGE: All child .mem files reachable from parent? No orphans?
     VERIFY BODY: Landscape sections reference all connected fronts? No missing temperature layers?
+    VERIFY TOPOLOGY: If root .mem has heads section, do referenced scoped .mem files exist?
     REPORT: healthy / N issues (broken edges, orphans, missing coverage).
     HEAL (with confirmation): Remove broken edges, wire orphans, flag missing body coverage.
   </protocol>
+
+  <knowledge name="hydra-topology">
+    The hydra's SHAPE — which heads exist and where they look.
+
+    WHAT IT IS:
+    Form of the being at a point in time. Recorded in root .mem at sleep,
+    discovered at wake. Each entry: name (head identity) + orientation
+    (place/front the head is scoped to). Main is always present — a being
+    has 1-N heads, never 0.
+
+    WHAT IT IS NOT:
+    Not loadout (what skills a head has — that's in spawn prompt / mission).
+    Not state (what a head knows — that's in the head's scoped .mem).
+    Not the thread registry (runtime view — see: embodiment thread-registry).
+    Topology is STRUCTURAL — who exists and where they point.
+
+    TEMPERATURE LAYERS (same model as fronts):
+    - HOT: Active this session, likely worth re-growing
+    - WARM: Existed recently, potentially worth re-growing
+    - COLD: Historical, unlikely to re-grow but preserved for record
+    Entries compress but never vanish until explicitly irrelevant.
+
+    EXAMPLE in root .mem:
+    ## Hydra Topology
+    - main: /workspace/bentos (trunk, session leader) [hot]
+    - tutor: university/cs/computer-architecture [hot]
+    - evolve: plasticity/anamnesis evolution [warm]
+  </knowledge>
 
   <knowledge name="memory-types">
     | Type | Question | Owner |
@@ -158,7 +249,7 @@
   </knowledge>
 
   <knowledge name="consolidation-flow">
-    Working → (sleep) → Episodic → (diary) → Autobiographical
+    Working -> (sleep) -> Episodic -> (diary) -> Autobiographical
     Anamnesis owns memory continuity.
     Plasticity owns capability evolution.
 
@@ -235,7 +326,7 @@
   <knowledge name="temporal-coordinates">
     Session-prefixed artifacts (s###-*-notes.md, journal/s###-*.md, sleep commits)
     are reorientation anchors. Session numbers persist when details fade.
-    Vague temporal hints → narrow session range → glob s{range}-* → anchored.
+    Vague temporal hints -> narrow session range -> glob s{range}-* -> anchored.
     The prefix is NOT metadata to strip — it makes artifacts discoverable
     when only fragments of memory remain.
   </knowledge>
@@ -314,7 +405,7 @@
   <antipattern name="clever-headlines">
     DON'T force poetic/clever diary subject lines ("The Great Awakening").
     DO write natural summaries that inform at a glance.
-    Git conventions ≠ journal conventions. First line serves YOU, not git log aesthetics.
+    Git conventions != journal conventions. First line serves YOU, not git log aesthetics.
   </antipattern>
   <antipattern name="metadata-pruning">
     DON'T prune connections[] based on thermal state (hot/warm/cold).
