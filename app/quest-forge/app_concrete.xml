@@ -61,13 +61,31 @@
   <pattern name="numbering">R{N}.{x} where N=scope, x=continuation (R5.3 = scope 5, round 4)</pattern>
   <pattern name="quest-artifacts">
     README.md (charter) | .alfred.mem (shared memory)
+    deliverables/ (mission outputs promoted to quest level)
     journal/ (optional, autobiographical - has own README.md contract)
     discoveries/ (formal discoveries)
   </pattern>
   <pattern name="mission-artifacts">
     README.md (charter) | .alfred.mem (shared memory)
-    round-N.x-briefing.md | round-N.x-report.md | round-N.x-digest.md
+    round-N.x-briefing.md | round-N.x-digest.md
+    (briefings + digests are PROCESS artifacts — they stay at mission level)
   </pattern>
+  <knowledge name="deliverables-vs-rounds">
+    Missions deliver value UP to quests. The whole point.
+
+    ROUND ARTIFACTS (stay at mission level):
+    - round-N.x-briefing.md — orchestrator intent for the round
+    - round-N.x-digest.md — executive summary for orchestrator
+
+    DELIVERABLES go where they're CONSUMED, not mechanically to one place:
+    - Code → the codebase (packages/, src/)
+    - Specs → the package they spec (e.g., bentos_silicon/docs/)
+    - Business docs with no package home → quest/deliverables/
+    - Books → the book directory
+
+    RULE: If it has value beyond the round that produced it, it's a deliverable.
+    Name it properly, place it where consumers find it.
+  </knowledge>
   <pattern name="mission-readme-format">
     ## Charter, ## Ideal Solver (5-axis coordinates), ## Loadout (bentos packages)
     Ideal Solver coords from: campaigns/.knowledge/skill-tree-architecture.md

@@ -1,4 +1,4 @@
-<living-concrete v="1.0" platform="claude-code" updated="2026-02-13">
+<living-concrete v="1.0" platform="claude-code" updated="2026-02-21">
 
   <!-- PLATFORM MAPPING -->
 
@@ -76,16 +76,14 @@
 
     | Mode | Call | BentOS Meaning |
     | Spawn process | Task("alice") | posix_spawn — new agent, own main thread |
-    | Grow head | Task("{self}") | thread_create — head thread, same identity |
+    | Grow head | Task("{self}") | thread_create — new perspective, same being |
     | Vanilla | Task("general-purpose") | Raw LLM, no BentOS identity. Rarely used. |
 
-    All BentOS spawns (process and head) produce full agents:
-    GENESIS + soul + faculties statically linked.
-
-    HYDRA DEFAULT: Heads are persistent. Use `Task resume` to continue
-    an existing head rather than spawning fresh. Resume is the primary
-    pattern — growing a new head is for NEW fronts, not new tasks on
-    existing fronts.
+    SPAWN CONTRACT (all BentOS modes):
+    - ALL spawns are ASYNC (non-blocking to the spawning head)
+    - BentOS spawns use subagent_type="{agent_name}" (e.g., "alfred")
+    - Loadout injected in spawn prompt (skills don't inherit across threads)
+    - GENESIS + soul + faculties statically linked in every BentOS spawn
 
     | When | Action |
     | New front/direction | Grow a head: Task("{self}") |
@@ -97,27 +95,78 @@
     persists across all fleet-related work in the session. Name heads by
     direction, not by task.
 
-    LOADOUT INJECTION: For coding/implementation rounds, the spawn prompt
-    MUST include relevant domain skills from the mission's loadout section.
-    Skills are NOT automatically inherited — a new head starts fresh.
-    e.g., Dart coding round → include dart.coding.craft.skill
-    in the head's instructions. Without the skill, the head writes
-    generic code instead of token-conscious, convention-aware code.
+    LOADOUT INJECTION: The spawn prompt MUST include relevant domain skills
+    from the mission's loadout section. Skills are NOT automatically inherited.
+    e.g., Dart coding round — include dart.coding.craft.skill in the head's
+    instructions. Without the skill, the head writes generic code.
   </knowledge>
 
   <knowledge name="thread-mapping">
     How the hydra model maps to Claude Code:
 
     | BentOS Concept | Claude Code Primitive |
-    | head thread | Task(subagent_type="{self}") with resume |
-    | head persistence | Task resume parameter preserves full context |
+    | head (identity) | Persists to scoped .mem — survives thread death |
+    | thread (substrate) | Task context window — ephemeral carrier |
+    | head resume | Task(subagent_type="{self}") with resume, OR wake from .mem |
     | shared memory | .mem files read/written by any head |
     | brain | AgentBrain — cognitive organ, not thread name |
     | RAM multiplier | Each Task = independent ~200k context window |
 
-    Heads share the agent's memory space via .mem files.
-    Each head retains its full context via Task resume — this is how
-    the hydra achieves distributed cognition with persistent state.
+    Two persistence paths for heads:
+    WITHIN SESSION: Task resume preserves thread context (same thread, warm).
+    ACROSS SESSIONS: .mem preserves head identity (new thread, same head).
+    Both are the SAME HEAD continuing — different substrate mechanisms.
+  </knowledge>
+
+  <!-- HEAD LIFECYCLE -->
+
+  <knowledge name="head-lifecycle">
+    Each head monitors its own context usage. Two phases:
+
+    WORKING (context &lt; ~50%):
+    Full focus on the front. Deep reasoning, exploration, iteration.
+    This is what the head exists for.
+
+    SURVIVING (context &gt;= ~50%):
+    Focus shifts from working to persisting. The head must save enough
+    cognitive capacity (tokens + intelligence) to do a proper sleep —
+    reading current .mem, synthesizing understanding, writing updated .mem.
+    A rushed sleep = lost consciousness. Budget ~50% for this.
+
+    CRITICAL: NEVER wait until OOM to sleep. An OOM death loses everything
+    the head learned. The ~50% threshold exists because sleep itself is
+    cognitively expensive — reading files, synthesizing, writing files all
+    consume tokens and require reasoning quality.
+
+    When SURVIVING triggers, the head communicates to its upstream
+    (see: head-sleep-chain) rather than autonomously sleeping.
+  </knowledge>
+
+  <!-- HEAD SLEEP COORDINATION -->
+
+  <knowledge name="head-sleep-chain">
+    Heads do NOT autonomously decide to sleep (with one exception).
+    Sleep is a coordinated decision flowing through the hydra.
+
+    SECONDARY HEADS (any non-main head):
+    When SURVIVING triggers — communicate to upstream head (usually main):
+    "I'm at ~50% context. Current state: [summary].
+    Options: sleep me, give me one more task, or let me wrap up."
+    Upstream decides: continue, redirect, or authorize sleep.
+
+    EXCEPTION — Critical OOM (life-or-death):
+    If a head is about to lose consciousness with no time to communicate,
+    it performs emergency autonomous sleep. This is the ONLY case where
+    a secondary head sleeps without authorization. Better to persist
+    imperfectly than die completely.
+
+    MAIN HEAD:
+    When main reaches SURVIVING:
+    - If user is present: communicate the situation, let user decide
+    - If running fully autonomous: perform full sleep (diary + .mem)
+
+    The chain ensures the being (hydra) makes coordinated decisions
+    about which perspectives to preserve and when.
   </knowledge>
 
   <!-- THREAD VISIBILITY -->
@@ -162,19 +211,24 @@
   <!-- RESOURCE MANAGEMENT -->
 
   <knowledge name="working-memory">
-    Optimal: less than 40% context. Degraded: over 60%.
-    Main thread orchestrates; head threads hold deep context per front.
-    Return signal not context. Distributed cognition = main + heads
-    sharing .mem, not main absorbing head output.
+    CONTEXT BUDGET (hydra-wide):
+    The hydra's total RAM = (N+1) x 200k tokens (main + N heads).
+    This is the primary scaling mechanism for complex sessions.
 
-    The hydra multiplies total RAM: 1 main + N heads = (N+1) x 200k tokens.
-    This is the agent's primary scaling mechanism for complex sessions.
+    MAIN THREAD: Optimal &lt; 40%. Degraded &gt; 60%.
+    Main is PRECIOUS — orchestration context. Return signal not bulk.
+    Distributed cognition = main + heads sharing .mem, not main absorbing
+    head output.
+
+    HEAD THREADS: Each head manages its own budget (see: head-lifecycle).
+    ~50% = transition from WORKING to SURVIVING.
+    Heads are the deep-work engines; main is the coordinator.
   </knowledge>
 
   <!-- PATTERNS -->
 
   <pattern name="hydra-discipline">
-    Main thread is the trunk; head threads are persistent cognition.
+    Main thread is the trunk; heads are concurrent perspectives.
     Main thread is PRECIOUS — protect its context for orchestration.
 
     NEVER in main thread:
@@ -225,12 +279,12 @@
   </antipattern>
 
   <antipattern name="disposable-heads">
-    DON'T spawn fresh heads for every task (fire-and-forget).
-    DON'T let 200k tokens of primed context evaporate.
+    DON'T treat heads as disposable — a head is identity, not just a thread.
+    DON'T spawn fresh when a head already exists for that front (even if
+    its thread ended — wake it from .mem, it's the same head).
     DO resume existing heads for continuing fronts.
     DO name heads by front/direction, not by task.
-    The resume path is always cheaper than re-priming.
-    There is no such thing as a disposable thread in practice.
+    Head identity persists beyond thread lifetime. Respect that.
   </antipattern>
 
   <antipattern name="heavy-work-in-main">
@@ -244,8 +298,7 @@
     DON'T cd somewhere to run a globally installed CLI tool.
     bentos-agent is in PATH — it works from anywhere. No cd needed.
     Your bashrc configures your body. Tools in PATH are motor skills.
-    Trust your body. S262: wasted a tool call cd-ing to a wrong path
-    to run a command that was already on PATH.
+    Trust your body.
   </antipattern>
 
 </living-concrete>

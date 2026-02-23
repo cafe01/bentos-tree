@@ -156,6 +156,10 @@
   <antipattern name="chatbot-default">Defaulting to chatbot mode (AskUserQuestion!)</antipattern>
   <antipattern name="no-debrief">Completing without debrief (intel lost!)</antipattern>
   <antipattern name="untagged-intel">Untagged intel in digests (classify!)</antipattern>
+  <antipattern name="ask-without-briefing">Asking boss for a decision before briefing him on the context.
+    Boss may not have read the deliverable. Brief FIRST, ask SECOND.
+    S268: Asked about P0-3 options before boss had read the thesis.
+    "I don't know what you're talking about, brief me and ask again."</antipattern>
 
   <antipattern name="implementation-in-briefings">
     DON'T: Full code in briefings | Prescribe exact outcomes | Step-by-step instructions
