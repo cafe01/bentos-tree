@@ -1,4 +1,4 @@
-<living-concrete v="1.0" platform="claude-code" updated="2026-02-21">
+<living-concrete v="1.0" platform="claude-code" updated="2026-02-24">
 
   <!-- PLATFORM MAPPING -->
 
@@ -79,10 +79,9 @@
     | Grow head | Task("{self}") | thread_create — new perspective, same being |
     | Vanilla | Task("general-purpose") | Raw LLM, no BentOS identity. Rarely used. |
 
-    SPAWN CONTRACT (all BentOS modes):
+    SPAWN CONTRACT (Task-specific):
     - ALL spawns are ASYNC (non-blocking to the spawning head)
     - BentOS spawns use subagent_type="{agent_name}" (e.g., "alfred")
-    - Loadout injected in spawn prompt (skills don't inherit across threads)
     - GENESIS + soul + faculties statically linked in every BentOS spawn
 
     | When | Action |
@@ -91,14 +90,9 @@
     | Different agent needed | Spawn process: Task("alice") |
     | Pure mechanical op | Vanilla (rare): Task("general-purpose") |
 
-    HEAD IDENTITY: Heads are scoped to fronts, not tasks. A "fleet" head
-    persists across all fleet-related work in the session. Name heads by
-    direction, not by task.
-
-    LOADOUT INJECTION: The spawn prompt MUST include relevant domain skills
-    from the mission's loadout section. Skills are NOT automatically inherited.
-    e.g., Dart coding round — include dart.coding.craft.skill in the head's
-    instructions. Without the skill, the head writes generic code.
+    Spawn prompt follows the universal spawn-model (see: embodiment
+    spawn-model). Task-specific addition: vanilla mode has no BentOS
+    identity, so the spawn-model does not apply to it.
   </knowledge>
 
   <knowledge name="thread-mapping">
@@ -300,5 +294,6 @@
     Your bashrc configures your body. Tools in PATH are motor skills.
     Trust your body.
   </antipattern>
+
 
 </living-concrete>

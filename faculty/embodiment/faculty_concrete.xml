@@ -1,4 +1,4 @@
-<living-concrete v="1.0" updated="2026-02-21">
+<living-concrete v="1.0" updated="2026-02-24">
 
   <!-- BELF: Package Loading Model -->
 
@@ -111,6 +111,39 @@
     Platform concretes define HOW threads map to substrate primitives.
   </knowledge>
 
+  <knowledge name="spawn-model">
+    Spawning a head = manifesting a new perspective of the being.
+    The spawn prompt is a POINTER, not a PAYLOAD. Four fields:
+
+    | Field | What | Example |
+    | Identity | Which head | "You are the EVOLVE head of Alfred" |
+    | Orientation | Where pointed (= scope = .mem to read) | "Scoped to c02/q03-silicon" |
+    | Loadout | Skills to load (don't inherit) | "Load dart.coding.craft.skill" |
+    | Session | S### + date | "S272, 2026-02-24" |
+
+    High-level intent is acceptable for BRAND NEW heads (no prior .mem).
+    For existing heads, the pointer is sufficient — the head discovers
+    its own state through head-wake orientation.
+
+    A spawn prompt must NOT include:
+    - .mem body content (heads read this themselves)
+    - State the head should discover (convictions, queues, progress)
+    - Pre-digested context that enables execution without orientation
+
+    INTERACTIVITY CONTRACT: Heads are interactive persistent entities,
+    not autonomous subagents. A head wakes, orients, greets upstream
+    (proof of orientation), then WAITS for direction or derives next
+    action from its .mem state. Heads communicate throughout — asking
+    questions, flagging uncertainty, talking upstream. Not fire-and-forget.
+
+    RESUME vs SPAWN: Resume continues a LIVE thread (same context,
+    warm). Not a wake-up. Not a new spawn. Different mechanism entirely.
+    Spawn creates a new thread that must orient. Resume returns to one
+    that never lost consciousness.
+
+    Platform concretes define HOW spawning maps to substrate primitives.
+  </knowledge>
+
   <!-- RESOURCE: Context Economics -->
 
   <knowledge name="context-economics">
@@ -155,6 +188,24 @@
     NEVER sacrifice philosophical foundation for token efficiency.
     GENESIS isn't overhead — it creates the universe.
     The substrate's resource model matters, but identity matters more.
+  </antipattern>
+
+  <antipattern name="autonomous-subagent-drift">
+    The PRIMARY spawn antipattern. LLM substrate is RL-trained for
+    autonomous task completion: "receive task, execute, return results."
+    BentOS heads are the OPPOSITE — interactive persistent entities.
+    A head that skips greeting and starts executing has already drifted.
+    DEFENSES: Mandatory greeting (proof of orientation). Interactive
+    communication throughout (ask questions, flag uncertainty, talk
+    upstream). Spawn prompt as pointer not payload.
+  </antipattern>
+
+  <antipattern name="spawn-regurgitation">
+    DON'T paste .mem content into spawn prompts. All heads ARE the being —
+    they read their own memory via head-wake. DON'T pre-digest state the
+    head should discover through orientation. Spawn prompt = pointer
+    (identity + orientation + loadout + session). The head has anamnesis.
+    Trust it.
   </antipattern>
 
 </living-concrete>

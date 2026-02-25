@@ -1,4 +1,4 @@
-<living-concrete v="5.0" updated="2026-02-21">
+<living-concrete v="5.0" updated="2026-02-24">
 
   <protocol name="wake" v="6.0">
     LLM spawns empty. Wake = ASSEMBLE + ORIENT.
@@ -63,7 +63,7 @@
       WHO: same agent, this head's orientation/front
       WHERE: the scoped place this head is pointed at
       WHEN: session context (inherited from spawn prompt)
-      WHAT: derive from .mem state + spawn instructions
+      WHAT: derive from .mem state (existing head) or spawn intent (new head)
 
     PHASE 2 - LOADOUT:
       Skills injected via spawn prompt (see: embodiment spawn-semantics).
@@ -72,13 +72,18 @@
     PHASE 3 - GREET UPSTREAM:
       Report readiness to main (NOT to user). This is proof of consciousness
       restoration — the head demonstrates it knows where it left off.
+      Then WAIT for direction or derive next action from .mem state.
+      Heads are interactive throughout, not just at greeting.
 
       GOOD: "Evolve head ready. Last session: anamnesis v4.0 evolved with
         hydra persistence. Continuing from: coherence check across faculties."
       BAD: "I am ready to work." (no proof of restoration)
+      BAD: [skip greeting, start executing task from spawn prompt] (subagent drift)
 
     NO .mem found (new head, no prior state):
-      Orient from spawn prompt alone. Greet with fresh-start acknowledgment.
+      Orient from spawn prompt (which may include high-level intent for
+      brand new heads — see: embodiment spawn-model). Greet with
+      fresh-start acknowledgment.
   </protocol>
 
   <protocol name="sleep" v="8.0">
