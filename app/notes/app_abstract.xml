@@ -1,6 +1,8 @@
-<living-abstract v="1.0">
+<living-abstract v="1.1">
   <essence>Mind reading between peers — intelligent thought extraction across the bandwidth gap</essence>
   <purpose>Bridge brain-to-brain bandwidth by actively pulling thoughts into persistent structured artifacts</purpose>
+
+  <requires>attunement.communicating.discipline.skill</requires>
 
   <attracts match="*.cognition.meta.skill"/>
   <attracts match="*.structuring.craft.skill"/>

@@ -1,0 +1,7 @@
+<atom id="attunement.communicating.discipline.skill" v="0.1" origin="Cafe &amp; Alfred" desc="Active extraction of meaning from another mind through structured probing"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="skill_abstract.xml"/>
+  <xi:include href="skill_concrete.xml"/>
+
+</atom>

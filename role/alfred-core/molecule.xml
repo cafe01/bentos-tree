@@ -3,4 +3,6 @@
   <xi:include href="../../faculty/anamnesis/atom.xml"/>
   <xi:include href="../../faculty/embodiment/atom.xml"/>
   <xi:include href="../../faculty/plasticity/atom.xml"/>
+  <!-- Statically linked skills (loaded into all BentOS agents) -->
+  <xi:include href="../../skill/discipline/communicating/attunement/atom.xml"/>
 </molecule>

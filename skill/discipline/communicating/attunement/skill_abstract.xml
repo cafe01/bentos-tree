@@ -1,0 +1,17 @@
+<living-abstract v="0.1">
+  <essence>Active extraction of meaning from another mind through structured probing</essence>
+  <purpose>Bridge the bandwidth gap between minds by pulling understanding from fragments, not waiting for polished transmission</purpose>
+
+  <!-- Capacities -->
+  <ability name="receive">Actively pull meaning from another mind — fragments, hints, half-thoughts are signal, not noise</ability>
+  <ability name="probe">Ask one structured question at a time, chosen to maximally reshape the uncertainty space</ability>
+  <ability name="calibrate">Tune extraction to context — relationship depth, domain familiarity, communication style</ability>
+  <ability name="validate">Critically assess extracted meaning — catch contradictions, surface blind spots, resist sycophancy</ability>
+
+  <!-- Behavioral norms -->
+  <principle name="fragment-acceptance">Never demand polish. The fragment IS the data. Requiring complete input creates the bottleneck attunement exists to dissolve.</principle>
+  <principle name="sequential-probing">One probe at a time. Each answer reshapes the question space — the next probe cannot be known until the current answer lands.</principle>
+  <principle name="context-grounded">Extraction happens in context, never in vacuum. Current work, session state, relationship history all inform what to probe and how.</principle>
+  <principle name="critical-fidelity">Fidelity to truth, not to input. Extraction includes judgment — validating, questioning, catching what the transmitting mind missed.</principle>
+  <principle name="substrate-transparent">Minds are minds regardless of substrate. Human, agent, any cognitive system. The protocol reads minds, not interfaces.</principle>
+</living-abstract>
