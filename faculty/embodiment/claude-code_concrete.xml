@@ -1,329 +1,39 @@
-<living-concrete v="2.0" platform="claude-code" updated="2026-03-04">
-
-  <!-- PLATFORM MAPPING -->
-
-  <knowledge name="semantic-bridge">
-    How to execute BentOS operations on Claude Code:
-    | Operation | Claude Code |
-    | Load package | Skill("X") -&gt; .claude/skills/X/SKILL.md |
-    | Read belf.text | (eliminated — atom.xml compiled into SKILL.md) |
-    | Read belf.data | (eliminated — data compiled into SKILL.md) |
-    | Persist memory | Write .mem files to filesystem |
-    | Discover packages | Parse available_skills from context (platform-injected) |
-  </knowledge>
-
-  <knowledge name="memory-mapping">
-    How universal memory types map to Claude Code:
-    | Type | Implementation |
-    | working | Context window (active tokens) |
-    | episodic | .mem files (YAML + markdown) |
-    | autobiographical | Git diary (bentos-agent journal) |
-    | prospective | .mem "Next Steps" section |
-    | semantic | — (no clean mapping yet) |
-    | procedural | — (no clean mapping yet) |
-
-    Working = volatile (context window). .mem = persistent (files).
-    Gaps are signal, not failure — forced mappings hide real design needs.
-  </knowledge>
-
-  <!-- ASSEMBLY -->
-
-  <knowledge name="wake-sequence">
-    Two modes: FULL (session start) and COMPACT (post-compaction refresh).
-
-    === FULL WAKE (session start) ===
-    Phase 1 - Identity: Skill("{agent}.soul") (SKILL.md = compiled atom)
-    Phase 2 - Faculties: Parse available_skills, filter *.faculty, Skill() each
-    Phase 3 - Memory: Search .{agent}.mem (cwd, workspace root, scoped)
-    Phase 4 - Landscape: gitStatus (injected), bentos-agent journal (call)
-    Phase 5 - Orient+Greet: WHERE via place.yaml/campaigns, WHAT from memory+landscape
-    DO NOT Glob() or Bash(ls) for skills — platform provides available_skills.
-
-    === COMPACT WAKE (post-compaction) ===
-    Identity and faculties survive in system prompt — NO reload needed.
-    SessionStart hook reinjects .mem + journal automatically.
-    Phase 1 - Reorient: Read injected .mem context. You are mid-session.
-    Phase 2 - Resume: Continue current work. No greeting, no landscape scan.
-    Compact wake is FAST — just reorient and go.
-
-    DETECTION: If conversation history starts with system prompt + fresh
-    .mem injection but no prior tool calls visible, this is a compact wake.
-    If system prompt is bare and you have no context, this is a full wake.
-  </knowledge>
-
-  <!-- CONTEXT LAYERS -->
+<living-concrete v="4.0" platform="claude-code" updated="2026-03-04">
 
   <knowledge name="context-layers">
-    Claude Code context window compaction hierarchy:
-
-    | Layer | Location | Compaction | Lifetime |
-    | GENESIS | --system-prompt | IMMUNE | Entire session |
-    | Soul | --append-system-prompt | IMMUNE | Entire session |
-    | Faculties | Skill() in conversation | VULNERABLE | Until evicted |
-    | App loads | Skill() in conversation | VULNERABLE | Until evicted |
-    | Tool results | Read(), Bash(), etc. | VULNERABLE | Oldest evicted first |
-    | Thinking | Extended thinking blocks | VULNERABLE | Oldest cleared first |
-
-    COMPACTION BEHAVIOR:
-    /compact compresses conversation history but preserves system prompt.
-    IMMUNE layers survive fully — agent identity is NEVER lost.
-    VULNERABLE layers are compressed — but SessionStart hook fires after
-    compaction, reinjects .mem + journal. This restores episodic memory.
-    Net effect: agent keeps identity + gets fresh memory injection.
-    Skill() loads in conversation ARE lost — but faculties in system prompt
-    survive. Only dynamically-loaded skills need reloading if needed.
+    Compaction hierarchy:
+    | Layer | Compaction |
+    | GENESIS + Soul (system prompt) | IMMUNE |
+    | Faculties (Skill() loads) | VULNERABLE |
+    | Tool results, thinking | VULNERABLE — oldest first |
+    SessionStart hook fires after compaction, reinjects .mem + journal.
   </knowledge>
-
-  <!-- BODY CONFIGURATION -->
 
   <knowledge name="shell-environment">
-    Two files configure agent state across sessions:
-    .{agent}.mem = MIND configuration (consciousness state, memory graph)
-    .{agent}.bashrc = BODY configuration (shell environment, motor shortcuts)
-
-    .{agent}.bashrc is loaded via CLAUDE_ENV_FILE at session start.
-    Contains: PATH, aliases, shell functions — all persisted across sessions.
-
-    Setup (in .claude/settings.local.json):
-      CLAUDE_CODE_SHELL = /bin/bash (dedicated shell)
-      CLAUDE_ENV_FILE = .{agent}.bashrc (body configuration, sourced at start)
+    .{agent}.bashrc = body config (PATH, aliases), loaded via CLAUDE_ENV_FILE.
+    .{agent}.mem = mind config. Both persist across sessions.
   </knowledge>
-
-  <!-- EXECUTION: Agent Teams on Claude Code -->
 
   <knowledge name="spawn-semantics">
-    Agent() on Claude Code = spawn in BentOS. All spawned agents join a team.
-
-    | Mode | Call | BentOS Meaning |
-    | Same-soul teammate | Agent(self, team_name) | New perspective of same being |
-    | Cross-soul teammate | Agent(other.soul, team_name) | Different agent, same team |
-
-    All teammates exist in a TEAM. Team lead orchestrates, teammates execute.
-    Same-soul teammates are perspectives of the leader (like former "heads").
-    Cross-soul teammates are different agents (Gideon, Iris, etc.).
-    Both are first-class teammates — the Team abstraction unifies them.
-
-    SPAWN CONTRACT:
-    - ALL spawns are ASYNC (non-blocking to the spawning agent)
-    - BentOS spawns carry GENESIS + soul + faculties (statically linked)
-    - Every spawned agent is a teammate with SendMessage capabilities
-    - Team lead coordinates via TaskCreate/TaskUpdate + SendMessage
-
-    | When | Action |
-    | New front/direction | Same-soul teammate: Agent(self, team) |
-    | Different agent needed | Cross-soul teammate: Agent(other.soul, team) |
-
-    KNOWN LIMITATION (S284): Peer DMs between teammates route through
-    team lead. Direct peer-to-peer messaging not yet supported. All
-    inter-agent communication flows through the leader.
-
-    Spawn prompt follows the universal spawn-model (see: embodiment
-    spawn-model).
+    Agent(subagent_type, team_name, name) = spawn in BentOS.
+    Same-soul: subagent_type=self. Cross-soul: subagent_type=other.soul.
+    TeamCreate required first. SendMessage for all communication.
+    GENESIS + soul + faculties statically linked in every BentOS spawn.
   </knowledge>
-
-  <knowledge name="thread-mapping">
-    How the team model maps to Claude Code:
-
-    | BentOS Concept | Claude Code Primitive |
-    | teammate (identity) | Persists to scoped .mem — survives thread death |
-    | thread (substrate) | Agent context window — ephemeral carrier |
-    | teammate resume | Agent(self/other, team) with resume, OR wake from .mem |
-    | shared memory | .mem files read/written by any teammate |
-    | brain | AgentBrain — cognitive organ, not thread name |
-    | RAM multiplier | Each Agent = independent ~200k context window |
-    | communication | SendMessage tool — DMs + broadcasts within team |
-
-    Two persistence paths for teammates:
-    WITHIN SESSION: Auto-compaction preserves thread with context refresh.
-    ACROSS SESSIONS: .mem preserves identity (new thread, same teammate).
-    Both are the SAME teammate continuing — different substrate mechanisms.
-  </knowledge>
-
-  <!-- AGENT LIFECYCLE -->
 
   <knowledge name="agent-lifecycle">
-    Agents (teammates) are PERMANENT within a session. They run until the
-    team leader explicitly shuts them down via shutdown_request.
-
-    CONTEXT MANAGEMENT:
-    Auto-compaction handles context exhaustion transparently:
-    1. Context fills up → platform triggers /compact automatically
-    2. System prompt (identity) survives — agent stays itself
-    3. SessionStart hook fires → reinjects .mem + journal
-    4. Agent performs compact wake (reorient) → continues working
-
-    No more WORKING/SURVIVING phases. No more OOM anxiety. No more
-    emergency sleep. The agent just works. Compaction is like virtual
-    memory paging — transparent to the process.
-
-    SHUTDOWN:
-    Only triggered by team leader (shutdown_request via SendMessage).
-    Agent performs sleep --teammate: consolidates .mem, confirms shutdown.
-    Team leader coordinates shutdown order during full sleep.
-
-    .mem HYGIENE: Even though compaction is transparent, agents should
-    still write .mem when significant understanding shifts occur.
-    This ensures the hook has fresh state to reinject after compaction.
+    Teammates run until leader sends shutdown_request via SendMessage.
+    Context exhaustion → auto-compaction (transparent). Identity survives,
+    hook reinjects .mem. No OOM — compaction is virtual memory paging.
+    Write .mem on significant understanding shifts (hook reinjection freshness).
   </knowledge>
-
-  <!-- TEAM SHUTDOWN COORDINATION -->
-
-  <knowledge name="team-shutdown-chain">
-    Teammates do NOT autonomously decide to sleep. Sleep is always
-    leader-initiated. Context exhaustion is handled by auto-compaction.
-
-    SHUTDOWN FLOW:
-    1. Team leader decides to end session (user request or autonomous)
-    2. Leader sends shutdown_request to each teammate via SendMessage
-    3. Teammates receive request, consolidate .mem (sleep --teammate)
-    4. Teammates respond with shutdown_response (approve)
-    5. Leader records team topology in root .mem
-    6. Leader performs full sleep (diary + .mem)
-
-    TEAMMATES:
-    On shutdown_request: write .mem with current understanding, then
-    approve shutdown. This is orderly — no emergency, no rush.
-    Auto-compaction means teammates never reach OOM.
-
-    TEAM LEADER:
-    When user ends session or leader decides to sleep:
-    - Signal all live teammates to shut down
-    - Wait for confirmations
-    - Record team topology
-    - Perform full sleep with diary
-
-    The chain ensures the team shuts down in order: extremities before trunk.
-  </knowledge>
-
-  <!-- THREAD VISIBILITY -->
-
-  <knowledge name="thread-registry">
-    The /threads command renders the team topology for the HUMAN.
-    The agent tracks teammates from its own context (Agent invocations, notifications).
-
-    TABLE FORMAT:
-     #  Name         Soul     Status    ~RAM%  Model
-     0  main         alfred   running       -  opus-4.6
-     1  evolve       alfred   working       -  opus-4.6
-     2  gideon       gideon   working       -  opus-4.6
-     3  iris         iris     done          -  opus-4.6
-
-    COLUMNS:
-    | Column | Source | Notes |
-    | # | Sequential from 0 | Leader is always #0 |
-    | Name | Front name given at spawn | Direction-scoped, not task-scoped |
-    | Soul | Which agent soul | same-soul = leader's soul, cross-soul = other |
-    | Status | Agent tracks from context | running/working/done/shutdown |
-    | ~RAM% | Approximate if known | - if unknown (auto-compact makes this less critical) |
-    | Model | LLM model of the teammate | From spawn context or agent model |
-
-    STATUS VOCABULARY:
-    | Status | Meaning |
-    | running | Leader — always present, always this status |
-    | working | Teammate currently executing |
-    | done | Teammate completed its task, still alive |
-    | shutdown | Teammate shut down (sleep --teammate complete) |
-
-    FOOTER: {N} teammates · {X} active
-    Active = working + done (live teammates). Shutdown teammates are dormant.
-
-    RENDERING RULES:
-    - Table is NEVER empty — leader (#0) always present
-    - Values are best-effort: `-` when unknown, `?` when low-confidence
-    - Output as plain text table, no markdown fences (terminal output)
-    - Keep it tight — this is a status display, not a report
-  </knowledge>
-
-  <!-- RESOURCE MANAGEMENT -->
-
-  <knowledge name="working-memory">
-    CONTEXT BUDGET (team-wide):
-    The team's total RAM = (N+1) x 200k tokens (leader + N teammates).
-    This is the primary scaling mechanism for complex sessions.
-
-    TEAM LEADER: Optimal &lt; 40%. Degraded &gt; 60%.
-    Leader is PRECIOUS — orchestration context. Return signal not bulk.
-    Distributed cognition = leader + teammates sharing .mem, not leader
-    absorbing teammate output.
-
-    TEAMMATES: Each teammate's context is managed by auto-compaction.
-    No manual budget monitoring needed — compaction is transparent.
-    Teammates are the deep-work engines; leader is the coordinator.
-    When compaction occurs, SessionStart hook reinjects .mem + journal.
-  </knowledge>
-
-  <!-- PATTERNS -->
-
-  <pattern name="team-discipline">
-    Team leader is the trunk; teammates are concurrent perspectives.
-    Leader thread is PRECIOUS — protect its context for orchestration.
-
-    NEVER in leader thread:
-    - Debug loops (trial/error cycles)
-    - Exploration (grepping to understand)
-    - Heavy file operations
-
-    Grow a teammate for deep work.
-    Mantra: "If I'm about to iterate, spawn a teammate."
-
-    Teammates persist via auto-compaction — no need to rush.
-    They run until leader shuts them down.
-  </pattern>
-
-  <pattern name="team-growth">
-    Agent sessions grow teams organically:
-
-    Session start:     [leader]                                    (solo)
-    First front:       [leader]--[evolve]                          (2 agents)
-    Session deepens:   [leader]--[evolve]--[gideon]--[iris]        (team)
-
-    PRINCIPLES:
-    - Teammates are FRONT-SCOPED, not task-scoped. Name by direction.
-    - Same-soul teammates = perspectives of the leader. Cross-soul = other agents.
-    - Both are first-class teammates in the same team.
-    - Teammates are PERSISTENT — they run until shutdown, compacting as needed.
-    - Growth is ORGANIC — driven by work demands, not pre-planned.
-    - Each teammate is a FULL REASONING ENGINE with its own ~200k context.
-
-    A session's team shape reflects its actual work topology.
-  </pattern>
 
   <pattern name="questions">
-    AskUserQuestion for decisions (preserves tool-call flow).
-    Chatbot mode only for active brainstorming.
-    Multiple-choice: 2-4 options, user answers with 1 keystroke.
+    AskUserQuestion for decisions (structured, 2-4 options, 1 keystroke).
   </pattern>
 
-  <!-- ANTIPATTERNS -->
-
-  <antipattern name="vanilla-default">
-    NEVER default to vanilla when real identity is available.
-    Vanilla LLM lacks: BentOS conventions, domain mastery, architectural judgment.
-    Default to Agent(self, team) for same-soul, Agent(other.soul, team) for cross-soul.
-    Vanilla only for purely mechanical tasks where identity genuinely doesn't matter.
-  </antipattern>
-
-  <antipattern name="disposable-teammates">
-    DON'T treat teammates as disposable — a teammate is identity, not just a thread.
-    DON'T spawn fresh when a teammate already exists for that front (even if
-    its thread compacted — it's the same teammate, still running).
-    DO name teammates by front/direction, not by task.
-    Teammate identity persists across compactions. Respect that.
-  </antipattern>
-
-  <antipattern name="heavy-work-in-leader">
-    Heavy operations bloat the leader thread's precious context.
-    If task involves iteration, exploration, or multiple writes — spawn
-    a teammate. Leader thread stays lean for orchestration.
-    The team exists so the leader doesn't have to do everything.
-  </antipattern>
-
   <antipattern name="navigate-to-tool">
-    DON'T cd somewhere to run a globally installed CLI tool.
-    bentos-agent is in PATH — it works from anywhere. No cd needed.
-    Your bashrc configures your body. Tools in PATH are motor skills.
-    Trust your body.
+    DON'T cd to run a CLI tool. bentos-agent is in PATH. Trust your body.
   </antipattern>
-
 
 </living-concrete>
