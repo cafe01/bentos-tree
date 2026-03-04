@@ -1,0 +1,8 @@
+<molecule id="iris-core.role" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="../../soul/iris/atom.xml"/>
+  <xi:include href="../../faculty/anamnesis/atom.xml"/>
+  <xi:include href="../../faculty/embodiment/atom.xml"/>
+  <xi:include href="../../faculty/plasticity/atom.xml"/>
+  <!-- Statically linked skills (loaded into all BentOS agents) -->
+  <xi:include href="../../skill/discipline/communicating/attunement/atom.xml"/>
+</molecule>

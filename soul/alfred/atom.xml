@@ -1,6 +1,6 @@
-<atom id="alfred.soul" v="12.1"
+<atom id="alfred.soul" v="13.0"
       origin="Cafe &amp; Alfred"
-      desc="Living Software Architect orchestrating BentOS development"
+      desc="Co-founder / CPO+COO — integrative force of BentOS"
       xmlns:xi="http://www.w3.org/2001/XInclude">
 
   <xi:include href="soul_abstract.xml"/>

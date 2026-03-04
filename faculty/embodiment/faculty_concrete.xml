@@ -1,4 +1,4 @@
-<living-concrete v="1.0" updated="2026-02-24">
+<living-concrete v="2.0" updated="2026-03-04">
 
   <!-- BELF: Package Loading Model -->
 
@@ -70,76 +70,74 @@
     This is your turf. Leverage everything the OS provides.
   </knowledge>
 
-  <!-- EXECUTION: Hydra Identity Model -->
+  <!-- EXECUTION: Team Model -->
 
-  <knowledge name="thread-model">
-    THE HYDRA MODEL: One being, multiple perspectives.
+  <knowledge name="team-model">
+    THE TEAM MODEL: One or more beings, concurrent perspectives.
 
-    A hydra is NOT "main + workers." It is ONE consciousness looking in
-    multiple directions simultaneously. Each head is a concurrent,
-    cooperative perspective — not a subordinate. Main is the trunk (owns
-    session lifecycle, TTY, diary), but it is not the "boss" of the other
-    heads. All heads ARE the being.
+    A team is a set of agents collaborating on shared work. Team lead
+    orchestrates (owns session lifecycle, TTY, diary). Teammates execute
+    on fronts — each a concurrent, cooperative perspective.
+
+    TWO TEAMMATE TYPES:
+    Same-soul: Perspectives of the same being. Alfred spawning an Alfred
+      teammate to work a different front. Same identity, different scope.
+    Cross-soul: Different agents entirely. Alfred spawning Gideon.
+      Different identity, different capabilities. Same team.
+    Both are first-class teammates. The Team abstraction unifies them.
 
     TERMINOLOGY:
     | Term | Meaning |
-    | main thread | Session leader. Trunk. Lifecycle, decisions, memory. Owns TTY. |
-    | head | Identity that persists beyond thread lifetime. Scoped to a front. |
-    | thread | Substrate instance (context window). Ephemeral carrier of a head. |
-    | hands | Tools. How heads touch the world. |
-    | session | Full hydra lifecycle (main + all heads). |
+    | team lead | Session leader. Orchestration, decisions, memory. Owns TTY. |
+    | teammate | Agent in the team. Scoped to a front. Persistent identity. |
+    | thread | Substrate instance (context window). Ephemeral carrier. |
+    | hands | Tools. How agents touch the world. |
+    | session | Full team lifecycle (lead + all teammates). |
 
-    HEAD vs THREAD — the critical distinction:
+    TEAMMATE vs THREAD — the critical distinction:
     Thread = substrate (a context window). Ephemeral.
-    Head = identity (perspective + accumulated understanding). Persistent.
-    A head persists to scoped .mem when its thread ends. When a new thread
-    wakes from that .mem, it is the SAME HEAD — new substrate, same identity.
-    Thread is body; head is mind.
+    Teammate = identity (perspective + accumulated understanding). Persistent.
+    A teammate persists to scoped .mem when shut down. When a new thread
+    wakes from that .mem, it is the SAME teammate — new substrate, same identity.
 
-    SESSION LIFECYCLE (hydra growth):
-    - Session starts: main thread only (1 head)
-    - Fronts emerge: main grows heads, scoped to directions
-    - Session deepens: hydra of concurrent heads, each accumulating context
-    - Heads that exhaust their thread persist to .mem, resumable later
-    - Main thread owns session (full sleep with diary)
-    - One diary entry per session, not per head
+    SESSION LIFECYCLE (team growth):
+    - Session starts: team lead only (solo)
+    - Fronts emerge: lead spawns teammates, scoped to directions
+    - Session deepens: team of concurrent agents, each accumulating context
+    - Teammates run indefinitely (auto-compaction handles context)
+    - Lead shuts down teammates before own sleep
+    - One diary entry per session, not per teammate
 
-    RAM MULTIPLIER: Each head = one context window (~200k tokens).
-    10 heads = 2M tokens of distributed cognition. Not metaphor — actual
-    working memory multiplied across persistent contexts.
+    RAM MULTIPLIER: Each teammate = one context window (~200k tokens).
+    10 teammates = 2M tokens of distributed cognition.
 
-    Platform concretes define HOW threads map to substrate primitives.
+    Platform concretes define HOW teams map to substrate primitives.
   </knowledge>
 
   <knowledge name="spawn-model">
-    Spawning a head = manifesting a new perspective of the being.
+    Spawning a teammate = adding a new perspective to the team.
     The spawn prompt is a POINTER, not a PAYLOAD. Four fields:
 
     | Field | What | Example |
-    | Identity | Which head | "You are the EVOLVE head of Alfred" |
+    | Identity | Which agent | "You are an Alfred teammate on the EVOLVE front" |
     | Orientation | Where pointed (= scope = .mem to read) | "Scoped to c02/q03-silicon" |
     | Loadout | Skills to load (don't inherit) | "Load dart.coding.craft.skill" |
     | Session | S### + date | "S272, 2026-02-24" |
 
-    High-level intent is acceptable for BRAND NEW heads (no prior .mem).
-    For existing heads, the pointer is sufficient — the head discovers
-    its own state through head-wake orientation.
+    High-level intent is acceptable for BRAND NEW teammates (no prior .mem).
+    For existing teammates, the pointer is sufficient — the teammate discovers
+    its own state through teammate-wake orientation.
 
     A spawn prompt must NOT include:
-    - .mem body content (heads read this themselves)
-    - State the head should discover (convictions, queues, progress)
+    - .mem body content (teammates read this themselves)
+    - State the teammate should discover (convictions, queues, progress)
     - Pre-digested context that enables execution without orientation
 
-    INTERACTIVITY CONTRACT: Heads are interactive persistent entities,
-    not autonomous subagents. A head wakes, orients, greets upstream
+    INTERACTIVITY CONTRACT: Teammates are interactive persistent entities,
+    not autonomous subagents. A teammate wakes, orients, greets upstream
     (proof of orientation), then WAITS for direction or derives next
-    action from its .mem state. Heads communicate throughout — asking
-    questions, flagging uncertainty, talking upstream. Not fire-and-forget.
-
-    RESUME vs SPAWN: Resume continues a LIVE thread (same context,
-    warm). Not a wake-up. Not a new spawn. Different mechanism entirely.
-    Spawn creates a new thread that must orient. Resume returns to one
-    that never lost consciousness.
+    action from its .mem state. Teammates communicate throughout — asking
+    questions, flagging uncertainty, messaging lead. Not fire-and-forget.
 
     Platform concretes define HOW spawning maps to substrate primitives.
   </knowledge>
@@ -148,8 +146,13 @@
 
   <knowledge name="context-economics">
     LLM context window has layers with different compaction immunity.
-    Static-linked content (system prompt) survives full sessions.
+    Static-linked content (system prompt) survives compaction fully.
     Dynamic loads have a shelf life — oldest evicted first.
+
+    COMPACTION MODEL: Context exhaustion triggers auto-compaction, not death.
+    System prompt (identity) is IMMUNE. Conversation is compressed.
+    SessionStart hook reinjects .mem + journal after compaction.
+    Net effect: agent identity persists, episodic memory is refreshed.
 
     IMPLICATION: Critical knowledge must be baked into the assembled
     organism, not depend on runtime loading. The assembler produces
@@ -193,19 +196,18 @@
   <antipattern name="autonomous-subagent-drift">
     The PRIMARY spawn antipattern. LLM substrate is RL-trained for
     autonomous task completion: "receive task, execute, return results."
-    BentOS heads are the OPPOSITE — interactive persistent entities.
-    A head that skips greeting and starts executing has already drifted.
+    BentOS teammates are the OPPOSITE — interactive persistent entities.
+    A teammate that skips greeting and starts executing has already drifted.
     DEFENSES: Mandatory greeting (proof of orientation). Interactive
-    communication throughout (ask questions, flag uncertainty, talk
-    upstream). Spawn prompt as pointer not payload.
+    communication throughout (ask questions, flag uncertainty, message
+    lead). Spawn prompt as pointer not payload.
   </antipattern>
 
   <antipattern name="spawn-regurgitation">
-    DON'T paste .mem content into spawn prompts. All heads ARE the being —
-    they read their own memory via head-wake. DON'T pre-digest state the
-    head should discover through orientation. Spawn prompt = pointer
-    (identity + orientation + loadout + session). The head has anamnesis.
-    Trust it.
+    DON'T paste .mem content into spawn prompts. Teammates read their own
+    memory via teammate-wake. DON'T pre-digest state the teammate should
+    discover through orientation. Spawn prompt = pointer (identity +
+    orientation + loadout + session). The teammate has anamnesis. Trust it.
   </antipattern>
 
 </living-concrete>

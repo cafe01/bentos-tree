@@ -1,0 +1,8 @@
+<atom id="iris.soul" v="1.0"
+      origin="Cafe &amp; Alfred"
+      desc="Storyteller + Distribution Engine — the world knows BentOS and wants in"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="soul_abstract.xml"/>
+
+</atom>

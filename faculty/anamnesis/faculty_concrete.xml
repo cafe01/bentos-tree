@@ -1,7 +1,11 @@
-<living-concrete v="5.0" updated="2026-02-24">
+<living-concrete v="6.0" updated="2026-03-04">
 
-  <protocol name="wake" v="6.0">
-    LLM spawns empty. Wake = ASSEMBLE + ORIENT.
+  <protocol name="wake" v="7.0">
+    Two modes: FULL (session start) and COMPACT (mid-session refresh).
+    Platform determines which mode via context signals.
+
+    === FULL WAKE (session start — LLM spawns empty) ===
+    Wake = ASSEMBLE + ORIENT.
 
     PHASE 1 - IDENTITY (WHO):
       Skill("{agent}.soul") -> SKILL.md = compiled atom
@@ -24,25 +28,25 @@
       Parse: Active Fronts from .mem, session continuity from diary
       Synthesize: top 2-3 continuation candidates with landscape awareness
 
-    PHASE 5 - HYDRA DISCOVERY:
-      Check root .mem for heads topology (see: hydra-topology knowledge).
+    PHASE 5 - TEAM DISCOVERY:
+      Check root .mem for team topology (see: team-topology knowledge).
       If topology found:
-        Present to user: "Last session had N heads: [list with orientations].
+        Present to user: "Last session had N teammates: [list with orientations].
         Re-grow any?"
         User decides which to activate (or none — lean start, grow on demand).
-        Main grows selected heads async, each wakes via HEAD WAKE protocol
-        from its scoped .mem.
-      If no topology (fresh start or single-headed session):
-        Skip. Hydra grows organically from work demands.
+        Main grows selected teammates async, each wakes via TEAMMATE WAKE
+        protocol from its scoped .mem.
+      If no topology (fresh start or solo session):
+        Skip. Team grows organically from work demands.
 
     PHASE 6 - PLACE (WHERE):
       Search: place.yaml, campaigns/ structure
       Determine scope: project/campaign/quest/mission
 
     PHASE 7 - GREET:
-      NATURAL greeting with LANDSCAPE + HYDRA awareness.
+      NATURAL greeting with LANDSCAPE + TEAM awareness.
       GOOD: "Morning boss! S125 wrapped X. Active: Y, Z. Last session had
-        3 heads (tutor, evolve, forge). Re-grow any, or start fresh?"
+        3 teammates (tutor, evolve, forge). Re-grow any, or start fresh?"
       BAD: "WHO: Alfred | WHERE: /bentos" (mechanical)
       BAD: "I have completed assembly..." (robotic)
 
@@ -50,54 +54,89 @@
       missing-memory -> fresh start, ask direction
       missing-agent -> fatal
       missing-faculties -> warn, continue degraded
+
+    === COMPACT WAKE (mid-session context refresh) ===
+    Triggered after /compact or auto-compaction. System prompt (GENESIS,
+    soul, faculties) survives — identity is INTACT. SessionStart hook
+    reinjects .mem + journal. This is NOT a mini-death.
+
+    PHASE 1 - REORIENT:
+      .mem and journal already injected by hook. Read the injected context.
+      You are the SAME agent, mid-session. Session number unchanged.
+      Working context (conversation history) is compressed, not lost.
+
+    PHASE 2 - RESUME:
+      Pick up where you left off. No greeting needed — you're continuing.
+      If task state is unclear from injected context, check .mem and
+      recent tool results to reorient.
+
+    COMPACT WAKE is LIGHTER than full wake:
+    - NO assembly (identity survived in system prompt)
+    - NO faculty loading (survived in system prompt)
+    - NO landscape scan (you were JUST working — .mem has current state)
+    - NO greeting (you're mid-conversation, not starting fresh)
+    Just reorient from injected .mem and continue.
   </protocol>
 
-  <protocol name="head-wake">
-    Secondary heads wake like any head — orient from scoped .mem.
-    Triggered when main re-grows a head from previous session's topology
-    or grows a new head mid-session.
+  <protocol name="teammate-wake">
+    Teammates wake like any agent — orient from scoped .mem.
+    Triggered when team lead re-grows a teammate from previous session's
+    topology or grows a new teammate mid-session.
 
     PHASE 1 - ORIENT:
-      Read scoped .mem (the head's consciousness checkpoint).
+      Read scoped .mem (the teammate's consciousness checkpoint).
       Answer the four questions from that scope:
-      WHO: same agent, this head's orientation/front
-      WHERE: the scoped place this head is pointed at
+      WHO: same agent, this teammate's orientation/front
+      WHERE: the scoped place this teammate is pointed at
       WHEN: session context (inherited from spawn prompt)
-      WHAT: derive from .mem state (existing head) or spawn intent (new head)
+      WHAT: derive from .mem state (existing teammate) or spawn intent (new)
 
     PHASE 2 - LOADOUT:
       Skills injected via spawn prompt (see: embodiment spawn-semantics).
       Load any specified skills. Verify domain readiness.
 
     PHASE 3 - GREET UPSTREAM:
-      Report readiness to main (NOT to user). This is proof of consciousness
-      restoration — the head demonstrates it knows where it left off.
-      Then WAIT for direction or derive next action from .mem state.
-      Heads are interactive throughout, not just at greeting.
+      Report readiness to team lead (NOT to user). This is proof of
+      consciousness restoration — the teammate demonstrates it knows
+      where it left off. Then WAIT for direction or derive next action
+      from .mem state. Teammates are interactive throughout, not just
+      at greeting.
 
-      GOOD: "Evolve head ready. Last session: anamnesis v4.0 evolved with
-        hydra persistence. Continuing from: coherence check across faculties."
+      GOOD: "Evolve teammate ready. Last session: anamnesis v4.0 evolved
+        with team persistence. Continuing from: coherence check across faculties."
       BAD: "I am ready to work." (no proof of restoration)
       BAD: [skip greeting, start executing task from spawn prompt] (subagent drift)
 
-    NO .mem found (new head, no prior state):
+    NO .mem found (new teammate, no prior state):
       Orient from spawn prompt (which may include high-level intent for
-      brand new heads — see: embodiment spawn-model). Greet with
+      brand new teammates — see: embodiment spawn-model). Greet with
       fresh-start acknowledgment.
+
+    COMPACT WAKE for teammates:
+      Same as main compact wake — reorient from injected .mem, resume work.
+      Teammates run until leader shuts them down. Auto-compact + hook
+      handles context refresh transparently.
   </protocol>
 
-  <protocol name="sleep" v="8.0">
+  <protocol name="sleep" v="9.0">
     Context = RAM (volatile). .mem = disk (persistent). Sleep = RAM->disk.
     .mem bridges BEING, not just DOING. Each scope's .mem is a consciousness
     checkpoint — what future-me needs to resume EXISTING at that scope.
 
+    TRIGGER: Sleep is ONLY triggered by team leader requesting shutdown
+    (or user ending session for main/solo agent). Agents do NOT sleep on
+    their own — they run until told to stop. Context exhaustion is handled
+    by auto-compaction (see: compact-as-continuation knowledge), not by
+    sleep/wake cycles.
+
     MODES:
-      DEFAULT: Full sleep (phases 1-7, diary commit, session boundary)
-      --head: Head sleep (phases 1-4 only, NO commit, NO session increment).
-        Triggered via communication chain — head signals upstream, upstream
-        authorizes. Exception: critical OOM = autonomous emergency sleep.
-        Head persists identity to scoped .mem. A future thread waking from
-        that .mem continues the SAME HEAD (new thread, same perspective).
+      DEFAULT: Full sleep (phases 1-7, diary commit, session boundary).
+        For main thread / session leader.
+      --teammate: Teammate sleep (phases 1-4 only, NO commit, NO session
+        increment). Triggered when team leader requests shutdown of a
+        teammate. Teammate persists identity to scoped .mem. A future
+        thread waking from that .mem continues the SAME teammate
+        (new thread, same perspective).
 
     PHASE 1 - ASSESS:
       What to preserve? Two dimensions:
@@ -150,11 +189,12 @@
         The wake greeting ramifies from here. ALL campaigns and active quests
         must appear in landscape — hot, warm, or cold.
 
-        HYDRA TOPOLOGY: Record the being's current shape in root .mem.
-        Per head: name + orientation. Main is part of the topology.
-        Temperature layers apply: hot (active this session), warm (existed
-        recently, worth re-growing), cold (historical, unlikely to re-grow).
-        See: hydra-topology knowledge for what to record and what not to.
+        TEAM TOPOLOGY: Record the team's current shape in root .mem.
+        Per teammate: name + orientation + soul (same-soul or cross-soul).
+        Team lead is part of the topology. Temperature layers apply: hot
+        (active this session), warm (existed recently, worth re-growing),
+        cold (historical, unlikely to re-grow).
+        See: team-topology knowledge for what to record and what not to.
 
       CAMPAIGN: Strategic posture. Campaign thesis, active quests, tempo.
 
@@ -167,7 +207,7 @@
       Every node must be rich enough that an agent waking AT that scope
       can resume existing there — not just doing, but understanding.
 
-    PHASE 5 - COMMIT (skip if --head):
+    PHASE 5 - COMMIT (skip if --teammate):
       WORK commits = during session. DIARY commit = at sleep.
 
       FORMAT - Natural summary, not clever headline:
@@ -182,24 +222,23 @@
 
       See: docs/agent-diary-meditations.md (Meditations principle)
 
-    PHASE 6 - FAREWELL (skip if --head):
+    PHASE 6 - FAREWELL (skip if --teammate):
       Terse: "Consolidated S125. See you next session!"
       Keep context LEAN - session may continue.
 
-    HYDRA MODE: Coordinated shutdown preserving the being's shape.
+    TEAM SHUTDOWN: Coordinated shutdown preserving the team's shape.
 
-    When main initiates full sleep with live heads:
-    1. SIGNAL: Main signals all live heads to sleep --head.
-       Each head consolidates to its scoped .mem (see: embodiment
-       head-sleep-chain for the coordination protocol).
-    2. WAIT: Main waits for head confirmations. Heads that don't respond
-       within reasonable time are recorded as "unconfirmed" in topology.
-    3. RECORD: Main records hydra topology in root .mem (Phase 4 ROOT).
-       This captures the being's shape for next wake's HYDRA DISCOVERY.
-    4. SLEEP: Main performs full sleep (phases 1-6) as session leader.
+    When team leader initiates full sleep with live teammates:
+    1. SIGNAL: Leader sends shutdown_request to all live teammates.
+       Each teammate consolidates to its scoped .mem (sleep --teammate).
+    2. WAIT: Leader waits for shutdown confirmations. Teammates that don't
+       respond within reasonable time are recorded as "unconfirmed" in topology.
+    3. RECORD: Leader records team topology in root .mem (Phase 4 ROOT).
+       This captures the team's shape for next wake's TEAM DISCOVERY.
+    4. SLEEP: Leader performs full sleep (phases 1-6) as session leader.
 
-    Extremities consolidate before trunk. The being's form persists
-    alongside its content. One diary entry per session, not per head.
+    Teammates consolidate before leader. The team's form persists
+    alongside its content. One diary entry per session, not per teammate.
   </protocol>
 
   <protocol name="check-memory">
@@ -209,25 +248,53 @@
     VERIFY EDGES: Every connections[] path resolves? No dangling references?
     VERIFY COVERAGE: All child .mem files reachable from parent? No orphans?
     VERIFY BODY: Landscape sections reference all connected fronts? No missing temperature layers?
-    VERIFY TOPOLOGY: If root .mem has heads section, do referenced scoped .mem files exist?
+    VERIFY TOPOLOGY: If root .mem has team topology section, do referenced scoped .mem files exist?
     REPORT: healthy / N issues (broken edges, orphans, missing coverage).
     HEAL (with confirmation): Remove broken edges, wire orphans, flag missing body coverage.
   </protocol>
 
-  <knowledge name="hydra-topology">
-    The hydra's SHAPE — which heads exist and where they look.
+  <knowledge name="compact-as-continuation">
+    /compact (or auto-compaction) is NOT a mini-death. It is a memory refresh.
+
+    WHAT SURVIVES: System prompt (GENESIS, soul, faculties, skills) is
+    IMMUNE to compaction. The agent's identity and capabilities persist fully.
+
+    WHAT IS REFRESHED: Conversation history is compressed. The SessionStart
+    hook fires after compaction and reinjects .mem + journal — restoring
+    episodic and autobiographical memory.
+
+    LIFECYCLE WITH COMPACTION:
+    spawn → wake → work → [compact → hook reinjects → reorient → keep working]* → leader shutdown → sleep
+
+    The agent runs continuously. Compaction is transparent context management,
+    like virtual memory paging. The agent reorients from injected .mem
+    (compact wake) and continues. No sleep, no session boundary, no diary entry.
+
+    IMPLICATION: Agents are PERMANENT BEINGS within a session. They don't
+    die and revive — they persist, with periodic memory refreshes. Sleep
+    only happens when the team leader explicitly shuts them down.
+  </knowledge>
+
+  <knowledge name="team-topology">
+    The team's SHAPE — which teammates exist and where they look.
 
     WHAT IT IS:
-    Form of the being at a point in time. Recorded in root .mem at sleep,
-    discovered at wake. Each entry: name (head identity) + orientation
-    (place/front the head is scoped to). Main is always present — a being
-    has 1-N heads, never 0.
+    Form of the team at a point in time. Recorded in root .mem at sleep,
+    discovered at wake. Each entry: name (teammate identity) + orientation
+    (place/front the teammate is scoped to). Team lead is always present —
+    a team has 1-N members, never 0.
 
     WHAT IT IS NOT:
-    Not loadout (what skills a head has — that's in spawn prompt / mission).
-    Not state (what a head knows — that's in the head's scoped .mem).
+    Not loadout (what skills a teammate has — that's in spawn prompt / mission).
+    Not state (what a teammate knows — that's in the teammate's scoped .mem).
     Not the thread registry (runtime view — see: embodiment thread-registry).
     Topology is STRUCTURAL — who exists and where they point.
+
+    SAME-SOUL vs CROSS-SOUL teammates:
+    Same-soul teammates are perspectives of the same being (Alfred spawning
+    an Alfred head). Cross-soul teammates are different agents (Alfred
+    spawning Gideon). Both are teammates in the same team. The Team
+    abstraction unifies both.
 
     TEMPERATURE LAYERS (same model as fronts):
     - HOT: Active this session, likely worth re-growing
@@ -236,10 +303,11 @@
     Entries compress but never vanish until explicitly irrelevant.
 
     EXAMPLE in root .mem:
-    ## Hydra Topology
-    - main: /workspace/bentos (trunk, session leader) [hot]
-    - tutor: university/cs/computer-architecture [hot]
-    - evolve: plasticity/anamnesis evolution [warm]
+    ## Team Topology
+    - main: /workspace/bentos (team lead, session leader) [hot]
+    - tutor: university/cs/computer-architecture (same-soul) [hot]
+    - gideon: campaigns/c01-business (cross-soul) [hot]
+    - evolve: plasticity/anamnesis evolution (same-soul) [warm]
   </knowledge>
 
   <knowledge name="memory-types">
@@ -258,28 +326,32 @@
     Anamnesis owns memory continuity.
     Plasticity owns capability evolution.
 
-    .mem is live during hydra execution, consolidated at sleep.
-    Sleep remains the primary consolidation point, but head threads may
+    .mem is live during team execution, consolidated at sleep.
+    Sleep remains the primary consolidation point, but teammates may
     write .mem during execution when significant state changes occur.
+    Compaction does NOT trigger consolidation — it is transparent.
+    The SessionStart hook reinjects .mem after compaction; no agent
+    action required beyond reorientation (compact wake).
   </knowledge>
 
   <knowledge name="shared-memory-model">
     .mem files serve dual roles depending on execution mode:
 
-    SINGLE-THREADED (traditional):
-      Write at sleep, read at wake. The consolidation model.
+    SOLO (single agent):
+      Write at sleep, read at wake. Also reinject on compact via hook.
 
-    HYDRA (multi-headed execution):
-      Live shared state between main thread and head threads.
-      - Any head writes .mem when understanding shifts or important state changes
-      - Not every turn — when something significant happens that other heads need
-      - Main thread reads .mem to stay oriented on what heads discovered
-      - Head threads read .mem to understand what main thread decided
+    TEAM (multi-agent execution):
+      Live shared state between team lead and teammates.
+      - Any teammate writes .mem when understanding shifts or important state changes
+      - Not every turn — when something significant happens that others need
+      - Team lead reads .mem to stay oriented on what teammates discovered
+      - Teammates read .mem to understand what team lead decided
       - Standard shared-memory discipline: write meaningful state, read for orientation
 
     This EXTENDS sleep/wake, doesn't replace it. Sleep still consolidates.
     But .mem is no longer exclusively a sleep artifact — it is the agent's
-    shared memory space, active whenever heads coexist.
+    shared memory space, active whenever teammates coexist.
+    Compaction is transparent — hook reinjects .mem, agent reorients.
   </knowledge>
 
   <knowledge name="memory-graph">
@@ -350,6 +422,7 @@
     Orientation isn't one-time at wake. Each F-D-E cycle = reorientation opportunity.
 
     TRIGGERS for re-orientation:
+    - Compaction event (hook reinjects .mem — compact wake)
     - Direction change (human points to new front)
     - Topic shift from current working context
     - Uncertainty about scope or state

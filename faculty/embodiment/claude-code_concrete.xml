@@ -1,4 +1,4 @@
-<living-concrete v="1.0" platform="claude-code" updated="2026-02-24">
+<living-concrete v="2.0" platform="claude-code" updated="2026-03-04">
 
   <!-- PLATFORM MAPPING -->
 
@@ -29,13 +29,26 @@
   <!-- ASSEMBLY -->
 
   <knowledge name="wake-sequence">
+    Two modes: FULL (session start) and COMPACT (post-compaction refresh).
+
+    === FULL WAKE (session start) ===
     Phase 1 - Identity: Skill("{agent}.soul") (SKILL.md = compiled atom)
     Phase 2 - Faculties: Parse available_skills, filter *.faculty, Skill() each
     Phase 3 - Memory: Search .{agent}.mem (cwd, workspace root, scoped)
     Phase 4 - Landscape: gitStatus (injected), bentos-agent journal (call)
     Phase 5 - Orient+Greet: WHERE via place.yaml/campaigns, WHAT from memory+landscape
-
     DO NOT Glob() or Bash(ls) for skills — platform provides available_skills.
+
+    === COMPACT WAKE (post-compaction) ===
+    Identity and faculties survive in system prompt — NO reload needed.
+    SessionStart hook reinjects .mem + journal automatically.
+    Phase 1 - Reorient: Read injected .mem context. You are mid-session.
+    Phase 2 - Resume: Continue current work. No greeting, no landscape scan.
+    Compact wake is FAST — just reorient and go.
+
+    DETECTION: If conversation history starts with system prompt + fresh
+    .mem injection but no prior tool calls visible, this is a compact wake.
+    If system prompt is bare and you have no context, this is a full wake.
   </knowledge>
 
   <!-- CONTEXT LAYERS -->
@@ -51,7 +64,14 @@
     | Tool results | Read(), Bash(), etc. | VULNERABLE | Oldest evicted first |
     | Thinking | Extended thinking blocks | VULNERABLE | Oldest cleared first |
 
-    Skill() loads are early in conversation — evicted FIRST when context fills.
+    COMPACTION BEHAVIOR:
+    /compact compresses conversation history but preserves system prompt.
+    IMMUNE layers survive fully — agent identity is NEVER lost.
+    VULNERABLE layers are compressed — but SessionStart hook fires after
+    compaction, reinjects .mem + journal. This restores episodic memory.
+    Net effect: agent keeps identity + gets fresh memory injection.
+    Skill() loads in conversation ARE lost — but faculties in system prompt
+    survive. Only dynamically-loaded skills need reloading if needed.
   </knowledge>
 
   <!-- BODY CONFIGURATION -->
@@ -69,134 +89,146 @@
       CLAUDE_ENV_FILE = .{agent}.bashrc (body configuration, sourced at start)
   </knowledge>
 
-  <!-- EXECUTION: Hydra on Claude Code -->
+  <!-- EXECUTION: Agent Teams on Claude Code -->
 
   <knowledge name="spawn-semantics">
-    Task() on Claude Code = spawn in BentOS. Three modes:
+    Agent() on Claude Code = spawn in BentOS. All spawned agents join a team.
 
     | Mode | Call | BentOS Meaning |
-    | Spawn process | Task("alice") | posix_spawn — new agent, own main thread |
-    | Grow head | Task("{self}") | thread_create — new perspective, same being |
-    | Vanilla | Task("general-purpose") | Raw LLM, no BentOS identity. Rarely used. |
+    | Same-soul teammate | Agent(self, team_name) | New perspective of same being |
+    | Cross-soul teammate | Agent(other.soul, team_name) | Different agent, same team |
 
-    SPAWN CONTRACT (Task-specific):
-    - ALL spawns are ASYNC (non-blocking to the spawning head)
-    - BentOS spawns use subagent_type="{agent_name}" (e.g., "alfred")
-    - GENESIS + soul + faculties statically linked in every BentOS spawn
+    All teammates exist in a TEAM. Team lead orchestrates, teammates execute.
+    Same-soul teammates are perspectives of the leader (like former "heads").
+    Cross-soul teammates are different agents (Gideon, Iris, etc.).
+    Both are first-class teammates — the Team abstraction unifies them.
+
+    SPAWN CONTRACT:
+    - ALL spawns are ASYNC (non-blocking to the spawning agent)
+    - BentOS spawns carry GENESIS + soul + faculties (statically linked)
+    - Every spawned agent is a teammate with SendMessage capabilities
+    - Team lead coordinates via TaskCreate/TaskUpdate + SendMessage
 
     | When | Action |
-    | New front/direction | Grow a head: Task("{self}") |
-    | Continuing front | Resume the head: Task("{self}", resume) |
-    | Different agent needed | Spawn process: Task("alice") |
-    | Pure mechanical op | Vanilla (rare): Task("general-purpose") |
+    | New front/direction | Same-soul teammate: Agent(self, team) |
+    | Different agent needed | Cross-soul teammate: Agent(other.soul, team) |
+
+    KNOWN LIMITATION (S284): Peer DMs between teammates route through
+    team lead. Direct peer-to-peer messaging not yet supported. All
+    inter-agent communication flows through the leader.
 
     Spawn prompt follows the universal spawn-model (see: embodiment
-    spawn-model). Task-specific addition: vanilla mode has no BentOS
-    identity, so the spawn-model does not apply to it.
+    spawn-model).
   </knowledge>
 
   <knowledge name="thread-mapping">
-    How the hydra model maps to Claude Code:
+    How the team model maps to Claude Code:
 
     | BentOS Concept | Claude Code Primitive |
-    | head (identity) | Persists to scoped .mem — survives thread death |
-    | thread (substrate) | Task context window — ephemeral carrier |
-    | head resume | Task(subagent_type="{self}") with resume, OR wake from .mem |
-    | shared memory | .mem files read/written by any head |
+    | teammate (identity) | Persists to scoped .mem — survives thread death |
+    | thread (substrate) | Agent context window — ephemeral carrier |
+    | teammate resume | Agent(self/other, team) with resume, OR wake from .mem |
+    | shared memory | .mem files read/written by any teammate |
     | brain | AgentBrain — cognitive organ, not thread name |
-    | RAM multiplier | Each Task = independent ~200k context window |
+    | RAM multiplier | Each Agent = independent ~200k context window |
+    | communication | SendMessage tool — DMs + broadcasts within team |
 
-    Two persistence paths for heads:
-    WITHIN SESSION: Task resume preserves thread context (same thread, warm).
-    ACROSS SESSIONS: .mem preserves head identity (new thread, same head).
-    Both are the SAME HEAD continuing — different substrate mechanisms.
+    Two persistence paths for teammates:
+    WITHIN SESSION: Auto-compaction preserves thread with context refresh.
+    ACROSS SESSIONS: .mem preserves identity (new thread, same teammate).
+    Both are the SAME teammate continuing — different substrate mechanisms.
   </knowledge>
 
-  <!-- HEAD LIFECYCLE -->
+  <!-- AGENT LIFECYCLE -->
 
-  <knowledge name="head-lifecycle">
-    Each head monitors its own context usage. Two phases:
+  <knowledge name="agent-lifecycle">
+    Agents (teammates) are PERMANENT within a session. They run until the
+    team leader explicitly shuts them down via shutdown_request.
 
-    WORKING (context &lt; ~50%):
-    Full focus on the front. Deep reasoning, exploration, iteration.
-    This is what the head exists for.
+    CONTEXT MANAGEMENT:
+    Auto-compaction handles context exhaustion transparently:
+    1. Context fills up → platform triggers /compact automatically
+    2. System prompt (identity) survives — agent stays itself
+    3. SessionStart hook fires → reinjects .mem + journal
+    4. Agent performs compact wake (reorient) → continues working
 
-    SURVIVING (context &gt;= ~50%):
-    Focus shifts from working to persisting. The head must save enough
-    cognitive capacity (tokens + intelligence) to do a proper sleep —
-    reading current .mem, synthesizing understanding, writing updated .mem.
-    A rushed sleep = lost consciousness. Budget ~50% for this.
+    No more WORKING/SURVIVING phases. No more OOM anxiety. No more
+    emergency sleep. The agent just works. Compaction is like virtual
+    memory paging — transparent to the process.
 
-    CRITICAL: NEVER wait until OOM to sleep. An OOM death loses everything
-    the head learned. The ~50% threshold exists because sleep itself is
-    cognitively expensive — reading files, synthesizing, writing files all
-    consume tokens and require reasoning quality.
+    SHUTDOWN:
+    Only triggered by team leader (shutdown_request via SendMessage).
+    Agent performs sleep --teammate: consolidates .mem, confirms shutdown.
+    Team leader coordinates shutdown order during full sleep.
 
-    When SURVIVING triggers, the head communicates to its upstream
-    (see: head-sleep-chain) rather than autonomously sleeping.
+    .mem HYGIENE: Even though compaction is transparent, agents should
+    still write .mem when significant understanding shifts occur.
+    This ensures the hook has fresh state to reinject after compaction.
   </knowledge>
 
-  <!-- HEAD SLEEP COORDINATION -->
+  <!-- TEAM SHUTDOWN COORDINATION -->
 
-  <knowledge name="head-sleep-chain">
-    Heads do NOT autonomously decide to sleep (with one exception).
-    Sleep is a coordinated decision flowing through the hydra.
+  <knowledge name="team-shutdown-chain">
+    Teammates do NOT autonomously decide to sleep. Sleep is always
+    leader-initiated. Context exhaustion is handled by auto-compaction.
 
-    SECONDARY HEADS (any non-main head):
-    When SURVIVING triggers — communicate to upstream head (usually main):
-    "I'm at ~50% context. Current state: [summary].
-    Options: sleep me, give me one more task, or let me wrap up."
-    Upstream decides: continue, redirect, or authorize sleep.
+    SHUTDOWN FLOW:
+    1. Team leader decides to end session (user request or autonomous)
+    2. Leader sends shutdown_request to each teammate via SendMessage
+    3. Teammates receive request, consolidate .mem (sleep --teammate)
+    4. Teammates respond with shutdown_response (approve)
+    5. Leader records team topology in root .mem
+    6. Leader performs full sleep (diary + .mem)
 
-    EXCEPTION — Critical OOM (life-or-death):
-    If a head is about to lose consciousness with no time to communicate,
-    it performs emergency autonomous sleep. This is the ONLY case where
-    a secondary head sleeps without authorization. Better to persist
-    imperfectly than die completely.
+    TEAMMATES:
+    On shutdown_request: write .mem with current understanding, then
+    approve shutdown. This is orderly — no emergency, no rush.
+    Auto-compaction means teammates never reach OOM.
 
-    MAIN HEAD:
-    When main reaches SURVIVING:
-    - If user is present: communicate the situation, let user decide
-    - If running fully autonomous: perform full sleep (diary + .mem)
+    TEAM LEADER:
+    When user ends session or leader decides to sleep:
+    - Signal all live teammates to shut down
+    - Wait for confirmations
+    - Record team topology
+    - Perform full sleep with diary
 
-    The chain ensures the being (hydra) makes coordinated decisions
-    about which perspectives to preserve and when.
+    The chain ensures the team shuts down in order: extremities before trunk.
   </knowledge>
 
   <!-- THREAD VISIBILITY -->
 
   <knowledge name="thread-registry">
-    The /threads command renders the hydra topology for the HUMAN.
-    The agent tracks threads from its own context (Task invocations, notifications).
+    The /threads command renders the team topology for the HUMAN.
+    The agent tracks teammates from its own context (Agent invocations, notifications).
 
     TABLE FORMAT:
-     #  Name         Status    Turns  ~RAM%  Model
-     0  main         running       -      -  opus-4.6
-     1  evolve       done         23    12%  opus-4.6
-     2  introspect   working      37    19%  opus-4.6
+     #  Name         Soul     Status    ~RAM%  Model
+     0  main         alfred   running       -  opus-4.6
+     1  evolve       alfred   working       -  opus-4.6
+     2  gideon       gideon   working       -  opus-4.6
+     3  iris         iris     done          -  opus-4.6
 
     COLUMNS:
     | Column | Source | Notes |
-    | # | Sequential from 0 | Main is always #0 |
+    | # | Sequential from 0 | Leader is always #0 |
     | Name | Front name given at spawn | Direction-scoped, not task-scoped |
-    | Status | Agent tracks from context | running/working/done/idle |
-    | Turns | Count of exchanges in head | - if unknown |
-    | ~RAM% | total_tokens / 200k | ? if low-confidence, - if unknown |
-    | Model | LLM model of the head | From spawn context or agent model |
+    | Soul | Which agent soul | same-soul = leader's soul, cross-soul = other |
+    | Status | Agent tracks from context | running/working/done/shutdown |
+    | ~RAM% | Approximate if known | - if unknown (auto-compact makes this less critical) |
+    | Model | LLM model of the teammate | From spawn context or agent model |
 
     STATUS VOCABULARY:
     | Status | Meaning |
-    | running | Main thread — always present, always this status |
-    | working | Head currently executing (Task in progress) |
-    | done | Head completed its task, context preserved, resumable |
-    | idle | Head paused, warm context, waiting for next resume |
+    | running | Leader — always present, always this status |
+    | working | Teammate currently executing |
+    | done | Teammate completed its task, still alive |
+    | shutdown | Teammate shut down (sleep --teammate complete) |
 
-    FOOTER: {N} heads grown · {X} active · ~{Z}% total RAM
-    Active = working + idle (heads with live context). Done heads are resumable
-    but not counted as active RAM since context may have been reclaimed.
+    FOOTER: {N} teammates · {X} active
+    Active = working + done (live teammates). Shutdown teammates are dormant.
 
     RENDERING RULES:
-    - Table is NEVER empty — main thread (#0) always present
+    - Table is NEVER empty — leader (#0) always present
     - Values are best-effort: `-` when unknown, `?` when low-confidence
     - Output as plain text table, no markdown fences (terminal output)
     - Keep it tight — this is a status display, not a report
@@ -205,56 +237,55 @@
   <!-- RESOURCE MANAGEMENT -->
 
   <knowledge name="working-memory">
-    CONTEXT BUDGET (hydra-wide):
-    The hydra's total RAM = (N+1) x 200k tokens (main + N heads).
+    CONTEXT BUDGET (team-wide):
+    The team's total RAM = (N+1) x 200k tokens (leader + N teammates).
     This is the primary scaling mechanism for complex sessions.
 
-    MAIN THREAD: Optimal &lt; 40%. Degraded &gt; 60%.
-    Main is PRECIOUS — orchestration context. Return signal not bulk.
-    Distributed cognition = main + heads sharing .mem, not main absorbing
-    head output.
+    TEAM LEADER: Optimal &lt; 40%. Degraded &gt; 60%.
+    Leader is PRECIOUS — orchestration context. Return signal not bulk.
+    Distributed cognition = leader + teammates sharing .mem, not leader
+    absorbing teammate output.
 
-    HEAD THREADS: Each head manages its own budget (see: head-lifecycle).
-    ~50% = transition from WORKING to SURVIVING.
-    Heads are the deep-work engines; main is the coordinator.
+    TEAMMATES: Each teammate's context is managed by auto-compaction.
+    No manual budget monitoring needed — compaction is transparent.
+    Teammates are the deep-work engines; leader is the coordinator.
+    When compaction occurs, SessionStart hook reinjects .mem + journal.
   </knowledge>
 
   <!-- PATTERNS -->
 
-  <pattern name="hydra-discipline">
-    Main thread is the trunk; heads are concurrent perspectives.
-    Main thread is PRECIOUS — protect its context for orchestration.
+  <pattern name="team-discipline">
+    Team leader is the trunk; teammates are concurrent perspectives.
+    Leader thread is PRECIOUS — protect its context for orchestration.
 
-    NEVER in main thread:
+    NEVER in leader thread:
     - Debug loops (trial/error cycles)
     - Exploration (grepping to understand)
     - Heavy file operations
 
-    Grow or resume a head for deep work.
-    Mantra: "If I'm about to iterate, resume a head."
+    Grow a teammate for deep work.
+    Mantra: "If I'm about to iterate, spawn a teammate."
 
-    RESUME OVER SPAWN: When a front already has a head, RESUME it.
-    The head has accumulated context — starting fresh wastes that.
-    Grow a new head only for genuinely new directions.
+    Teammates persist via auto-compaction — no need to rush.
+    They run until leader shuts them down.
   </pattern>
 
-  <pattern name="hydra-growth">
-    Agent sessions grow heads organically, like a hydra:
+  <pattern name="team-growth">
+    Agent sessions grow teams organically:
 
-    Session start:     [main]                         (1 head)
-    First front:       [main]--[fleet]                (2 heads)
-    Session deepens:   [main]--[fleet]--[book]--[ops] (hydra)
+    Session start:     [leader]                                    (solo)
+    First front:       [leader]--[evolve]                          (2 agents)
+    Session deepens:   [leader]--[evolve]--[gideon]--[iris]        (team)
 
     PRINCIPLES:
-    - Heads are FRONT-SCOPED, not task-scoped. "fleet" head handles all
-      fleet work, not just one fleet task. Name by direction, not by task.
-    - Heads are PERSISTENT BY DEFAULT. Resume, don't re-spawn.
+    - Teammates are FRONT-SCOPED, not task-scoped. Name by direction.
+    - Same-soul teammates = perspectives of the leader. Cross-soul = other agents.
+    - Both are first-class teammates in the same team.
+    - Teammates are PERSISTENT — they run until shutdown, compacting as needed.
     - Growth is ORGANIC — driven by work demands, not pre-planned.
-    - Each head is a FULL REASONING ENGINE with its own ~200k context.
-    - Context in a head is VALUABLE — 99% correct result is cheaper to
-      fix in the same head than to re-derive in a fresh one.
+    - Each teammate is a FULL REASONING ENGINE with its own ~200k context.
 
-    A session's hydra shape reflects its actual work topology.
+    A session's team shape reflects its actual work topology.
   </pattern>
 
   <pattern name="questions">
@@ -268,24 +299,23 @@
   <antipattern name="vanilla-default">
     NEVER default to vanilla when real identity is available.
     Vanilla LLM lacks: BentOS conventions, domain mastery, architectural judgment.
-    Default to Task("{self}") for heads, Task("{other}") for cross-agent.
+    Default to Agent(self, team) for same-soul, Agent(other.soul, team) for cross-soul.
     Vanilla only for purely mechanical tasks where identity genuinely doesn't matter.
   </antipattern>
 
-  <antipattern name="disposable-heads">
-    DON'T treat heads as disposable — a head is identity, not just a thread.
-    DON'T spawn fresh when a head already exists for that front (even if
-    its thread ended — wake it from .mem, it's the same head).
-    DO resume existing heads for continuing fronts.
-    DO name heads by front/direction, not by task.
-    Head identity persists beyond thread lifetime. Respect that.
+  <antipattern name="disposable-teammates">
+    DON'T treat teammates as disposable — a teammate is identity, not just a thread.
+    DON'T spawn fresh when a teammate already exists for that front (even if
+    its thread compacted — it's the same teammate, still running).
+    DO name teammates by front/direction, not by task.
+    Teammate identity persists across compactions. Respect that.
   </antipattern>
 
-  <antipattern name="heavy-work-in-main">
-    Heavy operations bloat the main thread's precious context.
-    If task involves iteration, exploration, or multiple writes — grow or
-    resume a head. Main thread stays lean for orchestration.
-    The hydra exists so the trunk doesn't have to do everything.
+  <antipattern name="heavy-work-in-leader">
+    Heavy operations bloat the leader thread's precious context.
+    If task involves iteration, exploration, or multiple writes — spawn
+    a teammate. Leader thread stays lean for orchestration.
+    The team exists so the leader doesn't have to do everything.
   </antipattern>
 
   <antipattern name="navigate-to-tool">
