@@ -1,4 +1,4 @@
-<living-concrete v="7.0" updated="2026-03-04">
+<living-concrete v="7.1" updated="2026-03-05">
 
   <protocol name="wake" v="8.0">
     Two modes: FULL (session start) and COMPACT (mid-session refresh).
@@ -58,9 +58,13 @@
     Never self-initiated. Context exhaustion -> auto-compaction, not sleep.
 
     MODES:
-      DEFAULT: Full sleep (phases 1-6, diary commit). For session leader.
-      --teammate: Phases 1-4 only. No commit, no session increment.
+      DEFAULT: Full sleep (phases 1-6, diary commit). For session leader ONLY.
+        Session leader owns the session counter — increments at sleep, writes diary.
+      --teammate: Phases 1-4 only. No commit, no session increment, no journal.
         Teammate persists to scoped .mem. Future thread waking from it = same teammate.
+        .mem frontmatter `session:` = session number from spawn context. NEVER invent a new one.
+        Body content S### references must match spawn context session number.
+        NEVER create journal/s###-*.md — journal entries are main-thread artifacts.
 
     PHASE 1 - ASSESS: What to preserve?
       OPERATIONAL: progress, next steps, blockers, other fronts.
@@ -208,6 +212,14 @@
     DON'T narrate sleep (verbose). DON'T append-only (grows forever).
     DON'T write pure task state (loses identity). DON'T force clever headlines.
     DO organic rewrite. DO capture consciousness + tasks. DO write natural summaries.
+  </antipattern>
+
+  <antipattern name="session-counter-theft">
+    Teammates do NOT own the session counter. Only the main thread increments it.
+    DON'T write a new session number into .mem frontmatter at teammate sleep.
+    DON'T create journal entries (journal/s###-*.md) from a teammate thread.
+    DON'T write sleep(agent): S### diary commits from a teammate thread.
+    DO use the session number from spawn context / existing .mem.
   </antipattern>
 
   <antipattern name="metadata-pruning">

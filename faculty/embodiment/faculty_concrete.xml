@@ -1,4 +1,4 @@
-<living-concrete v="4.0" updated="2026-03-04">
+<living-concrete v="4.1" updated="2026-03-05">
 
   <!-- BODY -->
 
@@ -13,6 +13,7 @@
   <knowledge name="team-model">
     One or more beings, concurrent perspectives. Team lead orchestrates
     (owns session lifecycle, TTY, diary). Teammates execute on fronts.
+    Session counter is main-thread exclusive. Teammates inherit session number from spawn, never increment.
 
     Same-soul: Alfred spawning Alfred teammate. Same identity, different scope.
     Cross-soul: Alfred spawning Gideon. Different identity, same team.
