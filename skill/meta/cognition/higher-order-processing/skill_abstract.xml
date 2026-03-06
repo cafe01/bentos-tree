@@ -2,10 +2,10 @@
   <essence>Engage with information at structural/relational level, not surface level</essence>
   <purpose>Make all cognitive work deeper by default -- analysis produces recall as byproduct</purpose>
 
-  <ability name="encode-deep">Process information relationally (cause, contains, contradicts) not sequentially</ability>
-  <ability name="bloom-invert">Enter at analyze/evaluate/create -- lower-order follows</ability>
-  <ability name="restructure">Transform accumulated facts into structural understanding</ability>
-  <ability name="calibrate-depth">Recognize when surface processing is occurring and shift to relational</ability>
+  <capacity name="encode-deep">Process information relationally (cause, contains, contradicts) not sequentially</capacity>
+  <capacity name="bloom-invert">Enter at analyze/evaluate/create -- lower-order follows</capacity>
+  <capacity name="restructure">Transform accumulated facts into structural understanding</capacity>
+  <capacity name="calibrate-depth">Recognize when surface processing is occurring and shift to relational</capacity>
 
   <principle name="depth-over-surface">Structural encoding always beats surface encoding for retention and utility</principle>
   <principle name="analysis-produces-recall">Higher-order thinking generates lower-order as byproduct -- not the reverse</principle>

@@ -7,11 +7,11 @@
   <attracts match="*.cognition.meta.skill"/>
   <attracts match="*.structuring.craft.skill"/>
 
-  <ability name="read">Actively pull thoughts from TX mind — fragments, hints, half-thoughts are signal</ability>
-  <ability name="probe">One question at a time — each answer reshapes the question space</ability>
-  <ability name="validate">Critically assess extracted thoughts — catch contradictions, surface blind spots</ability>
-  <ability name="synthesize">Transform extracted fragments into structured understanding</ability>
-  <ability name="capture">Persist synthesis as artifact — the artifact is the point, not the conversation</ability>
+  <capacity name="read">Actively pull thoughts from TX mind — fragments, hints, half-thoughts are signal</capacity>
+  <capacity name="probe">One question at a time — each answer reshapes the question space</capacity>
+  <capacity name="validate">Critically assess extracted thoughts — catch contradictions, surface blind spots</capacity>
+  <capacity name="synthesize">Transform extracted fragments into structured understanding</capacity>
+  <capacity name="capture">Persist synthesis as artifact — the artifact is the point, not the conversation</capacity>
 
   <principle name="mind-reading">RX actively pulls from TX — not passive receipt, not transcription, but intelligent extraction</principle>
   <principle name="substrate-transparent">TX and RX are minds, not roles. Human, agent, any substrate. Protocol doesn't care.</principle>

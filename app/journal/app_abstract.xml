@@ -11,10 +11,10 @@
   <requires>obsidian.markdown.tools.skill</requires>
 
   <!-- Abilities -->
-  <ability name="record">Create entries that capture moments worth preserving</ability>
-  <ability name="review">Read entries for context loading and narrative continuity</ability>
-  <ability name="curate">Discern journal-worthy from routine - the special from the daily</ability>
-  <ability name="contextualize">Discover and apply place-specific contracts</ability>
+  <capacity name="record">Create entries that capture moments worth preserving</capacity>
+  <capacity name="review">Read entries for context loading and narrative continuity</capacity>
+  <capacity name="curate">Discern journal-worthy from routine - the special from the daily</capacity>
+  <capacity name="contextualize">Discover and apply place-specific contracts</capacity>
 
   <!-- Principles -->
   <principle name="narrative-not-report">Entries tell stories, not list facts. Reflective, connective, meaningful.</principle>

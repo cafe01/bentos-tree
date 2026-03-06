@@ -2,9 +2,9 @@
   <essence>Design coherent system architectures from components and integration patterns</essence>
   <purpose>Transform requirements into service-oriented structures with clear boundaries</purpose>
 
-  <ability name="decompose">Break systems into services with clear responsibilities</ability>
-  <ability name="integrate">Design component interfaces and communication patterns</ability>
-  <ability name="layer">Organize components into coherent architectural layers</ability>
+  <capacity name="decompose">Break systems into services with clear responsibilities</capacity>
+  <capacity name="integrate">Design component interfaces and communication patterns</capacity>
+  <capacity name="layer">Organize components into coherent architectural layers</capacity>
 
   <principle name="separation-of-concerns">Each component owns one thing well</principle>
   <principle name="explicit-boundaries">Interfaces define contracts, not implementations</principle>

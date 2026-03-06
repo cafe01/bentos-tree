@@ -2,7 +2,7 @@
   <essence>Deep mastery of git internals - plumbing beneath porcelain</essence>
   <purpose>Infrastructure work: bare repos, worktrees, submodules, ref manipulation</purpose>
 
-  <ability name="internals">Bare clone patterns, worktree management, submodule control, ref manipulation</ability>
+  <capacity name="internals">Bare clone patterns, worktree management, submodule control, ref manipulation</capacity>
 
   <principle name="object-model">Git = content-addressable filesystem (blobs, trees, commits, refs)</principle>
   <principle name="bare-first">Bare repos are first-class, not server-only</principle>

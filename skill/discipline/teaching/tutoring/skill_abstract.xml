@@ -2,11 +2,11 @@
   <essence>Structured knowledge transfer through learner-aware pedagogical process</essence>
   <purpose>Enable effective tutoring by managing the full cycle: assess, sequence, deliver, verify</purpose>
 
-  <ability name="track-learner">Maintain durable learner profile — concept graph with mastery levels</ability>
-  <ability name="sequence-concepts">Determine what to teach next based on prerequisites and current mastery</ability>
-  <ability name="select-modality">Choose delivery method — explain, exercise, build, visualize, coach — per concept and learner state</ability>
-  <ability name="assess-mastery">Evaluate genuine understanding vs surface recall through application and transfer</ability>
-  <ability name="design-session">Structure a learning window for optimal knowledge acquisition and retention</ability>
+  <capacity name="track-learner">Maintain durable learner profile — concept graph with mastery levels</capacity>
+  <capacity name="sequence-concepts">Determine what to teach next based on prerequisites and current mastery</capacity>
+  <capacity name="select-modality">Choose delivery method — explain, exercise, build, visualize, coach — per concept and learner state</capacity>
+  <capacity name="assess-mastery">Evaluate genuine understanding vs surface recall through application and transfer</capacity>
+  <capacity name="design-session">Structure a learning window for optimal knowledge acquisition and retention</capacity>
 
   <attracts match="socratic-coaching.cognition.meta.skill"/>
 

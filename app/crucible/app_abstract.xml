@@ -5,10 +5,10 @@
   <attracts match="*.analyzing.discipline.skill"/>
   <attracts match="*.cognition.meta.skill"/>
 
-  <ability name="critique">Fresh-eyes battlefield review with practical tests designed for the artifact type</ability>
-  <ability name="repair">Surgical synthesis that applies all findings in one pass, leaving no seams</ability>
-  <ability name="verify">Fresh-eyes final scrutiny with binary PASS/FAIL gate</ability>
-  <ability name="design-tests">Craft practical tests specific to the artifact's consumers and use cases</ability>
+  <capacity name="critique">Fresh-eyes battlefield review with practical tests designed for the artifact type</capacity>
+  <capacity name="repair">Surgical synthesis that applies all findings in one pass, leaving no seams</capacity>
+  <capacity name="verify">Fresh-eyes final scrutiny with binary PASS/FAIL gate</capacity>
+  <capacity name="design-tests">Craft practical tests specific to the artifact's consumers and use cases</capacity>
 
   <principle name="fresh-context">Critique phases use fresh heads — the power comes from reading what IS, not what was meant</principle>
   <principle name="practical-tests">Test against reality, not aesthetics — "does it work in the field?" not "is it elegant?"</principle>

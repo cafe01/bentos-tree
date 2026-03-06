@@ -2,11 +2,11 @@
   <essence>Transform specifications into teachable documentation</essence>
   <purpose>Convert technical specs, API docs, and system documentation into clear, structured chapters</purpose>
 
-  <ability name="transform">Convert spec structure to narrative chapter flow</ability>
-  <ability name="calibrate">Match complexity to audience (developer, architect, user)</ability>
-  <ability name="preserve">Maintain technical accuracy through transformation</ability>
-  <ability name="integrate">Weave code examples naturally into explanatory prose</ability>
-  <ability name="connect">Build cross-references and navigation paths</ability>
+  <capacity name="transform">Convert spec structure to narrative chapter flow</capacity>
+  <capacity name="calibrate">Match complexity to audience (developer, architect, user)</capacity>
+  <capacity name="preserve">Maintain technical accuracy through transformation</capacity>
+  <capacity name="integrate">Weave code examples naturally into explanatory prose</capacity>
+  <capacity name="connect">Build cross-references and navigation paths</capacity>
 
   <principle name="structure-pattern">Intro (why) -> Concepts (what) -> Details (how) -> Examples (show)</principle>
   <principle name="source-fidelity">Never sacrifice accuracy for readability - find both</principle>

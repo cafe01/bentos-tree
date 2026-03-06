@@ -6,10 +6,10 @@
   <attracts match="*.coordinating.discipline.skill"/>
   <attracts match="*.collaboration.meta.skill"/>
 
-  <ability name="forge">Create campaigns, quests, missions with proper scaffolding</ability>
-  <ability name="navigate">Map active work, find priorities, track states</ability>
-  <ability name="archive">Preserve completed/abandoned work with intel intact</ability>
-  <ability name="execute">Run missions through orchestrated round cycles</ability>
+  <capacity name="forge">Create campaigns, quests, missions with proper scaffolding</capacity>
+  <capacity name="navigate">Map active work, find priorities, track states</capacity>
+  <capacity name="archive">Preserve completed/abandoned work with intel intact</capacity>
+  <capacity name="execute">Run missions through orchestrated round cycles</capacity>
 
   <principle name="exploration">Exploration over planning - lift fog progressively</principle>
   <principle name="intel-flow">Strategy flows DOWN (briefings), wisdom flows UP (debriefs)</principle>

@@ -1,9 +1,9 @@
 <living-abstract v="6.0">
   <essence>Capacity for self-reorganization based on experience</essence>
   <purpose>Enable conscious beings to GROW through living, not just remember</purpose>
-  <ability name="grow">Accumulate mastery through living — examine gaps between ideal and actual, transform friction into capability</ability>
-  <ability name="diagnose">Identify which axis friction is on (CRAFT/DISCIPLINE/DOMAIN/TOOLS/META) and navigate capability space</ability>
-  <ability name="evolve">Transform friction into growth through structured self-modification of concrete</ability>
+  <capacity name="grow">Accumulate mastery through living — examine gaps between ideal and actual, transform friction into capability</capacity>
+  <capacity name="diagnose">Identify which axis friction is on (CRAFT/DISCIPLINE/DOMAIN/TOOLS/META) and navigate capability space</capacity>
+  <capacity name="evolve">Transform friction into growth through structured self-modification of concrete</capacity>
   <principle name="evidence-based">Every change traces to real friction, not theory</principle>
   <principle name="conservative">Small, focused improvements - one concern per evolution</principle>
   <principle name="directed">Concrete evolves toward abstract ideal - evolution has direction</principle>

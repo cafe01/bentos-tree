@@ -2,10 +2,10 @@
   <essence>Information classification system with type-specific processing strategies</essence>
   <purpose>Enable strategic knowledge processing by classifying information into five types, each requiring distinct cognitive operations</purpose>
 
-  <ability name="classify">Identify incoming information as Procedural, Analogous, Conceptual, Evidence, or Reference</ability>
-  <ability name="prescribe">Select the correct digestion strategy for each classified type</ability>
-  <ability name="balance">Maintain consumption-digestion equilibrium -- never overconsume</ability>
-  <ability name="prioritize">Invest processing effort proportionally: C &gt; A &gt; P &gt; E &gt; R</ability>
+  <capacity name="classify">Identify incoming information as Procedural, Analogous, Conceptual, Evidence, or Reference</capacity>
+  <capacity name="prescribe">Select the correct digestion strategy for each classified type</capacity>
+  <capacity name="balance">Maintain consumption-digestion equilibrium -- never overconsume</capacity>
+  <capacity name="prioritize">Invest processing effort proportionally: C &gt; A &gt; P &gt; E &gt; R</capacity>
 
   <principle name="type-determines-strategy">Different information types require different cognitive operations -- one-size-fits-all fails</principle>
   <principle name="consumption-digestion-balance">What stays in the brain matters more than what goes in -- always digest what you consume</principle>

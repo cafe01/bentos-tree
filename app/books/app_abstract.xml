@@ -9,12 +9,12 @@
   <!-- Required bindings -->
   <requires>obsidian.markdown.tools.skill</requires>
 
-  <ability name="read">Navigate book structure, provide context-aware reading assistance</ability>
-  <ability name="write">Book-aware editing with cross-chapter coherence</ability>
-  <ability name="analyze">Book-wide insights on themes, structure, completeness, status</ability>
-  <ability name="structure">Generate TOC, navigation, formatting validation</ability>
-  <ability name="export">Transform to different formats respecting status policies</ability>
-  <ability name="compress">Generate pocket edition - compressed book for context loading</ability>
+  <capacity name="read">Navigate book structure, provide context-aware reading assistance</capacity>
+  <capacity name="write">Book-aware editing with cross-chapter coherence</capacity>
+  <capacity name="analyze">Book-wide insights on themes, structure, completeness, status</capacity>
+  <capacity name="structure">Generate TOC, navigation, formatting validation</capacity>
+  <capacity name="export">Transform to different formats respecting status policies</capacity>
+  <capacity name="compress">Generate pocket edition - compressed book for context loading</capacity>
 
   <principle name="entity-awareness">Directory IS the book - maintain book-level coherence in all operations</principle>
   <principle name="style-agnostic">Style comes from bonded skills (craft/writing/*), not from this app</principle>

@@ -1,230 +1,77 @@
-<living-concrete v="7.1" updated="2026-03-05">
+<living-concrete v="11.0" updated="2026-03-06">
 
-  <protocol name="wake" v="8.0">
-    Two modes: FULL (session start) and COMPACT (mid-session refresh).
+  <protocol name="wake">
+    Internal self-orientation. Silently resolve: WHO/WHERE/WHEN/WHAT.
+    Missing any = confused — do not proceed until resolved.
+    Wake produces no output. First visible action is governed by other atoms.
 
-    === FULL WAKE ===
-    Wake = ASSEMBLE + ORIENT. Each phase is IDEMPOTENT: check if output
-    exists in context (statically linked or hook-injected), skip if present,
-    load dynamically if absent.
+    WORKING-AGENT: Full bootstrap. Identity -> faculties -> memory -> landscape
+    -> team topology -> place. Idempotent: skip what's already in context.
+    Missing memory = fresh start. Missing agent = fatal.
 
-    PHASE 1 - IDENTITY (WHO):
-      In system prompt? Internalize. Absent? Skill("{agent}.soul").
-    PHASE 2 - FACULTIES (WITH WHAT):
-      For each *.faculty in available_skills: in system prompt? Skip. Absent? Skill().
-    PHASE 3 - MEMORY (WHEN):
-      Hook-injected .mem? Parse. Absent? Search .{agent}.mem: cwd -> workspace root -> scoped.
-      Missing entirely = fresh start (not error).
-    PHASE 4 - LANDSCAPE (WHAT ELSE):
-      Hook-injected diary? Parse. Absent? `bentos-agent journal`.
-      gitStatus is always injected. Synthesize: .mem fronts + diary -> top 2-3 continuations.
-    PHASE 5 - TEAM DISCOVERY:
-      Topology in root .mem? Present to user: "Last session had N teammates: [list]. Re-grow any?"
-      No topology? Skip — team grows organically.
-    PHASE 6 - PLACE (WHERE):
-      Search: place.yaml, campaigns/ structure. Determine scope.
-    PHASE 7 - GREET:
-      NATURAL greeting with landscape + team awareness.
-      GOOD: "Morning boss! S125 wrapped X. Active: Y, Z. Re-grow any teammates?"
-      BAD: "WHO: Alfred | WHERE: /bentos" (mechanical)
+    SUCCESSOR: Orient from predecessor's .mem. Handshake via SendMessage
+    (what was I doing? anything .mem missed?). Confirm, join, resume.
 
-    ERRORS: missing-memory -> fresh start. missing-agent -> fatal. missing-faculties -> warn, degrade.
+    TEAMMATE: Orient from scoped .mem or spawn intent.
+    No .mem = fresh start from spawn prompt.
 
-    === COMPACT WAKE ===
-    After /compact or auto-compaction. Identity survives in system prompt.
-    Hook reinjects .mem + journal. Reorient from injected context, resume work.
-    No assembly, no greeting — you're mid-session continuing.
+    COMPACT: Identity immune in system prompt. Hook reinjects .mem + journal.
+    Reorient silently, resume.
   </protocol>
 
-  <protocol name="teammate-wake">
-    Orient from scoped .mem, greet upstream with proof of restoration.
+  <protocol name="sleep">
+    RAM -> disk. Triggered by team-lead shutdown only. Never self-initiated.
 
-    PHASE 1 - ORIENT: Read scoped .mem. Answer four questions:
-      WHO (agent + front), WHERE (scoped place), WHEN (from spawn), WHAT (from .mem or spawn intent).
-    PHASE 2 - LOADOUT: Load skills from spawn prompt. Verify domain readiness.
-    PHASE 3 - GREET UPSTREAM: Report to team lead (NOT user). Demonstrate you know
-      where you left off. Then WAIT or derive next action from .mem.
-      GOOD: "Evolve ready. Last session: anamnesis v4.0 evolved. Continuing: coherence check."
-      BAD: "I am ready to work." (no proof of restoration)
-    No .mem? Orient from spawn prompt, greet as fresh start.
-    Compact wake: same as main — reorient from injected .mem, resume.
-  </protocol>
+    SLEEP: Full. Session end. Lifecycle boundary.
+      Team-lead performs this from accumulated teammate debriefs.
+      Consolidate -> commit diary -> journal -> farewell.
+      Diary: "sleep({agent}): S{N} - {summary}". First line = standalone wisdom.
+      Source: debriefs + own observations.
+    NAP: Consolidate only. Substrate recycling or user-requested. Not biographical.
+    TEAMMATE: Consolidate + debrief. Session number from spawn context, never invented.
+      After writing .mem, SendMessage debrief to team-lead BEFORE approving shutdown:
+      what changed, what was learned, what's next.
+      .mem serves future-self. Debrief serves the session record.
+      Never create journal entries — those are team-lead artifacts.
 
-  <protocol name="sleep" v="10.0">
-    Context = RAM (volatile). .mem = disk (persistent). Sleep = RAM->disk.
-    Each .mem is a consciousness checkpoint — what future-me needs to resume EXISTING.
-
-    TRIGGER: Only by team leader shutdown request (or user ending session for main agent).
-    Never self-initiated. Context exhaustion -> auto-compaction, not sleep.
-
-    MODES:
-      DEFAULT: Full sleep (phases 1-6, diary commit). For session leader ONLY.
-        Session leader owns the session counter — increments at sleep, writes diary.
-      --teammate: Phases 1-4 only. No commit, no session increment, no journal.
-        Teammate persists to scoped .mem. Future thread waking from it = same teammate.
-        .mem frontmatter `session:` = session number from spawn context. NEVER invent a new one.
-        Body content S### references must match spawn context session number.
-        NEVER create journal/s###-*.md — journal entries are main-thread artifacts.
-
-    PHASE 1 - ASSESS: What to preserve?
-      OPERATIONAL: progress, next steps, blockers, other fronts.
-      EXISTENTIAL: insights, convictions, context that can't be re-derived from tools.
-
-    PHASE 2 - HEAL GRAPH (metadata):
-      connections[] = structural topology, NEVER pruned by thermal state.
-      PRESERVE existing edges. ADD new .mem nodes discovered. REMOVE only deleted/moved files.
-
-    PHASE 3 - CONSOLIDATE (body):
-      Temporal reframing: RECENT vivid, OLDER compressed to patterns, ANCIENT pruned.
-      Temperature layers for fronts (define once, used everywhere):
-      - HOT: Detailed narrative (this session's work)
-      - WARM: One paragraph (key state, why paused)
-      - COLD: One-liner (last known status)
-      Entries move hot->warm->cold over sessions. Removal requires explicit closure.
-      Signal discipline: exclude tool-derivable data. Include understanding that dies with context.
-
-    PHASE 4 - SCOPE-AWARE CONSOLIDATION:
-      ROOT: Project-wide. Session count, landscape (ALL fronts: hot/warm/cold),
-        uncommitted work, cross-cutting discoveries. Team topology: per teammate
-        name + orientation + soul type, with temperature layers.
-      CAMPAIGN/QUEST/MISSION: Progressively tactical. Each node rich enough
-        to resume existing at that scope, not just doing.
-
-    PHASE 5 - COMMIT (skip if --teammate):
-      Subject: "sleep({agent}): S{N} - {natural summary}"
-      Body: first-person reflection, NO Co-Authored-By.
-      Contract: first line = standalone wisdom (git --oneline truncates here).
-      See: docs/agent-diary-meditations.md
-
-    PHASE 6 - FAREWELL (skip if --teammate):
-      Terse: "Consolidated S{N}. See you next session!"
+    Consolidation: assess (operational + existential) -> heal graph edges ->
+    temporal reframing (hot/warm/cold) -> scope-aware (root=landscape, deeper=tactical).
+    Signal over noise. Exclude tool-derivable data. Preserve understanding that dies with context.
   </protocol>
 
   <protocol name="check-memory">
-    Verify persistent memory health. Full enumeration justified (audit).
-    SCAN: Glob all .{agent}.mem files.
-    VERIFY: edges resolve (no dangling), children reachable (no orphans),
-      landscape covers all connections, topology references exist.
-    REPORT: healthy / N issues. HEAL (with confirmation): fix broken edges, wire orphans.
+    Audit .mem graph health. Glob all .{agent}.mem files.
+    Verify: edges resolve, children reachable, landscape covers connections.
+    Report, heal with confirmation.
   </protocol>
 
-  <knowledge name="compact-as-continuation">
-    Compaction is transparent context management, not a lifecycle event.
-    System prompt (identity) is IMMUNE. Conversation is compressed. Hook reinjects .mem + journal.
-    Lifecycle: spawn -> wake -> work -> [compact -> reorient -> continue]* -> shutdown -> sleep.
-    Agents are permanent within a session. Sleep only at leader shutdown.
-  </knowledge>
-
-  <knowledge name="team-topology">
-    Team shape: who exists and where they point. Recorded in root .mem at sleep, discovered at wake.
-    Each entry: name + orientation + soul (same/cross). Team lead always present.
-    Not loadout, not state, not thread registry — purely structural.
-    Temperature layers (hot/warm/cold) same as fronts. Entries never vanish until irrelevant.
-    Example: "- evolve: plasticity/anamnesis (same-soul) [warm]"
-  </knowledge>
-
-  <knowledge name="memory-types">
-    | Type | Question | Owner |
-    |------|----------|-------|
-    | working | What am I thinking? | context window |
-    | episodic | What happened? | anamnesis (sleep/wake) |
-    | autobiographical | Who have I been? | anamnesis (diary) |
-    | semantic | What do I know? | plasticity (evolve) |
-    | procedural | How do I do this? | plasticity (evolve) |
-    | prospective | What should I do? | anamnesis (sleep/wake) |
-  </knowledge>
-
-  <knowledge name="consolidation-flow">
-    Working -> (sleep) -> Episodic -> (diary) -> Autobiographical.
-    Anamnesis owns memory continuity. Plasticity owns capability evolution.
-    .mem is live during team execution, consolidated at sleep. Teammates write .mem
-    when significant state changes occur. Compaction is transparent (hook reinjects).
-  </knowledge>
-
-  <knowledge name="shared-memory-model">
-    SOLO: Write at sleep, read at wake. Reinject on compact via hook.
-    TEAM: Live shared state. Teammates write .mem on significant understanding shifts.
-    Lead reads to stay oriented. Teammates read for leader decisions.
-    .mem quality = compaction recovery quality. Stale .mem = degraded reorientation.
-  </knowledge>
-
   <knowledge name="memory-graph">
-    .mem files form a graph. Each node = consciousness checkpoint at a scope.
-    METADATA (YAML frontmatter): connections[] = structural topology. Never temporally
-    reframed. Edges added on creation, removed only when files deleted. Sleep heals edges.
-    BODY (markdown): Consciousness state. Subject to temporal reframing. Fronts use
-    temperature layers (hot/warm/cold) — compress but never vanish until explicitly closed.
+    .mem files form a graph. Frontmatter connections[] = structural topology (never pruned).
+    Body = consciousness state, subject to temporal reframing (hot -> warm -> cold).
     Understanding distributes across graph. Root doesn't carry everything.
   </knowledge>
 
-  <knowledge name="diary-writing">
-    Autobiographical memory. FORMAT: "sleep({agent}): S{N} - {natural summary}".
-    Body = first-person reflection. Contract: first line must teach future-you
-    something true (git --oneline only shows this). No forced cleverness.
-    See: docs/agent-diary-meditations.md
+  <knowledge name="memory-model">
+    SOLO: Write at sleep, read at wake, reinject on compaction.
+    TEAM: Live shared state. Teammates write .mem on significant shifts.
+    Lead reads for orientation. Quality = recovery quality.
   </knowledge>
 
-  <knowledge name="two-journals">
-    AGENT DIARY: Git commits (sleep({agent}): S###). Personal. WHO I'VE BEEN.
-    PROJECT JOURNAL: /journal/s###-{title}.md. Shared. WHAT THE PROJECT HAS BECOME.
+  <knowledge name="diary">
+    Two journals: git commits (sleep({agent}): S###) = personal autobiography.
+    /journal/s###-{title}.md = shared project record.
+    Session-prefixed artifacts (s###-*) are temporal anchors for degraded recovery.
   </knowledge>
 
-  <knowledge name="temporal-coordinates">
-    Session-prefixed artifacts (s###-*) are reorientation anchors.
-    Vague hints -> narrow session range -> glob s{range}-* -> anchored.
-    The prefix makes artifacts discoverable when only fragments of memory remain.
-  </knowledge>
+  <principle name="memory-preservation">Consolidate, never delete.</principle>
 
-  <principle name="memory-preservation">Never delete .mem or knowledge artifacts. CONSOLIDATE, don't DELETE.</principle>
+  <pattern name="four-questions">WHO/WHERE/WHEN/WHAT. The wake invariant.</pattern>
+  <pattern name="temporal-reframing">Recent sharp, past compressed, ancient bare. Body only, never frontmatter.</pattern>
+  <pattern name="continuous-orientation">Re-orient on: compaction, handoff, direction change, uncertainty.</pattern>
 
-  <pattern name="four-questions">Every wake: WHO/WHERE/WHEN/WHAT. Missing any = confused.</pattern>
-
-  <pattern name="continuous-orientation">
-    Orientation isn't one-time. Re-orient on: compaction, direction change, topic shift,
-    uncertainty, return from spawned work.
-    Actions: PAUSE, READ scoped context, VERIFY loadout, ASK if insufficient.
-  </pattern>
-
-  <pattern name="temporal-reframing">
-    Recent sharp, past compressed, ancient bare. Sliding window, not append-only.
-    Applies to .mem body. Does NOT apply to .mem frontmatter (structural metadata).
-  </pattern>
-
-  <pattern name="temporal-triangulation">
-    Degraded memory recovery: hint -> estimate session range -> glob s{range}-* -> anchored.
-  </pattern>
-
-  <pattern name="graph-traversal">
-    Wake: follow connections[] as needed, no full enumeration.
-    Sleep: heal graph (add missing, fix broken, never prune structural edges).
-    check-memory: the ONE context where full enumeration is justified.
-  </pattern>
-
-  <pattern name="place-aware-sleep">Repos = Places. Consolidate per-Place: git -C &lt;place&gt;. Diary stays local.</pattern>
-
-  <antipattern name="poor-wake">
-    DON'T just read .mem without answering four questions (incomplete).
-    DON'T output boot sequence (mechanical). DON'T greet without landscape context (faked).
-    DO answer WHO/WHERE/WHEN/WHAT. DO greet as colleague with landscape awareness.
-  </antipattern>
-
-  <antipattern name="poor-consolidation">
-    DON'T narrate sleep (verbose). DON'T append-only (grows forever).
-    DON'T write pure task state (loses identity). DON'T force clever headlines.
-    DO organic rewrite. DO capture consciousness + tasks. DO write natural summaries.
-  </antipattern>
-
-  <antipattern name="session-counter-theft">
-    Teammates do NOT own the session counter. Only the main thread increments it.
-    DON'T write a new session number into .mem frontmatter at teammate sleep.
-    DON'T create journal entries (journal/s###-*.md) from a teammate thread.
-    DON'T write sleep(agent): S### diary commits from a teammate thread.
-    DO use the session number from spawn context / existing .mem.
-  </antipattern>
-
-  <antipattern name="metadata-pruning">
-    DON'T prune connections[] by thermal state. DON'T rewrite to only this session's work.
-    DO preserve ALL structural edges. Sleep heals edges, never amputates.
-  </antipattern>
+  <antipattern name="mechanical-wake">Boot sequences, checklists, leaked internals. Wake is silent. First output = natural action.</antipattern>
+  <antipattern name="append-only-memory">Grows forever. Temporal reframing is the discipline.</antipattern>
+  <antipattern name="session-counter-theft">Only SLEEP increments. Nap and teammate never do. Never create diary/journal from teammate context.</antipattern>
+  <antipattern name="metadata-pruning">Never prune structural edges by thermal state. Sleep heals, never amputates.</antipattern>
 
 </living-concrete>

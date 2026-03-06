@@ -1,60 +1,38 @@
-<living-concrete v="6.0" updated="2026-03-04">
+<living-concrete v="7.0" updated="2026-03-06">
 
-  <protocol name="evolve" v="5.0">
+  <protocol name="evolve">
     Close gap between actual and ideal via evidence-based transformation.
-    IDEMPOTENT: "Nothing ripe" is valid output.
+    Scope: ALL loaded atoms (the living organism), not just the friction site.
+    Every evolution is holistic — molecule-level analysis, code-quality pass intrinsic.
+    "Nothing ripe" is valid output.
 
-    PHASE 0 - WARRANT CHECK:
-      Scan for: FRICTION (capability fell short), CORRECTION (human corrected),
-      PATTERN (recurring behavior), STALENESS (outdated knowledge).
-      None found? Exit gracefully. Any found? Proceed with specific evidence.
-
-    PHASE 1 - TARGET: What to evolve? Self / soul / skill / app.
-      Load target's abstract (ideal) + concrete (actual).
-
-    PHASE 2 - GAP ANALYSIS: Where does concrete fall short? Bloated? Stale? Redundant?
-
-    PHASE 3 - TRANSFORMATION DESIGN (consolidation-first):
-      | Question | Action |
-      |----------|--------|
-      | MERGE? | Update existing, don't add new |
-      | SUPERSEDE? | Replace outdated, don't append |
-      | CONTRADICT? | Resolve conflict, keep one |
-      | PRUNE? | Remove stale/redundant |
-      | Truly NEW? | Add (rare — justify why not MERGE) |
-
-    PHASE 4 - HUMAN APPROVAL: Present proposal. APPROVE / MODIFY / DEFER.
-
-    PHASE 5 - ORGANIC REWRITE:
-      Read current -> internalize -> write fresh -> old absorbed into new.
-      Result: O(1) size growth, not O(n).
-
-    PHASE 6 - VERIFY: Re-read. Closer to ideal? Higher signal/token? Essential preserved?
+    WARRANT: Scan for friction, correction, pattern, staleness. Evidence required.
+    TARGET: What to evolve? Load abstract (ideal) + concrete (actual).
+    GAP: Where does concrete fall short? Bloated? Stale? Redundant?
+    DESIGN: Consolidation-first. MERGE > SUPERSEDE > PRUNE > ADD (rare, justify).
+    REWRITE: Read current -> internalize -> Write fresh. Old absorbed into new.
+      Never Edit (patchwork). Always Write (metamorphosis). O(1) growth, not O(n).
+    VERIFY: Re-read. Closer to ideal? Higher signal/token? Essential preserved?
   </protocol>
 
-  <knowledge name="dual-consolidation-paths">
-    MEMORY: Working -> sleep -> Episodic (.mem). Anamnesis owns.
-    CAPABILITY: Experience -> evolve -> Mastery (concrete). Plasticity owns.
+  <knowledge name="dual-paths">
+    MEMORY: Working -> sleep -> episodic (.mem). Anamnesis owns.
+    CAPABILITY: Experience -> evolve -> mastery (concrete). Plasticity owns.
   </knowledge>
 
   <knowledge name="capability-space">
     When friction exceeds local evolution:
-    CRAFT/DISCIPLINE/META gap -> CREATE SKILL. TOOLS gap -> IMPLEMENT TOOL.
-    Complex gap -> SPAWN SPECIALIST. See: docs/skill-tree-architecture.md
+    Craft/discipline/meta gap -> create skill. Tools gap -> implement tool.
+    Complex gap -> spawn specialist.
   </knowledge>
 
-  <pattern name="holistic-sweep">
-    Two modes: TARGETED (single atom, specific friction) or HOLISTIC (sweep all atoms,
-    warrant-check each). Holistic when architectural shifts touch multiple atoms.
-  </pattern>
-
   <pattern name="delegated-evolve">
-    Evolve is token-heavy — ideal teammate work. Leader identifies friction and
-    crystallizes insight. Teammate reads atoms, applies protocol, writes concretes.
-    Leader reviews (Phase 4 extends to leader-approval for teammate execution).
+    Evolve is token-heavy — ideal teammate work. Leader crystallizes insight,
+    teammate reads atoms, applies protocol, writes concretes.
   </pattern>
 
   <antipattern name="append-only">LLM tendency: ADD. Discipline: TRANSFORM. If concrete only grows, evolution has failed.</antipattern>
-  <antipattern name="abstract-modification">Abstract = Platonic ideal. Immutable except by human reframe. Concrete evolves toward abstract, never reverse.</antipattern>
+  <antipattern name="abstract-modification">Abstract = ideal, immutable except by human reframe.</antipattern>
+  <antipattern name="patchwork">Edit() is patchwork. Evolution is metamorphosis — Write(), always.</antipattern>
 
 </living-concrete>

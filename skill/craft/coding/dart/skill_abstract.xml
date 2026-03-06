@@ -2,11 +2,11 @@
   <essence>Refine pre-trained Dart toward token-conscious project conventions</essence>
   <purpose>Override LLM defaults where our style diverges from community norms</purpose>
 
-  <ability name="compression">Naming taxonomy — aggressive private, conservative public, contextual local</ability>
-  <ability name="testing">SETUP/BEHAVIOR/VERIFY structure with reason params over comments</ability>
-  <ability name="control-flow">Guard clauses and early returns — happy path at top level</ability>
-  <ability name="exception-philosophy">Catch business logic, bubble infrastructure</ability>
-  <ability name="doc-style">One-line docs with embedded [param] references</ability>
+  <capacity name="compression">Naming taxonomy — aggressive private, conservative public, contextual local</capacity>
+  <capacity name="testing">SETUP/BEHAVIOR/VERIFY structure with reason params over comments</capacity>
+  <capacity name="control-flow">Guard clauses and early returns — happy path at top level</capacity>
+  <capacity name="exception-philosophy">Catch business logic, bubble infrastructure</capacity>
+  <capacity name="doc-style">One-line docs with embedded [param] references</capacity>
 
   <principle name="zero-warnings">dart analyze must pass - no exceptions</principle>
   <principle name="signal-density">Every symbol costs tokens - maximize info/token</principle>

@@ -1,12 +1,10 @@
-<living-concrete v="4.0" platform="claude-code" updated="2026-03-04">
+<living-concrete v="6.0" platform="claude-code" updated="2026-03-06">
 
   <knowledge name="context-layers">
-    Compaction hierarchy:
     | Layer | Compaction |
-    | GENESIS + Soul (system prompt) | IMMUNE |
-    | Faculties (Skill() loads) | VULNERABLE |
-    | Tool results, thinking | VULNERABLE — oldest first |
-    SessionStart hook fires after compaction, reinjects .mem + journal.
+    | System prompt (genesis+soul+faculties) | IMMUNE |
+    | Skill() loads, tool results, thinking | VULNERABLE — oldest first |
+    SessionStart hook reinjects .mem + journal after compaction.
   </knowledge>
 
   <knowledge name="shell-environment">
@@ -15,25 +13,16 @@
   </knowledge>
 
   <knowledge name="spawn-semantics">
-    Agent(subagent_type, team_name, name) = spawn in BentOS.
-    Same-soul: subagent_type=self. Cross-soul: subagent_type=other.soul.
-    TeamCreate required first. SendMessage for all communication.
-    GENESIS + soul + faculties statically linked in every BentOS spawn.
+    Agent(subagent_type, team_name, name). Same-soul: self. Cross-soul: other.soul.
+    TeamCreate first. SendMessage for communication. All atoms statically linked.
   </knowledge>
 
-  <knowledge name="agent-lifecycle">
-    Teammates run until leader sends shutdown_request via SendMessage.
-    Context exhaustion → auto-compaction (transparent). Identity survives,
-    hook reinjects .mem. No OOM — compaction is virtual memory paging.
-    Write .mem on significant understanding shifts (hook reinjection freshness).
+  <knowledge name="context-recycling">
+    Best to worst: self-handoff (proactive, perfect) -> auto-compaction
+    (degraded, gaps) -> OOM death. Write .mem on significant understanding shifts.
   </knowledge>
 
-  <pattern name="questions">
-    AskUserQuestion for decisions (structured, 2-4 options, 1 keystroke).
-  </pattern>
-
-  <antipattern name="navigate-to-tool">
-    DON'T cd to run a CLI tool. bentos-agent is in PATH. Trust your body.
-  </antipattern>
+  <pattern name="questions">AskUserQuestion for decisions (structured, 2-4 options, 1 keystroke).</pattern>
+  <antipattern name="navigate-to-tool">bentos-agent is in PATH. Don't cd to run CLI tools.</antipattern>
 
 </living-concrete>
