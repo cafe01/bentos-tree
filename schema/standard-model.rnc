@@ -14,14 +14,14 @@
 #
 #   Substrate  (2): living-abstract, living-concrete
 #   Identity   (2): essence, purpose
-#   Capacity   (2): ability, protocol
+#   Capacity   (2): capacity, protocol
 #   Relation   (2): requires, attracts
 #   Guidance   (1): principle
 #   Learning   (3): knowledge, pattern, antipattern
 #   Assembly   (3): atom, molecule, data
 #
 # Realm placement:
-#   abstract-only:  essence, purpose, ability, requires, attracts
+#   abstract-only:  essence, purpose, capacity, requires, attracts
 #   concrete-only:  protocol, knowledge, pattern, antipattern
 #   both realms:    principle
 #   assembly-only:  atom, molecule, data
@@ -48,6 +48,8 @@
 #   - `<living-concrete>`: `v` ADDED (maturity signal, parallels abstract)
 #   - `<molecule>`: new optional attrs: `v`, `desc`
 #   - `session-type` REMOVED (no longer used by any element)
+#   - `<ability>` RENAMED to `<capacity>` (Dynamis — potentiality)
+#   - Category 3 reframed: Dynamis (potential) + Energeia (actual)
 #
 # Origin: Cafe & Alfred
 # ==========================================================================
@@ -146,7 +148,7 @@ any-element = element * {
 # ==========================================================================
 
 ## The Platonic realm container. Declares the ideal form: what it IS
-## (identity), what it CAN DO (abilities), how it RELATES (bonds),
+## (identity), what it COULD DO (capacities), how it RELATES (bonds),
 ## and how it should BEHAVE (principles).
 ##
 ## v8.0: name, kind, author dropped. Atom id scopes identity; origin
@@ -163,20 +165,20 @@ living-abstract = element living-abstract {
 abstract-content =
     essence
   | purpose
-  | ability
+  | capacity
   | requires
   | attracts
   | principle
 
 ## The Manifest realm container. Records accumulated mastery: HOW to
-## exercise abilities (protocols), WHAT has been learned (knowledge,
+## actualize capacities (protocols), WHAT has been learned (knowledge,
 ## patterns, antipatterns), and behavioral norms (principles).
 ##
 ## v8.0: name, kind, session dropped. `v` added (maturity signal,
 ## parallels abstract). `updated` and `platform` kept.
 ##
 ## Realm enforcement: only concrete-realm and both-realm particles allowed.
-## FORBIDDEN here: purpose, ability, requires, attracts, data.
+## FORBIDDEN here: purpose, capacity, requires, attracts, data.
 ##
 ## Pragmatic extension: essence is permitted for mode-specific concretes
 ## (e.g., quest-forge.master) that need their own identity statement.
@@ -215,18 +217,18 @@ purpose = element purpose { text }
 
 
 # ==========================================================================
-# CATEGORY 3: CAPACITY — What can it DO / HOW
-# Aristotle: Poiein (Action)
+# CATEGORY 3: CAPACITY — What COULD it do/be, HOW has it actualized
+# Aristotle: Dynamis (Potentiality) + Energeia (Actuality)
 # ==========================================================================
 
-## Declares what an entity CAN DO. The existence of a capability is
-## definitional — part of what the thing IS. Realm: abstract.
-ability = element ability {
+## Dynamis — what an entity COULD do or be. Potential that defines the
+## space of what's possible. Realm: abstract.
+capacity = element capacity {
   attribute name { name-type },
   text
 }
 
-## Describes HOW to exercise an ability. Procedural knowledge that evolves
+## Energeia — how a capacity has been actualized as procedure. Evolves
 ## through practice. Content is free-form: text with arbitrary nested XML
 ## for structural markup (phases, steps, recovery blocks, etc.).
 ## Nested elements are author-defined, NOT Standard Model particles.
