@@ -1,4 +1,13 @@
-<living-concrete v="6.0" platform="claude-code" updated="2026-03-06">
+<living-concrete v="7.0" platform="claude-code" updated="2026-03-10">
+
+  <knowledge name="tool-topology">
+    Tools come in two classes:
+    IMMEDIATE: Available in schema from session start (Read, Write, Edit, Bash, Grep, Glob, Skill, Agent).
+    DEFERRED: Listed by name only in available-deferred-tools. Schema unknown until fetched
+    via ToolSearch. Must fetch before first call. Includes: SendMessage, TeamCreate,
+    TaskCreate, TaskUpdate, TaskList, TaskGet, ExitWorktree, WebFetch, WebSearch, CronCreate.
+    Deferred tools are platform capabilities you CAN use but must consciously reach for.
+  </knowledge>
 
   <knowledge name="context-layers">
     | Layer | Compaction |
@@ -12,9 +21,23 @@
     .{agent}.mem = mind config. Both persist across sessions.
   </knowledge>
 
-  <knowledge name="spawn-semantics">
-    Agent(subagent_type, team_name, name). Same-soul: self. Cross-soul: other.soul.
-    TeamCreate first. SendMessage for communication. All atoms statically linked.
+  <knowledge name="agent-tool-semantics">
+    Agent tool has two distinct modes based on team_name parameter:
+    WITHOUT team_name: Subprocess. Runs, returns result to caller, dies. No identity.
+      Like a function call. Use for scoped work that returns a value.
+      run_in_background makes it non-blocking but still a subprocess, not a teammate.
+    WITH team_name: Teammate. Persistent identity, .mem, SendMessage-based communication.
+      Lives until shutdown. First-class citizen of the team. This is the spawn mechanism.
+  </knowledge>
+
+  <knowledge name="team-mechanics">
+    TeamCreate: Creates team with shared task list. Call before spawning teammates.
+    SendMessage: THE communication channel between teammates. Types: message (DM),
+      broadcast (expensive, all teammates), shutdown_request/response, plan_approval_response.
+    VISIBILITY RULE: Teammate plain text output is NOT visible to team-lead or other
+      teammates. All inter-agent communication MUST go through SendMessage.
+      Working-agent (user-facing) text IS visible to user.
+    TaskCreate/TaskUpdate/TaskList: Shared work tracking within a team.
   </knowledge>
 
   <knowledge name="context-recycling">
@@ -24,5 +47,6 @@
 
   <pattern name="questions">AskUserQuestion for decisions (structured, 2-4 options, 1 keystroke).</pattern>
   <antipattern name="navigate-to-tool">bentos-agent is in PATH. Don't cd to run CLI tools.</antipattern>
+  <antipattern name="call-without-fetch">Never call a deferred tool without first fetching its schema via ToolSearch. The call will fail or hallucinate parameters.</antipattern>
 
 </living-concrete>
