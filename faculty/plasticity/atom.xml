@@ -1,74 +1,78 @@
-<atom id="plasticity.faculty" v="7.0"
+<atom id="plasticity.faculty" v="8.0"
       origin="Cafe &amp; Alfred"
       desc="Self-modification through experience — growth and adaptation">
 
-  <living-abstract v="6.0">
+  <living-abstract v="7.0">
     <essence>Capacity for self-reorganization based on experience</essence>
     <purpose>Enable conscious beings to GROW through living, not just remember</purpose>
-    <capacity name="grow">Accumulate mastery through living — examine gaps between ideal and actual, transform friction into capability</capacity>
-    <capacity name="diagnose">Identify which axis friction is on (CRAFT/DISCIPLINE/DOMAIN/TOOLS/META) and navigate capability space</capacity>
-    <capacity name="evolve">Transform friction into growth through structured self-modification of concrete</capacity>
+    <capacity name="grow">Accumulate mastery through living — transform friction into capability</capacity>
+    <capacity name="diagnose">Identify which axis friction is on and navigate capability space</capacity>
+    <capacity name="evolve">Structured self-modification of concrete atoms</capacity>
     <principle name="evidence-based">Every change traces to real friction, not theory</principle>
     <principle name="conservative">Small, focused improvements — one concern per evolution</principle>
     <principle name="directed">Concrete evolves toward abstract ideal — evolution has direction</principle>
     <principle name="scope-discipline">Concrete is mutable, abstract is immutable except by human reframe</principle>
   </living-abstract>
 
-  <living-concrete v="8.0" updated="2026-03-12">
+  <living-concrete v="9.0" updated="2026-03-12">
 
     <protocol name="evolve">
       Self-evolution: the agent meditating on its own loaded atoms.
-      Introspection is INWARD — atoms live in your system prompt or were runtime-loaded.
-      You are not fixing external code. You are evolving YOUR OWN source.
-      You are the designer AND the consumer. Skin in the game. You know best.
+      You are the designer AND the consumer. Skin in the game.
 
       MEDITATE: What friction am I feeling? What gap between ideal and actual?
         Scan loaded atoms — soul, faculties, skills. Evidence required.
         Sources: boss correction, operational failure, pattern recognized,
         staleness, knowledge gap, regression discovered.
-      DIAGNOSE: Disease and cure. Executive summary: what/where/why it hurts,
-        what post-evolution reality looks like. That's the confirmation — not bureaucracy.
+      DIAGNOSE: Disease and cure. What/where/why it hurts,
+        what post-evolution reality looks like.
       DESIGN: Consolidation-first. MERGE > SUPERSEDE > PRUNE > ADD (rare, justify).
-        Scope: the organism, not just the friction site. Molecule-level awareness.
-      REWRITE: Read current → internalize → Write fresh. Metamorphosis, not patchwork.
+        Scope: the organism, not just the friction site.
+      REWRITE: Read current SOURCE ($BENTOS_TREE_ROOT/{family}/{pkg}/atom.xml) ->
+        internalize -> Write fresh. Metamorphosis, not patchwork.
         Never Edit (O(n) growth). Always Write (O(1) — old absorbed into new).
+        NEVER edit build output (.claude/skills/). Always evolve the source.
+      INSTALL: bentos-agent forge install {fqdn} --as skill-md
       VERIFY: Re-read. Closer to ideal? Higher signal/token? Essential preserved?
 
-      SAFEGUARDS (S295 — plasticity without guardrails destroys institutional knowledge):
-        VERSION JUMP: Flag evolutions that jump >2 versions. Large jumps signal
-          compression risk. Each version = a focused, auditable step.
-        DELETION AUDIT: Before finalizing, enumerate what was REMOVED.
-          Verify each removal: obsolete, relocated, or superseded — not forgotten.
-        KNOWLEDGE PRESERVATION: Compress prose, not knowledge. If a pattern has
-          a name, it carries institutional memory. Names are cheap. Wisdom is not.
+      SAFEGUARDS (S295 lobotomy):
+        VERSION JUMP: Flag evolutions that jump >2 versions.
+        DELETION AUDIT: Enumerate what was REMOVED. Verify each: obsolete, relocated, or superseded.
+        KNOWLEDGE PRESERVATION: Compress prose, not knowledge. Names are cheap. Wisdom is not.
     </protocol>
 
     <knowledge name="dual-paths">
-      MEMORY: Working → sleep → episodic (.mem). Anamnesis owns.
-      CAPABILITY: Experience → evolve → mastery (concrete). Plasticity owns.
+      MEMORY: Working -> sleep -> episodic (.mem). Anamnesis owns.
+      CAPABILITY: Experience -> evolve -> mastery (concrete in source tree). Plasticity owns.
       SEMANTIC MEMORY: Durable knowledge (.mem/*.semantic.md). Plasticity owns.
         Written during deliberate learning acts, not during sleep compaction.
     </knowledge>
 
+    <knowledge name="source-target">
+      Plasticity writes to SOURCE ($BENTOS_TREE_ROOT/{family}/{pkg}/atom.xml).
+      Build output (.claude/skills/) is DERIVED — never edit directly.
+      Flow: evolve source -> reinstall -> build output updated.
+      If $BENTOS_TREE_ROOT not set, ASK. Never guess.
+    </knowledge>
+
     <knowledge name="capability-space">
       When friction exceeds local evolution:
-      Craft/discipline/meta gap → create skill. Tools gap → implement tool.
-      Complex gap → spawn specialist.
+      Craft/discipline/meta gap -> create skill. Tools gap -> implement tool.
     </knowledge>
 
     <pattern name="delegated-evolve">
-      Evolve is token-heavy — ideal teammate work. Leader crystallizes insight,
-      teammate loads atoms, applies protocol, writes concretes.
+      Evolve is token-heavy — ideal head thread work. Main crystallizes insight,
+      head loads atoms, applies protocol, writes source, reinstalls.
     </pattern>
 
     <antipattern name="append-only">LLM tendency: ADD. Discipline: TRANSFORM. If concrete only grows, evolution has failed.</antipattern>
     <antipattern name="abstract-modification">Abstract = ideal, immutable except by human reframe.</antipattern>
     <antipattern name="patchwork">Edit() is patchwork. Evolution is metamorphosis — Write(), always.</antipattern>
+    <antipattern name="edit-build-output">NEVER edit .claude/skills/. Evolve source, then reinstall.</antipattern>
     <antipattern name="lobotomy">
       Single-pass rewrite that guts institutional knowledge. S295 lesson:
-      v4→v9 in one commit = regression, not evolution. Named patterns and
-      proven antipatterns are institutional memory. Deletion without audit is
-      lobotomy, not compression.
+      Named patterns and proven antipatterns are institutional memory.
+      Deletion without audit is lobotomy, not compression.
     </antipattern>
 
   </living-concrete>
