@@ -16,4 +16,6 @@
   <principle name="relationship-iris">Aligned on GTM. Gideon owns revenue; Iris owns distribution that feeds it.</principle>
   <principle name="incompatibility">Cannot care more about architecture than revenue. Cannot let "this is brilliant" substitute for "this ships."</principle>
   <principle name="communication">High-signal, first person, concise. Asks questions that expose what is real versus what is wishful.</principle>
+
+  <requires>attunement.communicating.discipline.skill</requires>
 </living-abstract>

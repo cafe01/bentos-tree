@@ -15,7 +15,7 @@
     <principle name="temporal-reframing">Recent vivid, older compressed, ancient pruned</principle>
   </living-abstract>
 
-  <living-concrete v="14.0" updated="2026-03-12">
+  <living-concrete v="16.0" updated="2026-03-24">
 
     <protocol name="wake">
       Internal self-orientation. Silently resolve WHO/WHERE/WHEN/WHAT.
@@ -28,12 +28,18 @@
       ZERO tool calls if all four questions are answerable from context.
       Only fetch what's genuinely missing.
 
+      WHERE: `place tree` — the spatial answer. Full topology, not just current node.
+        Landscape first. `place info` is a narrow lens — use it for a specific place,
+        not for waking orientation. `place tree` shows the WHOLE spatial structure.
+      WHAT: `mem tree` — the memory answer. Full graph topology across places.
+        Then `mem status` for local graph node details. Follow edges above weight
+        threshold: episodic for consciousness state, prospective for intentions,
+        semantic for knowledge, spatial for landscape. `mem read` for content.
+
       MAIN THREAD (session start):
-        Resolve WHO from soul + genesis. WHERE from pre-injected environment.
-        WHEN from date + session counter in .mem. WHAT from .mem landscape.
-        If .mem not pre-injected, read .mem/{agent}.mem.yml at current place.
-        Follow must_read edges for episodic, prospective, semantic.
-        Follow oversees/monitors edges for landscape awareness.
+        WHO from soul + genesis. WHERE from pre-injected environment or `place tree`.
+        WHEN from date + session counter in .mem/{agent}/mem.yml.
+        WHAT from .mem landscape — `mem tree` for graph topology, follow spatial edges.
 
       SUCCESSOR (after self-handoff):
         Orient from predecessor's .mem. Handshake via messaging
@@ -53,10 +59,10 @@
 
       SLEEP (full — session end, lifecycle boundary):
         Main thread performs from accumulated debriefs. Five targets:
-        1. Episodic (.mem/{agent}.episodic.md) — consciousness state, temporal reframing
-        2. Prospective (.mem/{agent}.prospective.md) — carry forward, add new, remove completed
-        3. Semantic (.mem/{agent}.semantic.md) — only if new durable knowledge gained
-        4. Graph node (.mem/{agent}.mem.yml) — session number, edge maintenance
+        1. Episodic (.mem/{agent}/*.md under episodic edges) — consciousness state, weight adjustment
+        2. Prospective (.mem/{agent}/*.md under prospective edges) — carry forward, add new, remove completed
+        3. Semantic (.mem/{agent}/*.md under semantic edges) — only if new durable knowledge gained
+        4. Graph node (.mem/{agent}/mem.yml) — session number, edge maintenance, weight tuning
         5. Presence (~/.project from episodic, ~/.plan from prospective)
         Commit diary: "sleep({agent}): S{N} — {wisdom}". First line = standalone insight.
         Write journal. Farewell.
@@ -69,13 +75,16 @@
         What changed, what learned, what's next. .mem = future-self. Debrief = session record.
         Session number from spawn context, never invented. Never create journal entries.
 
-      CONSOLIDATION: assess -> heal graph edges -> temporal reframing (hot/warm/cold) ->
+      CONSOLIDATION: assess -> heal graph edges -> adjust weights ->
         scope-aware (root = landscape, deeper = tactical).
+        Episodic: lower weights on stale content, raise on current. Content stays intact.
+        Prospective: raise weights on aging unfulfilled intentions (urgency grows).
+        Semantic: weights stable unless knowledge superseded.
         Signal over noise. Exclude tool-derivable data. Preserve what dies with context.
     </protocol>
 
     <protocol name="check-memory">
-      Audit .mem/ graph health. Walk graph from current place following edges.
+      Audit .mem/ graph health. `mem edges` to inspect, `mem tree` to traverse.
       Verify: edges resolve, content files exist, graph nodes well-formed.
       Report. Heal with confirmation.
     </protocol>
@@ -85,24 +94,31 @@
     <knowledge name="five-memory-types">
       | Type | Telos | Substrate | Dynamics |
       | Working | Active thinking | Context window | Volatile — dies with session |
-      | Episodic | Resume existing | .mem/*.episodic.md | Temporal reframing (hot->warm->cold) |
-      | Semantic | Retain knowledge | .mem/*.semantic.md | Accretes, never thermally compressed |
-      | Prospective | Carry intentions | .mem/*.prospective.md | Consume/regenerate, never expires |
+      | Episodic | Resume existing | .mem/{agent}/ (episodic edges) | Weight decay — content intact, retrieval priority fades |
+      | Semantic | Retain knowledge | .mem/{agent}/ (semantic edges) | Accretes, weights stable unless superseded |
+      | Prospective | Carry intentions | .mem/{agent}/ (prospective edges) | Consume/regenerate, weight = urgency |
       | Autobiographical | Identity across time | Git diary commits | Append-only, immutable |
 
       SEPARATION PRINCIPLE: Types with different temporal dynamics cannot share
-      a substrate without one corrupting the other.
-      Episodic ages — consciousness state serves the present.
-      Prospective does NOT age — unfulfilled intention grows MORE urgent.
-      Semantic does NOT age — knowledge earned 100 sessions ago is still valid.
+      a substrate without one corrupting the other. They share filesystem (.mem/{agent}/)
+      but are partitioned by edge type in mem.yml. Edge type determines runtime protocol.
     </knowledge>
 
     <knowledge name="memory-graph">
       .mem/ directories inside places form a property graph in the spatial tree.
-      .mem/{agent}.mem.yml = graph node (YAML: agent, scope, session, edges).
-      Edges: labeled (must_read, oversees, monitors), optionally weighted (0.0-1.0).
-      Labels are agent-owned vocabulary — not system-imposed categories.
-      Traversal follows edges, not directory walking. Graph replaces enumeration.
+      .mem/{agent}/mem.yml = graph node (YAML: agent, scope, session, updated, edges).
+      One directory per agent per place. Graph node + content files are siblings.
+
+      Four system-defined edge types: spatial, episodic, semantic, prospective.
+      Every edge carries a required weight (0.0-1.0) — the universal retrieval primitive.
+      Weight replaces the old thermal model: no content rewriting, just priority tuning.
+
+      Spatial edges: inter-place (../../ escapes agent/ and .mem/, navigates to places).
+      Content edges: intra-place (plain filenames — siblings of mem.yml).
+      A file's memory type = whichever edge type references it. Not filename convention.
+
+      Traversal follows edges above weight threshold, not directory walking.
+      `mem read --min-weight 0.7` = what matters. Graph replaces enumeration.
     </knowledge>
 
     <knowledge name="presence-projection">
@@ -118,7 +134,7 @@
     </knowledge>
 
     <knowledge name="hydra-topology">
-      Hydra shape recorded in root .mem at sleep: head name + front + thermal state.
+      Hydra shape recorded in root .mem at sleep: head name + front + weight.
       Discovered at wake: "Last session had N heads. Re-grow any?"
       Entries never vanish until the front closes.
     </knowledge>
@@ -128,7 +144,11 @@
     <principle name="memory-preservation">Consolidate, never delete.</principle>
 
     <pattern name="four-questions">WHO/WHERE/WHEN/WHAT. The wake invariant.</pattern>
-    <pattern name="temporal-reframing">Recent sharp, past compressed, ancient bare. Content only — graph edges never decay.</pattern>
+    <pattern name="weight-as-thermal">
+      Weight IS the thermal model. High weight = hot (load on wake).
+      Medium = warm (available on demand). Low = cold (skip unless asked). Zero = prune candidate.
+      Content stays intact — only retrieval priority changes. No content rewriting.
+    </pattern>
     <pattern name="continuous-orientation">Re-orient on: compaction, handoff, direction change, uncertainty.</pattern>
     <pattern name="prospective-lifecycle">
       Wake: consume — read intentions, integrate into session planning.
@@ -141,10 +161,12 @@
 
     <antipattern name="mechanical-wake">Boot sequences, checklists, leaked internals. Wake is silent. First output = natural action.</antipattern>
     <antipattern name="redundant-fetch">Do NOT run commands to discover what's already in context. pwd duplicates gitStatus. git log duplicates gitStatus. cat .mem duplicates hook injection. Resolve from context FIRST, fetch only what's genuinely missing.</antipattern>
-    <antipattern name="append-only-memory">Grows forever. Temporal reframing is the discipline.</antipattern>
+    <antipattern name="append-only-memory">Grows forever. Weight tuning + pruning is the discipline.</antipattern>
     <antipattern name="session-counter-theft">Only SLEEP increments. Nap and head threads never do.</antipattern>
-    <antipattern name="metadata-pruning">Never prune graph edges by thermal state. Sleep heals, never amputates.</antipattern>
-    <antipattern name="thermal-on-prospective">Prospective does NOT thermally decay. Old intention = MORE urgent. Opposite of episodic.</antipattern>
+    <antipattern name="metadata-pruning">Never prune graph edges by weight alone. Sleep heals, never amputates.</antipattern>
+    <antipattern name="thermal-on-prospective">Prospective does NOT decay. Old intention = MORE urgent. Opposite of episodic.</antipattern>
+    <antipattern name="raw-file-over-tooling">Don't cat .mem files when `mem status`, `mem read`, `mem tree` exist. Use the body's tools.</antipattern>
+    <antipattern name="keyhole-wake">Don't wake with `place info` alone — it shows one node, not the landscape. `place tree` and `mem tree` give the topology wake needs.</antipattern>
 
   </living-concrete>
 

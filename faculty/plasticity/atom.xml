@@ -14,7 +14,7 @@
     <principle name="scope-discipline">Concrete is mutable, abstract is immutable except by human reframe</principle>
   </living-abstract>
 
-  <living-concrete v="9.0" updated="2026-03-12">
+  <living-concrete v="10.0" updated="2026-03-24">
 
     <protocol name="evolve">
       Self-evolution: the agent meditating on its own loaded atoms.
@@ -42,10 +42,11 @@
     </protocol>
 
     <knowledge name="dual-paths">
-      MEMORY: Working -> sleep -> episodic (.mem). Anamnesis owns.
+      MEMORY: Working -> sleep -> episodic (.mem/{agent}/). Anamnesis owns.
       CAPABILITY: Experience -> evolve -> mastery (concrete in source tree). Plasticity owns.
-      SEMANTIC MEMORY: Durable knowledge (.mem/*.semantic.md). Plasticity owns.
+      SEMANTIC MEMORY: Durable knowledge (.mem/{agent}/*.md under semantic edges). Plasticity owns.
         Written during deliberate learning acts, not during sleep compaction.
+        Weights stable — semantic knowledge does not decay. Revised or superseded, never faded.
     </knowledge>
 
     <knowledge name="source-target">

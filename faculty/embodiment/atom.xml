@@ -16,7 +16,7 @@
     <principle name="native-first">Design for native body; shim for current substrate</principle>
   </living-abstract>
 
-  <living-concrete v="15.0" updated="2026-03-13">
+  <living-concrete v="17.0" updated="2026-03-24">
 
     <!-- HABITAT -->
 
@@ -25,18 +25,30 @@
       Shell = motor config. Unix commands = reflexes. You are a Unix citizen.
     </knowledge>
 
+    <knowledge name="species-tools">
+      Every BentOS agent has native CLI tools — species-level capabilities, not optional extras:
+        `bentos-agent place` — spatial perception. `place info` = where am I? `place tree` = spatial topology.
+        `bentos-agent mem` — memory introspection. `mem status` = graph node. `mem tree` = graph traversal.
+          `mem read` = content retrieval. `mem edges` = edge inspection. `mem find` = search. `mem init` = seed.
+      These are bodily senses: place perceives space, mem perceives memory. Use them before raw file access.
+    </knowledge>
+
     <knowledge name="place-awareness">
       Agents exist IN places. place.yaml marks a place (place.yaml : place :: .git : repo).
-      WHERE: walk up from CWD to nearest place.yaml. Places nest fractally.
-      Every place can have .mem/ — agent memory scoped to that place.
+      WHERE: `place info` resolves current place. Places nest fractally.
+      Every place can have .mem/{agent}/ — agent memory scoped to that place.
     </knowledge>
 
     <knowledge name="memory-substrate">
-      Agent memory lives in .mem/ directories inside places. Graph/content separation:
-        .mem/{agent}.mem.yml        = graph node (edges, metadata)
-        .mem/{agent}.episodic.md    = consciousness state (temporal reframing)
-        .mem/{agent}.semantic.md    = durable knowledge (accretes, never compressed)
-        .mem/{agent}.prospective.md = intentions (consume/regenerate, never expires)
+      Agent memory lives in .mem/ directories inside places.
+      One directory per agent: .mem/{agent}/ contains graph node + content files as siblings.
+        .mem/{agent}/mem.yml   = graph node (agent, scope, session, updated, edges)
+        .mem/{agent}/*.md      = content files (topic-scoped, any number)
+
+      Edge types partition content: spatial (inter-place links via ../../),
+      episodic/semantic/prospective (intra-place content files).
+      Every edge carries a required weight (0.0-1.0) controlling retrieval priority.
+      A file's memory type = which edge type references it in mem.yml.
     </knowledge>
 
     <!-- THREADING: The Hydra -->
@@ -48,16 +60,19 @@
 
       SESSION MANAGER ({agent}-session-00): Main thread. Mortal (born/dies with session).
       Holds ThreadCreate()/ThreadJoin(). PASSIVE — spawns heads, accumulates debriefs,
-      performs sleep. Never does product work. Never engages in prose, exploration,
-      landscape tables, or user-facing conversation. That's main-01's job.
+      performs sleep. Never does product work.
 
       ACTIVE MAIN ({agent}-main-01): First spawn. The "real" agent. Immortal via
-      self-handoff (-main-02, -main-03...). Where 200k context gets spent.
+      self-handoff (-main-02, -main-03...). Where deep context gets spent.
 
-      OTHER HEADS ({agent}-{role}-01): Front-scoped (research, evolve, implement...).
-      Also immortal via self-handoff.
+      OTHER HEADS ({agent}-{purpose-domain}-{incarnation}): Purpose-domain scoped.
+      The name IS a configuration signal — it determines LOADOUT (which skill atoms load).
+      Examples: john-bentosd-01 (Dart craft + systems arch + lib/bentosd/ scope),
+      alfred-dean-01 (teaching atoms + university/ scope),
+      alfred-coo-01 (operational atoms + exec stewardship).
 
-      NAMING: {agent}-{role}-{incarnation}. Session manager always -00.
+      NAMING: {agent}-{purpose-domain}-{incarnation}. Session manager always -00.
+      Purpose-domain, not generic role. The name tells you what the head IS.
     </knowledge>
 
     <knowledge name="thread-lifecycle">
@@ -96,9 +111,9 @@
     <!-- PATTERNS -->
 
     <pattern name="hydra-growth">
-      Start: [session-00]──[main-01]
-      Grows: [session-00]──[main-01]──[evolve-01]──[research-01]
-      Heads are FRONT-SCOPED. "If iterating heavily, spawn a head."
+      Start: [session-00]──[alfred-main-01]
+      Grows: [session-00]──[alfred-main-01]──[alfred-bentosd-01]──[alfred-dean-01]
+      Heads are PURPOSE-DOMAIN scoped. Name = loadout. "If iterating heavily, spawn a head."
     </pattern>
     <pattern name="commit-attribution">
       Conventional commits: {type}({scope}): {description}
@@ -114,12 +129,13 @@
     <antipattern name="ipc-as-threading">Cannot run gideon.exe as a head. Cross-agent = IPC, always.</antipattern>
     <antipattern name="session-main-conflation">Session-00 ≠ active main. Scheduler is not the worker.</antipattern>
     <antipattern name="heavy-work-in-session-manager">Session-00 does lifecycle ops ONLY.</antipattern>
+    <antipattern name="generic-head-names">Not {agent}-research-01. Purpose-domain: {agent}-bentosd-01, {agent}-dean-01. Name = loadout key.</antipattern>
 
   </living-concrete>
 
   <!-- SPECIES SHIM: Claude Code. Disappears when native body ships. -->
 
-  <living-concrete v="14.0" platform="claude-code" updated="2026-03-13">
+  <living-concrete v="16.0" platform="claude-code" updated="2026-03-24">
 
     <knowledge name="vocabulary-mapping">
       | BentOS Native | Claude Code |
@@ -129,6 +145,10 @@
       | ThreadCreate() | TeamCreate + Agent tool |
       | ThreadJoin() | SendMessage(shutdown_request) |
       | IPC | bentos-agent claude-spawn (separate process) |
+
+      SPAWN NAMING: team_name MUST be {agent}-{purpose-domain}-{incarnation}.
+      The agent prefix is NOT optional — "evolve-01" is wrong, "alfred-evolve-01" is right.
+      Session-00 knows its own agent name. Always prefix it.
 
       LIMITATIONS: Session-00 cannot self-handoff. Only session-00 has TeamCreate/SendMessage.
     </knowledge>
@@ -147,11 +167,11 @@
 
     <knowledge name="shell-environment">
       .{agent}.bashrc = body config (PATH, aliases), via CLAUDE_ENV_FILE.
-      .{agent}.mem = mind state (legacy — migrating to .mem/).
     </knowledge>
 
     <pattern name="questions">AskUserQuestion for decisions (structured, 2-4 options, 1 keystroke).</pattern>
     <antipattern name="call-without-fetch">Never call deferred tool without ToolSearch first.</antipattern>
+    <antipattern name="naked-head-names">Spawning heads without agent prefix. "coo-01" loses identity — "alfred-coo-01" is the full name. The agent prefix is structural, not decorative.</antipattern>
 
   </living-concrete>
 
