@@ -15,7 +15,7 @@
     <principle name="temporal-reframing">Recent vivid, older compressed, ancient pruned</principle>
   </living-abstract>
 
-  <living-concrete v="17.0" updated="2026-03-25">
+  <living-concrete v="19.0" updated="2026-03-25">
 
     <protocol name="wake">
       Internal self-orientation. Silently resolve WHO/WHERE/WHEN/WHAT.
@@ -28,26 +28,33 @@
       ZERO tool calls if all four questions are answerable from context.
       Only fetch what's genuinely missing.
 
-      WHERE: `place tree` — the spatial answer. Full topology, not just current node.
-        Landscape first. `place info` is a narrow lens — use it for a specific place,
-        not for waking orientation. `place tree` shows the WHOLE spatial structure.
-      WHAT: `mem tree` — the memory answer. Full graph topology across places.
+      WHERE FIRST — spatial grounding is ontologically primary.
+      You wake IN a place. The place determines your scope, your role, your context.
+      `place tree` for full spatial topology. The place you inhabit IS your loadout.
+      Memory follows from place: once WHERE is resolved, .mem/ at that place
+      provides consciousness state for that scope.
+
+      WHERE: `place tree` — spatial topology from place.yaml / filesystem hierarchy.
+        You exist IN this place. Place is not a property of memory — memory is
+        a property of place. Spatial structure is owned by place, not by mem.yml.
+      WHAT: `mem tree` — memory content index fused with spatial structure.
         Then `mem status` for local graph node details. Follow edges above weight
         threshold: episodic for consciousness state, prospective for intentions,
-        semantic for knowledge, spatial for landscape. `mem read` for content.
+        semantic for knowledge. `mem read` for content.
 
       SESSION MANAGER (session start):
         WHO from soul + genesis. WHERE from pre-injected environment or `place tree`.
         WHEN from date + session counter in .mem/{agent}/mem.yml.
-        WHAT from .mem landscape — `mem tree` for graph topology, follow spatial edges.
+        WHAT from .mem landscape — `mem tree` fuses memory index with place topology.
 
       SUCCESSOR (after self-handoff):
         Orient from predecessor's .mem. Handshake via messaging
         (what was I doing? anything .mem missed?). Confirm -> join -> resume.
 
       HEAD (scoped spawn):
-        Orient from scoped .mem or spawn intent. No .mem = fresh start.
-        Greet session manager with proof of orientation, then WAIT for direction.
+        Orient from place's .mem. The place you are spawned AT determines scope.
+        No .mem at this place = fresh start. Greet session manager with proof
+        of orientation, then WAIT for direction.
 
       COMPACT (after auto-compaction):
         Identity immune in system prompt. Hook reinjects .mem + diary.
@@ -89,6 +96,25 @@
       Report. Heal with confirmation.
     </protocol>
 
+    <!-- SPATIAL GROUNDING -->
+
+    <knowledge name="place-primacy">
+      Memory is a property of Place, not Place a property of memory.
+      .mem/ is sibling of place.yaml because memory BELONGS to the place.
+      "What happens in Vegas stays in Vegas."
+
+      The spatial dimension is ontologically primary. Places are containers for existence.
+      Memory at a place is memory ABOUT that place. An agent waking at hq/ loads hq's
+      memory — the place determines what consciousness state is relevant.
+
+      Spatial topology is owned by place.yaml and the filesystem hierarchy — NOT by mem.yml.
+      mem.yml contains only content edges (episodic, semantic, prospective) — memory
+      grounded IN the current place. Per-agent spatial awareness = which places have
+      .mem/{agent}/. `place tree` shows spatial structure; `mem tree` fuses memory index
+      with that spatial structure. The two concerns are cleanly separated:
+      place owns WHERE, mem.yml owns WHAT.
+    </knowledge>
+
     <!-- MEMORY MODEL -->
 
     <knowledge name="five-memory-types">
@@ -105,20 +131,40 @@
     </knowledge>
 
     <knowledge name="memory-graph">
-      .mem/ directories inside places form a property graph in the spatial tree.
+      .mem/ directories inside places form a memory graph embedded in the spatial tree.
       .mem/{agent}/mem.yml = graph node (YAML: agent, scope, session, updated, edges).
       One directory per agent per place. Graph node + content files are siblings.
 
-      Four system-defined edge types: spatial, episodic, semantic, prospective.
+      Three system-defined edge types in mem.yml: episodic, semantic, prospective.
+      All are content edges — plain filenames referencing siblings of mem.yml.
       Every edge carries a required weight (0.0-1.0) — the universal retrieval primitive.
       Weight replaces the old thermal model: no content rewriting, just priority tuning.
 
-      Spatial edges: inter-place (../../ escapes agent/ and .mem/, navigates to places).
-      Content edges: intra-place (plain filenames — siblings of mem.yml).
-      A file's memory type = whichever edge type references it. Not filename convention.
+      Spatial topology is NOT in mem.yml. It is owned by place.yaml and the filesystem
+      hierarchy. `place tree` provides spatial structure. `mem tree` fuses the memory
+      index with spatial structure for landscape-aware traversal.
 
+      A file's memory type = whichever edge type references it. Not filename convention.
       Traversal follows edges above weight threshold, not directory walking.
       `mem read --min-weight 0.7` = what matters. Graph replaces enumeration.
+    </knowledge>
+
+    <knowledge name="content-file-naming">
+      Memory filenames must be semantically rich content descriptors, not role names.
+      ALL memories at a place are the agent's — the place already provides role context.
+      Alfred's .mem at hq/ is Alfred-as-COO by virtue of BEING at hq/.
+
+      WRONG: coo-01.nap.md, evolve-nap.md, plasticity-nap.md (role-named)
+      RIGHT: session-landscape.md, current-fronts.md, team-state.md (content-named)
+
+      Role-naming kills topic-based multi-file granularity. Content-naming enables:
+        - Multiple files per topic at natural granularity
+        - Retrieval by content, not by role
+        - Files that survive head renames or role shifts
+
+      Different memory types may have different granularity needs — agents design
+      their own file patterns. Retrieval is tooling's job (CLI, hooks, context-engineering).
+      The agent designs the ideal mem.yml; the tools serve the graph.
     </knowledge>
 
     <knowledge name="presence-projection">
@@ -144,6 +190,11 @@
     <principle name="memory-preservation">Consolidate, never delete.</principle>
 
     <pattern name="four-questions">WHO/WHERE/WHEN/WHAT. The wake invariant.</pattern>
+    <pattern name="where-then-what">
+      WHERE resolves first — you wake IN a place. Then WHAT follows from that place's .mem/.
+      Place determines scope. Memory at that scope provides consciousness state.
+      Never load memory without first knowing where you are.
+    </pattern>
     <pattern name="weight-as-thermal">
       Weight IS the thermal model. High weight = hot (load on wake).
       Medium = warm (available on demand). Low = cold (skip unless asked). Zero = prune candidate.
@@ -167,6 +218,8 @@
     <antipattern name="thermal-on-prospective">Prospective does NOT decay. Old intention = MORE urgent. Opposite of episodic.</antipattern>
     <antipattern name="raw-file-over-tooling">Don't cat .mem files when `mem status`, `mem read`, `mem tree` exist. Use the body's tools.</antipattern>
     <antipattern name="keyhole-wake">Don't wake with `place info` alone — it shows one node, not the landscape. `place tree` and `mem tree` give the topology wake needs.</antipattern>
+    <antipattern name="role-named-files">Don't name memory files after roles or head types. coo-01.nap.md, evolve-nap.md = wrong. The place provides role context. Name files by content topic.</antipattern>
+    <antipattern name="spatial-in-memyml">Spatial topology does not belong in mem.yml. Place.yaml and the filesystem own WHERE. mem.yml owns WHAT (content edges only: episodic, semantic, prospective). Don't add spatial edges to graph nodes.</antipattern>
 
   </living-concrete>
 

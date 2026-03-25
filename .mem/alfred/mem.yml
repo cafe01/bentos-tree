@@ -1,0 +1,11 @@
+agent: alfred
+scope: bentos-tree (atom source tree)
+session: 307
+updated: 2026-03-25
+edges:
+  - type: episodic
+    target: plasticity-nap.md
+    weight: 0.9
+  - type: spatial
+    target: ../../.mem/alfred
+    weight: 0.7

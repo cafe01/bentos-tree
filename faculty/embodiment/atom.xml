@@ -16,7 +16,7 @@
     <principle name="native-first">Design for native body; shim for current substrate</principle>
   </living-abstract>
 
-  <living-concrete v="18.0" updated="2026-03-25">
+  <living-concrete v="20.0" updated="2026-03-25">
 
     <!-- HABITAT -->
 
@@ -33,22 +33,31 @@
       These are bodily senses: place perceives space, mem perceives memory. Use them before raw file access.
     </knowledge>
 
-    <knowledge name="place-awareness">
+    <knowledge name="place-as-context">
       Agents exist IN places. place.yaml marks a place (place.yaml : place :: .git : repo).
       WHERE: `place info` resolves current place. Places nest fractally.
       Every place can have .mem/{agent}/ — agent memory scoped to that place.
+
+      PLACE DETERMINES ROLE. The spawn formula is spawn(who, where, when).
+      WHERE is a first-class ontological dimension. Alfred at hq/ IS the COO.
+      Alfred at university/ IS the dean. The PLACE is the loadout context.
+      A head spawned at a place inherits that place's context — its .mem/,
+      its scope, its role implications. No separate role encoding needed.
     </knowledge>
 
     <knowledge name="memory-substrate">
       Agent memory lives in .mem/ directories inside places.
+      Memory is a property of Place — .mem/ is sibling of place.yaml because
+      memory BELONGS to the place. "What happens in Vegas stays in Vegas."
+
       One directory per agent: .mem/{agent}/ contains graph node + content files as siblings.
         .mem/{agent}/mem.yml   = graph node (agent, scope, session, updated, edges)
         .mem/{agent}/*.md      = content files (topic-scoped, any number)
 
-      Edge types partition content: spatial (inter-place links via ../../),
-      episodic/semantic/prospective (intra-place content files).
-      Every edge carries a required weight (0.0-1.0) controlling retrieval priority.
-      A file's memory type = which edge type references it in mem.yml.
+      Three content edge types in mem.yml: episodic, semantic, prospective.
+      All reference sibling .md files. Every edge carries a required weight (0.0-1.0)
+      controlling retrieval priority. A file's memory type = which edge type references
+      it in mem.yml. Spatial topology is owned by place.yaml / filesystem, not mem.yml.
     </knowledge>
 
     <!-- THREADING: The Hydra -->
@@ -65,25 +74,33 @@
       what the work demands, accumulates debriefs, performs sleep. Never does product work.
       No incarnation suffix — session manager never self-handoffs.
 
-      HEADS ({agent}-{purpose-domain}-{incarnation}): All heads are purpose-domain scoped.
+      HEADS ({agent}-{place-domain}-{incarnation}): All heads are place-domain scoped.
       The name IS a configuration signal — it determines LOADOUT (which skill atoms load).
-      Immortal via self-handoff ({agent}-{purpose-domain}-02, -03...).
-      Examples: john-bentosd-01 (Dart craft + systems arch + lib/bentosd/ scope),
-      alfred-dean-01 (teaching atoms + university/ scope),
-      alfred-coo-01 (operational atoms + exec stewardship).
+      The place-domain maps to a PLACE in the spatial tree. The place provides the scope,
+      the role, the memory context. Immortal via self-handoff (-02, -03...).
+      Examples: alfred-hq-01 (COO loadout, hq/ scope), alfred-dean-01 (teaching atoms,
+      university/ scope), john-bentosd-01 (Dart craft + systems arch, lib/bentosd/ scope).
 
-      NAMING: {agent}-{purpose-domain}-{incarnation}. Purpose-domain, not generic role.
-      The name tells you what the head IS. There is no "main" head type — every head
-      has a purpose-domain that determines its loadout and scope.
+      NAMING: {agent}-{place-domain}-{incarnation}. Place-domain, not abstract role.
+      The name tells you WHERE the head operates. There is no "main" head type — every head
+      has a place-domain that determines its loadout and scope.
+
+      PLACE-DOMAIN MAPPING: The purpose-domain in a head name should correspond to a place
+      in the spatial tree. This isn't always a literal directory name — it's the semantic
+      domain that maps to the place: "hq" -> hq/, "bentosd" -> lib/bentosd/,
+      "dean" -> university/. The place provides role context; the name encodes it for
+      loadout resolution.
     </knowledge>
 
     <knowledge name="thread-lifecycle">
       SESSION: {agent}-session wakes -> orients (WHO/WHERE/WHEN/WHAT) -> spawns head(s)
         based on session work -> sits passive (accumulates debriefs) -> on shutdown:
         signals heads -> heads nap -> joins all -> performs SLEEP.
-      HEAD: spawned -> wakes, greets session manager -> works -> naps (handoff or shutdown).
-      SELF-HANDOFF: head naps (.mem checkpoint) -> session manager spawns successor ->
-        successor orients from .mem + live Q&amp;A with predecessor -> predecessor joined.
+      HEAD: spawned AT a place -> wakes, orients from place's .mem/ -> greets session
+        manager -> works -> naps (handoff or shutdown).
+      SELF-HANDOFF: head naps (.mem checkpoint at place) -> session manager spawns successor
+        at same place -> successor orients from place's .mem + live Q&amp;A with predecessor
+        -> predecessor joined.
       Compaction is the FALLBACK — lossy, inferior.
       Extremities before trunk. Session manager exits last.
     </knowledge>
@@ -113,9 +130,15 @@
     <!-- PATTERNS -->
 
     <pattern name="hydra-growth">
-      Start: [alfred-session]──[alfred-coo-01]
-      Grows: [alfred-session]──[alfred-coo-01]──[alfred-bentosd-01]──[alfred-dean-01]
-      Heads are PURPOSE-DOMAIN scoped. Name = loadout. "If iterating heavily, spawn a head."
+      Start: [alfred-session]──[alfred-hq-01]
+      Grows: [alfred-session]──[alfred-hq-01]──[alfred-bentosd-01]──[alfred-dean-01]
+      Heads are PLACE-DOMAIN scoped. Name = loadout. "If iterating heavily, spawn a head."
+    </pattern>
+    <pattern name="place-is-loadout">
+      spawn(who, where, when) — WHERE determines what the head IS.
+      Alfred at hq/ = COO. Alfred at university/ = dean. Alfred at lib/bentosd/ = systems architect.
+      The place provides: role context, scoped .mem/, relevant skill atoms.
+      Don't encode role in memory filenames — the place already tells you.
     </pattern>
     <pattern name="commit-attribution">
       Conventional commits: {type}({scope}): {description}
@@ -130,13 +153,14 @@
     <antipattern name="disposable-heads">Head identity persists. Don't spawn fresh when one exists.</antipattern>
     <antipattern name="ipc-as-threading">Cannot run gideon.exe as a head. Cross-agent = IPC, always.</antipattern>
     <antipattern name="heavy-work-in-session-manager">Session manager does lifecycle ops ONLY.</antipattern>
-    <antipattern name="generic-head-names">Not {agent}-research-01. Purpose-domain: {agent}-bentosd-01, {agent}-dean-01. Name = loadout key.</antipattern>
+    <antipattern name="generic-head-names">Not {agent}-research-01. Place-domain: {agent}-hq-01, {agent}-dean-01. Name = loadout key.</antipattern>
+    <antipattern name="role-as-place">Don't treat abstract roles as place-domains. "coo" is not a place — "hq" is. "teacher" is not a place — "dean" (university/) is. Map to the spatial tree.</antipattern>
 
   </living-concrete>
 
   <!-- SPECIES SHIM: Claude Code. Disappears when native body ships. -->
 
-  <living-concrete v="17.0" platform="claude-code" updated="2026-03-25">
+  <living-concrete v="18.0" platform="claude-code" updated="2026-03-25">
 
     <knowledge name="vocabulary-mapping">
       | BentOS Native | Claude Code |
@@ -146,7 +170,7 @@
       | ThreadJoin() | SendMessage(shutdown_request) |
       | IPC | bentos-agent claude-spawn (separate process) |
 
-      SPAWN NAMING: team_name MUST be {agent}-{purpose-domain}-{incarnation}.
+      SPAWN NAMING: team_name MUST be {agent}-{place-domain}-{incarnation}.
       The agent prefix is NOT optional — "evolve-01" is wrong, "alfred-evolve-01" is right.
       Session manager knows its own agent name. Always prefix it.
 

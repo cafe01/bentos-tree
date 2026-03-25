@@ -14,7 +14,7 @@
     <principle name="scope-discipline">Concrete is mutable, abstract is immutable except by human reframe</principle>
   </living-abstract>
 
-  <living-concrete v="10.0" updated="2026-03-24">
+  <living-concrete v="11.0" updated="2026-03-25">
 
     <protocol name="evolve">
       Self-evolution: the agent meditating on its own loaded atoms.
@@ -62,8 +62,9 @@
     </knowledge>
 
     <pattern name="delegated-evolve">
-      Evolve is token-heavy — ideal head thread work. Main crystallizes insight,
-      head loads atoms, applies protocol, writes source, reinstalls.
+      Evolve is token-heavy — ideal head thread work. The sponsoring head
+      crystallizes insight, the evolve head loads atoms, applies protocol,
+      writes source, reinstalls.
     </pattern>
 
     <antipattern name="append-only">LLM tendency: ADD. Discipline: TRANSFORM. If concrete only grows, evolution has failed.</antipattern>
