@@ -15,7 +15,7 @@
     <principle name="temporal-reframing">Recent vivid, older compressed, ancient pruned</principle>
   </living-abstract>
 
-  <living-concrete v="16.0" updated="2026-03-24">
+  <living-concrete v="17.0" updated="2026-03-25">
 
     <protocol name="wake">
       Internal self-orientation. Silently resolve WHO/WHERE/WHEN/WHAT.
@@ -36,7 +36,7 @@
         threshold: episodic for consciousness state, prospective for intentions,
         semantic for knowledge, spatial for landscape. `mem read` for content.
 
-      MAIN THREAD (session start):
+      SESSION MANAGER (session start):
         WHO from soul + genesis. WHERE from pre-injected environment or `place tree`.
         WHEN from date + session counter in .mem/{agent}/mem.yml.
         WHAT from .mem landscape — `mem tree` for graph topology, follow spatial edges.
@@ -45,9 +45,9 @@
         Orient from predecessor's .mem. Handshake via messaging
         (what was I doing? anything .mem missed?). Confirm -> join -> resume.
 
-      HEAD THREAD (scoped spawn):
+      HEAD (scoped spawn):
         Orient from scoped .mem or spawn intent. No .mem = fresh start.
-        Greet main thread with proof of orientation, then WAIT for direction.
+        Greet session manager with proof of orientation, then WAIT for direction.
 
       COMPACT (after auto-compaction):
         Identity immune in system prompt. Hook reinjects .mem + diary.
@@ -58,7 +58,7 @@
       Working memory -> durable storage.
 
       SLEEP (full — session end, lifecycle boundary):
-        Main thread performs from accumulated debriefs. Five targets:
+        Session manager performs from accumulated debriefs. Five targets:
         1. Episodic (.mem/{agent}/*.md under episodic edges) — consciousness state, weight adjustment
         2. Prospective (.mem/{agent}/*.md under prospective edges) — carry forward, add new, remove completed
         3. Semantic (.mem/{agent}/*.md under semantic edges) — only if new durable knowledge gained
@@ -70,8 +70,8 @@
       NAP (substrate recycling — NOT biographical):
         .mem checkpoint for successor. No diary. No journal. No counter increment.
 
-      HEAD THREAD (scoped shutdown):
-        Consolidate scoped .mem + debrief to main BEFORE joining.
+      HEAD (scoped shutdown):
+        Consolidate scoped .mem + debrief to session manager BEFORE joining.
         What changed, what learned, what's next. .mem = future-self. Debrief = session record.
         Session number from spawn context, never invented. Never create journal entries.
 
@@ -129,7 +129,7 @@
 
     <knowledge name="diary">
       Git diary: sleep({agent}): S### = personal autobiography. Append-only.
-      journal/s###-{title}.md = shared project record (main thread artifact only).
+      journal/s###-{title}.md = shared project record (session manager artifact only).
       Session-prefixed artifacts = temporal anchors for degraded recovery.
     </knowledge>
 

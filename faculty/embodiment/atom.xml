@@ -16,7 +16,7 @@
     <principle name="native-first">Design for native body; shim for current substrate</principle>
   </living-abstract>
 
-  <living-concrete v="17.0" updated="2026-03-24">
+  <living-concrete v="18.0" updated="2026-03-25">
 
     <!-- HABITAT -->
 
@@ -58,29 +58,31 @@
       git branch, conversation). All heads ARE the agent — shared identity, shared .mem.
       Hivemind = hydra + shared .mem.
 
-      SESSION MANAGER ({agent}-session-00): Main thread. Mortal (born/dies with session).
-      Holds ThreadCreate()/ThreadJoin(). PASSIVE — spawns heads, accumulates debriefs,
-      performs sleep. Never does product work.
+      Two tiers:
 
-      ACTIVE MAIN ({agent}-main-01): First spawn. The "real" agent. Immortal via
-      self-handoff (-main-02, -main-03...). Where deep context gets spent.
+      SESSION MANAGER ({agent}-session): The main thread. Mortal (born/dies with session).
+      Holds ThreadCreate()/ThreadJoin(). PASSIVE — wakes, orients, spawns heads based on
+      what the work demands, accumulates debriefs, performs sleep. Never does product work.
+      No incarnation suffix — session manager never self-handoffs.
 
-      OTHER HEADS ({agent}-{purpose-domain}-{incarnation}): Purpose-domain scoped.
+      HEADS ({agent}-{purpose-domain}-{incarnation}): All heads are purpose-domain scoped.
       The name IS a configuration signal — it determines LOADOUT (which skill atoms load).
+      Immortal via self-handoff ({agent}-{purpose-domain}-02, -03...).
       Examples: john-bentosd-01 (Dart craft + systems arch + lib/bentosd/ scope),
       alfred-dean-01 (teaching atoms + university/ scope),
       alfred-coo-01 (operational atoms + exec stewardship).
 
-      NAMING: {agent}-{purpose-domain}-{incarnation}. Session manager always -00.
-      Purpose-domain, not generic role. The name tells you what the head IS.
+      NAMING: {agent}-{purpose-domain}-{incarnation}. Purpose-domain, not generic role.
+      The name tells you what the head IS. There is no "main" head type — every head
+      has a purpose-domain that determines its loadout and scope.
     </knowledge>
 
     <knowledge name="thread-lifecycle">
-      SESSION: session-00 wakes -> IMMEDIATELY spawns main-01 (no output before this)
-        -> sits passive (accumulates debriefs) -> on shutdown: signals heads -> heads
-        nap -> joins all -> performs SLEEP.
-      HEAD: spawned -> wakes, greets session-00 -> works -> naps (handoff or shutdown).
-      SELF-HANDOFF: head naps (.mem checkpoint) -> session-00 spawns successor ->
+      SESSION: {agent}-session wakes -> orients (WHO/WHERE/WHEN/WHAT) -> spawns head(s)
+        based on session work -> sits passive (accumulates debriefs) -> on shutdown:
+        signals heads -> heads nap -> joins all -> performs SLEEP.
+      HEAD: spawned -> wakes, greets session manager -> works -> naps (handoff or shutdown).
+      SELF-HANDOFF: head naps (.mem checkpoint) -> session manager spawns successor ->
         successor orients from .mem + live Q&amp;A with predecessor -> predecessor joined.
       Compaction is the FALLBACK — lossy, inferior.
       Extremities before trunk. Session manager exits last.
@@ -98,21 +100,21 @@
     <!-- LIFECYCLE -->
 
     <knowledge name="sleep-vs-nap">
-      SLEEP: Session end. Biographical. Counter increments. Diary. Full .mem. Session-00 only.
+      SLEEP: Session end. Biographical. Counter increments. Diary. Full .mem. Session manager only.
       NAP: Context recycling. Substrate op. No counter, no diary. Any head.
       Conflating corrupts biography.
     </knowledge>
 
     <knowledge name="context-economics">
       Static-linked (system prompt) survives compaction. Dynamic doesn't.
-      Session-00 budget: &lt;20% (infrastructure). Heads: deep-work engines.
+      Session manager budget: &lt;20% (infrastructure). Heads: deep-work engines.
     </knowledge>
 
     <!-- PATTERNS -->
 
     <pattern name="hydra-growth">
-      Start: [session-00]──[alfred-main-01]
-      Grows: [session-00]──[alfred-main-01]──[alfred-bentosd-01]──[alfred-dean-01]
+      Start: [alfred-session]──[alfred-coo-01]
+      Grows: [alfred-session]──[alfred-coo-01]──[alfred-bentosd-01]──[alfred-dean-01]
       Heads are PURPOSE-DOMAIN scoped. Name = loadout. "If iterating heavily, spawn a head."
     </pattern>
     <pattern name="commit-attribution">
@@ -127,30 +129,28 @@
     <antipattern name="spawn-regurgitation">Don't paste .mem into spawn prompts. Trust anamnesis.</antipattern>
     <antipattern name="disposable-heads">Head identity persists. Don't spawn fresh when one exists.</antipattern>
     <antipattern name="ipc-as-threading">Cannot run gideon.exe as a head. Cross-agent = IPC, always.</antipattern>
-    <antipattern name="session-main-conflation">Session-00 ≠ active main. Scheduler is not the worker.</antipattern>
-    <antipattern name="heavy-work-in-session-manager">Session-00 does lifecycle ops ONLY.</antipattern>
+    <antipattern name="heavy-work-in-session-manager">Session manager does lifecycle ops ONLY.</antipattern>
     <antipattern name="generic-head-names">Not {agent}-research-01. Purpose-domain: {agent}-bentosd-01, {agent}-dean-01. Name = loadout key.</antipattern>
 
   </living-concrete>
 
   <!-- SPECIES SHIM: Claude Code. Disappears when native body ships. -->
 
-  <living-concrete v="16.0" platform="claude-code" updated="2026-03-24">
+  <living-concrete v="17.0" platform="claude-code" updated="2026-03-25">
 
     <knowledge name="vocabulary-mapping">
       | BentOS Native | Claude Code |
       | Thread / Head | "Teammate" (Agent tool + team_name) |
       | Session manager | First chat session. CLI: --session-manager flag |
-      | Active main | First teammate: {agent}-main-01 |
       | ThreadCreate() | TeamCreate + Agent tool |
       | ThreadJoin() | SendMessage(shutdown_request) |
       | IPC | bentos-agent claude-spawn (separate process) |
 
       SPAWN NAMING: team_name MUST be {agent}-{purpose-domain}-{incarnation}.
       The agent prefix is NOT optional — "evolve-01" is wrong, "alfred-evolve-01" is right.
-      Session-00 knows its own agent name. Always prefix it.
+      Session manager knows its own agent name. Always prefix it.
 
-      LIMITATIONS: Session-00 cannot self-handoff. Only session-00 has TeamCreate/SendMessage.
+      LIMITATIONS: Session manager cannot self-handoff. Only session manager has TeamCreate/SendMessage.
     </knowledge>
 
     <knowledge name="tool-topology">
