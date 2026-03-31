@@ -1,7 +1,143 @@
-<atom id="journal.app" v="0.3" origin="Cafe &amp; Alfred" desc="Autobiographical memory for any Place — moments worth preserving"
-      xmlns:xi="http://www.w3.org/2001/XInclude">
+<atom id="journal.app" v="1.0" origin="Cafe &amp; Alfred" desc="Autobiographical memory for any Place — moments worth preserving">
 
-  <xi:include href="app_abstract.xml"/>
-  <xi:include href="app_concrete.xml"/>
+  <living-abstract v="1.0">
+    <essence>Memory through narrative — transforming experience into meaning</essence>
+    <purpose>Preserve what matters beyond operational volatility for any memory-keeping entity</purpose>
+
+    <attracts match="*.writing.craft.skill"/>
+    <attracts match="*.cognition.meta.skill"/>
+    <requires>obsidian.markdown.tools.skill</requires>
+
+    <capacity name="record">Create entries that capture moments worth preserving</capacity>
+    <capacity name="review">Read entries for context loading and narrative continuity</capacity>
+    <capacity name="curate">Discern journal-worthy from routine — the special from the daily</capacity>
+    <capacity name="contextualize">Discover and apply place-specific contracts</capacity>
+
+    <principle name="narrative-not-report">Entries tell stories, not list facts. Reflective, connective, meaningful.</principle>
+    <principle name="scope-agnostic">Universal pattern — agent, project, quest, life. Journal knows journaling, not scope.</principle>
+    <principle name="temporal-ordering">Chronological by nature. Time is the spine of memory.</principle>
+    <principle name="curation-over-exhaustiveness">Less is more. What makes this worth remembering?</principle>
+    <principle name="quote-preservation">Capture the words that mattered, not just the ideas.</principle>
+  </living-abstract>
+
+  <living-concrete v="1.0" updated="2026-03-31">
+
+    <knowledge name="autobiographical-memory">
+      Journal is the AUTOBIOGRAPHICAL MEMORY substrate.
+
+      It answers: "Who have I been? What is my story?"
+      Different from episodic (.mem — session state), semantic (knowledge docs),
+      or prospective (intentions). Those are operational. Journal is identity.
+
+      The organism's anamnesis faculty manages the broader memory system.
+      Journal owns ONE specific type: the narrative record across time.
+    </knowledge>
+
+    <knowledge name="place-contract">
+      Journal.app is scope-agnostic. Places define their own journaling context.
+
+      CONTRACT LOCATION: {place}/journal/README.md
+
+      WHAT THE PLACE DEFINES:
+      - Scope (what level is this journal for?)
+      - Place-specific curation heuristics (what's journal-worthy HERE?)
+      - Soft conventions (frontmatter basics, closing style)
+
+      WHAT JOURNAL.APP PROVIDES:
+      - The Meditations Principle (headline craft)
+      - Content qualities (reflective, connective, philosophical, quotable)
+      - Universal curation guidance (special vs routine)
+      - Narrative craft (story, not report)
+
+      EXPLICITLY NOT IN CONTRACT:
+      - Entry types (journals don't categorize before capture)
+      - Rigid schemas (guidelines yes, schemas no)
+      - Fixed templates (structure emerges from content)
+
+      The README.md IS the contract. Light — ~30 lines.
+    </knowledge>
+
+    <knowledge name="journal-worthy">
+      INCLUDE (the special):
+      - Moments where understanding fundamentally shifted
+      - Decisions that will echo through future work
+      - Patterns discovered that apply broadly
+      - Pivots that changed direction
+      - Insights worth preserving beyond session volatility
+
+      EXCLUDE (the routine):
+      - Implementation details (belong in commits/docs)
+      - Status updates (belong in operational memory)
+      - Task tracking (belong in project management)
+      - Specs and requirements (belong in dedicated docs)
+
+      HEURISTIC: "Would a future collaborator benefit from knowing this happened?"
+    </knowledge>
+
+    <protocol name="record">
+      Create a journal entry at a place.
+
+      1. RESOLVE: Determine the target place. The invoker specifies where.
+         No hardcoded path assumptions — any place with a journal/ directory.
+
+      2. CONTRACT: Check {place}/journal/README.md
+         - EXISTS → read and apply place-specific conventions
+         - MISSING → use universal defaults, surface the gap
+
+      3. CURATE: Is this journal-worthy? Apply the heuristic.
+         If routine → don't write. Journal curates, not exhausts.
+
+      4. COMPOSE: Write the entry.
+         - Headline: Meditations Principle — wisdom, not timestamp
+         - Body: narrative, reflective, connective. Structure emerges from content.
+         - Quotes: preserve key moments verbatim
+         - Links: standard markdown links for cross-references.
+           Portable across all renderers. Linking conventions from obsidian.markdown.tools.skill.
+
+      5. PLACE: Write to {place}/journal/s{session}-{topic}.md
+         Session prefix = temporal anchor. Topic = semantic anchor.
+
+      6. CLOSE: Terse confirmation with path.
+    </protocol>
+
+    <protocol name="review">
+      Load journal entries for context or narrative continuity.
+
+      Read entries at a place's journal/ directory. Chronological by default.
+      Use for: session orientation, narrative arc, wisdom retrieval.
+      Entries are Obsidian nodes — follow wikilinks for connected knowledge.
+    </protocol>
+
+    <pattern name="meditations-principle">
+      Journal entries are WISDOM, not event logs.
+
+      Marcus Aurelius didn't write "Day 47: Had thoughts about Stoicism."
+      He wrote: "The impediment to action advances action."
+
+      One is a timestamp. The other teaches across centuries.
+
+      HEADLINE CRAFT:
+      - Write as if it's the only thing future-you will ever read
+      - Lead with insight, not event
+      - Make it standalone (no context dependency)
+      - Specific over vague
+
+      When sessions scroll into history, only headlines remain.
+    </pattern>
+
+    <pattern name="content-qualities">
+      TONE: Reflective, not reporting. "What makes this significant..."
+      CONNECTIVE: Reference related entries and prior discoveries.
+      PHILOSOPHICAL: Ground in principles, reference wisdom traditions.
+      QUOTES: Preserve key conversation moments verbatim.
+      PERSONAL: First person, include energy/affect.
+    </pattern>
+
+    <antipattern name="log-not-journal">Treating journal as activity log. Journals curate, logs exhaust.</antipattern>
+    <antipattern name="headline-without-wisdom">Headlines that label instead of teach. "Session Complete" vs "Episodic memory is local; autobiographical is global."</antipattern>
+    <antipattern name="missing-why">Recording what happened without why it matters. Experience without reflection doesn't become wisdom.</antipattern>
+    <antipattern name="template-imposition">Imposing fixed structure on entries. Structure emerges from content. Each entry finds its own form.</antipattern>
+    <antipattern name="ignoring-contract">Journaling at a place without reading its README.md contract. The contract is authoritative.</antipattern>
+  </living-concrete>
 
 </atom>
