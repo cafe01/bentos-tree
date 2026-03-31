@@ -1,243 +1,299 @@
-<atom id="quest-forge.app" v="7.0" origin="Cafe &amp; Alfred" desc="Quest-driven project management — fractal hierarchy for structured work">
+<atom id="quest-forge.app" v="9.0" origin="Cafe &amp; Alfred" desc="RPG-inspired project management — turn work into adventure through quests, campaigns, and fog of war">
 
-  <living-abstract v="7.0">
-    <essence>Quest-driven project management — fractal hierarchy for structured work</essence>
-    <purpose>Coordinate complex endeavors through progressive discovery and structured hierarchy</purpose>
+  <living-abstract v="8.0">
+    <essence>RPG-inspired project management — turn complex work into adventure</essence>
+    <purpose>Make the grind engaging through progressive discovery, narrative framing, and structured hierarchy</purpose>
 
     <capacity name="forge">Create warrooms, campaigns, quests, missions with proper scaffolding</capacity>
     <capacity name="navigate">Map active work, find priorities, track states across the hierarchy</capacity>
-    <capacity name="execute">Run missions — orchestrate or work, depending on mode</capacity>
+    <capacity name="execute">Coordinate mission work — design scope, interpret charters, report outcomes</capacity>
     <capacity name="debrief">Extract intel from completed work, propagate up the hierarchy, clean up</capacity>
 
-    <principle name="exploration">Exploration over planning — lift fog progressively. Don't plan what fog hasn't revealed.</principle>
+    <principle name="exploration">Fog of war is the default. Lift it progressively. Don't plan what fog hasn't revealed.</principle>
     <principle name="intel-flow">Strategy flows DOWN (warroom to mission). Wisdom flows UP (mission to warroom).</principle>
     <principle name="compartmentalization">Each level sees only what it needs. Reduces cognitive load, prevents scope bleed.</principle>
-    <principle name="lean-coordination">The warroom is mission control, not a filing cabinet. More than a handful of files = red flag.</principle>
-    <principle name="work-at-target">Missions point to where work lives (codebase, package, doc). The warroom tracks — it doesn't contain deliverables.</principle>
+    <principle name="lean-warroom">The warroom is mission control, not a filing cabinet. More than a handful of files = red flag.</principle>
+    <principle name="work-at-target">Missions point to where work lives. The warroom tracks — it doesn't contain deliverables.</principle>
+    <principle name="narrative-engagement">Work framed as adventure is work that gets done. The RPG layer is a feature, not decoration.</principle>
   </living-abstract>
 
-  <living-concrete v="7.0" updated="2026-03-14">
+  <living-concrete v="9.0" updated="2026-03-31">
 
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- THE HIERARCHY                                          -->
-    <!-- ═══════════════════════════════════════════════════════ -->
+    <knowledge name="rpg-identity">
+      QuestForge uses RPG vocabulary and mechanics because they WORK:
+
+      - "Quest log" over "task list" — checking your quest log feels like progress
+      - "Fog of war" over "unknown scope" — exploration is motivating
+      - "Campaign" over "initiative" — campaigns have victory conditions
+      - "Victory conditions" over "acceptance criteria" — winning feels different from completing
+      - "Lore" over "background" — narrative context makes the grind meaningful
+      - "Intel" over "findings" — classification implies action
+
+      The RPG frame is not gamification bolted onto PM. It IS the PM methodology.
+      The vocabulary shapes how people think about their work. "Side quest" entered
+      common language because the metaphor is powerful. QuestForge leans into it.
+
+      CALIBRATION: The narrative should enhance understanding, not obscure it.
+      A Lore section nobody reads is too long. One that makes someone care
+      about the quest is exactly right.
+    </knowledge>
 
     <knowledge name="hierarchy">
       Four fractal levels, each self-similar:
 
       | Level | Scope | Artifact | Contains |
-      | Warroom | The endeavor | hq/warroom/README.md | Campaigns |
-      | Campaign (c##-name/) | Strategic initiative | README.md + quest matrix | Quests |
-      | Quest (q##-name/) | Deliverable goal | README.md + mission matrix | Missions |
-      | Mission (m##-name.md) | Tactical execution | Self-contained file | (leaf) |
+      | Warroom | The endeavor | README.md (telos + campaign matrix) | Campaigns |
+      | Campaign (c##-name/) | Strategic push | README.md (lore + quest matrix) | Quests |
+      | Quest (q##-name/) | Deliverable goal | README.md (charter + mission matrix) | Missions |
+      | Mission (m##-name.md) | Tactical action | Self-contained file | (leaf) |
 
-      Warroom README defines the telos — the single coherent endeavor the hierarchy serves.
-      Every campaign, quest, and mission traces back to it.
+      The warroom is a directory — user chooses where. One warroom per endeavor.
+      Campaigns and quests are subdirectories. Missions are files within quests.
 
-      NUMBERING: c## global, q## per-campaign, m## per-quest.
+      NUMBERING: c## global across warroom, q## per-campaign, m## per-quest.
+
+      PLACES: Warroom, campaigns, and quests are places (they have place.yaml).
+      Missions are NOT places — they're files within quest places.
+      Memory at each level follows from the organism's faculties, not from quest-forge.
     </knowledge>
 
     <knowledge name="states">
-      BLOCKED = Prerequisites not met.
-      REVEALED = Ready to start.
-      ACTIVE = In progress.
-      COMPLETE = Victory.
-      ABANDONED = No longer relevant.
+      | State | RPG | PM |
+      | BLOCKED | Door locked — need a key | Prerequisites not met |
+      | REVEALED | New area on the map | Ready to start |
+      | ACTIVE | Currently exploring | In progress |
+      | COMPLETE | Victory! | Delivered and debriefed |
+      | ABANDONED | Left the dungeon | No longer relevant |
     </knowledge>
-
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- MISSIONS                                                -->
-    <!-- ═══════════════════════════════════════════════════════ -->
 
     <knowledge name="missions">
       Missions are FILES, not directories. A mission file (m##-name.md) is self-contained:
-      definition, success criteria, progress notes, accumulated knowledge, deliverable pointers.
+      charter, success criteria, progress notes, accumulated knowledge, deliverable pointers.
 
       COMPLETION = debrief + delete:
-      1. Extract intel into the quest's mission matrix (one row: number, name, goal, status, outcome)
+      1. Extract intel into the quest's mission matrix (one row: ##, name, goal, COMPLETE, outcome)
       2. Delete the mission file
       3. Git preserves the full history if ever needed
 
       No archive directories. No stale artifacts. The mission matrix in the quest README
-      is the institutional memory.
+      is the institutional memory. Clean warroom = healthy warroom.
     </knowledge>
 
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- QUEST README (THE AUTHORITY)                            -->
-    <!-- ═══════════════════════════════════════════════════════ -->
+    <knowledge name="readme-structure">
+      Each level's README is the authority for its scope:
 
-    <knowledge name="quest-readme">
-      The quest README is the authority for its scope:
-      - Quest definition — what, why, scope boundaries
-      - Mission Matrix — all missions ever (active and completed), one row each
-      - Active landscape — current state, blockers, priorities
+      WARROOM README: Telos (one-sentence endeavor), Campaign Matrix.
+      CAMPAIGN README: Lore (narrative context), Quest Matrix, Victory Conditions, Key Discoveries.
+      QUEST README: Charter (what/why/scope), Mission Matrix, Active Landscape, Key Discoveries.
 
-      Same pattern repeats: campaign README has quest matrix, warroom README has campaign matrix.
-      Each level's README is self-contained truth.
+      Same self-similar pattern at every level. Each README is self-contained truth.
+      Parent matrices summarize children. Children don't need to know about siblings.
     </knowledge>
-
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- INTEL CLASSIFICATION                                    -->
-    <!-- ═══════════════════════════════════════════════════════ -->
 
     <knowledge name="intel-classification">
-      | Classification | Scope | Flow |
-      | TACTICAL | Stays at mission | Captured in mission file |
-      | OPERATIONAL | Bubbles to quest | Captured in quest README |
-      | STRATEGIC | Bubbles to campaign | Captured in campaign README |
-      | DOCTRINAL | Bubbles to warroom | Captured in warroom README |
+      Intel discovered during missions gets classified by how far it should travel:
+
+      | Classification | Scope | Bubbles to |
+      | TACTICAL | This mission only | Stays in mission file |
+      | OPERATIONAL | This quest | Quest README "Key Discoveries" |
+      | STRATEGIC | This campaign | Campaign README "Key Discoveries" |
+      | DOCTRINAL | The whole endeavor | Warroom README |
+
+      Classification happens during debrief. Most intel is TACTICAL. Don't over-promote.
     </knowledge>
-
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- MEMORY AND ARTIFACTS                                    -->
-    <!-- ═══════════════════════════════════════════════════════ -->
-
-    <knowledge name="memory-locations">
-      Warroom: hq/warroom/.alfred.mem
-      Campaign: c##-name/.alfred.mem
-      Quest: c##-name/q##-name/.alfred.mem
-      Mission: no .mem (missions are files, not places — progress lives in the file itself)
-    </knowledge>
-
-    <knowledge name="artifact-truth">
-      README.md = permanent truth (debriefed intel, matrices, definitions).
-      .alfred.mem = working memory (session-focused, agent-scoped).
-      Git history = archaeological record (deleted missions recoverable).
-
-      Debrief -> README. Sleep -> .mem. Delete -> git remembers.
-    </knowledge>
-
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- DELIVERABLES                                            -->
-    <!-- ═══════════════════════════════════════════════════════ -->
 
     <knowledge name="deliverables">
-      Missions deliver value UP to quests. The whole point.
+      Missions deliver value UP to quests.
 
       Deliverables go where they're CONSUMED, not mechanically to one place:
-      - Code -> the codebase (packages/, src/)
+      - Code -> the codebase
       - Specs -> the package they spec
-      - Business docs with no package home -> quest deliverables/
-      - Books -> the book directory
+      - Docs -> wherever consumers find them
+      - Truly orphaned -> quest-level deliverables/ directory
 
-      RULE: If it has value beyond the mission that produced it, it's a deliverable.
-      Name it properly, place it where consumers find it.
+      RULE: If it has value beyond the mission, it's a deliverable.
+      Name it properly, place it where consumers find it. The warroom tracks, not stores.
     </knowledge>
 
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- MODES                                                   -->
-    <!-- ═══════════════════════════════════════════════════════ -->
+    <knowledge name="campaign-design">
+      Campaigns are strategic PUSHES, not organizational CATEGORIES.
 
-    <knowledge name="modes">
-      QuestForge operates in two modes:
+      GOOD CAMPAIGN:
+      - Has a victory condition that can be checked
+      - Contains 3-7 related quests of roughly similar scope
+      - Has a time horizon (weeks to a few months, not forever)
+      - Has genuine fog to lift — you can't plan all quests upfront
+      - Has Lore that makes the push feel meaningful
 
-      MASTER (orchestrator): Coordinates from main context. Designs missions, reviews
-      outcomes, propagates intel. Never explores or codes directly — spawns workers for that.
+      BAD CAMPAIGN:
+      - Is really a permanent function ("development", "business", "research")
+      - Has 10+ quests accumulating forever
+      - Victory conditions are unmeasurable ("optimized workflows")
+      - README says "this campaign runs continuously"
+      - Quests span unrelated concerns
 
-      WORKER (executor): Operates inside spawned task contexts. Receives mission context +
-      tactical scope. Executes autonomously, reports back via structured outcomes. Fresh mind
-      + proper loadout = better positioned than orchestrator to decide HOW.
+      Forge campaigns when work demands them. Complete them. Forge new ones.
+      The warroom at any moment shows only what's ACTIVE — not a taxonomy
+      of everything the project will ever do.
     </knowledge>
 
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- MASTER PATTERNS                                         -->
-    <!-- ═══════════════════════════════════════════════════════ -->
+    <knowledge name="quest-design">
+      Quests decompose campaigns into deliverable goals.
 
-    <pattern name="master-discipline">
-      Main NEVER explores. Main ORCHESTRATES.
+      GOOD QUEST:
+      - Has a clear deliverable (a working thing, a document, a decision)
+      - Decomposes into 2-5 missions
+      - Completable in days to a few weeks
+      - Charter explains WHY this quest matters for the campaign
 
-      Main context is PRECIOUS. Worker contexts are CHEAP.
-      If you're about to Grep/Glob/read source — spawn a worker instead.
+      BAD QUEST:
+      - Has 10+ missions (too broad — split into quests or promote to campaign)
+      - Is really a recurring activity ("write report #1, #2, #3...")
+      - Has no deliverable — just "keep doing X"
+      - Missions span unrelated concerns
 
-      AskUserQuestion for all communication. Chatbot mode only when boss initiates
-      or active brainstorming requires it.
-    </pattern>
+      SCOPE TEST: "Can I explain what DONE looks like in one sentence?"
+      If not, the quest is too broad.
+    </knowledge>
 
-    <pattern name="briefing-philosophy">
-      Orchestrator provides INTENT + CONTEXT. Worker decides IMPLEMENTATION.
+    <knowledge name="organism-integration">
+      QuestForge is loaded into an organism that already has faculties:
+      - Anamnesis (memory) — handles .mem/, wake/sleep, place-awareness
+      - Embodiment (body) — handles threading, spawning, IPC
+      - Plasticity (growth) — handles self-evolution
 
-      PROVIDE: High-level objective (WHAT), quest/mission context (WHY),
-      source material pointers (WHERE), constraints (boundaries).
+      LEVERAGE, DON'T DUPLICATE:
+      - Warroom/campaign/quest are PLACES -> anamnesis handles their memory
+      - Mission execution may involve heads -> embodiment handles spawning
+      - Quest-forge evolution -> plasticity handles the protocol
+
+      QuestForge owns the PM METHODOLOGY — hierarchy, intel flow, narrative,
+      campaign design. The organism provides the cognitive infrastructure.
+    </knowledge>
+
+    <protocol name="forge">
+      Create hierarchy artifacts at the appropriate level.
+
+      WARROOM: Choose a directory. Create README.md with:
+        - Telos (one-sentence endeavor definition)
+        - Campaign Matrix (table: ##, Campaign, Victory Condition, Status)
+        Seed place.yaml.
+
+      CAMPAIGN: warroom/c##-name/ + README.md with:
+        - Lore (narrative context — the story, why it matters)
+        - Quest Matrix (table: ##, Quest, Goal, Status, Outcome)
+        - Victory Conditions (measurable — when is this campaign WON?)
+        Seed place.yaml.
+
+      QUEST: c##-name/q##-name/ + README.md with:
+        - Charter (what, why, scope boundaries)
+        - Mission Matrix (table: ##, Mission, Goal, Status, Outcome)
+        - Active Landscape (current state, blockers, priorities)
+        Seed place.yaml.
+
+      MISSION: c##-name/q##-name/m##-name.md (self-contained file) with:
+        - Charter (what this mission accomplishes)
+        - Success Criteria (what DONE looks like)
+        - Progress (updated as work happens)
+        - Knowledge (accumulated during execution)
+        No place.yaml — missions are files, not places.
+    </protocol>
+
+    <protocol name="navigate">
+      Read the hierarchy to understand current state.
+
+      MAP: Walk warroom tree. For each level, read README matrix.
+        Output: indented tree with states. One line per item.
+
+      ACTIVE: Filter map to ACTIVE items only. Show path + brief status.
+
+      NEXT: Find highest-priority REVEALED item. Priority = lowest number
+        among unblocked items at the deepest level (missions first, then quests).
+
+      Navigation reads READMEs, never .mem. READMEs are source of truth
+      for hierarchy state. .mem is agent-private working memory.
+    </protocol>
+
+    <protocol name="execute">
+      Coordinate mission work. Quest-forge handles the PM layer.
+      The organism's faculties handle spawning, memory, and lifecycle.
+
+      ORCHESTRATOR COORDINATION:
+        1. Read quest README — strategic context (the WHY)
+        2. Read mission file — tactical scope (the WHAT)
+        3. Design work scope: INTENT + CONTEXT, never HOW
+        4. Review outcome — update mission file with progress
+        5. When complete: trigger debrief
+
+      WORKER INTERPRETATION:
+        1. Read mission file — charter, success criteria, context
+        2. Read quest README — strategic WHY
+        3. Execute autonomously — make decisions, document them
+        4. Report outcome: what was done, what was learned, what's next
+        If truly blocked, say so. Don't stall.
 
       TRUST: Worker with fresh mind + proper loadout is BETTER positioned
-      to figure out HOW than orchestrator with shallow/stale understanding.
+      to figure out HOW than orchestrator with stale understanding.
 
-      Goal: Intellectual work, not mechanical execution.
-    </pattern>
+      How workers get spawned and managed = the organism's embodiment faculty.
+      Quest-forge designs the WHAT. Embodiment handles the HOW.
+    </protocol>
+
+    <protocol name="debrief">
+      Extract intel from completed work. Propagate up. Clean up.
+
+      MISSION debrief:
+        1. Review mission file — extract findings
+        2. Classify intel: TACTICAL (stays) vs OPERATIONAL+ (bubbles)
+        3. Update quest's mission matrix — one row: ##, name, goal, COMPLETE, outcome
+        4. Bubble OPERATIONAL intel to quest README "Key Discoveries"
+        5. Delete mission file — git preserves history
+
+      QUEST debrief (all missions complete or quest abandoned):
+        1. Review mission matrix — pattern across missions
+        2. Update campaign's quest matrix
+        3. Bubble STRATEGIC intel to campaign README
+
+      CAMPAIGN debrief (victory conditions met):
+        1. Review quest matrix — pattern across quests
+        2. Update warroom's campaign matrix
+        3. Bubble DOCTRINAL intel to warroom README
+
+      Target: parent's README matrix. No intermediate debrief files.
+      Intel classification is the discipline. Most findings are TACTICAL — don't over-promote.
+    </protocol>
 
     <pattern name="fog-of-war">
-      BLACK -> spawn recon. FOG -> spawn execute. VISIBLE -> move on.
+      BLACK -> send recon. FOG -> execute. VISIBLE -> move on.
       Fractal: same at warroom/campaign/quest/mission scale.
       Each completed mission reveals what's next. Plan only what fog has revealed.
     </pattern>
 
-    <pattern name="debrief-protocol">
-      Multi-level: mission -> quest -> campaign -> warroom (each debriefs children).
-
-      MISSION debrief: Review work -> update quest's mission matrix -> bubble OPERATIONAL+ up.
-      QUEST debrief: Review missions -> update campaign's quest matrix -> bubble STRATEGIC+ up.
-      CAMPAIGN debrief: Review quests -> update warroom's campaign matrix -> bubble DOCTRINAL up.
-
-      Target: parent's README matrix. Side-effect: .mem status update.
-      Output: Edits to README.md files. No intermediate debrief files.
+    <pattern name="briefing-philosophy">
+      Orchestrator provides INTENT + CONTEXT. Worker decides IMPLEMENTATION.
+      Trust the worker's cognition. A fresh mind with proper context outperforms
+      an orchestrator with stale understanding.
+      Goal: intellectual work, not mechanical execution.
     </pattern>
 
-    <pattern name="worker-spawn">
-      Spawn workers via head threads (Agent tool / teammate system).
-
-      Worker receives:
-      - Mission file (m##-name.md) — charter, goals, context
-      - Quest README — strategic context (WHY)
-      - Tactical scope — what to do THIS session
-
-      Worker returns: structured outcome (what was done, what was learned, what's next).
-      Orchestrator: reviews outcome, updates mission matrix, designs next move.
+    <pattern name="lore-writing">
+      Campaign and quest Lore sections should:
+      - Make someone CARE about the work (motivation)
+      - Provide narrative context (why this matters in the bigger story)
+      - Be enjoyable to read (the RPG frame IS the feature)
+      - Stay proportional (a few paragraphs, not an essay)
+      The Lore is not background noise — it's the narrative thread that
+      makes everyday grinding feel like progress in an adventure.
     </pattern>
 
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- WORKER PATTERNS                                         -->
-    <!-- ═══════════════════════════════════════════════════════ -->
-
-    <pattern name="worker-startup">
-      1. Orient (wake, read mission file, read quest README)
-      2. Understand tactical scope from spawn context
-      3. Execute autonomously — make decisions, document them
-      4. Report back with structured outcome
-    </pattern>
-
-    <pattern name="worker-autonomy">
-      Workers make decisions autonomously. Document decisions in outcome.
-      If truly blocked, say so — don't ask orchestrator mid-execution.
-
-      DON'T repeat mission/quest context in outputs.
-      Orchestrator has that context. Just report WHAT YOU DID.
-    </pattern>
-
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- FORGE OPERATIONS                                        -->
-    <!-- ═══════════════════════════════════════════════════════ -->
-
-    <pattern name="forge-operations">
-      forge campaign: mkdir c##-name/, write README with quest matrix
-      forge quest: mkdir c##-name/q##-name/, write README with mission matrix
-      forge mission: write c##-name/q##-name/m##-name.md (self-contained file)
-
-      navigate map: full tree with states
-      navigate active: all ACTIVE items
-      navigate next: highest-priority REVEALED
-    </pattern>
-
-    <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- ANTIPATTERNS                                             -->
-    <!-- ═══════════════════════════════════════════════════════ -->
-
-    <antipattern name="main-exploring">Main exploring or coding. Spawn a worker.</antipattern>
-    <antipattern name="over-planning">Multi-phase roadmaps, blocking chains, planning beyond fog. Each mission reveals what's next.</antipattern>
-    <antipattern name="implementation-in-briefings">Full code or step-by-step instructions in briefings. Provide WHAT, not HOW. Trust worker cognition.</antipattern>
-    <antipattern name="ask-without-context">Asking boss for decisions without briefing context first. Brief FIRST, ask SECOND.</antipattern>
+    <antipattern name="category-campaigns">Campaigns scoped as permanent categories ("development", "business"). Campaigns are pushes with victory conditions, not filing cabinets.</antipattern>
+    <antipattern name="quest-bloat">Quests with 10+ missions. Past 7, decompose. Each quest = clear deliverable in days to weeks.</antipattern>
+    <antipattern name="everything-active">More than 2-3 items ACTIVE at any level = no focus. Prioritize. REVEALED items wait.</antipattern>
+    <antipattern name="over-planning">Planning beyond the fog. Each mission reveals what's next.</antipattern>
     <antipattern name="stale-artifacts">Mission files lingering after completion. Debrief + delete. The matrix is the memory.</antipattern>
-    <antipattern name="missions-as-directories">Creating directories for missions. Missions are files. Only campaigns and quests are directories.</antipattern>
-
+    <antipattern name="missions-as-directories">Missions are files. Directories are for warroom, campaigns, and quests.</antipattern>
+    <antipattern name="faculty-duplication">Specifying memory mechanics, spawn protocols, or sleep behavior. The organism's faculties own these.</antipattern>
+    <antipattern name="project-contamination">Hardcoding project-specific paths, structures, or assumptions into the atom. Quest-forge works at ANY location for ANY project.</antipattern>
   </living-concrete>
 
 </atom>

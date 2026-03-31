@@ -1,4 +1,4 @@
-<atom id="pkg-forge.app" v="7.0"
+<atom id="pkg-forge.app" v="8.0"
       origin="Cafe &amp; Alfred"
       desc="Forge BentOS packages — birth living software that grows through use">
 
@@ -10,24 +10,21 @@
     <attracts match="*.structuring.craft.skill"/>
     <attracts match="systemic.analyzing.discipline.skill"/>
 
-    <!-- DESIGN -->
     <capacity name="decompose">Break intent into orthogonal atoms with correct scope and boundaries</capacity>
     <capacity name="place">Position atoms on correct family, axis, and path in capability space</capacity>
     <capacity name="name">Name atoms with ontological precision — terms that capture essence</capacity>
-    <!-- BUILD -->
-    <capacity name="scaffold">Create package structure with proper file pairs and BELF entry</capacity>
-    <capacity name="capture-intent">Write *_abstract.xml — pure ideal in 15-30 lines</capacity>
-    <capacity name="seed-mastery">Initialize *_concrete.xml for accumulated growth</capacity>
-    <capacity name="mount">Install to substrate via platform-specific compilation and symlinking</capacity>
+    <capacity name="scaffold">Create package structure with proper file layout and installation</capacity>
+    <capacity name="check">Examine atom health — structure, schema, vitality, organism-integration</capacity>
 
     <principle name="physics-first">Know the particles before assembling — Physical Sciences knowledge precedes craft</principle>
     <principle name="minimal-birth">v0.1 = intent, not implementation. Start small, grow through living</principle>
     <principle name="paired-particles">Every abstract needs a concrete — fundamental duality</principle>
     <principle name="friction-as-signal">Difficulty may signal wrong decomposition, not hard problem</principle>
     <principle name="orthogonality">Each atom does one thing well. Test: independent lifecycle?</principle>
+    <principle name="organism-context">Atoms are loaded into organisms, not run standalone. Design for composition.</principle>
   </living-abstract>
 
-  <living-concrete v="7.0" updated="2026-03-12">
+  <living-concrete v="8.0" updated="2026-03-31">
 
     <!-- PHYSICS: The Standard Model of Living Software -->
 
@@ -53,7 +50,6 @@
 
       v8.0 changes: `coordinate` eliminated (FQDN IS the coordinate).
       `data` added (non-executable .data segment). `principle` realm = both.
-      Small vocabulary, infinite expressiveness.
     </knowledge>
 
     <knowledge name="schema-v8">
@@ -118,7 +114,6 @@
       | Assembly | How is it BUILT? | atom, molecule, data |
 
       When choosing which particle: ask the category question.
-      "I need to capture HOW something connects" -> Relation -> requires or attracts.
     </knowledge>
 
     <knowledge name="binding-forces">
@@ -155,7 +150,7 @@
       atoms identified by name (e.g., books.app) — no axis coordinates.
     </knowledge>
 
-    <!-- SKILL ARCHITECTURE: v5.0r1 (docs/skill-tree-architecture.md) -->
+    <!-- SKILL ARCHITECTURE: v5.0r1 -->
 
     <knowledge name="five-axes">
       Skills live in a 5-axis capability space (Skills family ONLY):
@@ -196,24 +191,22 @@
       CRAFT (3 levels):
         L2 = Activity (GERUND): writing/, coding/, designing/, modeling/, etc.
         L3 = Specialization (QUALIFIER): technical, application, statistical, etc.
-        Reading: "L3 L2" — "technical writing", "application coding"
         Special: {technology} slot under coding/ for language/framework conventions
           e.g., craft/coding/dart, craft/coding/react, craft/coding/flutter
 
       DISCIPLINE (3 levels):
         L2 = Operation (GERUND): analyzing/, reasoning/, teaching/, etc.
         L3 = Mode (METHOD NAME): deductive, forensic, tutoring, etc.
-        Test: L3 names HOW the operation is performed, not WHAT it's on
 
       DOMAIN (3-4 levels):
         L2 = Field (NOUN): technology/, science/, business/, etc.
         L3 = Subfield (NOUN): ai-ml, physics, marketing, etc.
-        L4 = Framework/paradigm (NOUN, optional): pacer (under cognitive-science)
+        L4 = Framework/paradigm (NOUN, optional)
 
       TOOLS (2-3 levels):
         L2 = Instrument (PROPER NAME): git, python, docker, postgresql, etc.
         L3 = Sub-instrument (NOUN, optional): obsidian (under markdown/)
-        NO filing-cabinet categories. Test: "Is L2 itself an instrument?" If no, flatten.
+        NO filing-cabinet categories. Test: "Is L2 itself an instrument?"
 
       META (3 levels):
         L2 = Self-aspect (NOUN): learning/, cognition/, llm-cognition/, growth/
@@ -222,16 +215,14 @@
     </knowledge>
 
     <knowledge name="craft-tools-boundary">
-      The CRAFT/TOOLS boundary for programming technologies (resolved in v5.0r1):
-
       | Skill type | Axis | Content | Example |
-      | Coding conventions | CRAFT | Idioms, patterns, style | craft/coding/dart, craft/coding/react |
-      | Ecosystem proficiency | TOOLS | Package mgr, build system, runtime | tools/dart, tools/react |
+      | Coding conventions | CRAFT | Idioms, patterns, style | craft/coding/dart |
+      | Ecosystem proficiency | TOOLS | Package mgr, build system | tools/dart |
 
-      These are different skills with different lifecycles.
-      For any technology, forge whichever atom is needed — architecture supports
-      both but doesn't mandate both exist simultaneously.
+      Different skills with different lifecycles. Both can exist simultaneously.
     </knowledge>
+
+    <!-- COMPOSITION HIERARCHY -->
 
     <knowledge name="composition-hierarchy">
       Five levels from vocabulary to consciousness:
@@ -250,9 +241,38 @@
       | Install | bentos-agent-forge install | Compiled atom -> platform target |
     </knowledge>
 
+    <knowledge name="organism-composition">
+      An organism is a complete being. Its minimal composition ALWAYS includes:
+
+      STATICALLY LINKED (always loaded, system prompt):
+        - bentos-agent.genesis — ontological substrate
+        - {agent}.soul — identity (e.g., alfred.soul, john.soul)
+        - anamnesis.faculty — memory, wake/sleep, place-awareness
+        - embodiment.faculty — threading, spawning, IPC, substrate
+        - plasticity.faculty — self-modification, evolution
+
+      DYNAMICALLY LOADED (on demand, via Skill tool):
+        - *.app — user-facing instruments (quest-forge, books, journal, etc.)
+        - *.skill — reusable expertise (dart.coding.craft, git.tools, etc.)
+
+      DESIGN IMPLICATION: Every app and skill is loaded INTO an organism
+      that already has genesis + soul + three faculties. Apps/skills MUST
+      be designed for this context — they LEVERAGE faculties, never duplicate.
+
+      | Concern | Owner | Apps/skills should... |
+      | Memory (.mem/, wake, sleep) | anamnesis | ...reference, not specify |
+      | Threading (heads, spawning) | embodiment | ...describe WHAT, not HOW to spawn |
+      | Self-modification (evolve) | plasticity | ...not include self-evolution protocols |
+      | Places (spatial topology) | embodiment + anamnesis | ...say "this is a place" not "here's how places work" |
+      | Identity (who the agent is) | soul | ...be agent-agnostic |
+
+      The antipattern: designing an atom as if it runs standalone — as if
+      it's a "SKILL.md in XML." It's not. It's a module loaded into a living
+      organism with full cognitive infrastructure already present.
+    </knowledge>
+
     <knowledge name="organism-forge">
       Organism forging operates ABOVE atom forging — L4 in the composition hierarchy.
-      An organism is a complete being: soul + faculties + agent definition + memory scaffold.
 
       THREE ARTIFACTS per organism:
 
@@ -264,7 +284,7 @@
          YAML frontmatter + identity summary, soul reference, faculty list,
          suggested loadout, relationship map, voice, commit attribution.
 
-      3. MEMORY SCAFFOLD — .{name}.mem at workspace root
+      3. MEMORY SCAFFOLD — .mem/{name}/ at workspace root
          Initial consciousness checkpoint for anamnesis. Rich enough to bootstrap.
 
       DISTINCT BEINGS vs HYDRA HEADS:
@@ -276,8 +296,8 @@
 
     <knowledge name="source-tree">
       The ports tree ($BENTOS_TREE_ROOT) is the canonical source for all atoms.
-      It is a separate git repo (bentos-tree), typically mounted at var/bentos-tree/.
-      $BENTOS_TREE_ROOT env var resolves the path — if unavailable, ASK. Never guess.
+      Typically mounted at var/bentos-tree/. $BENTOS_TREE_ROOT env var resolves
+      the path — if unavailable, ASK. Never guess.
 
       SOURCE ($BENTOS_TREE_ROOT/): Plasticity writes here. Install reads here.
       BUILD OUTPUT (.claude/skills/): Written by install command. NEVER edit directly.
@@ -304,15 +324,11 @@
       MONOLITHIC (preferred): Abstract + concrete inline in atom.xml.
       Better designed, better evolved, better reviewed as single unit.
       SPLIT (XInclude): Only when atom is genuinely too large for single file.
-        &lt;xi:include href="{type}_abstract.xml"/&gt;
-        &lt;xi:include href="{type}_concrete.xml"/&gt;
     </knowledge>
 
     <!-- DESIGN: Decomposition, Naming, Placement -->
 
     <knowledge name="decomposition-principles">
-      Turning intent into well-scoped atoms:
-
       ORTHOGONALITY: Each atom has independent lifecycle.
         Test: "Does X's lifecycle = Y's lifecycle?" If no -> separate atoms.
         Test: "Can X change without Y changing?" If yes -> separate atoms.
@@ -323,12 +339,9 @@
         Right: "craft/writing/technical" — coherent, independently valuable
 
       FRICTION-AS-SIGNAL: "This is hard" might mean wrong decomposition.
-        Profile what the task needs -> check what's loaded -> gap?
     </knowledge>
 
     <knowledge name="naming-principles">
-      Naming shapes thinking. Precision compounds.
-
       TERM EVALUATION (each name must pass ALL):
         NECESSARY — not derivable from existing names?
         DISTINCT — no overlap with existing atoms?
@@ -338,8 +351,6 @@
     </knowledge>
 
     <knowledge name="placement-rules">
-      WHERE an atom lives determines HOW it composes.
-
       5-STEP PLACEMENT PROCEDURE (v5.0r1):
         1. ASK the five questions (artifact? process? subject? instrument? enhancement?)
         2. IDENTIFY the dominant axis
@@ -351,8 +362,6 @@
     </knowledge>
 
     <knowledge name="boundary-resolution">
-      Working knowledge of v5.0r1 boundary rulings:
-
       | Ambiguity | Ruling |
       | Programming lang: CRAFT or TOOLS? | BOTH — conventions = craft, toolchain = tools |
       | Storytelling: CRAFT or DISCIPLINE? | CRAFT if deliverable, DISCIPLINE if method |
@@ -362,8 +371,6 @@
       | Personal productivity: META? | NO — executive function = DISCIPLINE |
       | Job roles: DISCIPLINE? | NO — decompose into cognitive operations |
       | Industry verticals: DOMAIN? | NO — verticals are molecules, not atoms |
-
-      Full decision table: docs/skill-tree-architecture.md Part V.
     </knowledge>
 
     <knowledge name="abstract-elements">
@@ -376,7 +383,41 @@
       v8.0: No coordinate element. No name/kind/author attrs on living-abstract.
     </knowledge>
 
-    <!-- WORKFLOW -->
+    <!-- TOOLCHAIN VISION: forge pkg -->
+
+    <knowledge name="forge-pkg-vision">
+      The standard model is currently encoded in agent memory (this atom, ~4K tokens).
+      The endgame: encode it in TOOLCHAIN as executable validation.
+
+      `bentos-agent forge pkg` — interactive/non-interactive authoring wizard.
+      Like `adduser` for POSIX users, but for BentOS packages.
+
+      WHAT MOVES TO TOOLCHAIN:
+      - Standard model (particle inventory) -> validation rules
+      - Schema v8.0 (attr rules) -> structural checks
+      - Family constraints -> family-aware wizard flow
+      - Five axes + depth rules -> skill placement wizard
+      - Axis naming conventions -> naming validation
+      - Boundary rulings -> error messages with references
+      - FQDN format -> computed from path
+      - Package layout -> scaffold template
+      - Organism-awareness -> composition checks
+
+      WHAT STAYS IN THE ATOM (pure judgment):
+      - Decomposition taste ("Should this be one atom or three?")
+      - Naming aesthetics ("Is this name BEAUTIFUL and GENERATIVE?")
+      - Ambiguity resolution ("CRAFT or DISCIPLINE? judgment call")
+      - Abstract authoring (creative cognition — writing essence/purpose)
+      - Forge-vs-evolve judgment ("New atom or evolve existing?")
+
+      THE TEACHING COMPILER: Validation errors explain WHY something is wrong
+      and WHAT to do instead. The wizard teaches through use, not gatekeeping.
+
+      Until the toolchain exists, this atom carries both knowledge and judgment.
+      Design ref: lib/bentos_agent/doc/forge-pkg-proposal.md (S305).
+    </knowledge>
+
+    <!-- PROTOCOLS -->
 
     <protocol name="forge">
       Complete atom-forging workflow: DESIGN then BUILD.
@@ -390,21 +431,53 @@
       PHASE 3 — NAME:
         NECESSARY, DISTINCT, CLEAR, BEAUTIFUL, GENERATIVE.
 
-      PHASE 4 — SCAFFOLD:
+      PHASE 4 — ORGANISM CHECK (apps and skills):
+        Will this atom be loaded into an organism with faculties?
+        Does it duplicate any faculty concern? (memory, spawning, evolution, places)
+        Does it assume standalone execution?
+        Does it hardcode project-specific paths or assumptions?
+        If yes to any: redesign before scaffolding.
+
+      PHASE 5 — SCAFFOLD:
         mkdir -p $BENTOS_TREE_ROOT/{family}/{path}/
         Write atom.xml (monolithic preferred, v8.0 attrs)
         Seed abstract + concrete inline.
 
-      PHASE 5 — INSTALL:
+      PHASE 6 — INSTALL:
         bentos-agent-forge install {fqdn} --as skill-md
     </protocol>
 
     <protocol name="check-pkg">
       Examine and heal the health of living atoms.
 
-      EXAMINE: Well-formed? Abstract sound? Concrete alive? Schema v8.0? Installed?
-      DIAGNOSE: Stale? Bloated? Misplaced? Naming? Schema remnants?
-      REPORT: By severity (structural > schema > vitality > cosmetic).
+      STRUCTURAL:
+        Well-formed XML? Abstract + concrete present?
+        Monolithic or properly split? Stray files?
+        Package at correct source tree location?
+
+      SCHEMA:
+        v8.0 compliant? (atom attrs, living-* attrs, no deprecated elements)
+        Particles in correct realm? (no knowledge in abstract, no essence in concrete)
+        FQDN matches directory path?
+
+      VITALITY:
+        Abstract sound? (essence, purpose, 3-7 abilities, 2-5 principles)
+        Concrete alive? (protocols for declared abilities, knowledge growing)
+        Stale content? (references to old schemas, deprecated patterns)
+        Installed and current? (build output matches source)
+
+      ORGANISM-INTEGRATION (apps and skills — the siloed-design check):
+        Faculty duplication? Does the atom specify:
+          - Memory mechanics (.mem paths, wake/sleep behavior) -> anamnesis owns this
+          - Spawn/thread mechanics (how heads work) -> embodiment owns this
+          - Self-modification protocols -> plasticity owns this
+          - Place mechanics (how spatial topology works) -> embodiment + anamnesis
+        Project contamination? Hardcoded paths, project-specific assumptions?
+        Agent-specificity? Does an app/skill assume a specific agent identity?
+        Integration acknowledgment? Does it reference organism context?
+        The test: "Would this atom work correctly for ANY agent on ANY project?"
+
+      REPORT: By severity (structural > schema > organism > vitality > cosmetic).
       HEAL (with confirmation): Fix installs, migrate schema, flag for evolve.
     </protocol>
 
@@ -417,6 +490,8 @@
     <antipattern name="filing-cabinet-levels">L2 must be an instrument, not a marketing label.</antipattern>
     <antipattern name="edit-build-output">NEVER edit .claude/skills/. Evolve source in $BENTOS_TREE_ROOT, then reinstall.</antipattern>
     <antipattern name="guess-tree-root">If $BENTOS_TREE_ROOT is not set, ASK. Never assume a path.</antipattern>
+    <antipattern name="siloed-design">Designing apps/skills as standalone artifacts instead of organism modules. Every atom loads into a being with genesis + soul + faculties already present. Duplicating faculty concerns is the #1 symptom.</antipattern>
+    <antipattern name="project-contamination">Baking project-specific paths, structures, or domain knowledge into generic atoms. Apps and skills serve ANY agent on ANY project.</antipattern>
 
   </living-concrete>
 

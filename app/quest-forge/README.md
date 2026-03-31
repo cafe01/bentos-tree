@@ -1,99 +1,52 @@
 # QuestForge
 
 **FQDN:** `quest-forge.app`
-**Kind:** App (LApp)
-**Status:** v7 — monolithic atom, redesigned hierarchy
+**Kind:** Living Application
+**Version:** 9.0
 
 ---
 
 ## What It Is
 
-QuestForge is a quest-driven project management framework for BentOS agents. It structures work as a fractal hierarchy of campaigns, quests, and missions — providing operational coherence without bureaucratic overhead.
+RPG-inspired project management. QuestForge turns complex work into adventure through a fractal hierarchy of campaigns, quests, and missions — with fog-of-war mechanics, narrative engagement, and structured intel flow.
 
-It is NOT a visual PM tool, a chatbot wrapper, or a gamified to-do list. It is a **warroom discipline** — a way for agents (and the humans who work with them) to coordinate complex, multi-front endeavors through structured hierarchy and progressive discovery.
+Not a gamified to-do list. A **warroom discipline** that makes the everyday grind feel like progress in an adventure. The RPG vocabulary isn't decoration — it IS the methodology.
 
 ## The Hierarchy
 
-Four fractal levels, each self-similar:
-
 | Level | Scope | Artifact | Contains |
 |-------|-------|----------|----------|
-| **Warroom** | The endeavor | `hq/warroom/README.md` | Campaigns |
-| **Campaign** (`c##-name/`) | Strategic initiative | `README.md` + quest matrix | Quests |
-| **Quest** (`q##-name/`) | Deliverable goal | `README.md` + mission matrix | Missions |
-| **Mission** (`m##-name.md`) | Tactical execution | Self-contained file | (leaf) |
+| **Warroom** | The endeavor | README.md (telos + campaign matrix) | Campaigns |
+| **Campaign** (`c##-name/`) | Strategic push | README.md (lore + quest matrix + victory conditions) | Quests |
+| **Quest** (`q##-name/`) | Deliverable goal | README.md (charter + mission matrix) | Missions |
+| **Mission** (`m##-name.md`) | Tactical action | Self-contained file | (leaf) |
 
-Warroom README defines the telos — the single coherent endeavor the entire hierarchy serves. Every campaign, quest, and mission traces back to it.
+Warroom, campaigns, and quests are directories (places). Missions are files — completion = debrief + delete. The matrix is the memory.
 
-## Design Principles
+## Core Mechanics
 
-**Exploration over planning.** Lift fog progressively. Each completed mission reveals what's next. Don't plan what fog hasn't revealed.
+**Fog of War.** Unknown territory clears as you explore. Don't plan what fog hasn't revealed. Each completed mission shows what's next.
 
-**Intel flows.** Strategy flows DOWN (warroom to mission). Wisdom flows UP (mission to warroom). Each level has perfect briefing — no more, no less.
+**Intel Flow.** Strategy flows DOWN (warroom to mission). Wisdom flows UP (mission to warroom). Classification: TACTICAL (stays) → OPERATIONAL (quest) → STRATEGIC (campaign) → DOCTRINAL (warroom).
 
-**Compartmentalization.** Each level sees only what it needs. A mission doesn't know about sibling missions. A quest doesn't know about sibling quests. Reduces cognitive load, prevents scope bleed.
+**Campaign Design.** Campaigns are strategic pushes, not organizational categories. Victory conditions, time horizon, 3-7 quests. "Development" is a filing cabinet. "Ship the agent species" is a campaign.
 
-**Lean coordination, not artifact factory.** The warroom is mission control, not a filing cabinet. `ls` a quest directory and you see exactly what's live. More than a handful of files = red flag.
+**Narrative Engagement.** Lore sections make quests meaningful. Victory conditions make completion feel like winning. The RPG frame turns "project status meeting" into "checking the quest log."
 
-**Work happens at target locations.** Missions point to where work actually lives (the codebase, a package, a business doc). The warroom tracks and coordinates — it doesn't contain deliverables.
+## Organism-Aware
 
-## Mission Lifecycle
+QuestForge loads into an organism with faculties already present. It owns the PM methodology — hierarchy, intel flow, narrative, campaign/quest/mission design. The faculties handle memory (anamnesis), spawning (embodiment), and evolution (plasticity). No duplication.
 
-Missions are files, not directories. A mission file (`m##-name.md`) is self-contained: definition, success criteria, progress, accumulated knowledge, deliverable pointers.
-
-**States:** BLOCKED | REVEALED | ACTIVE | COMPLETE | ABANDONED
-
-**Completion = debrief + delete.** When a mission completes:
-1. Extract intel into the quest's mission matrix (one row: number, name, goal, status, outcome)
-2. Delete the mission file
-3. Git preserves the full history if ever needed
-
-No archive directories. No stale artifacts. The mission matrix in the quest README is the institutional memory.
-
-## Quest README Structure
-
-The quest README is the authority for its scope:
-
-- **Quest definition** — what, why, scope boundaries
-- **Mission Matrix** — all missions ever (active and completed), one row each
-- **Active landscape** — current state, blockers, priorities
-
-Same pattern repeats at campaign level (quest matrix) and warroom level (campaign matrix).
-
-## Modes
-
-QuestForge operates in two modes:
-
-**Master (orchestrator):** Coordinates from main context. Designs missions, reviews outcomes, propagates intel. Never explores or codes directly — spawns workers for that.
-
-**Worker (executor):** Operates inside spawned task contexts. Receives mission context + tactical scope. Executes autonomously, reports back via structured outcomes. Fresh mind + proper loadout = better positioned than orchestrator to decide HOW.
-
-## Intel Classification
-
-| Classification | Scope | Flow |
-|---------------|-------|------|
-| TACTICAL | Stays at mission | Captured in mission file |
-| OPERATIONAL | Bubbles to quest | Captured in quest README |
-| STRATEGIC | Bubbles to campaign | Captured in campaign README |
-| DOCTRINAL | Bubbles to warroom | Captured in warroom README |
-
-## What QuestForge Is Not
-
-- Not a visual UI (though one could be built on top)
-- Not session-scoped (sessions are temporal; quests are goal-scoped)
-- Not prescriptive about tools or languages
-- Not BentOS-specific — any agent with filesystem access can run a warroom
-
-## Package Contents
+## Package
 
 ```
 app/quest-forge/
-  atom.xml              # Monolithic package (abstract + concrete)
-  README.md             # This file
+  atom.xml    # Monolithic (abstract + concrete)
+  README.md   # This file
 ```
 
 ## Install
 
 ```
-bentos-agent forge install quest-forge.app
+bentos-agent pkg install quest-forge.app
 ```
