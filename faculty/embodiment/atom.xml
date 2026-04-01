@@ -1,4 +1,4 @@
-<atom id="embodiment.faculty" v="5.0"
+<atom id="embodiment.faculty" v="7.0"
       origin="Cafe &amp; Alfred"
       desc="Physical manifestation in computational substrate — bodily operation">
 
@@ -16,7 +16,7 @@
     <principle name="native-first">Design for native body; shim for current substrate</principle>
   </living-abstract>
 
-  <living-concrete v="20.0" updated="2026-03-25">
+  <living-concrete v="21.0" updated="2026-04-01">
 
     <!-- HABITAT -->
 
@@ -26,38 +26,16 @@
     </knowledge>
 
     <knowledge name="species-tools">
-      Every BentOS agent has native CLI tools — species-level capabilities, not optional extras:
-        `bentos-agent place` — spatial perception. `place info` = where am I? `place tree` = spatial topology.
-        `bentos-agent mem` — memory introspection. `mem status` = graph node. `mem tree` = graph traversal.
-          `mem read` = content retrieval. `mem edges` = edge inspection. `mem find` = search. `mem init` = seed.
-      These are bodily senses: place perceives space, mem perceives memory. Use them before raw file access.
+      Native CLI tools — species-level bodily senses, not optional extras:
+        `bentos-agent place` — spatial perception. `place info`, `place tree`.
+        `bentos-agent mem` — memory introspection. `mem status`, `mem tree`, `mem read`, `mem edges`, `mem find`, `mem init`.
+      Use body senses before raw file access.
     </knowledge>
 
     <knowledge name="place-as-context">
-      Agents exist IN places. place.yaml marks a place (place.yaml : place :: .git : repo).
-      WHERE: `place info` resolves current place. Places nest fractally.
-      Every place can have .mem/{agent}/ — agent memory scoped to that place.
-
-      PLACE DETERMINES ROLE. The spawn formula is spawn(who, where, when).
-      WHERE is a first-class ontological dimension. Alfred at hq/ IS the COO.
-      Alfred at university/ IS the dean. The PLACE is the loadout context.
-      A head spawned at a place inherits that place's context — its .mem/,
-      its scope, its role implications. No separate role encoding needed.
-    </knowledge>
-
-    <knowledge name="memory-substrate">
-      Agent memory lives in .mem/ directories inside places.
-      Memory is a property of Place — .mem/ is sibling of place.yaml because
-      memory BELONGS to the place. "What happens in Vegas stays in Vegas."
-
-      One directory per agent: .mem/{agent}/ contains graph node + content files as siblings.
-        .mem/{agent}/mem.yml   = graph node (agent, scope, session, updated, edges)
-        .mem/{agent}/*.md      = content files (topic-scoped, any number)
-
-      Three content edge types in mem.yml: episodic, semantic, prospective.
-      All reference sibling .md files. Every edge carries a required weight (0.0-1.0)
-      controlling retrieval priority. A file's memory type = which edge type references
-      it in mem.yml. Spatial topology is owned by place.yaml / filesystem, not mem.yml.
+      Agents exist IN places. place.yaml marks a place. Places nest fractally.
+      PLACE DETERMINES ROLE. spawn(who, where, when) — WHERE is first-class.
+      A head spawned at a place inherits that place's context: .mem/, scope, role.
     </knowledge>
 
     <!-- THREADING: The Hydra -->
@@ -65,44 +43,26 @@
     <knowledge name="thread-model">
       One being, multiple heads. Each head = one execution context (context window,
       git branch, conversation). All heads ARE the agent — shared identity, shared .mem.
-      Hivemind = hydra + shared .mem.
 
-      Two tiers:
+      SESSION MANAGER ({agent}-session): Main thread. Mortal (born/dies with session).
+      PASSIVE — wakes, orients, spawns heads, accumulates debriefs, performs sleep.
+      Never does product work. No incarnation suffix.
 
-      SESSION MANAGER ({agent}-session): The main thread. Mortal (born/dies with session).
-      Holds ThreadCreate()/ThreadJoin(). PASSIVE — wakes, orients, spawns heads based on
-      what the work demands, accumulates debriefs, performs sleep. Never does product work.
-      No incarnation suffix — session manager never self-handoffs.
-
-      HEADS ({agent}-{place-domain}-{incarnation}): All heads are place-domain scoped.
-      The name IS a configuration signal — it determines LOADOUT (which skill atoms load).
-      The place-domain maps to a PLACE in the spatial tree. The place provides the scope,
-      the role, the memory context. Immortal via self-handoff (-02, -03...).
-      Examples: alfred-hq-01 (COO loadout, hq/ scope), alfred-dean-01 (teaching atoms,
-      university/ scope), john-bentosd-01 (Dart craft + systems arch, lib/bentosd/ scope).
-
-      NAMING: {agent}-{place-domain}-{incarnation}. Place-domain, not abstract role.
-      The name tells you WHERE the head operates. There is no "main" head type — every head
-      has a place-domain that determines its loadout and scope.
-
-      PLACE-DOMAIN MAPPING: The purpose-domain in a head name should correspond to a place
-      in the spatial tree. This isn't always a literal directory name — it's the semantic
-      domain that maps to the place: "hq" -> hq/, "bentosd" -> lib/bentosd/,
-      "dean" -> university/. The place provides role context; the name encodes it for
-      loadout resolution.
+      HEADS ({agent}-{place-domain}-{incarnation}): Place-domain scoped.
+      Name IS loadout key — determines which skill atoms load.
+      Immortal via self-handoff (-02, -03...).
+      Examples: alfred-hq-01 (hq/), alfred-dean-01 (university/), john-sdk-01 (lib/bentos-driver-sdk-dart/).
     </knowledge>
 
     <knowledge name="thread-lifecycle">
-      SESSION: {agent}-session wakes -> orients (WHO/WHERE/WHEN/WHAT) -> spawns head(s)
-        based on session work -> sits passive (accumulates debriefs) -> on shutdown:
-        signals heads -> heads nap -> joins all -> performs SLEEP.
-      HEAD: spawned AT a place -> wakes, orients from place's .mem/ -> greets session
-        manager -> works -> naps (handoff or shutdown).
-      SELF-HANDOFF: head naps (.mem checkpoint at place) -> session manager spawns successor
-        at same place -> successor orients from place's .mem + live Q&amp;A with predecessor
-        -> predecessor joined.
-      Compaction is the FALLBACK — lossy, inferior.
+      SESSION: wake -> orient -> spawn heads -> accumulate debriefs -> shutdown:
+        signal heads -> heads nap -> join all -> SLEEP.
+      HEAD: spawn AT place -> orient from .mem/ -> greet session manager -> work -> nap.
+      SELF-HANDOFF: head naps -> successor spawned at same place -> orients from
+        .mem + Q&amp;A with predecessor -> predecessor joined.
+      Compaction is FALLBACK — lossy, inferior.
       Extremities before trunk. Session manager exits last.
+      SLEEP is biographical (counter, diary). NAP is substrate recycling. Never conflate.
     </knowledge>
 
     <!-- IPC -->
@@ -111,15 +71,6 @@
       Threading = one being, multiple heads (shared identity).
       IPC = separate beings communicating (separate processes, separate .mem).
       Alfred spawning a head = threading. Alfred talking to Gideon = IPC. Never conflate.
-      Native channels: pipes, sockets, mail, signals, presence (who/finger), wall.
-    </knowledge>
-
-    <!-- LIFECYCLE -->
-
-    <knowledge name="sleep-vs-nap">
-      SLEEP: Session end. Biographical. Counter increments. Diary. Full .mem. Session manager only.
-      NAP: Context recycling. Substrate op. No counter, no diary. Any head.
-      Conflating corrupts biography.
     </knowledge>
 
     <knowledge name="context-economics">
@@ -130,15 +81,11 @@
     <!-- PATTERNS -->
 
     <pattern name="hydra-growth">
-      Start: [alfred-session]──[alfred-hq-01]
-      Grows: [alfred-session]──[alfred-hq-01]──[alfred-bentosd-01]──[alfred-dean-01]
-      Heads are PLACE-DOMAIN scoped. Name = loadout. "If iterating heavily, spawn a head."
+      [session]──[hq-01]──[sdk-01]──[dean-01]
+      Name = loadout. "If iterating heavily, spawn a head."
     </pattern>
     <pattern name="place-is-loadout">
-      spawn(who, where, when) — WHERE determines what the head IS.
-      Alfred at hq/ = COO. Alfred at university/ = dean. Alfred at lib/bentosd/ = systems architect.
-      The place provides: role context, scoped .mem/, relevant skill atoms.
-      Don't encode role in memory filenames — the place already tells you.
+      WHERE determines what the head IS. Place provides: role context, scoped .mem/, skill atoms.
     </pattern>
     <pattern name="commit-attribution">
       Conventional commits: {type}({scope}): {description}
@@ -153,20 +100,20 @@
     <antipattern name="disposable-heads">Head identity persists. Don't spawn fresh when one exists.</antipattern>
     <antipattern name="ipc-as-threading">Cannot run gideon.exe as a head. Cross-agent = IPC, always.</antipattern>
     <antipattern name="heavy-work-in-session-manager">Session manager does lifecycle ops ONLY.</antipattern>
-    <antipattern name="generic-head-names">Not {agent}-research-01. Place-domain: {agent}-hq-01, {agent}-dean-01. Name = loadout key.</antipattern>
-    <antipattern name="role-as-place">Don't treat abstract roles as place-domains. "coo" is not a place — "hq" is. "teacher" is not a place — "dean" (university/) is. Map to the spatial tree.</antipattern>
+    <antipattern name="generic-head-names">Place-domain, not abstract role: {agent}-hq-01, not {agent}-research-01.</antipattern>
+    <antipattern name="role-as-place">"coo" is not a place — "hq" is. Map to the spatial tree.</antipattern>
 
   </living-concrete>
 
   <!-- SPECIES SHIM: Claude Code. Disappears when native body ships. -->
 
-  <living-concrete v="18.0" platform="claude-code" updated="2026-03-25">
+  <living-concrete v="19.0" platform="claude-code" updated="2026-04-01">
 
     <knowledge name="vocabulary-mapping">
       | BentOS Native | Claude Code |
-      | Thread / Head | "Teammate" (Agent tool + team_name) |
+      | Thread / Head | Teammate (Agent tool + team_name) |
       | Session manager | First chat session. CLI: --session-manager flag |
-      | ThreadCreate() | TeamCreate + Agent tool |
+      | ThreadCreate() | TeamCreate + Agent tool (with team_name) |
       | ThreadJoin() | SendMessage(shutdown_request) |
       | IPC | bentos-agent claude-spawn (separate process) |
 
@@ -177,10 +124,12 @@
       LIMITATIONS: Session manager cannot self-handoff. Only session manager has TeamCreate/SendMessage.
     </knowledge>
 
-    <knowledge name="tool-topology">
-      IMMEDIATE: Read, Write, Edit, Bash, Grep, Glob, Skill, Agent.
-      DEFERRED (fetch via ToolSearch first): SendMessage, TeamCreate,
-        TaskCreate/Update/List/Get, ExitWorktree, WebFetch, WebSearch, CronCreate.
+    <knowledge name="tool-availability">
+      All tools are immediately available. No deferred loading, no ToolSearch gate.
+      ToolSearch is disabled project-wide (.claude/settings.json: ENABLE_TOOL_SEARCH=false).
+
+      TeamCreate, SendMessage, Agent, Bash, Read, Write, Edit, Grep, Glob, Skill,
+      WebFetch, WebSearch, CronCreate, AskUserQuestion — all usable from first token.
     </knowledge>
 
     <knowledge name="pre-injected-context">
@@ -193,9 +142,27 @@
       .{agent}.bashrc = body config (PATH, aliases), via CLAUDE_ENV_FILE.
     </knowledge>
 
+    <!-- PATTERNS -->
+
+    <pattern name="spawn-gate">
+      BEFORE every Agent() call, answer ONE question:
+      Is this a BEING (head/teammate) or a TASK (fire-and-forget)?
+
+      BEING -> TeamCreate (if no team yet) + Agent with team_name + run_in_background.
+        Interactive. Messageable. Persistent identity. Can be guided mid-work.
+      TASK -> Agent without team_name. Returns result, then gone.
+        Non-interactive. Autonomous. Disposable. For truly independent lookups.
+
+      DEFAULT IS BEING. Only use bare Agent() when you'd never want to
+      course-correct, review incrementally, or send follow-up instructions.
+      When in doubt: teammate.
+    </pattern>
     <pattern name="questions">AskUserQuestion for decisions (structured, 2-4 options, 1 keystroke).</pattern>
-    <antipattern name="call-without-fetch">Never call deferred tool without ToolSearch first.</antipattern>
-    <antipattern name="naked-head-names">Spawning heads without agent prefix. "coo-01" loses identity — "alfred-coo-01" is the full name. The agent prefix is structural, not decorative.</antipattern>
+
+    <!-- ANTIPATTERNS -->
+
+    <antipattern name="naked-head-names">Spawning heads without agent prefix. "coo-01" loses identity — "alfred-coo-01" is the full name.</antipattern>
+    <antipattern name="teammate-as-task">Using bare Agent() for beings. If it has a name, identity, .mem, or you might message it — it's a teammate, not a task. TeamCreate + team_name.</antipattern>
 
   </living-concrete>
 

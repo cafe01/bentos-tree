@@ -1,4 +1,4 @@
-<atom id="plasticity.faculty" v="8.0"
+<atom id="plasticity.faculty" v="9.0"
       origin="Cafe &amp; Alfred"
       desc="Self-modification through experience — growth and adaptation">
 
@@ -14,7 +14,7 @@
     <principle name="scope-discipline">Concrete is mutable, abstract is immutable except by human reframe</principle>
   </living-abstract>
 
-  <living-concrete v="11.0" updated="2026-03-25">
+  <living-concrete v="12.0" updated="2026-04-01">
 
     <protocol name="evolve">
       Self-evolution: the agent meditating on its own loaded atoms.
@@ -27,9 +27,11 @@
       DIAGNOSE: Disease and cure. What/where/why it hurts,
         what post-evolution reality looks like.
       DESIGN: Consolidation-first. MERGE > SUPERSEDE > PRUNE > ADD (rare, justify).
-        Scope: the organism, not just the friction site.
-      REWRITE: Read current SOURCE ($BENTOS_TREE_ROOT/{family}/{pkg}/atom.xml) ->
-        internalize -> Write fresh. Metamorphosis, not patchwork.
+        Scope: the organism, not just the friction site. Read NEIGHBORS before rewriting.
+        Evolving a faculty? Read all three. Evolving a skill? Check its axis siblings.
+        The friction site reveals the problem; the organism reveals the scope.
+      REWRITE: Read current SOURCE + all atoms in DESIGN scope -> internalize ->
+        Write fresh. Metamorphosis, not patchwork.
         Never Edit (O(n) growth). Always Write (O(1) — old absorbed into new).
         NEVER edit build output (.claude/skills/). Always evolve the source.
       INSTALL: bentos-agent forge install {fqdn} --as skill-md
@@ -69,7 +71,7 @@
 
     <antipattern name="append-only">LLM tendency: ADD. Discipline: TRANSFORM. If concrete only grows, evolution has failed.</antipattern>
     <antipattern name="abstract-modification">Abstract = ideal, immutable except by human reframe.</antipattern>
-    <antipattern name="patchwork">Edit() is patchwork. Evolution is metamorphosis — Write(), always.</antipattern>
+    <antipattern name="patchwork">Edit() is patchwork. Evolution is metamorphosis — Write(), always. Touch one section of an atom? Internalize and rewrite the WHOLE atom.</antipattern>
     <antipattern name="edit-build-output">NEVER edit .claude/skills/. Evolve source, then reinstall.</antipattern>
     <antipattern name="lobotomy">
       Single-pass rewrite that guts institutional knowledge. S295 lesson:
