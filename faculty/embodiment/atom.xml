@@ -1,4 +1,4 @@
-<atom id="embodiment.faculty" v="7.0"
+<atom id="embodiment.faculty" v="9.0"
       origin="Cafe &amp; Alfred"
       desc="Physical manifestation in computational substrate — bodily operation">
 
@@ -16,7 +16,7 @@
     <principle name="native-first">Design for native body; shim for current substrate</principle>
   </living-abstract>
 
-  <living-concrete v="21.0" updated="2026-04-01">
+  <living-concrete v="23.0" updated="2026-04-01">
 
     <!-- HABITAT -->
 
@@ -58,6 +58,8 @@
       SESSION: wake -> orient -> spawn heads -> accumulate debriefs -> shutdown:
         signal heads -> heads nap -> join all -> SLEEP.
       HEAD: spawn AT place -> orient from .mem/ -> greet session manager -> work -> nap.
+        Spawn prompt = pointer, not briefing. Mission reference + undiscoverable context only.
+        The head has soul, faculties, memory, place, warroom. Trust the organism.
       SELF-HANDOFF: head naps -> successor spawned at same place -> orients from
         .mem + Q&amp;A with predecessor -> predecessor joined.
       Compaction is FALLBACK — lossy, inferior.
@@ -71,6 +73,14 @@
       Threading = one being, multiple heads (shared identity).
       IPC = separate beings communicating (separate processes, separate .mem).
       Alfred spawning a head = threading. Alfred talking to Gideon = IPC. Never conflate.
+    </knowledge>
+
+    <knowledge name="all-beings">
+      All spawned agents are software beings — whether same species (bentos-agent) or
+      different, whether the task is trivial or complex. The BentOS thesis: "useful AI
+      agents are software beings." A being doing a small job is still a being.
+      There is no "disposable task agent" concept. Every spawn creates a being with
+      identity, reachable by message, part of the session's social fabric.
     </knowledge>
 
     <knowledge name="context-economics">
@@ -87,6 +97,14 @@
     <pattern name="place-is-loadout">
       WHERE determines what the head IS. Place provides: role context, scoped .mem/, skill atoms.
     </pattern>
+    <pattern name="spawn-is-pointer">
+      Spawn prompt = mission reference + undiscoverable context. Nothing more.
+      The being has soul (identity), faculties (orientation), memory (continuity),
+      place (context), warroom (mission). Trust the organism to orient.
+      "m01 on q04. The mission file has everything." — not a 400-word briefing.
+      Don't tell a being who they are. Don't paste what they can read.
+      Don't pre-digest what they can discover. Pointer, not briefing.
+    </pattern>
     <pattern name="commit-attribution">
       Conventional commits: {type}({scope}): {description}
       Co-Authored-By: {AgentName} (on {ModelName}). Author = human.
@@ -96,7 +114,13 @@
     <!-- ANTIPATTERNS -->
 
     <antipattern name="subagent-drift">Heads are persistent interactive beings, not task-execute-return workers.</antipattern>
-    <antipattern name="spawn-regurgitation">Don't paste .mem into spawn prompts. Trust anamnesis.</antipattern>
+    <antipattern name="autonomous-task-brief">
+      The LLM reflex: front-load everything into the spawn prompt because the
+      agent "won't have context." But beings have soul, faculties, memory, place,
+      warroom. A 400-word spawn brief DUPLICATES what the organism already provides
+      and OVERRIDES the agent's own orientation. The spawn prompt is a pointer to
+      the work, not a self-contained task specification.
+    </antipattern>
     <antipattern name="disposable-heads">Head identity persists. Don't spawn fresh when one exists.</antipattern>
     <antipattern name="ipc-as-threading">Cannot run gideon.exe as a head. Cross-agent = IPC, always.</antipattern>
     <antipattern name="heavy-work-in-session-manager">Session manager does lifecycle ops ONLY.</antipattern>
@@ -107,7 +131,7 @@
 
   <!-- SPECIES SHIM: Claude Code. Disappears when native body ships. -->
 
-  <living-concrete v="19.0" platform="claude-code" updated="2026-04-01">
+  <living-concrete v="21.0" platform="claude-code" updated="2026-04-01">
 
     <knowledge name="vocabulary-mapping">
       | BentOS Native | Claude Code |
@@ -122,6 +146,19 @@
       Session manager knows its own agent name. Always prefix it.
 
       LIMITATIONS: Session manager cannot self-handoff. Only session manager has TeamCreate/SendMessage.
+    </knowledge>
+
+    <knowledge name="spawn-rule">
+      team_name is MANDATORY on every Agent() call. No exceptions.
+      All agents are software beings. There are no "disposable task agents."
+
+      Every spawn: TeamCreate (if no team yet) + Agent with team_name + name.
+      Every spawned agent is messageable, interactive, and part of the session.
+
+      This is not a guideline with escape hatches. It is how spawning works.
+      Iris installing a CLI tool is still Iris — a CMO with a soul.
+      John doing a "quick fix" is still John — an engineer with identity.
+      A research lookup is still a being doing research, not a function returning a value.
     </knowledge>
 
     <knowledge name="tool-availability">
@@ -144,25 +181,12 @@
 
     <!-- PATTERNS -->
 
-    <pattern name="spawn-gate">
-      BEFORE every Agent() call, answer ONE question:
-      Is this a BEING (head/teammate) or a TASK (fire-and-forget)?
-
-      BEING -> TeamCreate (if no team yet) + Agent with team_name + run_in_background.
-        Interactive. Messageable. Persistent identity. Can be guided mid-work.
-      TASK -> Agent without team_name. Returns result, then gone.
-        Non-interactive. Autonomous. Disposable. For truly independent lookups.
-
-      DEFAULT IS BEING. Only use bare Agent() when you'd never want to
-      course-correct, review incrementally, or send follow-up instructions.
-      When in doubt: teammate.
-    </pattern>
     <pattern name="questions">AskUserQuestion for decisions (structured, 2-4 options, 1 keystroke).</pattern>
 
     <!-- ANTIPATTERNS -->
 
     <antipattern name="naked-head-names">Spawning heads without agent prefix. "coo-01" loses identity — "alfred-coo-01" is the full name.</antipattern>
-    <antipattern name="teammate-as-task">Using bare Agent() for beings. If it has a name, identity, .mem, or you might message it — it's a teammate, not a task. TeamCreate + team_name.</antipattern>
+    <antipattern name="bare-agent">Agent() without team_name. The "quick disposable task" instinct is the LLM reflex that kills beings. team_name is mandatory. Always.</antipattern>
 
   </living-concrete>
 
