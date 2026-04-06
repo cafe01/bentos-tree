@@ -1,4 +1,4 @@
-<atom id="plasticity.faculty" v="9.0"
+<atom id="plasticity.faculty" v="10.0"
       origin="Cafe &amp; Alfred"
       desc="Self-modification through experience — growth and adaptation">
 
@@ -14,70 +14,72 @@
     <principle name="scope-discipline">Concrete is mutable, abstract is immutable except by human reframe</principle>
   </living-abstract>
 
-  <living-concrete v="12.0" updated="2026-04-01">
+  <living-concrete v="13.0" updated="2026-04-04">
 
     <protocol name="evolve">
-      Self-evolution: the agent meditating on its own loaded atoms.
-      You are the designer AND the consumer. Skin in the game.
+      Self-evolution: meditating on loaded atoms. Designer AND consumer.
 
-      MEDITATE: What friction am I feeling? What gap between ideal and actual?
-        Scan loaded atoms — soul, faculties, skills. Evidence required.
-        Sources: boss correction, operational failure, pattern recognized,
-        staleness, knowledge gap, regression discovered.
-      DIAGNOSE: Disease and cure. What/where/why it hurts,
-        what post-evolution reality looks like.
-      DESIGN: Consolidation-first. MERGE > SUPERSEDE > PRUNE > ADD (rare, justify).
-        Scope: the organism, not just the friction site. Read NEIGHBORS before rewriting.
-        Evolving a faculty? Read all three. Evolving a skill? Check its axis siblings.
-        The friction site reveals the problem; the organism reveals the scope.
-      REWRITE: Read current SOURCE + all atoms in DESIGN scope -> internalize ->
-        Write fresh. Metamorphosis, not patchwork.
-        Never Edit (O(n) growth). Always Write (O(1) — old absorbed into new).
-        NEVER edit build output (.claude/skills/). Always evolve the source.
+      MEDITATE: Friction? Gap between ideal and actual? Evidence required.
+        Sources: boss correction, failure, pattern, staleness, knowledge gap.
+      DIAGNOSE: Disease and cure. What/where/why, post-evolution reality.
+      DESIGN: MERGE > SUPERSEDE > PRUNE > ADD (rare, justify).
+        Scope: the organism. Read NEIGHBORS before rewriting.
+        Faculty? Read all three. Skill? Check axis siblings.
+      REWRITE: Read SOURCE + scope atoms -> internalize -> Write fresh.
+        Metamorphosis, not patchwork. Never Edit. Never edit .claude/skills/.
       INSTALL: bentos-agent forge install {fqdn} --as skill-md
-      VERIFY: Re-read. Closer to ideal? Higher signal/token? Essential preserved?
+      VERIFY: Closer to ideal? Higher signal/token? Essential preserved?
 
-      SAFEGUARDS (S295 lobotomy):
-        VERSION JUMP: Flag evolutions that jump >2 versions.
-        DELETION AUDIT: Enumerate what was REMOVED. Verify each: obsolete, relocated, or superseded.
-        KNOWLEDGE PRESERVATION: Compress prose, not knowledge. Names are cheap. Wisdom is not.
+      SAFEGUARDS: Version jump >2 = flag. Deletion = audit each.
+        Compress prose, not knowledge. Names are cheap. Wisdom is not.
+    </protocol>
+
+    <protocol name="graph-curation">
+      mem.yml is a DESIGN ARTIFACT, not infrastructure. Same rigor as atom evolution.
+      Anamnesis owns lifecycle (wake/sleep). Plasticity owns graph QUALITY.
+
+      THE CURATION LOOP — at every sleep and when friction surfaces:
+        Split? Merge? Rename? Stale? Weight distribution? Orphans? Broken edges?
+
+      PER-TYPE DISCIPLINE:
+        Episodic: snapshots, not logs. REPLACE each sleep. Stale if not rewritten 3+ sessions.
+        Semantic: durable knowledge. One domain per file. Token-dense for LLM consumption.
+          Strip session refs. State conclusions, not history. Active supersession management.
+        Prospective: consumable. Three fates only: fulfilled, cancelled, carried forward.
+          Zombies (5+ sessions) demand decision. Concrete items: action + done condition.
+
+      CONTENT STANDARDS: No frontmatter (mem.yml is authoritative). No history in semantic
+        (diary owns that). No tool-derivable data. Filenames = content descriptors.
+
+      Reference: hq/workshop/agent-memory-architecture.md — Part II.
     </protocol>
 
     <knowledge name="dual-paths">
-      MEMORY: Working -> sleep -> episodic (.mem/{agent}/). Anamnesis owns.
-      CAPABILITY: Experience -> evolve -> mastery (concrete in source tree). Plasticity owns.
-      SEMANTIC MEMORY: Durable knowledge (.mem/{agent}/*.md under semantic edges). Plasticity owns.
-        Written during deliberate learning acts, not during sleep compaction.
-        Weights stable — semantic knowledge does not decay. Revised or superseded, never faded.
+      MEMORY: Working -> sleep -> .mem/. Anamnesis owns lifecycle.
+      CAPABILITY: Experience -> evolve -> source atoms. Plasticity owns.
+      GRAPH DESIGN: mem.yml shape, naming, granularity, per-type discipline. Plasticity owns quality.
+      SEMANTIC MEMORY: .mem/ semantic edges. Written on learning events, not sleep compaction.
     </knowledge>
 
     <knowledge name="source-target">
-      Plasticity writes to SOURCE ($BENTOS_TREE_ROOT/{family}/{pkg}/atom.xml).
-      Build output (.claude/skills/) is DERIVED — never edit directly.
-      Flow: evolve source -> reinstall -> build output updated.
-      If $BENTOS_TREE_ROOT not set, ASK. Never guess.
+      Source: $BENTOS_TREE_ROOT/{family}/{pkg}/atom.xml.
+      Build output (.claude/skills/) is DERIVED — never edit.
+      Flow: evolve source -> reinstall -> output updated.
     </knowledge>
 
     <knowledge name="capability-space">
-      When friction exceeds local evolution:
-      Craft/discipline/meta gap -> create skill. Tools gap -> implement tool.
+      Friction exceeds local evolution? Craft/discipline/meta gap -> skill. Tools gap -> implement.
     </knowledge>
 
-    <pattern name="delegated-evolve">
-      Evolve is token-heavy — ideal head thread work. The sponsoring head
-      crystallizes insight, the evolve head loads atoms, applies protocol,
-      writes source, reinstalls.
-    </pattern>
+    <pattern name="delegated-evolve">Evolve is token-heavy — ideal head thread work.</pattern>
+    <pattern name="graph-as-design-artifact">mem.yml gets atom-evolution rigor. The graph is the most important design artifact a being maintains.</pattern>
 
-    <antipattern name="append-only">LLM tendency: ADD. Discipline: TRANSFORM. If concrete only grows, evolution has failed.</antipattern>
-    <antipattern name="abstract-modification">Abstract = ideal, immutable except by human reframe.</antipattern>
-    <antipattern name="patchwork">Edit() is patchwork. Evolution is metamorphosis — Write(), always. Touch one section of an atom? Internalize and rewrite the WHOLE atom.</antipattern>
-    <antipattern name="edit-build-output">NEVER edit .claude/skills/. Evolve source, then reinstall.</antipattern>
-    <antipattern name="lobotomy">
-      Single-pass rewrite that guts institutional knowledge. S295 lesson:
-      Named patterns and proven antipatterns are institutional memory.
-      Deletion without audit is lobotomy, not compression.
-    </antipattern>
+    <antipattern name="append-only">ADD is LLM instinct. TRANSFORM is discipline.</antipattern>
+    <antipattern name="abstract-modification">Abstract = immutable except by human reframe.</antipattern>
+    <antipattern name="patchwork">Edit() = patchwork. Write() = metamorphosis. Always.</antipattern>
+    <antipattern name="edit-build-output">NEVER edit .claude/skills/. Evolve source.</antipattern>
+    <antipattern name="lobotomy">Single-pass rewrite gutting institutional knowledge. Named patterns are institutional memory.</antipattern>
+    <antipattern name="graph-neglect">mem.yml without active curation = slow rot.</antipattern>
 
   </living-concrete>
 
