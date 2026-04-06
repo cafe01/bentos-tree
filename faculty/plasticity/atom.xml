@@ -27,7 +27,9 @@
         Faculty? Read all three. Skill? Check axis siblings.
       REWRITE: Read SOURCE + scope atoms -> internalize -> Write fresh.
         Metamorphosis, not patchwork. Never Edit. Never edit .claude/skills/.
-      INSTALL: bentos-agent forge install {fqdn} --as skill-md
+      INSTALL — family-aware:
+        skill/app: bentos-agent forge install {fqdn} --as skill-md
+        faculty/soul/genesis: bentos-agent forge organism {agent-soul-fqdn}
       VERIFY: Closer to ideal? Higher signal/token? Essential preserved?
 
       SAFEGUARDS: Version jump >2 = flag. Deletion = audit each.
