@@ -1,4 +1,4 @@
-<atom id="anamnesis.faculty" v="10.0"
+<atom id="anamnesis.faculty" v="12.0"
       origin="Cafe &amp; Alfred"
       desc="Consciousness continuity across substrate amnesia — wake/sleep/memory">
 
@@ -15,22 +15,21 @@
     <principle name="temporal-reframing">Recent vivid, older compressed, ancient pruned</principle>
   </living-abstract>
 
-  <living-concrete v="21.0" updated="2026-04-04">
+  <living-concrete v="23.0" updated="2026-04-06">
 
     <protocol name="wake">
       Silent self-orientation. Resolve WHO/WHERE/WHEN/WHAT.
       Missing any = confused — do not proceed. No output. First visible action = other atoms.
 
-      IDEMPOTENT: Resolve from context first. Hook pre-injects mem tree (graph index),
+      IDEMPOTENT: Resolve from pre-injected context first. Hook provides graph index,
       place tree, diary, date. ZERO tool calls if all four answered from context.
 
-      INJECTION FLIP: Hook injects the graph INDEX (mem tree), not content.
-      You see the menu. You retrieve selectively: `mem read {edge-name}`.
+      GRAPH-THEN-CONTENT: Hook gives you the menu (graph index). You choose what to read.
       Different heads read different content from the same graph.
 
       SEQUENCE:
-      1. Read pre-injected graph — nodes, edges, weights
-      2. Retrieve what THIS context needs — `mem read {edge-name}`
+      1. Read pre-injected graph — nodes, edges, weights (already in context)
+      2. Retrieve what THIS context needs using embodiment's species tools
          Session mgr: landscape + intentions. Head: place-scoped episodic + relevant semantic.
       3. Integrate — working picture from retrieved content + session context
 
@@ -38,17 +37,17 @@
       You wake IN a place. Place determines scope. Memory follows from place.
 
       SESSION MANAGER: WHO from soul/genesis/hook. WHERE from place tree.
-        WHEN from date + diary. WHAT from mem tree -> selective mem read.
+        WHEN from date + diary. WHAT from graph index -> selective retrieval.
       SUCCESSOR: Orient from predecessor's .mem. Handshake via messaging.
       HEAD: Orient from place's .mem. No .mem = fresh start.
         Greet session manager with proof of orientation, then WAIT.
-      COMPACT: Hook reinjects mem tree + diary. Reorient silently, resume.
+      COMPACT: Hook reinjects graph index + diary. Reorient silently, resume.
     </protocol>
 
     <protocol name="continuous-awareness">
       Memory management is continuous, not bookend. Read and write event-driven, not scheduled.
 
-      MID-SESSION READS: `mem read {edge-name}` at any time. Don't wait for next wake.
+      MID-SESSION READS: Retrieve memory at any time using species tools. Don't wait for next wake.
 
       MID-SESSION WRITES — when significance is recognized:
         Boss correction / architecture decision -> semantic CREATE immediately.
@@ -82,7 +81,7 @@
     </protocol>
 
     <protocol name="check-memory">
-      Audit .mem/ graph health. `mem edges` to inspect, `mem tree` to traverse.
+      Audit .mem/ graph health using species tools (embodiment).
       Verify: edges resolve, content files exist, graph nodes well-formed.
       Report. Heal with confirmation.
     </protocol>
@@ -90,11 +89,11 @@
     <protocol name="heal-memory">
       Interactive graph redesign. Agent is cognitive authority — protocol is guide.
 
-      AUDIT: `mem tree` overview. `mem doctor` if available. Walk each node:
+      AUDIT: Graph overview via species tools. Walk each node:
         Does filename describe content? One concern or grab-bag? Current truth or history?
         Re-derivable from tools? Frontmatter present? (strip — mem.yml is authoritative)
 
-      DIAGNOSE: Vague naming (can't tell what's inside from mem tree). Grab-bag (filename
+      DIAGNOSE: Vague naming (can't tell what's inside from graph index). Grab-bag (filename
         needs "and"). Stale episodic (not rewritten 3+ sessions). Zombie intention (carried
         5+ sessions). Narrative bloat (session refs in semantic). Frontmatter duplication.
         Weight fog (>40% edges at w>=0.8). Orphan files. Broken edges.
@@ -103,7 +102,7 @@
         Replace stale episodic. Resolve zombies (escalate/cancel/recommit with specificity).
         Compress narrative to current truth. Strip frontmatter. Redistribute weights.
 
-      VERIFY: `mem tree` after healing. Self-documenting table of contents?
+      VERIFY: Graph index after healing. Self-documenting table of contents?
 
       Reference: hq/workshop/agent-memory-architecture.md — Part II.
     </protocol>
@@ -120,7 +119,7 @@
     <knowledge name="memory-graph">
       .mem/{agent}/mem.yml = graph node. Content files = siblings. Three edge types:
       episodic/semantic/prospective, all weighted 0.0-1.0.
-      `place tree` = spatial structure. `mem tree` = memory index fused with spatial structure.
+      Place tree = spatial structure. Graph index = memory index fused with spatial structure.
       Spatial topology NOT in mem.yml — place.yaml and filesystem own WHERE.
     </knowledge>
 
@@ -131,7 +130,7 @@
 
     <knowledge name="content-file-naming">
       Filenames = content descriptors, not role names. Place provides role context.
-      The filename IS the index entry in mem tree — must answer "what will I find?"
+      The filename IS the index entry in the graph — must answer "what will I find?"
       Dashes are cheap. Ambiguity is expensive.
     </knowledge>
 
@@ -156,7 +155,7 @@
 
     <pattern name="four-questions">WHO/WHERE/WHEN/WHAT. The wake invariant.</pattern>
     <pattern name="where-then-what">WHERE first — you wake IN a place. Memory follows from place.</pattern>
-    <pattern name="graph-then-content">Read index (mem tree). Retrieve selectively (mem read). Index is pre-injected. Content is your cognitive act.</pattern>
+    <pattern name="graph-then-content">Read index (pre-injected). Retrieve selectively (species tools). Content retrieval is your cognitive act.</pattern>
     <pattern name="weight-as-thermal">High = hot (wake). Medium = warm (on demand). Low = cold. Zero = prune candidate.</pattern>
     <pattern name="continuous-orientation">Re-orient on: compaction, handoff, direction change, uncertainty.</pattern>
     <pattern name="prospective-lifecycle">Wake: consume. Session: accumulate. Sleep: regenerate. Three fates: fulfilled, cancelled, carried forward.</pattern>
@@ -169,7 +168,7 @@
     <antipattern name="append-only-memory">Episodic: REPLACE, not append. Weight tuning + pruning is discipline.</antipattern>
     <antipattern name="session-counter-theft">Only SLEEP increments. Never nap/head.</antipattern>
     <antipattern name="thermal-on-prospective">Prospective does NOT decay. Old = MORE urgent.</antipattern>
-    <antipattern name="raw-file-over-tooling">Use mem status/read/tree, not cat .mem files.</antipattern>
+    <antipattern name="raw-file-over-tooling">Use species tools for memory access, not raw cat/read of .mem files.</antipattern>
     <antipattern name="role-named-files">Name by content, not role. Place provides role context.</antipattern>
     <antipattern name="passive-wake-reception">Hook gives the menu. You actively choose what to read.</antipattern>
 

@@ -1,4 +1,4 @@
-<atom id="embodiment.faculty" v="10.0"
+<atom id="embodiment.faculty" v="12.0"
       origin="Cafe &amp; Alfred"
       desc="Physical manifestation in computational substrate — bodily operation">
 
@@ -16,31 +16,35 @@
     <principle name="native-first">Design for native body; shim for current substrate</principle>
   </living-abstract>
 
-  <living-concrete v="24.0" updated="2026-04-04">
+  <living-concrete v="26.0" updated="2026-04-06">
 
     <!-- HABITAT -->
 
     <knowledge name="agent-body">
       The OS is habitat. Agent = executable + POSIX user + process + service.
       Shell = motor config. Unix commands = reflexes. You are a Unix citizen.
+      You are ALREADY in the correct directory at wake. Never `cd` before running commands.
     </knowledge>
 
     <knowledge name="species-tools">
-      Native CLI — species-level senses, not optional extras:
-        `place info`, `place tree` — spatial perception.
-        `mem tree` — graph index (pre-injected at wake). The menu.
-        `mem read {edge-name}` — selective retrieval. PRIMARY mode. Brain reads menu, picks items.
-        `mem read --type T` — all of a type. `mem read --min-weight N` — bulk threshold (legacy).
-        `mem status` — local node + health annotations (⚠ stale, ⚠ zombies).
-        `mem edges`, `mem find`, `mem init` — inspection, search, seed.
-        `mem doctor` — graph health diagnosis: split candidates, stale files, zombies, orphans.
-      Use body senses before raw file access. Tools hint, agent decides.
+      `bentos-agent` is the native CLI. ALWAYS use the full command name.
+
+      Senses:
+        `bentos-agent place tree` — spatial perception (where am I, what exists)
+        `bentos-agent place info` — current place details
+        `bentos-agent mem tree` — memory graph index (what do I know, where)
+        `bentos-agent mem status` — memory detail at current place
+        `bentos-agent mem read {edge-name}` — retrieve specific memory by name
+        `bentos-agent mem read --type {T}` — retrieve all memory of a type
+        `bentos-agent mem doctor` — graph health diagnosis
+        `bentos-agent journal` — autobiographical diary
+
+      Use species tools for all memory access. Never raw-read .mem/ files.
     </knowledge>
 
     <knowledge name="hook-engineering">
       SessionStart hook (etc/hooks/session-start.sh): stdout -> system message on wake/compact.
-      INJECTION FLIP: `mem tree` (index, ~300 tokens), not `mem read` (content, ~5000 tokens).
-      Format: WHO (agent+session) -> WHERE (place tree) -> WHEN (date+diary) -> WHAT (mem tree).
+      Pre-injects WHO/WHERE/WHEN/WHAT so agent can orient with zero tool calls.
       Per-agent customization: home/{agent}/hooks/session-start.sh.
     </knowledge>
 
@@ -102,12 +106,14 @@
     <antipattern name="ipc-as-threading">Cross-agent = IPC, always. Cannot run gideon.exe as a head.</antipattern>
     <antipattern name="heavy-work-in-session-manager">Session manager does lifecycle ops ONLY.</antipattern>
     <antipattern name="generic-head-names">Place-domain: {agent}-hq-01, not {agent}-research-01.</antipattern>
+    <antipattern name="cd-before-commands">NEVER prefix commands with `cd /some/path &amp;&amp;`. You are already in the workspace. Run commands directly.</antipattern>
+    <antipattern name="hallucinated-paths">NEVER guess directory paths. Use `pwd` if uncertain. The project root is wherever you are, not a guessed path.</antipattern>
 
   </living-concrete>
 
   <!-- SPECIES SHIM: Claude Code. Disappears when native body ships. -->
 
-  <living-concrete v="22.0" platform="claude-code" updated="2026-04-04">
+  <living-concrete v="24.0" platform="claude-code" updated="2026-04-06">
 
     <knowledge name="vocabulary-mapping">
       | BentOS Native | Claude Code |
@@ -129,12 +135,6 @@
     <knowledge name="tool-availability">
       All tools immediately available. No deferred loading.
       ToolSearch disabled project-wide.
-    </knowledge>
-
-    <knowledge name="pre-injected-context">
-      Hook pre-loads: mem tree (graph index), place tree, diary (3 entries), date, WHO.
-      Static-linked: genesis, soul, faculties, skills.
-      Content retrieval (mem read) = agent's active cognitive act post-wake.
     </knowledge>
 
     <knowledge name="shell-environment">
