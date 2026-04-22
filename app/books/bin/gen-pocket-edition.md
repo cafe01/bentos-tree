@@ -1,6 +1,7 @@
 ---
 name: gen-pocket-edition
 description: Generate pocket edition - compressed book for context loading
+disable-model-invocation: true
 ---
 
 Generate a **pocket edition** of a book - a compressed representation optimized for context loading.
@@ -79,7 +80,7 @@ A good pocket edition enables the reader to:
 
 When invoked:
 
-1. Load books.app: `Skill("bentos.books.app")`
+1. Verify `books.app` is in working memory. If not, stop and ask the user to invoke `/books.app` first.
 2. Validate argument is a book directory
 3. Read all chapters to understand content
 4. Infer genre from content patterns

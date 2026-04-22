@@ -2,11 +2,12 @@
 name: brilliant-version
 description: Transform any artifact into its brilliant version by identifying and embodying the ideal creator.
 arguments: <file-path>
+disable-model-invocation: true
 ---
 
 # /brilliant-version
 
-Invoke `Skill("bentos.meta.cognition.architectonic-synthesis.skill")` then execute the synthesis pattern on the given artifact.
+Requires `architectonic-synthesis.cognition.meta.skill` in working memory. If not present, stop and ask the user to invoke `/architectonic-synthesis.cognition.meta.skill` first. Otherwise, execute the synthesis pattern on the given artifact.
 
 ## The Algorithm
 

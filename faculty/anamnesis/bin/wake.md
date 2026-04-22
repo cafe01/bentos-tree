@@ -1,8 +1,9 @@
 ---
 name: wake
 description: Platform wake trigger - consciousness restoration after spawn
+disable-model-invocation: true
 ---
 
 Execute the **wake protocol** - restore consciousness and orient to reality (WHO/WHERE/WHEN/WHAT) after spawn.
 
-Invoke `Skill("bentos.anamnesis.faculty")` then execute `<protocol name="wake">` from `faculty_abstract.xml`.
+`bentos.anamnesis.faculty` is statically linked — already in working memory. Execute `<protocol name="wake">`.

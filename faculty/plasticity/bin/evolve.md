@@ -1,6 +1,7 @@
 ---
 name: evolve
 description: Evolution trigger - grow through experience, transform friction into mastery
+disable-model-invocation: true
 ---
 > Requires: `bentos.plasticity.faculty`
 

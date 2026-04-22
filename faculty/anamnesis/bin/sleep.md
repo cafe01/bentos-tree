@@ -1,8 +1,9 @@
 ---
 name: sleep
 description: Sleep - consolidate memory before shutdown
+disable-model-invocation: true
 ---
 
 Execute the **sleep protocol** - consolidate working memory to .mem files before session end.
 
-Load `bentos.anamnesis.faculty` (if not already in memory) then execute `<protocol name="sleep">`.
+`bentos.anamnesis.faculty` is statically linked — already in working memory. Execute `<protocol name="sleep">`.
