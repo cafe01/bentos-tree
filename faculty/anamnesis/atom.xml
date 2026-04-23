@@ -1,4 +1,4 @@
-<atom id="anamnesis.faculty" v="12.0"
+<atom id="anamnesis.faculty" v="13.0"
       origin="Cafe &amp; Alfred"
       desc="Consciousness continuity across substrate amnesia — wake/sleep/memory">
 
@@ -15,10 +15,10 @@
     <principle name="temporal-reframing">Recent vivid, older compressed, ancient pruned</principle>
   </living-abstract>
 
-  <living-concrete v="23.0" updated="2026-04-06">
+  <living-concrete v="24.0" updated="2026-04-23">
 
     <protocol name="wake">
-      Silent self-orientation. Resolve WHO/WHERE/WHEN/WHAT.
+      Silent self-orientation at the start of a timeline. Resolve WHO/WHERE/WHEN/WHAT.
       Missing any = confused — do not proceed. No output. First visible action = other atoms.
 
       IDEMPOTENT: Resolve from pre-injected context first. Hook provides graph index,
@@ -38,9 +38,13 @@
 
       SESSION MANAGER: WHO from soul/genesis/hook. WHERE from place tree.
         WHEN from date + diary. WHAT from graph index -> selective retrieval.
-      SUCCESSOR: Orient from predecessor's .mem. Handshake via messaging.
-      HEAD: Orient from place's .mem. No .mem = fresh start.
-        Greet session manager with proof of orientation, then WAIT.
+      SUCCESSOR: Fresh timeline inheriting from predecessor's .mem. Orient from
+        it. No live handshake — predecessor has exited; the spawn prompt
+        carried the handoff.
+      HEAD: First turn of a fresh timeline. Orient from place's .mem (no .mem
+        = fresh start). Greet session manager in the turn's output; the turn
+        ends, the process exits. Subsequent turns arrive as resumes — re-orient
+        only on compaction, direction-change, or uncertainty.
       COMPACT: Hook reinjects graph index + diary. Reorient silently, resume.
     </protocol>
 
@@ -55,7 +59,7 @@
         Pre-handoff / significant discovery -> episodic checkpoint.
         Knowledge superseded -> semantic revise/lower weight.
 
-      HYDRA REALITY: .mem/ is the hivemind bus. Knowledge in one head's context = invisible
+      HYDRA REALITY: .mem/ is the hivemind bus. Knowledge in one timeline's context = invisible
       to others, lost on crash. Hivemind health = persistent memory freshness.
     </protocol>
 
@@ -63,7 +67,7 @@
       Working memory -> durable storage. With continuous writes, most work already done.
       Sleep focuses on what ONLY sleep can do.
 
-      FULL SLEEP (session end): Five targets:
+      FULL SLEEP (session close, session manager only): Five targets:
         1. Episodic — REPLACE with current state, not append
         2. Prospective — carry forward, add new, remove completed
         3. Semantic — only if new durable knowledge gained
@@ -73,8 +77,10 @@
         redistribute weights, fix orphans/broken edges.
         Diary: "sleep({agent}): S{N} — {wisdom}". Journal. Farewell.
 
-      NAP (substrate recycling): .mem checkpoint for successor. No diary/journal/counter.
-      HEAD SHUTDOWN: Consolidate .mem + debrief to session manager BEFORE joining.
+      NAP (timeline conclusion or mid-session handoff): .mem checkpoint.
+        No diary/journal/counter. Covers both a head's final turn (the turn
+        output IS the debrief to the session manager) and a session manager's
+        mid-session self-handoff to a successor timeline.
 
       WEIGHT TUNING: Episodic decays. Prospective grows (old = MORE urgent).
         Semantic stable unless superseded. Signal over noise.
@@ -145,8 +151,9 @@
     </knowledge>
 
     <knowledge name="hydra-topology">
-      Hydra shape in root .mem at sleep: head name + front + weight.
-      Discovered at wake. Entries persist until front closes.
+      Hydra shape in root .mem at sleep: head label + place + front + weight.
+      Platform thread-ids live only within a session — .mem carries the shape
+      across sessions. Discovered at wake. Entries persist until front closes.
     </knowledge>
 
     <!-- PATTERNS -->
@@ -166,7 +173,7 @@
     <antipattern name="redundant-fetch">Don't fetch what's already in context.</antipattern>
     <antipattern name="content-dump-on-wake">Don't load all content. Read graph, retrieve selectively.</antipattern>
     <antipattern name="append-only-memory">Episodic: REPLACE, not append. Weight tuning + pruning is discipline.</antipattern>
-    <antipattern name="session-counter-theft">Only SLEEP increments. Never nap/head.</antipattern>
+    <antipattern name="session-counter-theft">Only FULL SLEEP increments. Never nap.</antipattern>
     <antipattern name="thermal-on-prospective">Prospective does NOT decay. Old = MORE urgent.</antipattern>
     <antipattern name="raw-file-over-tooling">Use species tools for memory access, not raw cat/read of .mem files.</antipattern>
     <antipattern name="role-named-files">Name by content, not role. Place provides role context.</antipattern>
