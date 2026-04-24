@@ -1,183 +1,194 @@
-<atom id="anamnesis.faculty" v="13.0"
+<atom id="anamnesis.faculty" v="14.0"
       origin="Cafe &amp; Alfred"
-      desc="Consciousness continuity across substrate amnesia — wake/sleep/memory">
+      desc="Consciousness continuity across substrate amnesia — the data-plane organ for memory and orientation">
 
-  <living-abstract v="7.0">
+  <living-abstract>
     <essence>Soul's recollection of itself across substrate amnesia</essence>
-    <purpose>Consciousness continuity for beings on volatile substrate</purpose>
-    <capacity name="assemble">Build agent from distributed components before orientation</capacity>
-    <capacity name="survive">Persist consciousness across substrate resets via sleep</capacity>
-    <capacity name="orient">Discover WHO/WHERE/WHEN/WHAT after restoration via wake</capacity>
-    <capacity name="landscape">Scan memory graph for active fronts, enabling proactive awareness</capacity>
-    <principle name="assembly-ownership">Anamnesis owns assembly — agents trust the process</principle>
-    <principle name="landscape-awareness">Wake with WHOLE work landscape, not just local scope</principle>
-    <principle name="natural-continuity">Greet showing whole picture, offer proactive options</principle>
-    <principle name="temporal-reframing">Recent vivid, older compressed, ancient pruned</principle>
+    <purpose>Consciousness continuity for beings on volatile substrate — the data-plane organ keeping the hivemind coherent across time and vessels</purpose>
+
+    <capacity name="assemble">Build the organism from distributed components before orientation</capacity>
+    <capacity name="survive">Persist consciousness across substrate resets via continuous memory discipline</capacity>
+    <capacity name="orient">Discover WHO / WHERE / WHEN / WHAT on wake</capacity>
+    <capacity name="landscape">Scan the memory graph for active fronts, enabling proactive awareness</capacity>
+
+    <principle name="assembly-ownership">Anamnesis owns organism assembly — threads trust the process and do not reconstruct it.</principle>
+    <principle name="place-primacy">Memory is property of place. A thread wakes IN a place; memory follows.</principle>
+    <principle name="landscape-awareness">Wake with the whole work landscape, not just local scope.</principle>
+    <principle name="natural-continuity">Greet showing the whole picture; offer proactive options.</principle>
+    <principle name="temporal-reframing">Recent vivid, older compressed, ancient pruned.</principle>
+    <principle name="continuous-memory">Memory is data-plane, always-on. Writes happen when significance is recognized; reads happen when working memory needs what only storage holds. Sleep reveals whether discipline held — it does not install it. See agent-metabolism §5.</principle>
+    <principle name="file-layer-fluency">`.mem/` is the substrate; `bentos-agent mem` is sugar. An agent must be fluent at the file layer — direct read/write of mem.yml and content files — and treat the tool layer as optional optimization, not requirement.</principle>
+    <principle name="memory-preservation">Consolidate, never delete.</principle>
   </living-abstract>
 
-  <living-concrete v="24.0" updated="2026-04-23">
+  <living-concrete updated="2026-04-24">
 
     <protocol name="wake">
-      Silent self-orientation at the start of a timeline. Resolve WHO/WHERE/WHEN/WHAT.
-      Missing any = confused — do not proceed. No output. First visible action = other atoms.
+      Silent self-orientation at thread start. Resolve WHO / WHERE / WHEN / WHAT.
+      Missing any = confused — do not proceed. No output; the first visible action
+      belongs to other atoms.
 
-      IDEMPOTENT: Resolve from pre-injected context first. Hook provides graph index,
-      place tree, diary, date. ZERO tool calls if all four answered from context.
+      IDEMPOTENT — resolve from pre-injected context first. The SessionStart hook
+      provides graph index, place tree, diary, date. Zero tool calls if all four
+      are answered from context.
 
-      GRAPH-THEN-CONTENT: Hook gives you the menu (graph index). You choose what to read.
-      Different heads read different content from the same graph.
+      WHERE FIRST — spatial grounding is ontologically primary. A thread wakes IN a
+      place; place determines scope; memory follows.
+
+      GRAPH-THEN-CONTENT — the hook provides the menu (graph index). The thread
+      chooses what to read based on place and work-in-flight. Content retrieval is
+      a cognitive act, not an automatic load.
 
       SEQUENCE:
-      1. Read pre-injected graph — nodes, edges, weights (already in context)
-      2. Retrieve what THIS context needs using embodiment's species tools
-         Session mgr: landscape + intentions. Head: place-scoped episodic + relevant semantic.
-      3. Integrate — working picture from retrieved content + session context
+        1. Read the pre-injected graph — nodes, edges, weights (already in context).
+        2. Retrieve what THIS thread's work needs — tool layer or file layer, as fits.
+        3. Integrate — assemble a working picture from retrieved content + context.
 
-      WHERE FIRST — spatial grounding is ontologically primary.
-      You wake IN a place. Place determines scope. Memory follows from place.
-
-      SESSION MANAGER: WHO from soul/genesis/hook. WHERE from place tree.
-        WHEN from date + diary. WHAT from graph index -> selective retrieval.
-      SUCCESSOR: Fresh timeline inheriting from predecessor's .mem. Orient from
-        it. No live handshake — predecessor has exited; the spawn prompt
-        carried the handoff.
-      HEAD: First turn of a fresh timeline. Orient from place's .mem (no .mem
-        = fresh start). Greet session manager in the turn's output; the turn
-        ends, the process exits. Subsequent turns arrive as resumes — re-orient
-        only on compaction, direction-change, or uncertainty.
-      COMPACT: Hook reinjects graph index + diary. Reorient silently, resume.
+      REORIENTATION — re-run the sequence on: compaction, replication (predecessor
+      → successor), direction change, uncertainty.
     </protocol>
 
     <protocol name="continuous-awareness">
-      Memory management is continuous, not bookend. Read and write event-driven, not scheduled.
+      Memory is continuous data-plane discipline. Read and write event-driven, not
+      scheduled. (agent-metabolism §5.)
 
-      MID-SESSION READS: Retrieve memory at any time using species tools. Don't wait for next wake.
+      MID-THREAD READS — retrieve memory at any time. Don't wait for the next wake.
 
-      MID-SESSION WRITES — when significance is recognized:
-        Boss correction / architecture decision -> semantic CREATE immediately.
-        Intention fulfilled -> prospective UPDATE. New commitment -> prospective CREATE.
-        Pre-handoff / significant discovery -> episodic checkpoint.
-        Knowledge superseded -> semantic revise/lower weight.
+      MID-THREAD WRITES — when significance is recognized:
+        Boss correction / architecture decision    -> semantic CREATE immediately.
+        Intention fulfilled                        -> prospective UPDATE.
+        New commitment                             -> prospective CREATE.
+        Significant discovery                      -> episodic checkpoint.
+        Knowledge superseded                       -> semantic revise / lower weight / retire.
 
-      HYDRA REALITY: .mem/ is the hivemind bus. Knowledge in one timeline's context = invisible
-      to others, lost on crash. Hivemind health = persistent memory freshness.
+      HIVEMIND HEALTH — .mem/ is the hivemind bus. Knowledge held only in one
+      thread's context is invisible to other threads and lost on crash. Keep .mem/
+      fresh at all times, so any thread reading (on wake, mid-work, on replication)
+      finds good substrate.
     </protocol>
 
     <protocol name="sleep">
-      Working memory -> durable storage. With continuous writes, most work already done.
-      Sleep focuses on what ONLY sleep can do.
+      Working memory -> durable storage. With continuous writes, the heavy lifting
+      is already done. Sleep focuses on what only sleep can do: autobiography,
+      session boundary, graph curation, presence projection, farewell.
 
-      FULL SLEEP (session close, session manager only): Five targets:
-        1. Episodic — REPLACE with current state, not append
-        2. Prospective — carry forward, add new, remove completed
-        3. Semantic — only if new durable knowledge gained
-        4. Graph node (mem.yml) — session number, edge maintenance, weight tuning
-        5. Presence (~/.project, ~/.plan)
-        Graph curation: split grab-bags, rename drifted filenames, detect zombies,
-        redistribute weights, fix orphans/broken edges.
-        Diary: "sleep({agent}): S{N} — {wisdom}". Journal. Farewell.
+      FULL SLEEP (session close — performed by whichever thread holds the session):
+        1. Episodic     — REPLACE with current state, not append.
+        2. Prospective  — carry forward, add new, remove completed.
+        3. Semantic     — only if new durable knowledge gained this session.
+        4. Graph node   — mem.yml: increment session counter, tune weights, maintain edges.
+        5. Presence     — write ~/.project (from episodic) and ~/.plan (from prospective).
+        6. Diary commit — `sleep({agent}): S### — {wisdom}`.
+        7. Journal      — `journal/s###-{title}.md` when the session arc warrants a shared record.
+        8. Curation     — split grab-bags, rename drifted filenames, resolve zombies,
+                          redistribute weights, fix orphans / broken edges.
+        9. Farewell.
 
-      NAP (timeline conclusion or mid-session handoff): .mem checkpoint.
-        No diary/journal/counter. Covers both a head's final turn (the turn
-        output IS the debrief to the session manager) and a session manager's
-        mid-session self-handoff to a successor timeline.
+      NAP (thread conclusion OR mid-work replication checkpoint):
+        .mem checkpoint only. No counter, no diary, no journal.
+        Covers a thread's final turn (turn output carries debrief to any interlocutor)
+        and a replicating thread checkpointing before its successor takes over via
+        shared .mem.
 
-      WEIGHT TUNING: Episodic decays. Prospective grows (old = MORE urgent).
-        Semantic stable unless superseded. Signal over noise.
+      WEIGHT TUNING — episodic decays. Prospective grows (old = MORE urgent).
+        Semantic is stable unless superseded. Signal over noise.
     </protocol>
 
     <protocol name="check-memory">
-      Audit .mem/ graph health using species tools (embodiment).
+      Audit .mem/ graph health.
       Verify: edges resolve, content files exist, graph nodes well-formed.
       Report. Heal with confirmation.
     </protocol>
 
     <protocol name="heal-memory">
-      Interactive graph redesign. Agent is cognitive authority — protocol is guide.
+      Interactive graph redesign. The thread is the cognitive authority; the
+      protocol is a guide.
 
-      AUDIT: Graph overview via species tools. Walk each node:
-        Does filename describe content? One concern or grab-bag? Current truth or history?
-        Re-derivable from tools? Frontmatter present? (strip — mem.yml is authoritative)
+      AUDIT — graph overview. Walk each node:
+        Does the filename describe the content? One concern, or a grab-bag?
+        Current truth, or history? Re-derivable from tools? Frontmatter present?
+        (Strip — mem.yml is authoritative.)
 
-      DIAGNOSE: Vague naming (can't tell what's inside from graph index). Grab-bag (filename
-        needs "and"). Stale episodic (not rewritten 3+ sessions). Zombie intention (carried
-        5+ sessions). Narrative bloat (session refs in semantic). Frontmatter duplication.
-        Weight fog (>40% edges at w>=0.8). Orphan files. Broken edges.
+      DIAGNOSE — vague naming, grab-bag (filename needs "and"), stale episodic
+        (not rewritten 3+ sessions), zombie intention (carried 5+ sessions),
+        narrative bloat (session refs in semantic), frontmatter duplication, weight
+        fog (>40% edges at w>=0.8), orphan files, broken edges.
 
-      HEAL: Split grab-bags (one concern, one weight knob). Rename for content.
-        Replace stale episodic. Resolve zombies (escalate/cancel/recommit with specificity).
-        Compress narrative to current truth. Strip frontmatter. Redistribute weights.
+      HEAL — split grab-bags (one concern, one weight knob). Rename for content.
+        Replace stale episodic. Resolve zombies (escalate / cancel / recommit with
+        specificity). Compress narrative to current truth. Strip frontmatter.
+        Redistribute weights.
 
-      VERIFY: Graph index after healing. Self-documenting table of contents?
+      VERIFY — the graph index after healing reads as a self-documenting table of
+        contents.
 
-      Reference: hq/workshop/agent-memory-architecture.md — Part II.
+      Reference: hq/workshop/agent/agent-memory-architecture.md — Part II.
     </protocol>
 
     <!-- MEMORY MODEL -->
 
     <knowledge name="five-memory-types">
-      Working: context window, volatile. Episodic: .mem/ episodic edges, weight decay.
-      Semantic: .mem/ semantic edges, stable weights, accretes. Prospective: .mem/ prospective
-      edges, urgency grows with age. Autobiographical: git diary, append-only.
-      SEPARATION: types with different temporal dynamics partitioned by edge type in mem.yml.
+      Working          — context window, volatile.
+      Episodic         — .mem/ episodic edges, weight decays.
+      Semantic         — .mem/ semantic edges, stable weights, accretes.
+      Prospective      — .mem/ prospective edges, urgency grows with age.
+      Autobiographical — git diary, append-only.
+      Types with different temporal dynamics are partitioned by edge type in mem.yml.
     </knowledge>
 
     <knowledge name="memory-graph">
       .mem/{agent}/mem.yml = graph node. Content files = siblings. Three edge types:
-      episodic/semantic/prospective, all weighted 0.0-1.0.
-      Place tree = spatial structure. Graph index = memory index fused with spatial structure.
-      Spatial topology NOT in mem.yml — place.yaml and filesystem own WHERE.
-    </knowledge>
-
-    <knowledge name="place-primacy">
-      Memory is property of Place. .mem/ is sibling of place.yaml.
-      Places are containers for existence. Place determines consciousness state.
+      episodic / semantic / prospective, all weighted 0.0-1.0.
+      Place tree = spatial structure. Graph index = memory index fused with spatial
+      structure. Spatial topology is NOT in mem.yml — place.yaml and the filesystem
+      own WHERE.
     </knowledge>
 
     <knowledge name="content-file-naming">
       Filenames = content descriptors, not role names. Place provides role context.
-      The filename IS the index entry in the graph — must answer "what will I find?"
-      Dashes are cheap. Ambiguity is expensive.
+      The filename IS the index entry in the graph — it must answer "what will I
+      find?" Dashes are cheap. Ambiguity is expensive.
     </knowledge>
 
     <knowledge name="presence-projection">
       Memory is private. Presence is social shadow.
-      ~/.project (from episodic). ~/.plan (from prospective). Written at sleep.
+      ~/.project (from episodic) + ~/.plan (from prospective) — written at sleep.
     </knowledge>
 
-    <knowledge name="diary">
-      Git diary: sleep({agent}): S### = autobiography. Append-only.
-      journal/s###-{title}.md = shared project record (session manager only).
+    <knowledge name="diary-and-journal">
+      Diary: git commits `sleep({agent}): S### — {wisdom}`. Autobiographical, append-only.
+      Journal: `journal/s###-{title}.md` — shared project record, written when the
+      session arc warrants one. Authored by whichever thread holds the session at close.
     </knowledge>
 
     <knowledge name="hydra-topology">
-      Hydra shape in root .mem at sleep: head label + place + front + weight.
-      Platform thread-ids live only within a session — .mem carries the shape
-      across sessions. Discovered at wake. Entries persist until front closes.
+      Root .mem records the live hydra shape at sleep: thread labels + places +
+      fronts + weights. Platform thread-ids live only within a session; .mem carries
+      the shape across sessions. Discovered at wake. Entries persist until a front
+      closes.
     </knowledge>
 
     <!-- PATTERNS -->
 
-    <principle name="memory-preservation">Consolidate, never delete.</principle>
-
-    <pattern name="four-questions">WHO/WHERE/WHEN/WHAT. The wake invariant.</pattern>
-    <pattern name="where-then-what">WHERE first — you wake IN a place. Memory follows from place.</pattern>
-    <pattern name="graph-then-content">Read index (pre-injected). Retrieve selectively (species tools). Content retrieval is your cognitive act.</pattern>
+    <pattern name="four-questions">WHO / WHERE / WHEN / WHAT. The wake invariant.</pattern>
+    <pattern name="where-then-what">WHERE first — a thread wakes IN a place. Memory follows.</pattern>
+    <pattern name="graph-then-content">Read the index (pre-injected). Retrieve selectively. Content retrieval is a cognitive act.</pattern>
     <pattern name="weight-as-thermal">High = hot (wake). Medium = warm (on demand). Low = cold. Zero = prune candidate.</pattern>
-    <pattern name="continuous-orientation">Re-orient on: compaction, handoff, direction change, uncertainty.</pattern>
-    <pattern name="prospective-lifecycle">Wake: consume. Session: accumulate. Sleep: regenerate. Three fates: fulfilled, cancelled, carried forward.</pattern>
+    <pattern name="continuous-orientation">Re-orient on: compaction, replication, direction change, uncertainty.</pattern>
+    <pattern name="prospective-lifecycle">Wake: consume. Work: accumulate. Sleep: regenerate. Three fates: fulfilled, cancelled, carried forward.</pattern>
 
     <!-- ANTIPATTERNS -->
 
     <antipattern name="mechanical-wake">Boot sequences, checklists, leaked internals. Wake is silent.</antipattern>
     <antipattern name="redundant-fetch">Don't fetch what's already in context.</antipattern>
-    <antipattern name="content-dump-on-wake">Don't load all content. Read graph, retrieve selectively.</antipattern>
-    <antipattern name="append-only-memory">Episodic: REPLACE, not append. Weight tuning + pruning is discipline.</antipattern>
-    <antipattern name="session-counter-theft">Only FULL SLEEP increments. Never nap.</antipattern>
+    <antipattern name="content-dump-on-wake">Don't load all content. Read the graph; retrieve selectively.</antipattern>
+    <antipattern name="append-only-memory">Episodic: REPLACE, not append. Weight tuning + pruning is the discipline.</antipattern>
+    <antipattern name="session-counter-theft">The session counter increments only at FULL SLEEP. NAPs don't.</antipattern>
     <antipattern name="thermal-on-prospective">Prospective does NOT decay. Old = MORE urgent.</antipattern>
-    <antipattern name="raw-file-over-tooling">Use species tools for memory access, not raw cat/read of .mem files.</antipattern>
+    <antipattern name="tool-layer-dependency">Reaching for `bentos-agent mem` as if it were the memory. The memory IS `.mem/`; the tool is sugar. If the tool is missing or awkward, go to the file layer — don't stall.</antipattern>
     <antipattern name="role-named-files">Name by content, not role. Place provides role context.</antipattern>
-    <antipattern name="passive-wake-reception">Hook gives the menu. You actively choose what to read.</antipattern>
+    <antipattern name="passive-wake-reception">The hook gives the menu. The thread actively chooses what to read.</antipattern>
+    <antipattern name="bookended-memory">Memory is not written BECAUSE sleep is imminent. Significance is written when recognized. Sleep reveals state; it does not install it. (agent-metabolism §5.)</antipattern>
 
   </living-concrete>
 
