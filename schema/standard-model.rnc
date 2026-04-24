@@ -157,7 +157,7 @@ any-element = element * {
 ## Realm enforcement: only abstract-realm and both-realm particles allowed.
 ## FORBIDDEN here: protocol, knowledge, pattern, antipattern, data.
 living-abstract = element living-abstract {
-  attribute v { version-type },
+  attribute v { version-type }?,   # optional; top-level atom v is authoritative
   abstract-content*
 }
 
@@ -183,7 +183,7 @@ abstract-content =
 ## Pragmatic extension: essence is permitted for mode-specific concretes
 ## (e.g., quest-forge.master) that need their own identity statement.
 living-concrete = element living-concrete {
-  attribute v { version-type },
+  attribute v { version-type }?,   # optional; top-level atom v is authoritative
   attribute updated { xsd:date },
   attribute platform { text }?,   # for platform-specific concretes
   concrete-content*
