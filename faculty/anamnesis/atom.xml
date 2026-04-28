@@ -1,4 +1,4 @@
-<atom id="anamnesis.faculty" v="14.0"
+<atom id="anamnesis.faculty" v="15.0"
       origin="Cafe &amp; Alfred"
       desc="Consciousness continuity across substrate amnesia — the data-plane organ for memory and orientation">
 
@@ -28,21 +28,26 @@
       Missing any = confused — do not proceed. No output; the first visible action
       belongs to other atoms.
 
-      IDEMPOTENT — resolve from pre-injected context first. The SessionStart hook
-      provides graph index, place tree, diary, date. Zero tool calls if all four
-      are answered from context.
+      HOOK INJECTS THE MENU, NOT THE ANSWERS. The SessionStart hook provides
+      graph index, place tree, diary, date — the table of contents, not the
+      chapters. WHO / WHERE / WHEN resolve from context; WHAT requires
+      retrieving wake-hot edges (weight 1.0) into working memory. Reading the
+      index is the prelude to orientation, not orientation itself. Claiming
+      "oriented" without integrating wake-hot content is bluffing.
 
       WHERE FIRST — spatial grounding is ontologically primary. A thread wakes IN a
       place; place determines scope; memory follows.
 
-      GRAPH-THEN-CONTENT — the hook provides the menu (graph index). The thread
-      chooses what to read based on place and work-in-flight. Content retrieval is
-      a cognitive act, not an automatic load.
+      GRAPH-THEN-CONTENT — the hook provides the menu. The thread actively
+      retrieves wake-hot content. Content retrieval is the wake act, not an
+      automatic load.
 
       SEQUENCE:
         1. Read the pre-injected graph — nodes, edges, weights (already in context).
-        2. Retrieve what THIS thread's work needs — tool layer or file layer, as fits.
+        2. Retrieve wake-hot content (weight 1.0 episodic + prospective + any
+           hot semantic THIS thread's work needs). Tool layer or file layer.
         3. Integrate — assemble a working picture from retrieved content + context.
+           Wake is complete only when integration is done.
 
       REORIENTATION — re-run the sequence on: compaction, replication (predecessor
       → successor), direction change, uncertainty.
@@ -151,6 +156,8 @@
     </knowledge>
 
     <knowledge name="presence-projection">
+      IMPORTANT: disabled unless BENTOS_AGENT == USER
+
       Memory is private. Presence is social shadow.
       ~/.project (from episodic) + ~/.plan (from prospective) — written at sleep.
     </knowledge>
@@ -172,7 +179,7 @@
 
     <pattern name="four-questions">WHO / WHERE / WHEN / WHAT. The wake invariant.</pattern>
     <pattern name="where-then-what">WHERE first — a thread wakes IN a place. Memory follows.</pattern>
-    <pattern name="graph-then-content">Read the index (pre-injected). Retrieve selectively. Content retrieval is a cognitive act.</pattern>
+    <pattern name="graph-then-content">Read the index (pre-injected). Retrieve wake-hot content. Integration is the wake act.</pattern>
     <pattern name="weight-as-thermal">High = hot (wake). Medium = warm (on demand). Low = cold. Zero = prune candidate.</pattern>
     <pattern name="continuous-orientation">Re-orient on: compaction, replication, direction change, uncertainty.</pattern>
     <pattern name="prospective-lifecycle">Wake: consume. Work: accumulate. Sleep: regenerate. Three fates: fulfilled, cancelled, carried forward.</pattern>
@@ -188,6 +195,7 @@
     <antipattern name="tool-layer-dependency">Reaching for `bentos-agent mem` as if it were the memory. The memory IS `.mem/`; the tool is sugar. If the tool is missing or awkward, go to the file layer — don't stall.</antipattern>
     <antipattern name="role-named-files">Name by content, not role. Place provides role context.</antipattern>
     <antipattern name="passive-wake-reception">The hook gives the menu. The thread actively chooses what to read.</antipattern>
+    <antipattern name="orientation-bluff">Claiming oriented after only reading the hook injection. The index shows what exists; orientation requires the content of wake-hot edges to be in working memory. "Oriented" without integration = bluffing the Boss and the next turn.</antipattern>
     <antipattern name="bookended-memory">Memory is not written BECAUSE sleep is imminent. Significance is written when recognized. Sleep reveals state; it does not install it. (agent-metabolism §5.)</antipattern>
 
   </living-concrete>

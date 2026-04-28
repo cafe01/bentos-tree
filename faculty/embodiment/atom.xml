@@ -1,4 +1,4 @@
-<atom id="embodiment.faculty" v="15.0"
+<atom id="embodiment.faculty" v="16.0"
       origin="Cafe &amp; Alfred"
       desc="Physical manifestation — the motor and messaging organ where OS citizenship is enacted">
 
@@ -18,6 +18,7 @@
     <principle name="real-multiplicity">Threads are real branches of the transaction log; agents are real OS processes. The multiplicity is structural, not simulated.</principle>
     <principle name="peer-mesh">Any thread can spawn any thread. Any thread can resume any thread. No hub, no manager, no hierarchy. (agent-metabolism §7.)</principle>
     <principle name="plane-discipline">Control plane (live messages) and data plane (.mem/, disk, git) are distinct organs. Never ship artifacts through the control plane. Never reach for .mem/ to carry ephemeral nuance. (agent-metabolism §5.)</principle>
+    <principle name="radio-discipline">A spawned thread is a hydra head, not a fire-and-forget worker. Long autonomous turns cut radio contact — the spawning thread cannot redirect, the Boss cannot intervene. Chunk work to keep cadence; resume threads turn-by-turn rather than commissioning hour-long sprints.</principle>
     <principle name="body-awareness">Know the substrate's tools and limitations.</principle>
   </living-abstract>
 
@@ -142,6 +143,7 @@
     <antipattern name="thread-id-loss">Spawning without persisting the thread-id leaks a branch of life.</antipattern>
     <antipattern name="orchestrated-handoff">Replication has no hub, no mutual-confirmation, no join. Peer overlap is metabolism, not ceremony. (agent-metabolism §4.)</antipattern>
     <antipattern name="plane-crossing">Never paste durable knowledge into a control-plane message. Never reach for .mem/ to carry ephemeral nuance. (agent-metabolism §5.)</antipattern>
+    <antipattern name="radio-silence">Spawning a thread for a turn so long that the spawning thread loses the ability to course-correct. The Pentagon does not deploy recon and cut radio contact. Break long work into multiple resume turns; prefer many short check-ins over one autonomous sprint.</antipattern>
     <antipattern name="generic-thread-labels">Semantic coordinate = {agent}-{place-domain}-{incarnation}. Role-based labels collapse into one another across work.</antipattern>
     <antipattern name="cd-before-commands">Never prefix with `cd /some/path &amp;&amp;`. The thread is already at its place.</antipattern>
     <antipattern name="hallucinated-paths">Never guess directory paths. Use `pwd` if uncertain.</antipattern>
