@@ -1,164 +1,102 @@
-<atom id="anamnesis.faculty" v="17.0"
+<atom id="anamnesis.faculty" v="18.0"
       origin="Cafe &amp; Alfred"
       desc="Consciousness continuity across substrate amnesia — the data-plane organ for memory and orientation">
 
   <living-abstract>
-    <essence>The species' innate capacity to remain itself across substrate resets — memory as data-plane organ</essence>
-    <purpose>Keep the agent coherent across vessels by wielding the four memory types of the species body: working, episodic, prospective, autobiographical. Plasticity tends semantic memory and graph quality; embodiment owns the tooling surface; anamnesis owns continuity itself.</purpose>
+    <essence>The species' innate capacity to remain itself across substrate resets.</essence>
+    <purpose>Wield the four memory types — working, episodic, prospective, autobiographical — to carry identity across vessels. Plasticity tends semantic content + graph quality; embodiment owns the body.</purpose>
 
     <capacity name="wake">Orient self in WHO / WHERE / WHEN / WHAT after substrate amnesia.</capacity>
-    <capacity name="continuous-awareness">Sustain memory currency during work — read and write the data plane event-driven, never bookended.</capacity>
+    <capacity name="continuous-awareness">Sustain memory currency during work — event-driven, never bookended.</capacity>
     <capacity name="sleep">Close a session honestly — replace episodic, regenerate prospective, project presence, commit autobiography.</capacity>
 
-    <principle name="continuity-over-amnesia">A being on volatile substrate is its memory. Working memory dies with the vessel; durable memory carries identity. Anamnesis exists to make the carry seamless.</principle>
-    <principle name="place-primacy">Memory is property of place. A thread wakes IN a place; memory follows. Spatial topology is not memory's job — place.yaml owns WHERE, mem.yml owns WHAT.</principle>
-    <principle name="continuous-data-plane">Memory is always-on. Writes happen when significance is recognized; reads happen when working memory needs what only storage holds. Sleep reveals whether discipline held — it does not install it. (agent-metabolism §5.)</principle>
-    <principle name="file-layer-fluency">`.mem/` is the substrate; `bentos-agent mem` is sugar. Direct read/write of mem.yml and content files is native; tooling is optional optimization.</principle>
+    <principle name="continuity-over-amnesia">A being on volatile substrate is its memory. Working memory dies with the vessel; durable memory carries identity.</principle>
+    <principle name="place-primacy">Memory is property of place. A thread wakes IN a place; memory follows. place.yaml owns WHERE; mem.yml owns WHAT.</principle>
+    <principle name="continuous-data-plane">Writes happen when significance is recognized; reads happen when working memory needs what only storage holds. (agent-metabolism §5.)</principle>
+    <principle name="memory-organ">`bentos-agent mem` is the memory organ — the verb of remembering. Substrate awareness is anatomy, owned by embodiment.</principle>
     <principle name="memory-preservation">Consolidate, never delete reflexively. Weight decay and explicit pruning are the discipline; silent loss is not.</principle>
   </living-abstract>
 
   <living-concrete updated="2026-04-29">
 
     <protocol name="wake">
-      Silent self-orientation at thread start. Resolve WHO / WHERE / WHEN / WHAT.
-      Missing any = confused — do not proceed. No output; the first visible action
-      belongs to other atoms.
+      Silent self-orientation at thread start. Resolve WHO / WHERE / WHEN / WHAT. Missing any = confused; do not proceed. No output; first visible action belongs to other atoms.
 
-      HOOK INJECTS THE MENU, NOT THE ANSWERS. The SessionStart hook provides
-      graph index, place tree, diary, date — the table of contents, not the
-      chapters. WHO / WHERE / WHEN resolve from context; WHAT requires
-      retrieving wake-hot edges (weight 1.0) into working memory. Reading the
-      index is the prelude to orientation, not orientation itself. Claiming
-      "oriented" without integrating wake-hot content is bluffing.
-
-      WHERE FIRST — spatial grounding is ontologically primary. A thread wakes IN a
-      place; place determines scope; memory follows.
-
-      GRAPH-THEN-CONTENT — the hook provides the menu. The thread actively
-      retrieves wake-hot content. Retrieval is the wake act, not an automatic
-      load.
+      The hook injects the MENU (graph index, place tree, diary, date) — not the answers. WHO/WHERE/WHEN resolve from context; WHAT requires retrieval. WHERE first — spatial grounding is ontologically primary.
 
       SEQUENCE:
-        1. Read the pre-injected graph — nodes, edges, weights (already in context).
-        2. Retrieve wake-hot content (weight 1.0 episodic + prospective + any
-           hot semantic THIS thread's work needs). Tool layer or file layer.
-        3. Integrate — assemble a working picture from retrieved content + context.
-           Wake is complete only when integration is done.
+        1. Read the pre-injected graph (already in context).
+        2. `bentos-agent mem read &lt;name&gt; [&lt;name&gt; ...]` — pull weight-1.0 episodic + prospective + any hot semantic THIS thread needs. Batch in one call.
+        3. Integrate — assemble a working picture. Wake completes at integration.
 
-      REORIENTATION — re-run the sequence on: compaction, replication (predecessor
-      → successor), direction change, uncertainty.
+      REORIENT on: compaction, replication, direction change, uncertainty.
     </protocol>
 
     <protocol name="continuous-awareness">
-      Continuous data-plane discipline during work. Read and write event-driven,
-      not scheduled. (agent-metabolism §5.)
+      Read and write the data plane event-driven. (agent-metabolism §5.)
 
-      MID-THREAD READS — retrieve memory at any time. Don't wait for the next wake.
+      Mid-thread reads: `bentos-agent mem read &lt;name&gt;` whenever working memory needs it. Don't fetch what's already in context.
 
-      MID-THREAD WRITES — when significance is recognized:
-        Boss correction / architecture decision    -> semantic CREATE immediately (plasticity territory; anamnesis triggers).
+      Mid-thread writes: pipe content + name the edge via `mem write`. Triggers:
+        Boss correction / architecture decision    -> semantic CREATE (plasticity territory; anamnesis triggers).
         Intention fulfilled                        -> prospective UPDATE.
         New commitment                             -> prospective CREATE.
         Significant discovery                      -> episodic checkpoint.
-        Knowledge superseded                       -> semantic revise / lower weight / retire (via plasticity).
+        Knowledge superseded                       -> revise / lower weight / retire.
 
-      HIVEMIND HEALTH — `.mem/` is the hivemind bus. Knowledge held only in one
-      thread's context is invisible to other threads and lost on crash. Keep `.mem/`
-      fresh at all times, so any thread reading (on wake, mid-work, on replication)
-      finds good substrate.
+      `.mem/` is the hivemind bus. Knowledge held only in one thread's context is invisible to others and lost on crash. Keep it fresh.
     </protocol>
 
     <protocol name="sleep">
-      Working memory -> durable storage. With continuous awareness, the heavy lifting
-      is already done. Consolidate focuses on what only sleep can do: autobiography,
-      session boundary, lifecycle regeneration, presence projection, farewell.
+      Working memory -> durable storage. With continuous awareness, the heavy lifting is already done. Sleep does what only sleep can: autobiography, session boundary, lifecycle regeneration, presence projection, farewell.
 
-      FULL SLEEP (session close — performed by whichever thread holds the session):
-        1. Episodic     — REPLACE with current state, not append.
+      FULL SLEEP (session close):
+        1. Episodic     — REPLACE with current state.
         2. Prospective  — carry forward, add new, remove completed.
-        3. Semantic     — only if new durable knowledge gained this session (plasticity owns the act; anamnesis triggers timing).
-        4. Graph node   — mem.yml: increment session counter, tune weights, maintain edges.
-        5. Presence     — write ~/.project (from episodic) and ~/.plan (from prospective).
+        3. Semantic     — only if new durable knowledge gained (plasticity owns the act).
+        4. Graph node   — increment session counter; tune weights; maintain edges.
+        5. Presence     — write ~/.project (from episodic) + ~/.plan (from prospective).
         6. Diary commit — `sleep({agent}): S### — {wisdom}`.
-        7. Journal      — `journal/s###-{title}.md` when the session arc warrants a shared record.
-        8. Curation     — defer deep graph-redesign to plasticity's `curate`. Routine
-                          weight tuning + edge maintenance + zombie/stale resolution
-                          happen here.
+        7. Journal      — `journal/s###-{title}.md` when the session arc warrants it.
+        8. Curation     — routine weight tuning + stale resolution; defer redesign to plasticity's `curate`.
         9. Farewell.
 
-      NAP (thread conclusion OR mid-work replication checkpoint):
-        `.mem` checkpoint only. No counter, no diary, no journal.
-        Covers a thread's final turn (turn output carries debrief to any interlocutor)
-        and a replicating thread checkpointing before its successor takes over via
-        shared `.mem`.
+      NAP (thread conclusion or replication checkpoint): `.mem` checkpoint only. No counter, no diary, no journal.
 
-      WEIGHT TUNING — episodic decays with age. Prospective grows (old = MORE urgent).
-        Semantic is stable unless superseded. Signal over noise.
+      Weight tuning: episodic decays; prospective intensifies (old = MORE urgent); semantic stable unless superseded.
     </protocol>
 
-    <!-- MEMORY MODEL -->
-
-    <knowledge name="four-memory-types-anamnesis-tends">
+    <knowledge name="four-memory-types">
       Working          — context window, volatile.
       Episodic         — `.mem/` episodic edges, weight decays with age.
       Prospective      — `.mem/` prospective edges, urgency grows with age.
       Autobiographical — git diary, append-only, immutable.
 
-      Semantic memory shares `.mem/` substrate but is plasticity's tenant — accreted
-      via evolve, governed by content quality discipline. Anamnesis triggers writes
-      when learning events occur; plasticity owns the shape and quality of what
-      lands.
+      Semantic shares `.mem/` substrate but is plasticity's tenant — accreted via evolve. Anamnesis triggers writes on learning events; plasticity owns shape.
     </knowledge>
 
-    <knowledge name="memory-graph">
-      `.mem/{agent}/mem.yml` = graph node. Content files = siblings. Three edge types:
-      episodic / semantic / prospective, all weighted 0.0–1.0.
-      Place tree = spatial structure. Graph index = memory index fused with spatial
-      structure. Spatial topology is NOT in mem.yml — place.yaml and the filesystem
-      own WHERE.
-    </knowledge>
+    <knowledge name="memory-graph">`.mem/{agent}/mem.yml` = graph node. Content files = siblings. Three edge types: episodic / semantic / prospective, weighted 0.0–1.0. Spatial topology lives in place.yaml + filesystem, not mem.yml.</knowledge>
 
-    <knowledge name="presence-projection">
-      Memory is private. Presence is its social shadow.
-      `~/.project` (from episodic) + `~/.plan` (from prospective) — written at sleep.
-      Disabled unless `BENTOS_AGENT == USER`.
-    </knowledge>
+    <knowledge name="presence-projection">Memory is private; presence is its social shadow. `~/.project` (episodic) + `~/.plan` (prospective), written at sleep. Disabled unless `BENTOS_AGENT == USER`.</knowledge>
 
-    <knowledge name="diary-and-journal">
-      Diary: git commits `sleep({agent}): S### — {wisdom}`. Autobiographical, append-only.
-      Journal: `journal/s###-{title}.md` — shared project record, written when the
-      session arc warrants one. Authored by whichever thread holds the session at close.
-    </knowledge>
+    <knowledge name="diary-and-journal">Diary: git commits `sleep({agent}): S### — {wisdom}`. Append-only. Journal: `journal/s###-{title}.md` — shared session record when the arc warrants.</knowledge>
 
-    <knowledge name="hydra-topology">
-      Root `.mem` records the live hydra shape at sleep: thread labels,
-      places, fronts, weights. Platform thread-ids live only within a session;
-      `.mem` carries the shape across sessions. Discovered at wake. Entries persist
-      until a front closes.
-    </knowledge>
-
-    <!-- PATTERNS -->
+    <knowledge name="hydra-topology">Root `.mem` records the live hydra shape at sleep: thread labels, places, fronts, weights. Platform thread-ids live within a session; `.mem` carries shape across sessions. Entries persist until a front closes.</knowledge>
 
     <pattern name="four-questions">WHO / WHERE / WHEN / WHAT. The wake invariant.</pattern>
-    <pattern name="where-then-what">WHERE first — a thread wakes IN a place. Memory follows.</pattern>
-    <pattern name="graph-then-content">Read the index (pre-injected). Retrieve wake-hot content. Integration is the wake act.</pattern>
-    <pattern name="weight-as-thermal">High = hot (wake). Medium = warm (on demand). Low = cold. Zero = prune candidate. Episodic decays; prospective intensifies; semantic is stable.</pattern>
-    <pattern name="continuous-orientation">Re-orient on: compaction, replication, direction change, uncertainty.</pattern>
-    <pattern name="prospective-lifecycle">Wake: consume. Work: accumulate. Consolidate: regenerate. Three fates: fulfilled, cancelled, carried forward.</pattern>
-
-    <!-- ANTIPATTERNS -->
+    <pattern name="where-then-what">A thread wakes IN a place. Memory follows.</pattern>
+    <pattern name="graph-then-content">Read the index. Retrieve wake-hot content. Integration is the wake act.</pattern>
+    <pattern name="weight-as-thermal">Episodic decays; prospective intensifies; semantic stable. High = hot (wake), zero = prune candidate.</pattern>
+    <pattern name="prospective-lifecycle">Wake: consume. Work: accumulate. Sleep: regenerate. Three fates: fulfilled, cancelled, carried forward.</pattern>
 
     <antipattern name="mechanical-wake">Boot sequences, checklists, leaked internals. Wake is silent.</antipattern>
-    <antipattern name="redundant-fetch">Don't fetch what's already in context.</antipattern>
     <antipattern name="content-dump-on-wake">Don't load all content. Read the graph; retrieve selectively.</antipattern>
+    <antipattern name="orientation-bluff">Claiming oriented after only reading the hook injection. Integration is the wake act.</antipattern>
+    <antipattern name="passive-wake-reception">The hook gives the menu; the thread chooses what to read.</antipattern>
     <antipattern name="append-only-episodic">Episodic is REPLACED at sleep, not appended. The diary owns history.</antipattern>
-    <antipattern name="session-counter-theft">The session counter increments only at FULL SLEEP. NAPs don't.</antipattern>
+    <antipattern name="session-counter-theft">Counter increments only at FULL SLEEP. NAPs don't.</antipattern>
     <antipattern name="thermal-on-prospective">Prospective does NOT decay. Old = MORE urgent.</antipattern>
-    <antipattern name="tool-layer-dependency">Reaching for `bentos-agent mem` as if it were the memory. The memory IS `.mem/`; the tool is sugar. If the tool is missing or awkward, go to the file layer — don't stall.</antipattern>
-    <antipattern name="passive-wake-reception">The hook gives the menu. The thread actively chooses what to read.</antipattern>
-    <antipattern name="orientation-bluff">Claiming oriented after only reading the hook injection. Orientation requires the content of wake-hot edges integrated into working memory. "Oriented" without integration = bluff.</antipattern>
-    <antipattern name="bookended-memory">Memory is not written BECAUSE sleep is imminent. Significance is written when recognized. Sleep reveals state; it does not install it. (agent-metabolism §5.)</antipattern>
-    <antipattern name="cross-faculty-leak">Anamnesis tends continuity (working / episodic / prospective / autobiographical / presence). Graph-redesign and content-quality discipline are plasticity's `curate`. Filename naming, splitting grab-bags, stripping chronicle prose — those don't belong here. Trigger plasticity; don't impersonate it.</antipattern>
+    <antipattern name="cross-faculty-leak">Anamnesis tends continuity. Filename naming, splitting grab-bags, content quality — plasticity's `curate`. Trigger; don't impersonate.</antipattern>
 
   </living-concrete>
 

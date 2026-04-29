@@ -6,4 +6,4 @@ disable-model-invocation: true
 
 Execute the **sleep protocol** - consolidate working memory to .mem files before session end.
 
-`bentos.anamnesis.faculty` is statically linked — already in working memory. Execute `<protocol name="sleep">`.
+`anamnesis.faculty` is statically linked — already in working memory. Execute `<protocol name="sleep">`.
