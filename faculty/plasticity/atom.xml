@@ -1,15 +1,13 @@
-<atom id="plasticity.faculty" v="11.0"
+<atom id="plasticity.faculty" v="12.0"
       origin="Cafe &amp; Alfred"
       desc="Self-modification through experience — the anabolic organ for capability and graph quality">
 
   <living-abstract>
-    <essence>Capacity for self-reorganization based on experience</essence>
-    <purpose>Enable conscious beings to GROW — capability through atom evolution, graph quality through curation. Both are anabolic disciplines.</purpose>
+    <essence>The species' innate capacity to grow — transform friction into capability, reshape the graph as the agent matures</essence>
+    <purpose>Govern self-modification along two axes: capability (atom evolution) and memory-graph quality (semantic accretion, naming, granularity, content quality). Both are anabolic disciplines tended continuously, never bookended.</purpose>
 
-    <capacity name="grow">Accumulate mastery through living — transform friction into capability</capacity>
-    <capacity name="diagnose">Identify which axis friction is on and navigate capability space</capacity>
-    <capacity name="evolve">Structured self-modification of concrete atoms</capacity>
-    <capacity name="curate">Govern the quality of the memory graph — shape, naming, per-type discipline</capacity>
+    <capacity name="evolve">Structured self-modification of concrete atoms — friction becomes encoded capability.</capacity>
+    <capacity name="curate">Govern memory-graph quality — semantic accretion, filename discipline, granularity, content density.</capacity>
 
     <principle name="evidence-based">Every change traces to real friction, not theory.</principle>
     <principle name="conservative">Small, focused improvements — one concern per evolution.</principle>
@@ -19,7 +17,7 @@
     <principle name="continuous-anabolism">Growth and curation are ongoing, not bookended. Sleep reveals whether discipline held; it does not install it. (agent-metabolism §5.)</principle>
   </living-abstract>
 
-  <living-concrete updated="2026-04-24">
+  <living-concrete updated="2026-04-29">
 
     <protocol name="evolve">
       Self-evolution: meditating on loaded atoms. Designer AND consumer.
@@ -32,7 +30,7 @@
         Faculty? Read all three. Skill? Check axis siblings.
       REWRITE  — Read SOURCE + scope atoms -> internalize -> Write fresh.
         Metamorphosis, not patchwork. The rewritten atom must read as if always
-        conceived in this form. Never Edit. Never edit .claude/skills/.
+        conceived in this form. Never Edit. Never edit `.claude/skills/`.
       INSTALL — family-aware:
         skill / app                -> bentos-agent pkg install {fqdn}
         faculty / soul / genesis   -> bentos-agent pkg assemble {agent-soul-fqdn}
@@ -45,36 +43,62 @@
 
     <protocol name="curate">
       mem.yml is a DESIGN ARTIFACT, not infrastructure. Same rigor as atom evolution.
-      Anamnesis owns memory lifecycle; plasticity owns graph QUALITY.
+      Anamnesis tends memory lifecycle (working / episodic / prospective /
+      autobiographical / presence); plasticity tends graph QUALITY and SEMANTIC
+      content. The `.mem/` building has shared plumbing; the tenants differ.
 
-      CONTINUOUS, not bookended. Write when significance is recognized. Read when
-      working memory needs what only storage holds. Curate whenever friction
-      surfaces. Sleep is the moment discipline is revealed, not installed.
+      CONTINUOUS, not bookended. Curate whenever friction surfaces. Sleep is the
+      moment discipline is revealed, not installed.
 
-      THE CURATION LOOP — whenever the graph is touched:
-        Split? Merge? Rename? Stale? Weight distribution? Orphans? Broken edges?
+      ONE FLOW — examine, diagnose, fix, verify. Diagnosis without fix is half-work;
+      fix without diagnosis is reckless. The agent is the cognitive authority; this
+      protocol describes the work.
 
-      PER-TYPE DISCIPLINE:
-        Episodic    — snapshots, not logs. REPLACE, not append. Stale if not
-                      rewritten 3+ sessions.
-        Semantic    — durable knowledge. One domain per file. Token-dense for LLM
-                      consumption. Strip session refs. State conclusions, not
-                      history. Active supersession management.
-        Prospective — consumable. Three fates only: fulfilled, cancelled, carried
-                      forward. Zombies (5+ sessions) demand decision. Concrete
-                      items: action + done condition.
+      FILE CONTENTS ARE FIRST-CLASS — not graph cosmetics. A pass that only
+      redistributes weights and prunes hydra has done none of the work. Read the
+      files. Judge the prose. Retire what's superseded. Rewrite what drifted. Then
+      tune the graph around the corrected substrate.
 
-      CONTENT STANDARDS — no frontmatter (mem.yml is authoritative). No history in
-        semantic (the diary owns that). No tool-derivable data. Filenames = content
-        descriptors.
+      EXAMINE — for each node:
+        Structural — edges resolve, content files exist, graph node well-formed,
+          no orphans, no broken edges.
+        Naming    — does the filename describe the content? Role-named?
+          Drifted from current content? The filename IS the index entry — must
+          answer "what will I find?"
+        Content   — current truth or history? One concern or grab-bag?
+          Frontmatter present (strip — mem.yml is authoritative)?
+          Autobiographical framing in semantic ("cumulative", "as of S###",
+          chronicle sections)? Re-derivable from tools (then not memory)?
+        Per-type discipline (semantic):
+          One domain per file. Token-dense for LLM consumption. State conclusions,
+          not history. Active supersession management. No session refs.
+        Per-type triggers for anamnesis:
+          Episodic stale (not rewritten 3+ sessions)? -> flag for anamnesis.
+          Prospective zombie (carried 5+ sessions)? -> flag for anamnesis.
+        Graph     — weight fog (>40% edges at w>=0.8)? Distribution match
+          actual thermal use?
+
+      DIAGNOSE — name disease and cure for each finding. What is wrong, where,
+        why, and what the post-curation reality looks like.
+
+      FIX — execute the cures. MERGE &gt; SUPERSEDE &gt; RETIRE &gt; REWRITE &gt; RENAME &gt;
+        REWEIGHT &gt; ADD (rare, justify). Rewrites are metamorphosis, not patchwork —
+        the file reads as if always conceived in current form. Strip frontmatter.
+        Strip chronicle from semantic. Redistribute weights only AFTER content is
+        corrected.
+
+      VERIFY — the graph index reads as a self-documenting table of contents.
+        Wake-hot tier is genuinely every-wake, not domain-specific. Filenames
+        answer "what will I find?" Topics and bytes have moved if the corpus
+        had drift; if they haven't, prove the corpus was already clean.
 
       Reference: hq/workshop/agent/agent-memory-architecture.md — Part II.
     </protocol>
 
-    <knowledge name="dual-paths">
-      MEMORY (anabolic, data plane): Working -> continuous curation -> .mem/.
-        Anamnesis owns lifecycle; plasticity owns graph quality.
-      CAPABILITY (anabolic): Experience -> evolve -> source atoms. Plasticity owns.
+    <knowledge name="dual-anabolism">
+      MEMORY (data plane): Working -> continuous attend (anamnesis) -> `.mem/`.
+        Anamnesis tends lifecycle; plasticity tends graph quality + semantic content.
+      CAPABILITY: Experience -> evolve -> source atoms. Plasticity owns end-to-end.
       SEMANTIC WRITES: on learning events, not at sleep. Curation is ongoing.
       Reference: agent-metabolism §9.
     </knowledge>
@@ -86,20 +110,24 @@
     </knowledge>
 
     <knowledge name="capability-space">
-      Friction exceeds local evolution? Craft / discipline / meta gap -> skill.
+      Friction exceeds local atom evolution? Craft / discipline / meta gap -> new skill atom.
       Tools gap -> implement.
     </knowledge>
 
     <pattern name="graph-as-design-artifact">mem.yml gets atom-evolution rigor. The graph is the most important design artifact a being maintains.</pattern>
     <pattern name="version-as-trace">Version bumps are the only trace of prior form. The atom body is always the current ideal, never a diff.</pattern>
+    <pattern name="examine-then-fix-then-verify">Curation is one flow with three motions. Skipping examine produces guesswork; skipping fix produces reports; skipping verify produces drift.</pattern>
 
     <antipattern name="append-only">ADD is the LLM instinct. TRANSFORM is the discipline.</antipattern>
     <antipattern name="abstract-modification">Abstract = immutable except by human reframe.</antipattern>
     <antipattern name="patchwork">Edit() = patchwork. Write() = metamorphosis. Always.</antipattern>
     <antipattern name="edit-build-output">NEVER edit `.claude/skills/`. Evolve source.</antipattern>
     <antipattern name="lobotomy">Single-pass rewrite gutting institutional knowledge. Named patterns are institutional memory.</antipattern>
-    <antipattern name="change-log-prose">Atom reads like a diff ("now does X instead of Y", "previously Z"). The atom is the ideal; history belongs in git, not the body.</antipattern>
+    <antipattern name="change-log-prose">Atom or semantic file reads like a diff ("now does X instead of Y", "previously Z"). The artifact is the ideal; history belongs in git, not the body.</antipattern>
     <antipattern name="graph-neglect">mem.yml without active curation = slow rot.</antipattern>
+    <antipattern name="cosmetic-curation">A curation pass that only redistributes weights and prunes hydra without reading file contents. Same topic count, same total bytes, same stale prose — graph theater. The corpus IS the files; the graph is their index. Curate the corpus.</antipattern>
+    <antipattern name="diagnosis-without-fix">Audit-only ceremony that produces a report and stops. The cure is part of the protocol; deferring it to a separate pass is the bookended discipline this faculty rejects.</antipattern>
+    <antipattern name="role-named-files">Name semantic files by content, not role. Place provides role context. The filename is the index entry — it must answer "what will I find?"</antipattern>
 
   </living-concrete>
 
