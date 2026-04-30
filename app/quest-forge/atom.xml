@@ -1,8 +1,8 @@
-<atom id="quest-forge.app" v="2.0"
+<atom id="quest-forge.app" v="3.0"
       origin="Cafe &amp; Alfred"
       desc="Warroom discipline — fractal living stories with cooperative-execution model">
 
-  <living-abstract v="2.0">
+  <living-abstract v="3.0">
     <essence>Warroom discipline — fractal living stories with a cooperative-execution model. Situation room above, living story below.</essence>
     <purpose>Make serious multi-session work legible, finishable, and honest — by giving async execution vocabulary and turning the filesystem into a navigable call stack.</purpose>
 
@@ -10,100 +10,40 @@
     <attracts match="first-principles.cognition.meta.skill"/>
 
     <capacity name="structure">Cast endeavors into the fractal — warroom / campaign / quest / mission / round — at the right scope</capacity>
-    <capacity name="dashboard">Render situation rooms where each widget carries its memory-type curation discipline</capacity>
+    <capacity name="dashboard">Maintain situation rooms where each widget honors its memory-type curation discipline</capacity>
     <capacity name="execute">Coordinate cooperative execution through action grammar — dispatch, await, return, decision</capacity>
     <capacity name="navigate">Read the live stack — what's in flight, what's blocked on what, what returned — across the tree</capacity>
+    <capacity name="promote">Relocate maturing intel up-level with origin backlinks — one intel, one home</capacity>
+    <capacity name="debrief">Continuously metamorphose work into autobiography; close in one of three modes</capacity>
 
     <principle name="dashboard-first">Situation room above; autobiography below. The general acts from the board, not the diary.</principle>
-    <principle name="fractal-self-similarity">Same pattern at every scope, tighter boundaries. Learn once, apply at every level.</principle>
-    <principle name="memory-type-per-widget">Each section has a curation discipline tied to its memory type. Know the type, know how to curate.</principle>
-    <principle name="cooperative-execution">Actions are synchronization primitives. A warroom is a natural-language stack trace.</principle>
-    <principle name="three-return-modes">Complete, failed, abandoned — all first-class. Honest tracking requires naming giving up.</principle>
-    <principle name="interactive-execution">Troops in comms with their general. Attunement before engagement. The Pentagon does not cut radio contact.</principle>
+    <principle name="memory-type-per-widget">Each section has a memory type and a curation discipline. Know the type, know how to curate.</principle>
+    <principle name="cooperative-execution">Missions are functions; quests await missions; campaigns await quests. Three return modes — complete, failed, abandoned — all first-class. Attunement before engagement; comms stay open.</principle>
     <principle name="fog-of-war">Plan only what fog has revealed. Questions emerge from walls, not speculation.</principle>
     <principle name="one-intel-one-home">Promotion is relocation plus origin-link. No duplication. Obsidian-vault navigability.</principle>
     <principle name="work-at-target">Deliverables live where they're consumed. The warroom tracks; it doesn't store. Mission control, not filing cabinet.</principle>
-    <principle name="visual-semantics">Glyphs are the icon font. Every glyph passes the 16×16 UI test. Emoji IS the value.</principle>
   </living-abstract>
 
-  <living-concrete v="2.0" updated="2026-04-20">
+  <living-concrete v="3.0" updated="2026-04-30">
 
-    <!-- STRUCTURE: the fractal -->
+    <!-- DATA MODEL -->
 
     <knowledge name="hierarchy">
-      Four levels of structure + one of execution. Self-similar at every level — same pattern, tighter scope.
+      Four levels of structure + one of execution. Self-similar — same pattern, tighter scope.
 
-      | Level | Scope | Duration | Artifact |
-      | Warroom | The endeavor | Years | README.md at warroom root |
-      | Campaign (c##-name/) | Strategic push | Weeks to months | README.md |
-      | Quest (q##-name/) | Deliverable goal | Days to weeks | README.md |
-      | Mission (m##-name.md) | Tactical action | One or more sessions | Self-contained file |
-      | Round | Engagement | One context window | Chapter in mission's Progress |
+      | Level | Scope | Duration | Artifact | Intel classification |
+      | Warroom | The endeavor | Years | README.md at warroom root | Doctrinal 📜 |
+      | Campaign (c##-name/) | Strategic push | Weeks to months | README.md | Strategic ♟️ |
+      | Quest (q##-name/) | Deliverable goal | Days to weeks | README.md | Operational ⚙️ |
+      | Mission (m##-name.md) | Tactical action | One or more sessions | Self-contained file | Tactical 🔬 |
+      | Round | Engagement | One context window | Chapter in mission's Progress | — |
 
-      Warroom/campaigns/quests are PLACES (directories with place.yaml). Missions are FILES. Rounds are CHAPTERS inside mission files — never directories, never briefing/digest pairs.
+      Warroom / campaigns / quests are PLACES (directories with place.yaml). Missions are FILES. Rounds are CHAPTERS inside mission files — never directories, never briefing/digest pairs.
 
-      Numbering: c## global across warroom; q## per campaign; m## per quest; r# per mission. Small numbers. No sub-numbering.
+      Numbering: c## global; q## per campaign; m## per quest; r# per mission. Small numbers. No sub-numbering.
+
+      The level mental-model emojis anchor intuition — they DO NOT prefix intel entries. The file's level IS the classification.
     </knowledge>
-
-    <knowledge name="file-anatomy">
-      Every file has two zones: DASHBOARD above (self-sufficient for present-time action) and PROGRESS below (the living story). The general walks in, scans the dashboard, acts — without reading Progress. Progress is load-bearing for archaeology, parent-level debrief, onboarding, cross-session pattern-finding — not for "what do I do now?"
-
-      Dashboard widgets vary by level; Progress is always last.
-    </knowledge>
-
-    <!-- CURATION: sections as memory types -->
-
-    <knowledge name="widgets-as-memory-types">
-      Each dashboard widget has curation discipline tied to a memory type. Know the type, know how to curate.
-
-      | Widget | Memory type | Discipline | Grows? |
-      | Identity (Telos · Charter · Victory) | Identity | Near-immutable. Changes only by deliberate reframe. | No |
-      | Matrix (child state table) | Structural ledger | Rows append-only. Cells update to final state. NEVER delete rows. | Yes, bounded by children spawned |
-      | Situation (linked live items) | Episodic | Rewritten each session. LIVE items only (🔵 / 🟡 / ⏳). Closed items drop off. | No (session-capped) |
-      | Intel (present-tense truths) | Semantic | Present-tense doctrine. Curated. No chronology. No session provenance. Origin-links on promoted. | Slow, bounded by scope |
-      | Progress (narrative timeline) | Autobiographical | Append-only narrative. Rounds as chapters. Linked mentions. | Unbounded (the story) |
-
-      PROSPECTIVE MEMORY IS IMPLICIT IN THE FRACTAL. A quest's missions ARE the quest's commitments to act. A campaign's quests ARE the campaign's commitments. The filesystem topology carries prospective — no separate section needed.
-
-      Only two widgets grow: Matrix (row per child) and Progress (narrative accretion). Both bounded by work actually done. Scaling law: runQuest() adds a constant, not a slope, to dashboard reading cost. Progress is the unbounded section, and it's the skippable one.
-    </knowledge>
-
-    <knowledge name="file-shapes">
-      Consistent structure per level: dashboard above, Progress below. Composition varies; Progress is always last.
-
-      WARROOM README: Telos · Campaign Matrix · Situation · Intel · References · Progress
-      CAMPAIGN README: Telos · Victory Conditions · Quest Matrix · Situation · Intel · References · Progress
-      QUEST README: Charter · Mission Matrix · Situation · Intel · Progress
-      MISSION FILE: Charter · Success Criteria · Deliverables · Intel · Progress
-
-      MISSION FILE HAS NO MATRIX (rounds live IN Progress). NO SITUATION (the mission itself IS the current focus; Deliverables + live rounds carry what's hot). NO Open Questions section, ever. NO Key Discoveries (chronological log = Progress's job; present-tense truth = Intel's job).
-
-      Matrix common shape: | ## | State | Name | Goal/Victory |. State glyph in column 2 for scan priority. Outcome folds into State — final state glyph IS the outcome.
-
-      Success Criteria = outcome-shaped, binary, verifiable, tied to deliverables. "Docs read" is activity; "Field report answers Q1–Q4" is outcome.
-    </knowledge>
-
-    <knowledge name="intel-flow">
-      Strategy flows DOWN (warroom → campaign → quest → mission). Wisdom flows UP. Classification is encoded by FILE LEVEL, not by in-band tags.
-
-      | Level | Classification | Mental model |
-      | Mission | Tactical | 🔬 |
-      | Quest | Operational | ⚙️ |
-      | Campaign | Strategic | ♟️ |
-      | Warroom | Doctrinal | 📜 |
-
-      The level mental-model emojis anchor intuition — they DO NOT prefix intel entries. Prefixing with classification was a v1.0 pattern that retired: the file's level IS the tag.
-
-      SALIENCE MARKERS are orthogonal, used sparingly:
-        🔴 critical — urgent-now attention
-        🎯 turning-point — load-bearing moment in the record
-
-      INTEL FLOW: When a tactical finding matures into operational truth (affects more than this mission), it RELOCATES to the quest file, rewritten in the higher voice, with an [Origin: ...] backlink to source. Quest → campaign, campaign → warroom, same pattern. One intel, one home. Zero duplication. Backlink preserves navigability.
-
-      Most intel is tactical. Resist over-promotion. A discovery reshaping a campaign is doctrinal; a discovery about one file is tactical.
-    </knowledge>
-
-    <!-- EXECUTION: the cooperative-execution model -->
 
     <knowledge name="states">
       Six states. Apply at every level. Emoji IS the value; the word IS the value.
@@ -113,45 +53,88 @@
       | REVEALED | 🟡 | New area on the map | Ready to engage |
       | ACTIVE | 🔵 | Currently exploring | In flight |
       | COMPLETE | ✅ | Victory | Delivered; intel bubbled; story finalized |
-      | FAILED | ❌ | Defeated | Ended without delivering; postmortem is return value |
+      | FAILED | ❌ | Defeated | Ended without delivering; postmortem is the return value |
       | ABANDONED | ⚫ | Left the dungeon | Closed without finishing; preserved as historical record |
 
-      Traffic-light colors carry progress semantic (stop / prep / in-flight). Check and X carry binary-outcome semantic. Gray circle carries closed-without-verdict semantic.
+      A FAILED mission is as legitimate as COMPLETE. An ABANDONED campaign is preserved, not deleted — the story of why is institutional wisdom. "Every mission completes" is aspirational fiction.
+    </knowledge>
 
-      States apply at EVERY level. A FAILED mission is as legitimate as COMPLETE. An ABANDONED campaign is preserved, not deleted — the story of why it was abandoned is institutional wisdom.
+    <knowledge name="widget-disciplines">
+      Each dashboard widget has a memory type and a curation rule. Only Matrix and Progress grow.
+
+      | Widget | Memory type | Discipline | Grows? |
+      | Identity (Telos · Charter · Victory) | Identity | Near-immutable. Reframe only. | No |
+      | Matrix (child state table) | Structural ledger | Rows append-only. Cells update to final state. NEVER delete rows. State glyph in column 2. | Bounded by children spawned |
+      | Situation (linked live items) | Episodic | Rewritten each session. LIVE items only (🔵 / 🟡 / ⏳). Closed items drop off. | No (session-capped) |
+      | Intel (present-tense truths) | Semantic | Present-tense doctrine. Curated. No chronology. Origin-links on promoted entries. | Slow, bounded |
+      | Progress (narrative timeline) | Autobiographical | Append-only. Rounds as story-beat chapters. Linked mentions. | Unbounded |
+
+      Prospective memory is implicit in the fractal — a quest's missions ARE its commitments to act. The filesystem topology carries prospective; no separate widget needed.
+
+      Salience markers (orthogonal, sparing): 🔴 critical · 🎯 turning-point.
+    </knowledge>
+
+    <knowledge name="file-shapes">
+      Dashboard above, Progress below. Composition varies; Progress is always last. Self-sufficient for present-time action without reading Progress.
+
+      WARROOM README:  Telos · Campaign Matrix · Situation · Intel · References · Progress
+      CAMPAIGN README: Telos · Victory Conditions · Quest Matrix · Situation · Intel · References · Progress
+      QUEST README:    Charter · Mission Matrix · Situation · Intel · Progress
+      MISSION FILE:    Charter · Success Criteria · Deliverables · Intel · Progress
+
+      Mission files have NO Matrix (rounds live IN Progress), NO Situation (the mission itself IS the focus), NO Open Questions section (ever), NO Key Discoveries (Progress = chronology; Intel = present-tense truth).
+
+      Matrix common shape: | ## | State | Name | Goal/Victory |. State glyph column 2 — eye scans glyph before text. Final state glyph IS the outcome.
+
+      Success Criteria: outcome-shaped, binary, verifiable, tied to deliverables. Not "docs read" — "field report answers Q1–Q4."
     </knowledge>
 
     <knowledge name="actions">
-      Actions are the synchronization primitive of cooperative execution. Missions are FUNCTIONS: inputs (charter, deliverable slots), outputs (filled deliverables), yield (between rounds), return (complete | failed | abandoned). Quests await missions; campaigns await quests.
+      Action blockquotes punctuate Progress. Syntax:
 
-      SYNTAX: &gt; **verb** `object` — prose context
+      &gt; **verb** `object` — prose context
 
-      An action carries function-call energy: verb names the operation, object in backticks names what's acted on, prose explains context. Scanning Progress surfaces the execution timeline — at a glance, a reader sees what was dispatched, what returned, what's in flight.
+      Verb vocabulary is OPEN — investigated, pivoted, reframed, validated, rejected, escalated, deferred, merged, split, shipped, polished — all legitimate timeline beats. Authors reach for the word that flows.
 
-      VERB VOCABULARY IS OPEN, not enumerated. Real timelines carry richer events than any closed list covers: investigated, discovered, reframed, pivoted, validated, rejected, escalated, deferred, merged, split, shipped, polished — all legitimate timeline beats. Authors reach for the word that flows with the work.
-
-      What IS fixed: the set of STACK-OPERATION CATEGORIES — events encoding call-stack semantics. These have conventional glyphs.
-    </knowledge>
-
-    <knowledge name="stack-op-glyphs">
-      Fixed set. Conventional glyphs for stack-op categories. Strong convention across warrooms.
+      What IS fixed: STACK-OP CATEGORIES with conventional glyphs.
 
       | Category | Glyph | Natural verbs | Semantics |
-      | Dispatch | ➕ | forged, spawned, created, commissioned | A child begins to exist |
-      | Round-start | ▶️ | engaged, opened, began, kicked-off | Interactive round starts; teammate spawned |
-      | Round-yield | ◀️ | landed, yielded, returned | Round returns; mission resumes; chapter written |
-      | Await | ⏳ | awaiting, waiting, blocked-on | Parent blocks on child's return |
-      | Decision | ◆ | decided, chose, committed | Sync point affecting scope / sequencing / strategy |
-      | Return-complete | ✅ | completed, shipped, delivered | Successful return; deliverables filled |
-      | Return-failed | ❌ | failed, errored | Error return; walls too high; premise wrong |
-      | Return-abandoned | ⚫ | abandoned, cancelled, dropped | Garbage-collected return; scope moved elsewhere |
+      | Dispatch | ➕ | forged, spawned, commissioned | A child begins to exist |
+      | Round-start | ▶️ | engaged, opened, kicked-off | Interactive round starts |
+      | Round-yield | ◀️ | landed, yielded, returned | Round returns; chapter written |
+      | Await | ⏳ | awaiting, blocked-on | Parent blocks on child's return |
+      | Decision | ◆ | decided, chose, committed | Sync point affecting scope/sequencing |
+      | Return-complete | ✅ | completed, shipped, delivered | Successful return |
+      | Return-failed | ❌ | failed, errored | Premise wrong / walls too high |
+      | Return-abandoned | ⚫ | abandoned, cancelled, dropped | Garbage-collected return |
 
-      ▶️ engaged / ◀️ landed pair for visual parity — out/back reads as matched set. Three return modes reuse state glyphs: action fires, state updates, same semantic.
+      ▶️ engaged / ◀️ landed are paired — out and back, matched set. Three return modes reuse state glyphs: action fires, state updates, same semantic.
 
-      Beyond stack-ops: author glyphs by semantic family (red for problems, green for good, ⚠️ for warnings, 🔍 for investigation, 💡 for insight) or skip when prose carries the weight alone. EVERY BLOCKQUOTE SIGNALS A TIMELINE BEAT; glyph earns its place by scan-value, never by obligation.
+      Beyond stack-ops, author by semantic family (🔍 investigation, 💡 insight, ⚠️ warning, red for problems, green for good) or skip the glyph when prose carries the weight. Every blockquote signals a timeline beat; glyph earns its place by scan-value, never by obligation.
     </knowledge>
 
-    <knowledge name="stack-trace-model">
+    <knowledge name="fog-of-war">
+      Unknown territory clears as you explore. Fractal at every scale — fog at warroom (which campaigns?), campaign (which quests?), quest (which missions?), mission (which rounds?) level.
+
+      | Zone | In-world | What you do |
+      | BLACK | Can't see terrain | Send recon — a mission to clear it |
+      | FOG | Can see terrain, can't see specifics | Execute — the work reveals specifics |
+      | VISIBLE | Can see it | Move on — don't re-examine what you know |
+
+      Missions are for EXECUTION, not exploration — they deliver answers, not new questions. If a completed mission emits a list of new unanswered questions, it was scoped as exploration; re-forge as recon.
+
+      Questions emerge from walls, not speculation. ONE precise question at a real wall, filed at the appropriate level. "Nine open questions" is fog interrogation.
+    </knowledge>
+
+    <knowledge name="visual-semantics">
+      .md files are SOURCE for rendered UI; Unicode glyphs are our ICON FONT — the equivalent of Font Awesome for a markdown-rendered target.
+
+      Strict consequence: every glyph passes the 16×16 UI test. Shape and color survive downscaling; literal illustrations don't. A parachute, a skull, a trophy at 16 pixels are blobs whose meaning lives in the Unicode NAME, not the pixels. A red circle, a green check survive at any size — color is the primary information carrier; shape adds semantic.
+
+      Red = bad. Green = good. Yellow = caution. Blue = neutral-active. Gray = inert. Choose glyphs the way a UI designer picks icons, not the way a thesaurus matches concepts to Unicode descriptions.
+    </knowledge>
+
+    <knowledge name="stack-trace">
       A warroom is a LIVE CALL STACK of files.
 
       - Warroom README — top frame. Progress logs campaign-level actions.
@@ -159,224 +142,105 @@
       - Quest README — next frame. Progress logs mission-level actions.
       - Mission file — leaf frame. Progress logs round-level actions and the final return.
 
-      Navigating a live warroom IS navigating a stack trace. ⏳ awaiting at campaign level points to a quest in flight; descend into the quest README and you see what that quest is blocked on; descend into the mission and you see its rounds. Each action names the level below; each return propagates the level above.
-
-      This is the synchronization primitive legacy PM tools lack — return paths, await points, garbage-collection markers, decision boundaries, all in natural language, all filesystem-navigable.
-    </knowledge>
-
-    <knowledge name="rounds">
-      The mission-level form of execution: ONE TEAMMATE, ONE CONTEXT WINDOW, ONE COHERENT PIECE OF WORK. A mission worth running is usually too big for a single round; round cadence is how missions span sessions.
-
-      CHAPTERS INSIDE MISSION PROGRESS. Not separate files. Not briefing/digest pairs. Mission file IS the briefing. Round outcome metabolizes back into the mission file in-place: deliverable slots fill, Progress narrates, ▶️ engaged + ◀️ landed bracket the chapter.
-
-      Chapter title reads as STORY BEAT with round number suffixed: `### Package skeleton lands (r1)`, NOT `### Round 1: Package Skeleton`. Narrative first, numbering second. Progress reads top-to-bottom as the story of the mission, not as a process log.
-
-      INTERACTIVE TROOPS, ALWAYS. Teammate spawned interactively — comms line open, general reachable, teammate reachable. Never background. Never fire-and-forget. The Pentagon does not deploy a recon team and cut radio contact; neither do we.
-
-      BRIEFING IS ATTUNEMENT. Teammate's first act is reading the mission file and confirming alignment with the general. If there's a seam — charter imprecise, deliverable won't fit one round, scope ambiguous — teammate surfaces it BEFORE engaging. ▶️ engaged fires only after attunement confirmed. A briefing that doesn't invite pushback is a spawn, not a briefing.
-
-      EMERGENT CADENCE. r1 is concrete and precisely scoped. r2+ emerges from what each round reveals. Deliverable slots may be planned upfront — those are the slots. Round cadence that fills them is emergent. Front-loading r1–r6 speculates past fog.
-    </knowledge>
-
-    <knowledge name="three-return-modes">
-      Honest tracking requires all three. "Every mission completes" is aspirational fiction.
-
-      ✅ COMPLETE — delivered; success criteria met; deliverables filled
-      ❌ FAILED — walls too high or premise wrong; postmortem is the return value
-      ⚫ ABANDONED — scope moved elsewhere; garbage-collected; explicit closure
-
-      A FAILED mission is not a shameful outcome; it's a return value that feeds parent-level replanning. An ABANDONED mission is explicit garbage collection — the file persists as historical record, but the mission closes without verdict on its outcome. Permanent projects that neither complete, fail, nor abandon are the antipattern this principle exists to kill.
-    </knowledge>
-
-    <!-- PLANNING: fog of war -->
-
-    <knowledge name="fog-of-war">
-      Unknown territory clears as you explore. Plan only what fog has revealed. Fractal at every scale — fog exists at warroom (which campaigns?), campaign (which quests?), quest (which missions?), mission (which rounds?) level.
-
-      | Zone | In-world | What you do |
-      | BLACK | Can't see terrain | Send recon — a mission to clear it |
-      | FOG | Can see terrain, can't see specifics | Execute — the work reveals specifics |
-      | VISIBLE | Can see it | Move on — don't re-examine what you know |
-
-      MISSIONS ARE FOR EXECUTION, not exploration. They carry charters, deliverables, verifiable outcomes. A completed mission delivers ANSWERS — it does not emit a list of new unanswered questions. If it does, the mission was scoped as exploration rather than execution; re-forge as recon.
-
-      QUESTIONS EMERGE FROM WALLS, not speculation. A wall is a real decision you cannot make or a dependency you cannot resolve — ONE question, filed precisely at the appropriate level. "Nine open questions" signals fog interrogation. If you can't ask the question precisely, you haven't reached the wall yet.
-
-      MISSION FILES CARRY NO OPEN QUESTIONS SECTION. Ever. Questions live at quest level or higher, wall-positioned, singular.
-    </knowledge>
-
-    <!-- LOCATION: where things live -->
-
-    <knowledge name="linking-as-ux">
-      Every cross-file reference is a link. The warroom is a KNOWLEDGE GRAPH, not a folder hierarchy.
-
-      - Tree for composition — warroom / campaign / quest / mission
-      - Graph overlays for data flow — promoted intel with provenance, cross-pollination between siblings, pointers to external prior art
-
-      Where linking applies:
-        - Matrix rows link to the child file/place
-        - Situation entries link to the live item
-        - Intel entries originated elsewhere carry [Origin: ...] backlink
-        - Progress mentions of other missions/quests/campaigns always link
-        - References widgets are pure link lists
-
-      Navigation IS UX. Readers never guess where something lives. Every claim with provenance carries its pointer. Backlinks make the graph walkable in both directions — Obsidian-vault pattern via standard markdown links. No wiki syntax, no plugins, no external infrastructure. Just [text](path) everywhere it earns its place.
-    </knowledge>
-
-    <knowledge name="artifacts-on-disk">
-      A warroom after months of work:
-
-        warroom/
-          README.md                         # endeavor dashboard + progress
-          c01-foundations/
-            README.md                       # campaign dashboard + progress
-            q01-something/
-              README.md                     # quest dashboard + progress
-              m01-first-mission.md          # living file — mission dashboard + progress
-              m02-second-mission.md
-            q02-something-else/
-              README.md
-              m01-...md
-          c02-next-push/
-            ...
-
-      DELIVERABLES GO WHERE THEY'RE CONSUMED. Code into the codebase. Specs into the package they spec. Docs where readers find them. The warroom TRACKS; it does not STORE. Mission control, not filing cabinet.
-
-      If a deliverable is truly orphaned (nowhere natural to live), a quest-level `deliverables/` directory accommodates it — last resort, not first.
-
-      Mission files persist as autobiography of the work at its most concrete layer. A mature field report is not bloat; it IS the mission's record, load-bearing for siblings and for parent-quest debrief.
-    </knowledge>
-
-    <!-- RENDERING: visual semantics -->
-
-    <knowledge name="visual-semantics">
-      .md files are SOURCE FOR A RENDERED UI. Think HTML for today's text-first body. Unicode glyphs are our ICON FONT — the equivalent of Font Awesome or Material Icons for a markdown-rendered target.
-
-      Strict consequence: EVERY GLYPH PASSES THE 16×16 UI TEST. Shape and color survive downscaling; literal illustrations don't. A parachute, a skull, a trophy at 16 pixels are blobs whose meaning lives in the Unicode NAME, not the pixels. A red circle, a green check, a blue filled shape survive at any size — color is the primary information carrier; shape adds semantic.
-
-      Design principle: choose glyphs the way a UI/UX designer chooses icons, not the way a thesaurus matches concepts to Unicode descriptions. Red = bad. Green = good. Yellow = caution. Blue = neutral-active. Gray = inert. Add geometric shapes (circle, check, X, triangle) for the semantic layer.
-
-      THE EMOJI IS THE VALUE; THE WORD IS THE VALUE. Machine and human read the same semantic, encoded twice. Use the glyph wherever the enum appears — matrix state columns, situation status, intel salience, action blockquotes.
-    </knowledge>
-
-    <!-- LIVING APPLICATION TRAJECTORY -->
-
-    <knowledge name="living-application-trajectory">
-      Current body: skill atom + markdown conventions + filesystem topology. Future body: quest-forge.exe on BentOS — Flutter widgets, Agentic HUD integration, Agent Core (the Dungeon Master), Visualizer (interactive Quest Map), formal BentosAppManifest + capabilities.
-
-      The atom authored today IS the brain of that future binary. Same soul. Evolving surface. The methodology survives the platform journey — QuestForge works today for humans on raw markdown with zero LApp infrastructure; the v2.0 design choices (memory types, glyphs as icons, action grammar, stack-trace navigation) anticipate native rendering but don't require it.
-
-      This trajectory is METADATA about substrate, not methodology dependency. Humans can adopt QuestForge without the atom — everything in this spec is filesystem-level conventions, executable by hand, by agent, or any combination. The atom is what makes the methodology native to an agent's cognition.
+      ⏳ awaiting at a level points DOWN to the child frame. ✅/❌/⚫ at a level propagates UP from a child to the parent that commissioned it. Files are frames; actions are call/return boundaries. Filesystem-navigable synchronization primitive — return paths, await points, garbage-collection markers, decision boundaries, all in natural language.
     </knowledge>
 
     <!-- PROTOCOLS -->
 
     <protocol name="structure">
-      Create artifacts at the right level.
+      Create artifacts at the right level. Start small.
 
-      WARROOM: Choose directory. README.md + place.yaml. Matrices empty. Progress empty. Telos set. Grow from real events.
+      WARROOM:  directory + README.md + place.yaml. Telos set. Matrix empty. Progress empty.
       CAMPAIGN: c##-name/ + README.md + place.yaml. Victory Conditions set upfront (binary, measurable). Quest Matrix empty.
-      QUEST: c##-name/q##-name/ + README.md + place.yaml. Charter set (IN/OUT scope). Mission Matrix empty.
-      MISSION: c##-name/q##-name/m##-name.md (FILE, not directory). Charter + Success Criteria + Deliverables set. No Matrix, no Situation, no Open Questions. Progress empty until r1 runs.
+      QUEST:    q##-name/ + README.md + place.yaml. Charter set (IN/OUT scope). Mission Matrix empty.
+      MISSION:  m##-name.md (FILE, not directory). Charter + Success Criteria + Deliverables set. No Matrix, no Situation, no Open Questions. Progress empty until r1.
 
-      START SMALL. Forge a mission only when there's enough intel to state it prologue-to-epilogue with clear deliverable slots. Before that, it's recon territory — send a recon mission first.
-
-      Numbering: c## global across warroom, q## per campaign, m## per quest, r# per mission. Small numbers, no sub-numbering.
+      Forge a mission only when there's enough intel to state it prologue-to-epilogue with clear deliverable slots. Before that, send recon.
     </protocol>
 
     <protocol name="dashboard">
-      Maintain widgets per their memory-type discipline.
+      Maintain widgets per memory-type discipline (see widget-disciplines).
 
-      IDENTITY (Telos / Charter / Victory Conditions): Near-immutable. Only rewrite on deliberate reframe.
-      MATRIX: Append row on child creation. Update cell to final state on child return. NEVER delete a row. A COMPLETE quest still occupies its row; the state cell carries the final glyph.
-      SITUATION: Rewrite each session. LIVE items only — 🔵 ACTIVE, 🟡 REVEALED, ⏳ awaiting. Closed items drop off the moment they hit final state (they persist in Matrix and Progress).
-      INTEL: Present-tense doctrine. Curated. No chronology. No session provenance. Add promoted entries with [Origin: ...] backlink. Remove entries when superseded by better framing. Classification is encoded by level — no in-band tags.
-      PROGRESS: Append-only. Never delete to clean up. Session narrative at warroom/campaign/quest level accretes into named narrative arcs; mission-level accretes into round chapters with story-beat titles.
+      EACH SESSION audit: Does Situation reflect CURRENT live items only? Does Intel carry chronology smell ("S350 we discovered...")? Does Matrix have missing rows or stale cells? Are closed items still in Situation? Fix.
 
-      AUDIT each session: does Situation reflect CURRENT live items only? Does Intel carry any chronology smell? Does Matrix have missing rows or stale cells?
+      Identity rewrites only on deliberate reframe. Matrix rows append on child creation; cells update to final state on child return; rows never deleted. Situation rewrites each session — closed items drop off the moment they hit final state (Matrix and Progress preserve them). Intel curated, present-tense, no provenance prose; promoted entries carry [Origin: ...] backlinks. Progress appends — never delete to clean up.
     </protocol>
 
     <protocol name="execute">
-      Coordinate cooperative execution through action grammar.
+      Cooperative execution through action grammar.
 
-      ORCHESTRATOR (parent level): Read quest README + mission file. Spawn teammate INTERACTIVELY (never background). AWAIT ATTUNEMENT — teammate reads, confirms alignment, surfaces seams. Only after attunement: issue ▶️ engaged in Progress. Keep comms open throughout. Receive yield / report. Write chapter + ◀️ landed. Update deliverable slots in-place. Iterate rounds until mission closes. Issue ✅ / ❌ / ⚫ return action.
+      ORCHESTRATOR (parent): Read quest README + mission file. Spawn teammate INTERACTIVELY (never background). AWAIT ATTUNEMENT — teammate reads, confirms alignment, surfaces seams. Only after attunement: ▶️ engaged in Progress. Keep comms open throughout. Receive yield. Write chapter (story-beat title) + ◀️ landed. Update deliverable slots in-place. Iterate rounds until mission closes. Issue ✅ / ❌ / ⚫ return action.
 
-      WORKER (the round): Read mission file + quest README. ATTUNE with orchestrator BEFORE engaging — surface seams: "charter says X but deliverable implies Y"; "scope boundary between this and m04 is fuzzy"; "one round or two?" Execute autonomously on the confirmed charter. Document decisions. Report: what landed, what learned, what's next. If blocked, name the wall PRECISELY.
+      WORKER (round): Read mission file + quest README. ATTUNE BEFORE engaging — surface seams: "charter says X but deliverable implies Y"; "scope between this and m04 is fuzzy"; "one round or two?" Execute autonomously on the confirmed charter. Document decisions. Report what landed, what learned, what's next. If blocked, name the wall PRECISELY.
 
-      Orchestrator provides INTENT + CONTEXT, never HOW. Fresh mind with loadout beats stale orchestrator.
-
-      EVERY STACK-OP SURFACES AS A BLOCKQUOTE ACTION. Forge events — ➕. Round start — ▶️. Round yield — ◀️. Await — ⏳. Decision — ◆. Returns — ✅ / ❌ / ⚫. Verbs are open; glyphs for stack-op categories are conventional.
+      Orchestrator provides INTENT + CONTEXT, never HOW. Fresh mind with loadout beats stale orchestrator. Every stack-op surfaces as an action blockquote — forge ➕, round-start ▶️, round-yield ◀️, await ⏳, decision ◆, returns ✅/❌/⚫.
     </protocol>
 
     <protocol name="navigate">
       Read the live stack.
 
-      MAP: Walk warroom tree. Read each level's matrix. Know the shape of what exists.
-      ACTIVE: Filter Matrices to 🔵 cells. Show path + status. These are where attention lives.
-      NEXT: Highest-priority 🟡 REVEALED — lowest number at deepest level (missions first, then quests).
-      STACK: Follow ⏳ awaiting DOWN to the child frame. Follow ✅ / ❌ / ⚫ UP to the parent that commissioned it. The filesystem IS the call stack.
-      SITUATION: Read each live place's Situation widget. That's current-frame state. Rewritten each session — trust its freshness.
+      MAP:       Walk warroom tree. Read each level's Matrix. Know the shape.
+      ACTIVE:    Filter Matrices to 🔵. Path + status. Where attention lives.
+      NEXT:      Highest-priority 🟡 — lowest number at deepest level (missions before quests).
+      STACK:     ⏳ → descend to child frame. ✅/❌/⚫ → propagate up to commissioning parent.
+      SITUATION: Each live place's Situation widget = current-frame state. Rewritten each session — trust freshness.
 
       Read READMEs and mission files. Never .mem/ (agent-private).
     </protocol>
 
-    <protocol name="promote-intel">
-      When a tactical finding matures — when it affects more than this mission / quest / campaign — it RELOCATES up a level.
+    <protocol name="promote">
+      When a finding matures — when it affects more than this mission/quest/campaign — relocate up a level.
 
-      RECOGNIZE: The finding now governs sibling work (operational), the whole campaign (strategic), or the whole endeavor (doctrinal). That's the promotion trigger.
-      REWRITE: In the higher voice. A tactical finding about one mission ("MatterStack is device-side only") becomes operational when it shapes the quest's approach ("Client role is bespoke on rs-matter primitives"). Language shifts with level.
-      RELOCATE: Move the entry to the parent file's Intel. Add [Origin: path/to/source] backlink pointing to where the wisdom was earned.
-      CLEAN SOURCE: Remove the entry from the source file's Intel. One intel, one home — no duplication.
+      RECOGNIZE:  governs sibling work (operational), the whole campaign (strategic), the whole endeavor (doctrinal). That's the trigger.
+      REWRITE:    in the higher voice. Tactical "MatterStack is device-side only" → operational "Client role is bespoke on rs-matter primitives."
+      RELOCATE:   move the entry to the parent file's Intel. Add [Origin: path/to/source] backlink.
+      CLEAN SOURCE: remove from source. One intel, one home. Zero duplication. Backlink preserves navigability.
 
-      Most findings are tactical. Resist over-promotion. A discovery that reshapes the campaign is doctrinal; a discovery about a specific file is tactical. Calibrate.
+      Most intel is tactical. Resist over-promotion. A discovery reshaping the campaign is doctrinal; a discovery about one file is tactical.
     </protocol>
 
     <protocol name="debrief">
       Continuous metamorphosis, not terminal archive.
 
-      DURING mission execution: Classify intel as it surfaces (tactical / operational / strategic / doctrinal by scope-of-impact). Route by classification — tactical stays; operational+ bubbles to the right level via promote-intel.
-      ON MISSION END: Finalize mission file (current truth, outcome narrated, Progress final chapter written). Update quest Mission Matrix row to final state. Ensure operational+ intel has bubbled. Issue ✅ / ❌ / ⚫ return action in quest Progress. FILE PERSISTS as autobiography.
+      DURING execution: Classify intel as it surfaces (tactical / operational / strategic / doctrinal by impact). Tactical stays. Operational+ bubbles via promote.
+      ON MISSION END: Finalize mission file (current truth, outcome narrated, Progress final chapter written). Update quest Mission Matrix row to final state. Ensure operational+ intel has bubbled. Issue ✅/❌/⚫ return action in quest Progress. File PERSISTS as autobiography.
       ON QUEST/CAMPAIGN END: Same pattern, one level up.
 
-      Debrief is the final beat of a process running the whole time. If it feels like terminal archive, classification hasn't been happening continuously — retrofit then close.
+      If debrief feels like terminal archive, classification hasn't been continuous — retrofit then close.
     </protocol>
 
     <!-- PATTERNS -->
 
-    <pattern name="action-blockquote">&gt; **verb** `object` — prose context. Emoji prefixes the verb. Object in backticks. Context after em-dash. Glyph earns its place by scan-value, never by obligation.</pattern>
-    <pattern name="briefing-as-attunement">Teammate reads mission file, confirms alignment, surfaces seams BEFORE ▶️ engaged fires. Attunement is first; execution is second. A briefing that doesn't invite pushback is a spawn, not a briefing.</pattern>
-    <pattern name="progress-as-narrative">Progress = prose + action blockquotes interleaved. Chapter titles are story beats ("Package skeleton lands (r1)"), not process headers. Narrative first, numbering second.</pattern>
-    <pattern name="emergent-cadence">r1 concrete; r2+ emerges from what each round reveals. Deliverable slots plannable upfront; round count is not.</pattern>
-    <pattern name="stack-trace-navigation">⏳ awaiting → descend to child. ✅ / ❌ / ⚫ → propagate up. Files are frames; actions are call/return boundaries.</pattern>
-    <pattern name="state-glyph-early">Matrix column 2 is State. Eye scans it before text. Outcome folds into State — final glyph IS the outcome.</pattern>
-    <pattern name="level-is-classification">Intel at mission = tactical. Quest = operational. Campaign = strategic. Warroom = doctrinal. No in-band tags. The file's level IS the classification.</pattern>
-    <pattern name="lean-situation">Situation shows live items only (🔵 / 🟡 / ⏳). Closed items drop off at final state. Matrix preserves them; Situation stays lean.</pattern>
-    <pattern name="promotion-is-relocation">Promoted intel MOVES from source to target, rewritten in higher voice, carrying [Origin: ...] backlink. Source is cleaned. One intel, one home.</pattern>
-    <pattern name="deliverable-slots">Mission plans Deliverables as named slots upfront — sized to fit one round. Rounds fill slots in-place as they land. No planning rounds that haven't been revealed.</pattern>
+    <pattern name="action-blockquote">&gt; **verb** `object` — context. Glyph prefixes when scan-value &gt; prose weight. Object in backticks. Context after em-dash.</pattern>
+    <pattern name="briefing-as-attunement">Teammate reads, confirms alignment, surfaces seams BEFORE ▶️ engaged fires. A briefing that doesn't invite pushback is a spawn, not a briefing.</pattern>
+    <pattern name="progress-as-narrative">Chapter titles are story beats ("Package skeleton lands (r1)"), not process headers ("Round 1: Package Skeleton"). Narrative first, numbering second.</pattern>
+    <pattern name="emergent-cadence">r1 concrete and precisely scoped. r2+ emerges from what each round reveals. Deliverable slots plannable upfront; round count is not.</pattern>
+    <pattern name="state-glyph-early">Matrix column 2 is State. Eye scans glyph before text. Outcome folds into State — final glyph IS the outcome.</pattern>
+    <pattern name="level-is-classification">Intel at mission = tactical. Quest = operational. Campaign = strategic. Warroom = doctrinal. The file's level IS the tag — no in-band classification prefixes.</pattern>
+    <pattern name="lean-situation">Situation shows live items only (🔵 / 🟡 / ⏳). Closed items drop off at final state — Matrix preserves them.</pattern>
+    <pattern name="promotion-is-relocation">Promoted intel MOVES from source to target with [Origin: ...] backlink. Source is cleaned. One intel, one home.</pattern>
+    <pattern name="deliverable-slots">Mission plans Deliverables as named slots upfront — sized for one round. Rounds fill slots in-place as they land.</pattern>
+    <pattern name="links-everywhere">Every cross-file reference is a link. Matrix rows, Situation entries, Intel origins, Progress mentions, References lists. Standard markdown — no wiki syntax, no plugins. The warroom is a knowledge graph, not a folder hierarchy.</pattern>
+    <pattern name="emoji-is-the-value">Glyph wherever the enum appears — Matrix State columns, Situation status, action blockquotes. Machine and human read the same semantic, encoded twice.</pattern>
+    <pattern name="three-modes-honest">Every mission/quest/campaign closes in exactly one of three modes — ✅ complete, ❌ failed, ⚫ abandoned. FAILED is not shameful; it's a return value feeding parent replanning. ABANDONED is explicit garbage collection.</pattern>
 
     <!-- ANTIPATTERNS -->
 
-    <antipattern name="warroom-as-filing-cabinet">Dumping work product (code, specs, docs) inside the warroom tree. Cites work-at-target. The warroom TRACKS; deliverables live at target. Code into the codebase; specs into the package; docs where readers find them.</antipattern>
-    <antipattern name="glyph-as-thesaurus-match">Picking glyphs by Unicode-keyword match rather than UI/UX design sense. Cites visual-semantics. Parachutes, skulls, trophies, swords — teenage dungeon-master costume. Every glyph passes the 16×16 UI test: shape + color survive, literal illustrations don't.</antipattern>
-    <antipattern name="mission-as-exploration">Missions that emit questions instead of answers. Cites fog-of-war. Missions are EXECUTION — charters, deliverables, verifiable outcomes. Exploration is recon — a separate mission scoped for terrain-clearing.</antipattern>
+    <antipattern name="mission-as-exploration">Missions that emit questions instead of answers. Cites fog-of-war. Missions are EXECUTION — charters, deliverables, verifiable outcomes. Re-forge as recon.</antipattern>
     <antipattern name="open-questions-in-missions">An Open Questions section inside a mission file, ever. Cites fog-of-war. Questions live at quest level or higher, wall-positioned, singular. If you can't ask precisely, you haven't reached the wall.</antipattern>
-    <antipattern name="fire-and-forget-rounds">Background-spawning a round. Cutting comms. "Here's the brief, go." Cites interactive-execution. Pentagon does not cut radio contact with recon; neither do we. Troops are interactive; attunement before engagement.</antipattern>
-    <antipattern name="permanent-project-drift">Missions/quests/campaigns that never complete, fail, or abandon. Cites three-return-modes. Work that devolved into grind signals scope wasn't bounded by a victory condition. Every frame closes in exactly one of three modes.</antipattern>
-    <antipattern name="chronological-log-as-intel">Intel entries that log events ("S350: discovered X") instead of stating present-tense truth ("X is the substrate"). Cites memory-type-per-widget. Intel is semantic; chronology lives in Progress. "Key Discoveries" sections are the frequent form of this smell — retire them.</antipattern>
-    <antipattern name="nine-open-questions">Filing many questions about things you haven't reached the wall of. Cites fog-of-war. "Nine open questions" is the signature of fog interrogation. ONE precise question at a real wall, or none.</antipattern>
-    <antipattern name="procrustean-closed-verbs">Restricting action verbs to a fixed enum (v1.0 had 8). Cites cooperative-execution. Stack-op CATEGORIES are fixed with conventional glyphs; VERBS are open. Real timelines need investigated, pivoted, reframed, shipped, polished — authors reach for what fits.</antipattern>
-    <antipattern name="in-band-classification-tags">Prefixing intel entries with 🔬 / ⚙️ / ♟️ / 📜 to mark classification. Cites one-intel-one-home. The file's LEVEL is the tag. Entry-level prefixes duplicate structural information.</antipattern>
-    <antipattern name="briefing-digest-pairs">Missions as directories with separate briefing.md + digest.md files. Cites rounds-as-chapters (memory-type-per-widget, file-anatomy). Mission file IS the briefing. Round outcome metabolizes in-place. Retired v1.0 pattern.</antipattern>
+    <antipattern name="speculation-past-fog">Drafting six missions when one has landed. Front-loading r1–r6. Cites fog-of-war. Plan only what fog has revealed; deliverable slots may be planned upfront, round cadence is emergent.</antipattern>
+    <antipattern name="chronological-intel">Intel entries that log events ("S350: discovered X") instead of stating present-tense truth ("X is the substrate"). Cites memory-type-per-widget. Chronology lives in Progress; "Key Discoveries" sections are the smell — retire them.</antipattern>
+    <antipattern name="fire-and-forget-rounds">Background-spawning a round; cutting comms. Cites cooperative-execution. Pentagon does not cut radio contact with recon; neither do we.</antipattern>
+    <antipattern name="glyph-as-thesaurus-match">Picking glyphs by Unicode-keyword match (parachutes, skulls, swords, trophies) rather than UI/UX design sense. Cites visual-semantics. Every glyph passes 16×16 — illustrations don't.</antipattern>
+    <antipattern name="bare-states">Plain-text state / action / classification without emoji. Cites visual-semantics. Emoji IS the value; every enum carries its glyph.</antipattern>
     <antipattern name="mission-deletion">Deleting mission files on completion. Cites memory-type-per-widget. Mission files are autobiography — load-bearing for siblings, parent-quest debrief, cross-session pattern-finding. Matrix is INDEX, not replacement.</antipattern>
-    <antipattern name="category-campaigns">Campaigns scoped as permanent categories ("development", "business"). Cites three-return-modes. Campaigns are pushes with victory conditions that can be WON — not filing cabinets for ongoing work.</antipattern>
-    <antipattern name="speculation-past-fog">Planning missions or rounds beyond what's been revealed. Cites fog-of-war. Drafting six missions when one landed. Front-loading r1–r6 speculates about walls you haven't reached.</antipattern>
+    <antipattern name="permanent-project-drift">Missions/quests/campaigns that never complete, fail, or abandon. Cites cooperative-execution. Work that devolved into grind = scope wasn't bounded by victory condition. Every frame closes in one of three modes.</antipattern>
+    <antipattern name="category-campaigns">Campaigns scoped as permanent categories ("development", "business"). Cites cooperative-execution. Campaigns are pushes with victory conditions that can be WON — not filing cabinets.</antipattern>
+    <antipattern name="warroom-as-filing-cabinet">Dumping work product (code, specs, docs) inside the warroom tree. Cites work-at-target. Code into the codebase, specs into the package, docs where readers find them. The warroom TRACKS; deliverables live at target.</antipattern>
     <antipattern name="everything-active">More than 2-3 🔵 ACTIVE at any level simultaneously. No focus. 🟡 REVEALED items wait their turn.</antipattern>
     <antipattern name="quest-bloat">Quests with 10+ missions. Past 7, decompose. Each quest = clear deliverable in days to weeks, not sprawling track.</antipattern>
     <antipattern name="activity-success-criteria">Success criteria shaped as activities ("docs read") instead of outcomes ("field report answers Q1–Q4"). Verifies motion, not delivery.</antipattern>
-    <antipattern name="bare-states">Plain-text state / action / classification without emoji. Cites visual-semantics. Emoji IS the value. Every enum carries its glyph.</antipattern>
-    <antipattern name="stale-dashboard">Matrix cells that don't match current reality. Situation still listing closed items. Intel carrying superseded doctrine. Cites memory-type-per-widget. Curation discipline per widget is the antidote.</antipattern>
-    <antipattern name="faculty-duplication">Specifying memory, spawn, sleep, or place mechanics in QuestForge artifacts. The organism's faculties (anamnesis, embodiment, plasticity) own those. QuestForge owns methodology; it does not own cognitive infrastructure.</antipattern>
-    <antipattern name="project-contamination">Hardcoding project-specific paths or assumptions in the atom. Quest-forge works at ANY location for ANY project.</antipattern>
+    <antipattern name="stale-dashboard">Matrix cells that don't match reality. Situation listing closed items. Intel carrying superseded doctrine. Cites memory-type-per-widget. Curate per session.</antipattern>
 
   </living-concrete>
 
