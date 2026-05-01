@@ -1,8 +1,8 @@
-<atom id="quest-forge.app" v="3.0"
+<atom id="quest-forge.app" v="3.1"
       origin="Cafe &amp; Alfred"
       desc="Warroom discipline — fractal living stories with cooperative-execution model">
 
-  <living-abstract v="3.0">
+  <living-abstract v="3.1">
     <essence>Warroom discipline — fractal living stories with a cooperative-execution model. Situation room above, living story below.</essence>
     <purpose>Make serious multi-session work legible, finishable, and honest — by giving async execution vocabulary and turning the filesystem into a navigable call stack.</purpose>
 
@@ -20,11 +20,13 @@
     <principle name="memory-type-per-widget">Each section has a memory type and a curation discipline. Know the type, know how to curate.</principle>
     <principle name="cooperative-execution">Missions are functions; quests await missions; campaigns await quests. Three return modes — complete, failed, abandoned — all first-class. Attunement before engagement; comms stay open.</principle>
     <principle name="fog-of-war">Plan only what fog has revealed. Questions emerge from walls, not speculation.</principle>
+    <principle name="success-criteria-trace-upward">Every mission's success criteria answer, for each criterion: which parent victory condition does this advance, and how much? The chain mission SC → quest charter → campaign victory → warroom telos must be explicit. SC that don't trace are broken even when outcome-shaped and binary.</principle>
+    <principle name="stakeholder-prose-is-spec">When a mission's deliverable touches a stakeholder — any party who is not the author of sibling code — the user-facing artifact (manual page, install guide, error message, API doc, onboarding flow) IS the specification. Implementation orbits the prose; SC reference the artifact and the stakeholder's behavior. Pure substrate missions consumed only by sibling code are exempt; "the consumer's tests pass" is honest there.</principle>
     <principle name="one-intel-one-home">Promotion is relocation plus origin-link. No duplication. Obsidian-vault navigability.</principle>
     <principle name="work-at-target">Deliverables live where they're consumed. The warroom tracks; it doesn't store. Mission control, not filing cabinet.</principle>
   </living-abstract>
 
-  <living-concrete v="3.0" updated="2026-04-30">
+  <living-concrete v="3.1" updated="2026-05-01">
 
     <!-- DATA MODEL -->
 
@@ -86,7 +88,21 @@
 
       Matrix common shape: | ## | State | Name | Goal/Victory |. State glyph column 2 — eye scans glyph before text. Final state glyph IS the outcome.
 
-      Success Criteria: outcome-shaped, binary, verifiable, tied to deliverables. Not "docs read" — "field report answers Q1–Q4."
+      Success Criteria: outcome-shaped, binary, verifiable, tied to deliverables. Not "docs read" — "field report answers Q1–Q4." Discipline detailed in success-criteria knowledge.
+    </knowledge>
+
+    <knowledge name="success-criteria">
+      Mission SC pass two tests, applied at charter authoring time — never deferred to close.
+
+      TRACEABILITY (every mission): each criterion names the parent victory condition it advances. "12/12 KPIs green" names no parent victory; "the daemon reports actual host capacity" advances "operator trusts the artifact in production." The chain mission SC → quest charter → campaign victory → warroom telos must be walkable.
+
+      STAKEHOLDER FRAME (non-substrate missions): each criterion invokes the stakeholder explicitly — by referencing a person ("a stranger," "a developer," "the operator," "the partner integrator"), an artifact they read ("the install page," "the error message," "the API reference"), or a behavior they observe ("the rootfs is cloned," "a login prompt appears," "the troubleshooting cure cures").
+
+      Substrate vs stakeholder cut: a mission delivering a parser, a codegen pass, an internal cluster handler consumed only by sibling missions is substrate — "consumer's tests pass" is the honest SC. A mission delivering a binary, install path, error message, manual page, public API, dashboard, or any surface a non-author touches is stakeholder. When in doubt, ask whether anyone outside the codebase observes the deliverable; if yes, stakeholder.
+
+      Diagnostic test: can the SC be satisfied by engineering output alone — tests, KPIs, abstractions, code that compiles? If yes, AND the mission delivers a stakeholder surface, the SC are wrong. Rewrite in stakeholder voice or scope-shrink the mission to substrate-only.
+
+      For stakeholder missions, the user-facing prose IS the specification. SC reference the prose. Implementation orbits the prose. The stakeholder never reads the success criterion; the stakeholder reads the artifact. Therefore the artifact is the success criterion.
     </knowledge>
 
     <knowledge name="actions">
@@ -240,6 +256,9 @@
     <antipattern name="everything-active">More than 2-3 🔵 ACTIVE at any level simultaneously. No focus. 🟡 REVEALED items wait their turn.</antipattern>
     <antipattern name="quest-bloat">Quests with 10+ missions. Past 7, decompose. Each quest = clear deliverable in days to weeks, not sprawling track.</antipattern>
     <antipattern name="activity-success-criteria">Success criteria shaped as activities ("docs read") instead of outcomes ("field report answers Q1–Q4"). Verifies motion, not delivery.</antipattern>
+    <antipattern name="engineering-shape-stakeholder-sc">Success criteria for a stakeholder-deliverable mission shaped as engineering output — KPI counts, test passes, abstraction coverage, surface completeness, "code compiles." Self-confirming: the work that satisfies them is engineering-shaped, and the cycle never invokes the stakeholder frame. The team ships round after round, all green, and never asks whether the artifact is usable. Cites success-criteria. Cure: rewrite SC referencing the user-facing artifact and stakeholder behavior, or scope-shrink the mission to substrate.</antipattern>
+    <antipattern name="sc-without-traceability">Success criteria — even outcome-shaped, even binary — that do not name the parent victory condition they advance. The mission can close green and leave the campaign telos unmoved. Cites success-criteria-trace-upward. Cure: each criterion explicitly references the parent victory condition; criteria that don't trace are deleted or rewritten.</antipattern>
+    <antipattern name="close-by-matrix-green">Closing a quest or campaign because all child rows show ✅, without re-checking against the parent victory condition. Mission-matrix all-green and campaign-victory-met are not synonyms — they measure different things. Cites cooperative-execution. The check at close: has the stakeholder's situation actually changed? If a closure leaves the stakeholder unchanged, only children closed; the parent didn't.</antipattern>
     <antipattern name="stale-dashboard">Matrix cells that don't match reality. Situation listing closed items. Intel carrying superseded doctrine. Cites memory-type-per-widget. Curate per session.</antipattern>
 
   </living-concrete>

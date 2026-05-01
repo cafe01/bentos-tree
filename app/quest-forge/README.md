@@ -522,6 +522,36 @@ A mission file has **no Matrix** (it has no child files — rounds live IN Progr
 
 ---
 
+## Success criteria — traceability and voice
+
+Mission success criteria are where ambition meets verification. Outcome-shaped and binary is necessary but not sufficient. Two further disciplines, applied at charter authoring time — never deferred to close.
+
+### Traceability
+
+Every criterion answers, for itself: **which parent victory condition does this advance, and how much?** The chain — mission SC → quest charter → campaign victory → warroom telos — must be walkable. *"12/12 KPIs green"* names no parent victory; *"the daemon reports actual host capacity, sourced from system query"* advances *"the operator trusts the artifact in production."* SC that don't trace are broken even when outcome-shaped and binary.
+
+### Voice — stakeholder-prose-is-the-spec
+
+When a mission's deliverable touches a **stakeholder** — any party who is not the author of sibling code: a user, developer, operator, partner, customer — the user-facing artifact (manual page, install guide, error message, API reference, onboarding flow) IS the specification. Implementation orbits the prose. SC reference the artifact and the stakeholder's behavior.
+
+For **substrate** missions consumed only by sibling code (a parser, a codegen pass, an internal cluster handler), the stakeholder frame doesn't apply — *"the consumer's tests pass"* is honest there. The discipline applies wherever the deliverable touches someone outside the codebase. When in doubt, ask whether anyone outside the codebase observes the deliverable; if yes, stakeholder.
+
+### The diagnostic test
+
+> *Can the SC be satisfied by engineering output alone — tests, KPIs, abstractions, code that compiles?*
+
+If yes, **and** the mission delivers a stakeholder surface, the SC are wrong. The pattern is self-confirming: engineering-shaped SC are satisfied by engineering-shaped work, and the cycle never invokes the stakeholder frame. The team ships round after round, all green, and never asks whether the artifact is usable.
+
+The cure: rewrite SC invoking a person (*"a stranger,"* *"a developer,"* *"the operator"*), an artifact they read (*"the manual,"* *"the install page,"* *"the error message"*), or a behavior they observe (*"the rootfs is cloned,"* *"a login prompt appears,"* *"the troubleshooting cure cures"*). Or scope-shrink the mission to substrate-only.
+
+### And at close
+
+A quest or campaign closes when its parent victory condition has been advanced — not when its child matrix is all-green. The two measure different things. The check at every close: **has the stakeholder's situation actually changed?** If closure leaves the stakeholder unchanged, only children closed; the parent didn't.
+
+The stakeholder never reads the success criterion; the stakeholder reads the artifact. Therefore: **for stakeholder missions, the artifact is the success criterion.**
+
+---
+
 ## Artifacts on disk
 
 A warroom after a few months of work:
@@ -584,6 +614,11 @@ Ten invariants. Named to match the atom's living-abstract; ordered by concern �
 **Planning**
 
 - **Fog of war.** Plan only what fog has revealed. Questions emerge from walls, not speculation.
+
+**Verification**
+
+- **SC traceability.** Every mission SC names the parent victory condition it advances. The chain mission → quest → campaign → telos is walkable.
+- **Stakeholder prose is the spec.** For missions whose deliverable touches anyone outside the codebase, the user-facing artifact IS the specification. Engineering output alone cannot satisfy stakeholder SC.
 
 **Location**
 

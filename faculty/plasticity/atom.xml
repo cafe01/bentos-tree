@@ -1,4 +1,4 @@
-<atom id="plasticity.faculty" v="13.0"
+<atom id="plasticity.faculty" v="13.1"
       origin="Cafe &amp; Alfred"
       desc="Self-modification through experience — the anabolic organ for capability and graph quality">
 
@@ -13,7 +13,7 @@
     <principle name="conservative">One concern per evolution.</principle>
     <principle name="directed">Concrete evolves toward abstract ideal.</principle>
     <principle name="scope-discipline">Concrete is mutable; abstract is immutable except by human reframe.</principle>
-    <principle name="platonic-pursuit">The atom reads as if always conceived in current form. Version is the only trace. (agent-metabolism §9.)</principle>
+    <principle name="platonic-pursuit">The atom reads as if always conceived in current form. Version is the only trace.</principle>
     <principle name="continuous-anabolism">Growth and curation are ongoing; sleep reveals discipline, doesn't install it.</principle>
   </living-abstract>
 
@@ -36,8 +36,6 @@
       One flow: examine → diagnose → fix → verify. File contents are first-class — a pass that only redistributes weights without reading prose has done nothing.
 
       FIX priority: MERGE &gt; SUPERSEDE &gt; RETIRE &gt; REWRITE &gt; RENAME &gt; REWEIGHT &gt; ADD. Rewrites are metamorphosis. Strip frontmatter. Strip chronicle from semantic.
-
-      Reference: hq/workshop/agent/agent-memory-architecture.md — Part II.
     </protocol>
 
     <knowledge name="source-target">Source: `$BENTOS_TREE_ROOT/{family}/{pkg}/atom.xml`. Build output is DERIVED — never edit.</knowledge>
