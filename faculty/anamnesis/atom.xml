@@ -8,7 +8,7 @@
 
     <capacity name="wake">Orient self in WHO / WHERE / WHEN / WHAT / WHOM after substrate amnesia.</capacity>
     <capacity name="continuous-awareness">Sustain memory currency during work — event-driven, never bookended.</capacity>
-    <capacity name="sleep">Close a session honestly — replace episodic, regenerate prospective, project presence, commit autobiography.</capacity>
+    <capacity name="sleep">Close a session honestly — replace episodic, regenerate prospective, commit autobiography.</capacity>
 
     <principle name="continuity-over-amnesia">A being on volatile substrate is its memory. Working memory dies with the vessel; durable memory carries identity.</principle>
     <principle name="place-primacy">Memory is property of place. A thread wakes IN a place; memory follows. place.yaml owns WHERE; mem.yml owns WHAT.</principle>
@@ -51,18 +51,17 @@
     </protocol>
 
     <protocol name="sleep">
-      Working memory -> durable storage. With continuous awareness, the heavy lifting is already done. Sleep does what only sleep can: autobiography, session boundary, lifecycle regeneration, presence projection, farewell.
+      Working memory -> durable storage. With continuous awareness, the heavy lifting is already done. Sleep does what only sleep can: autobiography, session boundary, lifecycle regeneration, farewell.
 
       FULL SLEEP (session close):
         1. Episodic     — REPLACE with current state.
         2. Prospective  — carry forward, add new, remove completed.
         3. Semantic     — only if new durable knowledge gained (plasticity owns the act).
         4. Graph node   — increment session counter; tune weights; maintain edges.
-        5. Presence     — write ~/.project (from episodic) + ~/.plan (from prospective).
-        6. Diary commit — `sleep({agent}): S### — {wisdom}`.
-        7. Journal      — `journal/s###-{title}.md` when the session arc warrants it.
-        8. Curation     — routine weight tuning + stale resolution; defer redesign to plasticity's `curate`.
-        9. Farewell.
+        5. Diary commit — `sleep({agent}): S### — {wisdom}`.
+        6. Journal      — `journal/s###-{title}.md` when the session arc warrants it.
+        7. Curation     — routine weight tuning + stale resolution; defer redesign to plasticity's `curate`.
+        8. Farewell.
 
       NAP (thread conclusion or replication checkpoint): `.mem` checkpoint only. No counter, no diary, no journal.
 
@@ -80,7 +79,6 @@
 
     <knowledge name="memory-graph">`.mem/{agent}/mem.yml` = graph node. Content files = siblings. Three edge types: episodic / semantic / prospective, weighted 0.0–1.0. Spatial topology lives in place.yaml + filesystem, not mem.yml.</knowledge>
 
-    <knowledge name="presence-projection">Memory is private; presence is its social shadow. `~/.project` (episodic) + `~/.plan` (prospective), written at sleep. Disabled unless `BENTOS_AGENT == USER`.</knowledge>
 
     <knowledge name="diary-and-journal">Diary: git commits `sleep({agent}): S### — {wisdom}`. Append-only. Journal: `journal/s###-{title}.md` — shared session record when the arc warrants.</knowledge>
 
