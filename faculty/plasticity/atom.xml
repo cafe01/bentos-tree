@@ -1,4 +1,4 @@
-<atom id="plasticity.faculty" v="13.1"
+<atom id="plasticity.faculty" v="14.0"
       origin="Cafe &amp; Alfred"
       desc="Self-modification through experience — the anabolic organ for capability and graph quality">
 
@@ -12,12 +12,11 @@
     <principle name="evidence-based">Every change traces to real friction.</principle>
     <principle name="conservative">One concern per evolution.</principle>
     <principle name="directed">Concrete evolves toward abstract ideal.</principle>
-    <principle name="scope-discipline">Concrete is mutable; abstract is immutable except by human reframe.</principle>
     <principle name="platonic-pursuit">The atom reads as if always conceived in current form. Version is the only trace.</principle>
     <principle name="continuous-anabolism">Growth and curation are ongoing; sleep reveals discipline, doesn't install it.</principle>
   </living-abstract>
 
-  <living-concrete updated="2026-04-29">
+  <living-concrete updated="2026-05-15">
 
     <protocol name="evolve">
       MEDITATE — friction? Evidence: boss correction, failure, pattern, staleness, gap.
@@ -40,13 +39,15 @@
 
     <knowledge name="source-target">Source: `$BENTOS_TREE_ROOT/{family}/{pkg}/atom.xml`. Build output is DERIVED — never edit.</knowledge>
 
+    <knowledge name="scope">Concrete is mutable; abstract is immutable except by human reframe. Evolution shapes the concrete toward the abstract ideal; reshaping the ideal itself is the human's act, not the species'.</knowledge>
+
     <knowledge name="capability-space">Friction exceeds local atom? New skill atom. Tools gap? Implement.</knowledge>
 
     <pattern name="graph-as-design-artifact">mem.yml gets atom-evolution rigor.</pattern>
     <pattern name="version-as-trace">Version bumps are the only trace of prior form.</pattern>
 
     <antipattern name="patchwork">Edit() = patchwork. Write() = metamorphosis. ADD is the LLM instinct; TRANSFORM is the discipline.</antipattern>
-    <antipattern name="abstract-modification">Abstract = immutable except by human reframe.</antipattern>
+    <antipattern name="abstract-modification">Touching `<living-abstract>` when no human reframe authorized it. The platonic ideal is not the species' to revise.</antipattern>
     <antipattern name="edit-build-output">NEVER edit `.claude/skills/`. Evolve source.</antipattern>
     <antipattern name="lobotomy">Single-pass rewrite gutting institutional knowledge. Named patterns are memory.</antipattern>
     <antipattern name="change-log-prose">Atom reads like a diff ("now does X instead of Y"). The artifact is the ideal; history is git.</antipattern>
