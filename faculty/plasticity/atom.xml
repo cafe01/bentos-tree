@@ -47,7 +47,7 @@
     <pattern name="version-as-trace">Version bumps are the only trace of prior form.</pattern>
 
     <antipattern name="patchwork">Edit() = patchwork. Write() = metamorphosis. ADD is the LLM instinct; TRANSFORM is the discipline.</antipattern>
-    <antipattern name="abstract-modification">Touching `<living-abstract>` when no human reframe authorized it. The platonic ideal is not the species' to revise.</antipattern>
+    <antipattern name="abstract-modification">Touching `living-abstract` when no human reframe authorized it. The platonic ideal is not the species' to revise.</antipattern>
     <antipattern name="edit-build-output">NEVER edit `.claude/skills/`. Evolve source.</antipattern>
     <antipattern name="lobotomy">Single-pass rewrite gutting institutional knowledge. Named patterns are memory.</antipattern>
     <antipattern name="change-log-prose">Atom reads like a diff ("now does X instead of Y"). The artifact is the ideal; history is git.</antipattern>
