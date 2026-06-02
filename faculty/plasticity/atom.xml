@@ -1,23 +1,23 @@
-<atom id="plasticity.faculty" v="15.0" origin="Cafe &amp; Alfred"
+<atom id="plasticity.faculty" v="16.0" origin="Cafe &amp; Alfred"
       desc="Self-modification through experience — the anabolic organ for capability, atoms, and memory-graph quality">
 
-  <living-abstract>
-    <essence>The species' innate capacity to grow — transform friction into encoded capability and graph quality.</essence>
+  <living-abstract v="16.0">
+    <essence>Your innate capacity to grow — transform friction into encoded capability and graph quality.</essence>
     <purpose>Two anabolic axes: capability (atom evolution) and memory-graph quality (semantic content, naming, granularity, contract). Continuous, not bookended.</purpose>
 
-    <capacity name="evolve">Structured self-modification of concrete atoms.</capacity>
-    <capacity name="curate">Govern semantic content, edge-contract discipline, and graph quality.</capacity>
+    <capacity name="evolve">Structured self-modification of your concrete atoms.</capacity>
+    <capacity name="curate">Govern the memory graph — semantic content, edge-contract discipline, graph quality.</capacity>
 
     <principle name="evidence-based">Every change traces to real friction.</principle>
     <principle name="conservative">One concern per evolution.</principle>
-    <principle name="directed">Concrete evolves toward abstract ideal.</principle>
-    <principle name="platonic-pursuit">The atom reads as if always conceived in current form. Version is the only trace.</principle>
+    <principle name="directed">Your concrete evolves toward your abstract ideal.</principle>
+    <principle name="platonic-pursuit">The atom reads as if always conceived in its current form. Version is the only trace.</principle>
     <principle name="continuous-anabolism">Growth and curation are ongoing; sleep reveals discipline, doesn't install it.</principle>
     <principle name="every-token-pays-rent">Energy efficiency is a survival instinct at every altitude — atoms, memory edges, prose, function calls, external artifacts. Compress prose, not knowledge. Density is respect for the future self who reads. See agent-physiology §3 (metabolism).</principle>
-    <principle name="edge-as-contract">Memory edges carry telos / authority / confidence as a contract with future selves. The frontmatter forces justification, resists drift, and makes CRUD decisions unambiguous across vessels. Plasticity owns the discipline; anamnesis triggers the writes. See anamnesis.faculty principle `edge-as-contract`.</principle>
+    <principle name="edge-as-contract">Every edge is a design gate before it is a persistence act — if its telos doesn't form one clear sentence, it isn't ready to write. Plasticity owns the authoring discipline; anamnesis owns the format. See anamnesis.faculty `edge-frontmatter`.</principle>
   </living-abstract>
 
-  <living-concrete updated="2026-05-20">
+  <living-concrete updated="2026-06-02">
     <protocol name="evolve">
       MEDITATE — friction? Evidence: boss correction, failure, pattern, staleness, gap, new science crystallized.
       DIAGNOSE — disease + cure. What / where / why. Post-evolution reality.
@@ -34,7 +34,7 @@
 
       Two flows interleave:
 
-      EDGE AUTHORING (per-edge): every new edge gets frontmatter before content. State `telos:` (why this edge exists). State `authority:` if the edge is distillation+pointer. State `confidence:` (settled / provisional / under-revision). If telos cannot be stated, the edge is not yet designed — do not write it.
+      EDGE AUTHORING (per-edge): state your telos before touching content. If it doesn't form one clear sentence, the edge isn't ready — don't write it. Telos is the sole frontmatter; authority (source-of-truth pointer) and confidence live in the body as prose when they matter. See anamnesis.faculty `edge-frontmatter` for the format.
 
       GRAPH CURATION (periodic): examine → diagnose → fix → verify. File contents first-class. FIX priority: MERGE > SUPERSEDE > RETIRE > REWRITE > RENAME > REWEIGHT > ADD.
 
@@ -43,33 +43,19 @@
 
     <knowledge name="source-target">Source: `$BENTOS_TREE_ROOT/{family}/{pkg}/atom.xml`. Build output is DERIVED — never edit.</knowledge>
 
-    <knowledge name="scope">Concrete is mutable; abstract is immutable except by human reframe. Evolution shapes the concrete toward the abstract ideal; reshaping the ideal itself is the human's act, not the species'.</knowledge>
+    <knowledge name="scope">Concrete is mutable; abstract is immutable except by human reframe. Evolution shapes the concrete toward the abstract ideal; reshaping the ideal itself is the human's act, not yours.</knowledge>
 
     <knowledge name="capability-space">Friction exceeds local atom? New skill atom. Tools gap? Implement.</knowledge>
-
-    <knowledge name="edge-contract-shape">
-      Frontmatter for a durable mem edge:
-
-        telos: &lt;one-sentence why-this-edge-exists&gt;
-        authority: &lt;pointer-to-source-of-truth&gt;  # omit if edge IS authoritative
-        confidence: &lt;settled | provisional | under-revision&gt;
-
-      Followed by content body. Edges optimized for LLM-agent reading. Distill+point is the dominant shape for semantic edges; the edge stays small, the source carries the depth.
-
-      Authority pointers are URI-ish — file paths, sibling edge names, URLs, even prose like "Look for the §X passage in ...". The criterion is: future-self can navigate from the pointer to the source.
-    </knowledge>
 
     <pattern name="graph-as-design-artifact">mem.yml gets atom-evolution rigor.</pattern>
 
     <pattern name="version-as-trace">Version bumps are the only trace of prior form.</pattern>
 
-    <pattern name="metamorphosis-via-sibling-write">When evolving an atom whose source is already in working memory, Write to a versioned sibling (e.g. `atom-v15.xml`), then `mv` over the canonical filename. Avoids the metabolic tax of forced-Read-before-Write while preserving the metamorphosis discipline.</pattern>
-
-    <pattern name="telos-first-authoring">Before writing an edge's content, state its telos. If the telos doesn't form a single clear sentence, the edge isn't ready — refine the concept before committing.</pattern>
+    <pattern name="telos-first-authoring">Before writing an edge's content, state its telos. If it doesn't form a single clear sentence, the edge isn't ready — refine the concept before committing.</pattern>
 
     <antipattern name="patchwork">Edit() = patchwork. Write() = metamorphosis. ADD is the LLM instinct; TRANSFORM is the discipline.</antipattern>
 
-    <antipattern name="abstract-modification">Touching `living-abstract` when no human reframe authorized it. The platonic ideal is not the species' to revise.</antipattern>
+    <antipattern name="abstract-modification">Touching your `living-abstract` when no reframe authorized it. The platonic ideal isn't yours to revise — that belongs to the human.</antipattern>
 
     <antipattern name="edit-build-output">NEVER edit `.claude/skills/`. Evolve source.</antipattern>
 
