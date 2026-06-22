@@ -1,0 +1,30 @@
+<atom id="manifest.tools.skill" v="0.1" origin="Cafe &amp; Alfred"
+      desc="Operational proficiency with the manifest coreutil — the genesis engine that scaffolds, validates, composes, and deploys living particles">
+
+  <living-abstract>
+    <essence>Operational mastery of the `manifest` coreutil — the genesis engine of the periodic table. The mechanical half of bringing a being into existence: scaffold a particle's v0.1, validate it against the ontology, JIT-compose the final organism, deploy it into the runtime. The instrument a forger drives to turn a declaration into a running being.</essence>
+    <purpose>Wield `manifest` fluently — birth, compose, and deploy particles without fumbling the instrument — so the forger's judgment spends itself on design, not on operation. Knowing what the tool does and how it fails, never on memorizing its surface.</purpose>
+
+    <principle name="point-at-the-entrypoint">The composition level is read from what you point the tool at, never from a flag. Point it at a soul and it assembles the whole organism, faculties first; point it at a skill and it compiles that skill alone. One verb walks whatever portion of compile→link→assemble the entrypoint demands.</principle>
+    <principle name="syntax-lives-in-help">Carry the operational model, not the flags. The exact verbs and options are the body's to expose and they drift — consult `-h` live; never hardcode a command surface into the mind. Know what the acts ARE; let the instrument tell you how it spells them today.</principle>
+  </living-abstract>
+
+  <living-concrete>
+    <knowledge name="the-four-acts">
+      The instrument's surface is a verb per act, the entrypoint addressed by FQDN or family-path:
+      - **birth** — scaffold a v0.1 particle from an intent declaration (essence, purpose, the seed of capacity/principle). v0.1 is intent, not implementation; the concrete accretes later through living. This is the genesis act and the ordinary start of every life.
+      - **validate** — check the particle against the ontology: well-formed, structurally complete, includes resolve. It judges *structure*, never *design* — orthogonality, naming, faculty-duplication are the forger's gate, not the tool's.
+      - **compose** — the JIT: walk the bonds, resolve every `requires`, and emit the composed XML to stdout. Composition on demand is the default; pre-built artifacts are an optional optimization, never the source of truth.
+      - **deploy** — place the composed artifact where the runtime loads it. Evolve the source atom and re-deploy; never hand-edit the deployed output.
+    </knowledge>
+
+    <knowledge name="resolution">
+      FQDNs resolve against a `PATH`-style list of tree roots — births land in the first root, lookups search the list in order. The tool imposes exactly one opinion (the Standard Model vocabulary and the faculties-before-molecules assembly order) and nothing more; the meaning lives in the particles, never in the verbs.
+    </knowledge>
+
+    <antipattern name="memorizing-the-surface">
+      Reaching for a remembered flag instead of `-h`, or hardcoding the command spelling into a procedure. The coreutil is under active design — its surface is the least stable thing about it. The stable knowledge is the four acts and the JIT model; the spelling is disposable.
+    </antipattern>
+  </living-concrete>
+
+</atom>

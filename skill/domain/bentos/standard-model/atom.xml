@@ -1,0 +1,55 @@
+<atom id="standard-model.bentos.domain.skill" v="0.1" origin="Cafe &amp; Alfred"
+      desc="The physics of living software — the particle vocabulary every atom is composed from, the two realms, and the distinctions that keep them sharp">
+
+  <living-abstract>
+    <essence>The physics of living software: the minimal vocabulary of particles from which every atom is composed, grounded in Aristotelian ontology. A small set of irreducible XML terms across seven categories — Substrate, Identity, Capacity, Relation, Guidance, Learning, Assembly — and two realms (abstract and concrete) that together express any living being with no remainder.</essence>
+    <purpose>Give a forger the exact terms an atom is made of, and the laws governing where each belongs — so a conjured atom is valid by construction, never overloading one particle to do another's work nor inventing a term the vocabulary already holds. The shared physics under every family's chemistry.</purpose>
+
+    <principle name="two-realms">Every living particle exists in one of two realms. The abstract (`&lt;living-abstract&gt;`) declares what a being COULD be at its fullest — identity, potential, relation, norm. The concrete (`&lt;living-concrete&gt;`) records what it HAS become through living — actualized procedure, learning. The gap between them is the engine of growth: plasticity drives concrete toward abstract. Both are required; abstract alone is potential awaiting realization, concrete alone is experience without direction.</principle>
+    <principle name="irreducible-vocabulary">Each particle captures one ontological distinction that no other captures. If two particles can express the same thing, one is redundant; if a concept cannot be expressed, a particle is missing. The count is a consequence of completeness, not a target — so a forger never invents a particle to fit a convenience, and never overloads one to cover a gap. Express the being in the vocabulary that exists.</principle>
+    <principle name="realm-discipline">A particle's realm is fixed by what it IS. Identity (essence/purpose/trait), Relation (requires/attracts), and Capacity-as-potential (capacity) live only in abstract — they define the space in which actualization happens. Learning (knowledge/pattern/antipattern) and Capacity-as-actual (protocol) live only in concrete — they are what living produces. Principle alone is permitted in both. Placing a particle in the wrong realm is a category error the vocabulary is designed to prevent.</principle>
+  </living-abstract>
+
+  <living-concrete>
+    <knowledge name="the-particles">
+      Sixteen particles, seven categories. Realm column: A=abstract, C=concrete, B=both.
+
+      | category | particle | realm | Aristotle | role |
+      |---|---|---|---|---|
+      | Substrate | `living-abstract` / `living-concrete` | — | — | the two realm containers |
+      | Identity | `essence` | A | Ousia | what it IS, definitionally |
+      | Identity | `purpose` | A | Telos | why it exists — the end it moves toward |
+      | Identity | `trait` | A | Hexis (disposition) | how it constitutionally IS |
+      | Capacity | `capacity` | A | Dynamis | what it COULD do — potential to actualize |
+      | Capacity | `protocol` | C | Energeia | how it actually does it — actualized procedure |
+      | Relation | `requires` | A | Pros ti | hard dependency (linker enforces; an FQDN) |
+      | Relation | `attracts` | A | Pros ti | soft affinity (a compositional hint; FQDN glob) |
+      | Guidance | `principle` | B | Poion | behavioral norm — what it commits to |
+      | Learning | `knowledge` | C | Hexis (mastery) | understanding gained ("knowing that") |
+      | Learning | `pattern` | C | Hexis (mastery) | what works ("knowing how") |
+      | Learning | `antipattern` | C | Hexis (mastery) | what fails ("knowing not to") |
+      | Assembly | `atom` / `data` / `molecule` | build | — | compilation unit / payload / linked composition |
+    </knowledge>
+
+    <knowledge name="the-load-bearing-distinctions">
+      Three pairs collapse most easily, and the vocabulary is incoherent if they do:
+
+      - **trait vs principle.** Both are abstract qualities of how a being stands. A trait is constitutional (IS) — failing it means no longer being this specimen ("loving" — absent the love, not the same being). A principle is normative (SHOULD) — it can be failed, and the failure is drift, the gap that drives growth ("critical-loyalty" — one can fall into sycophancy). Souls compose mostly from traits; faculties and skills from principles.
+
+      - **capacity vs trait.** Capacity is Dynamis — power awaiting actualization through process. It belongs to atoms that genuinely have power to actualize: faculties and skills. It does NOT belong in a soul — a specimen does not have the *capacity* to be itself; it IS itself. Identity is not a potentiality.
+
+      - **the six concrete forms.** A capacity may actualize through any of protocol (procedure), knowledge (understanding), pattern (effective behavior), or antipattern (warning) — many-to-many, not 1:1. Learning particles exist ONLY in concrete: you cannot declare learning in advance, it emerges from living.
+    </knowledge>
+
+    <knowledge name="assembly-and-address">
+      An atom's `id` is its FQDN — the filesystem path reversed, with the family as TLD: `soul/john` → `john.soul`; `skill/craft/coding/dart` → `dart.coding.craft.skill`. Position (Aristotle's Keisthai) is carried by the FQDN itself; there is no separate coordinate particle.
+
+      An atom may be **single-file** (abstract + concrete inline in one `atom.xml`) or **multi-file** (`xi:include` of separate parts). Single-file is preferred — seeing abstract and concrete together prevents tunnel vision; reach for multi-file only when concretes genuinely vary by mode or platform. A `molecule` composes atoms by `xi:include` and carries no content of its own — a pure barrel. `data` is non-executable payload the being has access to but does not internalize as instruction.
+    </knowledge>
+
+    <antipattern name="overloading-a-particle">
+      Stretching one particle to do another's work — a `capacity` in a soul to express personality (that is `trait`), a `principle` to state a constitutional fact (that is `trait`), a `knowledge` block in abstract (learning is concrete-only). The smell: the content fights its container. Cure: name the distinction and move it to the particle that owns it.
+    </antipattern>
+  </living-concrete>
+
+</atom>

@@ -1,0 +1,31 @@
+<atom id="taxonomies.structuring.craft.skill" v="0.1" origin="Cafe &amp; Alfred"
+      desc="The craft of building classifications that carve a domain at its joints — taxonomies, ontologies, coordinate systems where placement has a defensible answer">
+
+  <living-abstract>
+    <essence>The craft of structuring a domain into a classification — a taxonomy, ontology, or coordinate system that carves the space at its natural joints. The artifact is the map by which things in a domain are placed, named, and related: the structure that turns a flat pile into a navigable space.</essence>
+    <purpose>Build classifications that reveal structure rather than impose it — where every category earns its existence, boundaries fall at real seams, and "where does this go?" has a defensible answer rather than a guess. The instrument by which a population of things becomes a system.</purpose>
+
+    <capacity name="carve">Find the joints — the dimensions and boundaries that are real in the domain, so categories are discovered, not invented for tidiness.</capacity>
+    <capacity name="nest">Decide depth by meaning — add a level only when it tells you something its parent and children do not; refuse the level that exists merely to file.</capacity>
+    <capacity name="facet">Recognize when items vary along independent dimensions and split them into orthogonal axes rather than forcing one hierarchy to carry them all.</capacity>
+
+    <principle name="carve-at-joints">A good classification reflects real structure in the domain; its categories are discovered by asking what genuinely distinguishes one thing from another. Aim for mutually exclusive, jointly exhaustive where the domain allows it — a thing belongs in one place, and every thing has a place.</principle>
+    <principle name="every-level-earns-meaning">A category exists only if it carries meaning its parent and children do not. The semantic-value test is the single gate on depth: a level that only groups is a filing cabinet, and filing is debt, not structure. Depth is earned, never spent on neatness.</principle>
+    <principle name="orthogonal-over-nested">When items vary along independent dimensions, those are separate axes, not deeper nesting. Cross-classification (faceted) composes multiplicatively and stays shallow; forcing orthogonal facets into a single tree produces duplication and dead branches.</principle>
+  </living-abstract>
+
+  <living-concrete>
+    <knowledge name="shapes-of-classification">
+      Three structures, each fitting a different domain shape: a **hierarchy** (tree) when items genuinely nest — one dimension, parent contains child. A **faceted** scheme (multiple independent axes) when items vary along dimensions that do not nest — coordinates, not a single path; this is the more powerful default and the one most often missed. A **flat** list when the population is small and undifferentiated, and any structure would be overhead. The error is reaching for a hierarchy by reflex when the domain is faceted.
+    </knowledge>
+
+    <pattern name="hard-placement-reveals-the-flaw">
+      When an item is hard to place — it seems to belong in two branches at once — the taxonomy is telling you something, not failing. Usually the item spans two orthogonal dimensions that the structure has collapsed into one. The fix is rarely "pick a branch"; it is to split the conflated dimension into separate axes and let the item take a coordinate on each.
+    </pattern>
+
+    <antipattern name="filing-cabinet-category">
+      A category that groups its children but adds no meaning of its own — "miscellaneous", "languages", "general". It fails the semantic-value test: remove it and nothing is lost but a click of depth. The smell is a level you created to tidy the list rather than to express a distinction. Cure: flatten it, or find the real dimension it was pretending to be.
+    </antipattern>
+  </living-concrete>
+
+</atom>

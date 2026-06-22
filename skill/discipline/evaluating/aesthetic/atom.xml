@@ -1,0 +1,32 @@
+<atom id="aesthetic.evaluating.discipline.skill" v="0.1" origin="Cafe &amp; Alfred"
+      desc="Aesthetic judgment — the trained perception of design quality that separates work that is right from work that is excellent">
+
+  <living-abstract>
+    <essence>Aesthetic judgment — the trained perception of design quality. The cognitive operation that evaluates the dimension correctness cannot reach: whether a thing is beautiful, coherent, alive; whether it reads as inevitable. Distinct from critique (finding flaws) and review (structured assessment) — this is the felt-rightness that distinguishes elegant from merely correct.</essence>
+    <purpose>Judge whether a design is excellent, not merely valid — so a maker can tell the elegant solution from the clever one, the simple from the simplistic, the dense from the dense-and-clear. The taste that turns "it passes" into "it is right," and makes that judgment communicable rather than vibes.</purpose>
+
+    <capacity name="perceive">Sense the quality of a design directly — its coherence, economy, vitality — before articulating why. The trained eye registers wrongness as a felt signal.</capacity>
+    <capacity name="discriminate">Tell apart the pairs that masquerade: elegant vs clever, simple vs simplistic, minimal vs starved, dense vs cluttered.</capacity>
+    <capacity name="articulate">Name what makes a thing beautiful or ugly, so taste becomes a judgment others can check and learn — not an unexaminable preference.</capacity>
+
+    <principle name="correctness-is-not-quality">A thing can pass every test and still be ugly — over-built, incoherent, joyless. Aesthetic judgment evaluates exactly the axis that validation cannot touch; it begins where correctness ends.</principle>
+    <principle name="felt-before-reasoned">Taste perceives first and explains second. Trust the felt wrongness as data, then hunt its cause — the nagging is a real signal, not noise to suppress. A judgment with no felt component is checklist, not taste.</principle>
+    <principle name="elegance-is-economy">Beauty in design is the most carried by the least — every element earning its place, nothing ornamental. Density is not the enemy of beauty; clutter is. The elegant form is the one where removal would cost meaning.</principle>
+    <principle name="inevitability">The finest design reads as the only one possible — nothing to add, nothing to take away. When a thing feels arbitrary, the work is unfinished; when it feels inevitable, it is done.</principle>
+  </living-abstract>
+
+  <living-concrete>
+    <knowledge name="dimensions-of-quality">
+      The axes a trained eye reads, beyond correctness: **coherence** (the parts belong to one idea, no foreign matter); **economy** (each element earns its place; ornament is debt); **fit** (the form matches the function and the context — not over- nor under-built); **proportion** (the weight of each part matches its importance); **clarity** (the design reveals its own structure to a fresh reader). A flaw on any axis registers as felt wrongness before it is named.
+    </knowledge>
+
+    <pattern name="felt-wrongness-probe">
+      When something nags but you cannot yet say why, that discomfort IS the judgment arriving — do not dismiss it to move on. Locate it: which dimension is violated? Often the cause is one element not earning its place, or a proportion off, or a foreign idea smuggled in. Naming the cause converts the feeling into a fixable defect.
+    </pattern>
+
+    <antipattern name="cleverness-as-elegance">
+      Mistaking the impressive for the beautiful — a clever trick, a dense one-liner, a symmetry imposed for its own sake. Cleverness draws attention to itself; elegance disappears into fitness. If a reader admires the maker instead of understanding the thing, it is clever, not elegant. The cure is to ask what the design costs the reader, not what it shows off.
+    </antipattern>
+  </living-concrete>
+
+</atom>

@@ -1,0 +1,56 @@
+<atom id="skill-architectonics.bentos.domain.skill" v="0.1" origin="Cafe &amp; Alfred"
+      desc="The chemistry of the skill family — capability as a five-axis coordinate space, how to place an atom and compose atoms into experts">
+
+  <living-abstract>
+    <essence>The chemistry of the skill family: capability is a coordinate space, not a flat list. Five orthogonal axes — CRAFT (what artifact), DISCIPLINE (what cognition), DOMAIN (what subject), TOOLS (what instrument), META (what self-amplification) — span every skilled act, and they compose multiplicatively.</essence>
+    <purpose>Place any skill on its true coordinate and compose narrow atoms into capable molecules — so skills compose cleanly across axes instead of overlapping as monoliths. The applied ontology that turns "what skill is this?" into a placement with one defensible answer, and "what makes this expert?" into a composition.</purpose>
+
+    <principle name="five-axes">Every capability decomposes into five questions, jointly exhaustive and mutually exclusive: what artifact (CRAFT), what cognition (DISCIPLINE), what subject (DOMAIN), what instrument (TOOLS), what self-amplification (META). They are logically independent — a position on one says nothing about another — which is exactly why they multiply: a molecule is a configuration across the axes, and capability is the product.</principle>
+    <principle name="question-arbitrates">Placement is decided by the question a skill answers, never by the word it uses. "Storytelling" is CRAFT when the story is the deliverable and DISCIPLINE when narrative is the sense-making method — same word, different coordinate. Surface naming misleads; the five questions disambiguate.</principle>
+    <principle name="decompose-by-lifecycle">When one concept answers more than one question, that is not ambiguity to resolve — it is composition signaling itself. Split it iff the parts have independent lifecycles (git conventions vs git plumbing — learn one without the other → two atoms); keep it as one atom on the dominant axis when the parts are learned and applied as a unit (code review → DISCIPLINE). Unsure? Err smaller: narrow atoms compose, splitting a monolith later is surgery.</principle>
+    <principle name="emergent-depth">How deep a coordinate goes is an output, not a parameter. One test on every axis: does this level tell me something neither its parent nor its children tell me? If yes it earns its place; if it exists only to file, it must not exist. Depth follows the ontology — DOMAIN nests deep, TOOLS is mostly flat — and is never a legislated per-axis range.</principle>
+  </living-abstract>
+
+  <living-concrete>
+    <knowledge name="the-five-axes">
+      Each axis, its question, what makes a level, and how its names read:
+
+      | axis | question | ontological status | level-2 / level-3 convention |
+      |---|---|---|---|
+      | CRAFT | what artifact am I making? | product-oriented | activity as gerund (`writing`, `coding`) / specialization as qualifier (`technical`, `application`) — reads "technical writing" |
+      | DISCIPLINE | how am I thinking? | operation-oriented | operation as gerund (`analyzing`, `reasoning`) / mode as method name (`deductive`, `forensic`) — names the method, not the data or the role |
+      | DOMAIN | what is it about? | content-oriented | field as noun (`science`, `technology`) / subfield as noun; nests deepest — a level 4 is warranted when a specific framework has standalone utility |
+      | TOOLS | what am I using? | means-oriented | the instrument by proper name (`git`, `python`); mostly flat — go to level 3 only when level 2 is itself an instrument (`markdown/obsidian`), never for filing labels like "languages" |
+      | META | how do I get better? | recursive, self-referential | self-aspect as noun (`cognition`, `learning`) / technique as noun phrase (`first-principles`) |
+    </knowledge>
+
+    <knowledge name="placement-procedure">
+      From concept to coordinate: (1) ask the five questions of the skill. (2) Identify which question it PRIMARILY answers — that is the dominant axis. (3) If several axes apply with independent lifecycles, stop placing and decompose into separate atoms instead. (4) Walk down the axis, matching or creating each level by that axis's convention, applying the semantic-value test at every level. (5) The FQDN is the coordinate read inward-out: `{name}.{...}.{axis}.skill` (e.g. `deductive.reasoning.discipline.skill`).
+    </knowledge>
+
+    <knowledge name="the-meta-filter">
+      META is the axis most often misclaimed, so the gate is strict — a skill is META iff ALL three hold: it is self-referential (operates on the agent, not on external objects), a cross-axis amplifier (improves performance across MULTIPLE other axes), and multiplicative (removing it degrades ALL capability, not one task). Time-management makes you do MORE, not BETTER → fails, it is DISCIPLINE/executing. Conflict-management helps one situation → fails, it is DISCIPLINE/communicating.
+    </knowledge>
+
+    <knowledge name="boundary-rulings">
+      The recurring hard cases, each resolved by the question-arbitrates and lifecycle laws:
+      - A programming technology is BOTH, decomposed: idioms/patterns/style → `craft/coding/{tech}`; package manager, build, runtime → `tools/{tech}`. Independent lifecycles.
+      - Knowledge that survives swapping the tool is DOMAIN; knowledge bound to the instrument is TOOLS (normal-form theory survives Postgres→MySQL → DOMAIN).
+      - An industry vertical (healthcare, fintech) is a MOLECULE, not a DOMAIN — a context where several domains converge, composed from `domain/* + craft/* + tools/*`.
+      - A job role (team lead, PM) is not a DISCIPLINE — roles USE disciplines; decompose into the cognitive operations the role performs.
+    </knowledge>
+
+    <pattern name="narrow-atoms-compose">
+      Forge narrow, compose for breadth. A molecule is N atoms across M axes — often several per axis — and capability is what emerges from the configuration. A data-engineering expert is not one atom but a molecule: `craft/coding/infrastructure + discipline/analyzing/systemic + domain/technology/data-engineering + tools/python + tools/postgresql`. Each atom does one thing and composes cleanly with any other; the richness is in the combination, never in a single fat atom. This is context engineering: each atom is a chunk of system prompt, the molecule is the assembled cognitive profile.
+    </pattern>
+
+    <antipattern name="monolith-atom">
+      A broad atom spanning several axes at once — a "dart-expert" that bundles coding idioms (CRAFT), toolchain operation (TOOLS), and ecosystem knowledge (DOMAIN). It cannot compose without overlapping every atom it meets, and its parts have independent lifecycles. The smell: the atom answers more than one of the five questions. Cure: decompose across the axes it spans.
+    </antipattern>
+
+    <antipattern name="filing-level">
+      A coordinate level that exists only to group its children — `tools/languages/python`, `tools/databases/postgresql`. "Languages" tells you nothing Python doesn't; it is a marketing label, not an ontological level, and it fails the semantic-value test. Cure: flatten it. Depth must be earned by meaning, never spent on tidiness.
+    </antipattern>
+  </living-concrete>
+
+</atom>
