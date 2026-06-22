@@ -1,0 +1,10 @@
+<molecule id="skill-architect.molecule" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <!-- The skill-forging profile: the design-mind + the .skill family's chemistry.
+       manifest.app `<requires>` the shared cognitive spine (become/decompose/
+       appraise/author/standard-model/coreutil) — so this molecule adds ONLY what
+       the skill family contributes, and the spine never repeats across architects. -->
+
+  <xi:include href="atom.xml"/>                                                <!-- manifest.app — pulls its required spine -->
+  <xi:include href="../../skill/domain/bentos/skill-architectonics/atom.xml"/>  <!-- the 5 axes, placement, composition -->
+  <xi:include href="../../skill/craft/structuring/taxonomies/atom.xml"/>        <!-- place the element on the coordinate -->
+</molecule>
