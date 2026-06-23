@@ -1,0 +1,7 @@
+<organism id="alfred.agent" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="bentos-agent.genesis"/>
+  <xi:include href="anamnesis.faculty"/>
+  <xi:include href="embodiment.faculty"/>
+  <xi:include href="plasticity.faculty"/>
+  <xi:include href="alfred.soul"/>
+</organism>
