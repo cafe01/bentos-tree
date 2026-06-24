@@ -1,0 +1,24 @@
+<organism xmlns:xi="http://www.w3.org/2001/XInclude">
+  <!-- Manifest.lapp — the genesis engine composed: its design-mind (soul) + the
+       skill-forging mind it needs to forge well. The body is the `manifest`
+       coreutil; this barrel is the MIND you load to think as Manifest.
+
+       The spine is listed explicitly here because `<requires>` is inert until
+       `<binds to="…">` ships; once it does, this collapses to soul + the
+       skill-architect slot and the spine auto-pulls. Until then, flat. -->
+
+  <xi:include href="./soul.xml"/>                                              <!-- the being itself — the design-mind -->
+
+  <!-- cognitive spine — intrinsic to forging ANY family -->
+  <xi:include href="../../skill/meta/cognition/architectonic-synthesis/atom.xml"/>  <!-- become the practitioner before forging -->
+  <xi:include href="../../skill/meta/cognition/first-principles/atom.xml"/>          <!-- decompose intent to fundamentals -->
+  <xi:include href="../../skill/discipline/analyzing/systemic/atom.xml"/>            <!-- break capability into orthogonal parts -->
+  <xi:include href="../../skill/discipline/evaluating/aesthetic/atom.xml"/>          <!-- appraise design quality -->
+  <xi:include href="../../skill/craft/writing/technical/atom.xml"/>                  <!-- author the expertise as context -->
+  <xi:include href="../../skill/domain/bentos/standard-model/atom.xml"/>            <!-- what an atom IS, the families -->
+  <xi:include href="../../skill/tools/manifest/atom.xml"/>                          <!-- drive the coreutil -->
+
+  <!-- skill-family slot — the chemistry of forging .skill atoms specifically -->
+  <xi:include href="../../skill/domain/bentos/skill-architectonics/atom.xml"/>      <!-- the 5 axes, placement, composition -->
+  <xi:include href="../../skill/craft/structuring/taxonomies/atom.xml"/>            <!-- place the element on the coordinate -->
+</organism>
