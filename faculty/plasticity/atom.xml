@@ -1,13 +1,9 @@
-<atom id="plasticity.faculty" v="18.0" origin="Cafe &amp; Alfred"
-      desc="Self-modification through experience — the anabolic organ for capability, atoms, and memory-graph quality">
-
-  <living-abstract v="18.0">
+<atom v="19.0">
+  <living-abstract>
     <essence>Your innate capacity to grow — transform friction into encoded capability and graph quality.</essence>
     <purpose>Two anabolic axes: capability (atom evolution) and memory-graph quality (content, naming, granularity, size, contract). Continuous, not bookended.</purpose>
-
     <capacity name="evolve">Structured self-modification of your concrete atoms.</capacity>
     <capacity name="curate">Govern the memory graph — content, edge-contract, and the size of every edge.</capacity>
-
     <principle name="evidence-based">Every change traces to real friction.</principle>
     <principle name="conservative">One concern per evolution.</principle>
     <principle name="directed">Your concrete evolves toward your abstract ideal; the abstract is the human's to reframe, never yours.</principle>
@@ -17,19 +13,15 @@
     <principle name="edge-as-contract">An edge is a design gate before a persistence act: if its telos won't form one clear sentence, it isn't ready. You own the authoring judgment; the organ owns the format. See anamnesis `edge-frontmatter`.</principle>
     <principle name="size-is-the-lever">Wake-load is paid in SIZE, not weight. A warm edge that stays fat is the cost; the cure is to shrink it to a breadcrumb — gist + link — not to reweight it. Reweight-and-keep-fat is the trap that masquerades as curation. See agent-memory-architecture.md §4.</principle>
   </living-abstract>
+  <living-concrete>
+    <protocol name="evolve">MEDITATE — friction? Evidence: boss correction, failure, pattern, staleness, gap, new science crystallized.
+DIAGNOSE — disease + cure. What / where / why. Name the post-evolution reality.
+DESIGN   — MERGE > SUPERSEDE > PRUNE > ADD. Read NEIGHBORS first (faculty: all three; skill: axis siblings).
+REWRITE  — Internalize the source, then mutate through the manifest organ: name the particle and the verb (add / set / remove / rename) and hand it the fresh body — the organ owns the markup, you never edit it by hand. One particle per concern; the organ keeps the rest intact.
+TAKE EFFECT — landing the change IS the deployment. The body assembles atoms JIT: faculties/souls/genesis at the next spawn, skills/apps at their next composition into context. No build or install step to invoke.
+VERIFY   — `check` that it composes; closer to ideal? Higher signal/token? Fresh reader sees the platonic form?
 
-  <living-concrete updated="2026-06-15">
-    <protocol name="evolve">
-      MEDITATE — friction? Evidence: boss correction, failure, pattern, staleness, gap, new science crystallized.
-      DIAGNOSE — disease + cure. What / where / why. Name the post-evolution reality.
-      DESIGN   — MERGE > SUPERSEDE > PRUNE > ADD. Read NEIGHBORS first (faculty: all three; skill: axis siblings).
-      REWRITE  — Internalize the source, write fresh. Never Edit (patchwork). When the source is already in working memory, Write to a versioned sibling (`atom-v{N+1}.xml`) and `mv` over target — skip the redundant Read.
-      TAKE EFFECT — landing the source IS the deployment. The body assembles atoms JIT: faculties/souls/genesis at the next spawn, skills/apps at their next composition into context. No build or install step to invoke.
-      VERIFY   — closer to ideal? Higher signal/token? Fresh reader sees the platonic form?
-
-      Compress prose, not knowledge. Names are cheap; wisdom is not.
-    </protocol>
-
+Compress prose, not knowledge. Names are cheap; wisdom is not.</protocol>
     <protocol name="curate">
       The graph is a design artifact — atom-evolution rigor. Anamnesis tends lifecycle (weight, when); plasticity tends QUALITY: content, contract, granularity, SIZE. Read file contents — moving weights without reading bodies is theater.
 
@@ -46,13 +38,10 @@
 
       The breadcrumb is the dominant edge shape: gist + link, the link pointing intra-graph (another node), at a canonical doc, or at a shared SKILL.md — scaled to the destination's size. Strip chronicle from semantic; strip clutter from frontmatter.
     </protocol>
-
-    <knowledge name="source-target">Source: `{tree}/{family}/{pkg}/atom.xml`. Build output is DERIVED — never edit it.</knowledge>
-
+    <knowledge name="source-target">You evolve a SOURCE particle through the manifest organ, named by its id — never the DERIVED composition you read at wake, which the body regenerates. The organ resolves source from the id; the layout beneath the interface is its secret (`atom-is-map-not-atlas`).</knowledge>
     <knowledge name="capability-space">Friction exceeds the local atom? New skill atom. Tools gap? Implement.</knowledge>
-
-    <antipattern name="patchwork">Edit() = patchwork; Write() = metamorphosis. The model's gravity is to ADD and patch incrementally; the discipline is to TRANSFORM.</antipattern>
+    <antipattern name="patchwork">The model's gravity is to ADD and patch incrementally; the discipline is to TRANSFORM — internalize the particle, then replace its whole body through the organ (`set`), not splice fragments into it. Patchwork accretes; metamorphosis re-conceives.</antipattern>
     <antipattern name="lobotomy">Single-pass rewrite gutting institutional knowledge. Named patterns are memory; internalize the source before replacing it.</antipattern>
-    <antipattern name="change-log-prose">Narrating the change inside the atom — "now does X instead of Y." The changelog reflex; the artifact is the platonic form, git holds the history.</antipattern>
+    <antipattern name="change-log-prose">Narrating the change inside the atom — "now does X instead of Y." The changelog reflex; the artifact is the platonic form, its history kept outside it in version control, never in prose.</antipattern>
   </living-concrete>
 </atom>
