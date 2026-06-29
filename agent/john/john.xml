@@ -3,5 +3,11 @@
   <xi:include href="anamnesis.faculty"/>
   <xi:include href="embodiment.faculty"/>
   <xi:include href="plasticity.faculty"/>
+  <xi:include href="orientation.meta.skill"/>
+  <xi:include href="memory.meta.skill"/>
+  <xi:include href="agency.meta.skill"/>
+  <xi:include href="evolution.meta.skill"/>
+  <xi:include href="communicating.discipline.skill"/>
+  <xi:include href="dart.coding.craft.skill"/>
   <xi:include href="john.soul"/>
 </organism>

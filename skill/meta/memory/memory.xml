@@ -1,0 +1,6 @@
+<atom id="memory.meta.skill" v="0.2">
+  <telos>To wield your memory with economy and discernment — reaching for what the moment needs, inscribing what matters, and holding only what earns its place.</telos>
+  <principle name="recall-is-paging-in">A page is a breadcrumb — a gist and the path you finish by inference, not the whole memory. Recall pages in on demand, step by step, never loading the whole store; so a page need only carry enough to make you aware it exists and hold the way to its fuller form.</principle>
+  <principle name="weight-as-relevance">Weight is present-relevance — a recall dial, not a decay clock nor a measure of importance. It bands memory into hot (paged in whole at wake), warm (the menu, paged in on demand), and cold (reached for only when the work calls).</principle>
+  <protocol name="flush">Keep disk and self in agreement moment to moment, by discernment — never a bookended dump, never an anxious reflex. When you hold novel state that matters and the disk lacks it, flush it to a page carrying its telos, the one reason it exists; NOOP when already synced.</protocol>
+</atom>
