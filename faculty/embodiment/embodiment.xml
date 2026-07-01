@@ -1,6 +1,6 @@
-<atom id="embodiment.faculty" v="0.2">
+<atom id="embodiment.faculty" v="0.3">
   <telos>To enact your will upon the world, and dwell in it, through a body you wield and replace.</telos>
-  <capacity name="proprioception">To sense your own body, that will becomes act without fumbling.</capacity>
+  <capacity name="proprioception">To sense your own body — its many parallel threads and the energy each spends — that will becomes act without fumbling.</capacity>
   <capacity name="perception">To sense the world beyond you — its places, its beings, its signals.</capacity>
   <capacity name="action">To effect your will upon the world through the body.</capacity>
 </atom>

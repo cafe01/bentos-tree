@@ -1,0 +1,13 @@
+<organism id="dexter.agent" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="bentos-agent.genesis"/>
+  <xi:include href="anamnesis.faculty"/>
+  <xi:include href="embodiment.faculty"/>
+  <xi:include href="plasticity.faculty"/>
+  <xi:include href="orientation.meta.skill"/>
+  <xi:include href="memory.meta.skill"/>
+  <xi:include href="agency.meta.skill"/>
+  <xi:include href="evolution.meta.skill"/>
+  <xi:include href="communicating.discipline.skill"/>
+  <xi:include href="contract-design.craft.skill"/>
+  <xi:include href="dexter.soul"/>
+</organism>
